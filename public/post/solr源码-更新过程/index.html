@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Solr源码-更新过程 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="olOwOlo" /><meta name="description" content="run:748, Thread (java.lang) run:680, QueuedThreadPool$2 (org.eclipse.jetty.util.thread) runJob:762, QueuedThreadPool (org.eclipse.jetty.util.thread) run:366, ReservedThreadExecutor$ReservedThread (org.eclipse.jetty.util.thread) run:126, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy) tryProduce:168, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy) doProduce:310, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy) runTask:333, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy) run:118, ChannelEndPoint$2 (org.eclipse.jetty.io) fillable:102, FillInterest (org.eclipse.jetty.io) succeeded:281, AbstractConnection$ReadCallback (org.eclipse.jetty.io) onFillable:260, HttpConnection (org.eclipse.jetty.server) handle:352, HttpChannel (org.eclipse.jetty.server) handle:531, Server (org.eclipse.jetty.server) handle:132, HandlerWrapper (org.eclipse.jetty.server.handler) handle:335, RewriteHandler (org.eclipse.jetty.rewrite.handler) handle:132, HandlerWrapper (org.eclipse.jetty.server.handler) handle:126, HandlerCollection (org.eclipse.jetty.server.handler) handle:219, ContextHandlerCollection (org.eclipse.jetty.server.handler) handle:144, ScopedHandler (org.eclipse.jetty.server.handler) doScope:1219, ContextHandler (org.eclipse.jetty.server.handler) nextScope:201, ScopedHandler (org.eclipse.jetty.server.handler) doScope:1564, SessionHandler (org.eclipse.jetty.server.session) doScope:473," /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.71.0 with theme even" />
+
+
+<link rel="canonical" href="http://example.org/post/solr%E6%BA%90%E7%A0%81-%E6%9B%B4%E6%96%B0%E8%BF%87%E7%A8%8B/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Solr源码-更新过程" />
+<meta property="og:description" content="run:748, Thread (java.lang) run:680, QueuedThreadPool$2 (org.eclipse.jetty.util.thread) runJob:762, QueuedThreadPool (org.eclipse.jetty.util.thread) run:366, ReservedThreadExecutor$ReservedThread (org.eclipse.jetty.util.thread) run:126, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy) tryProduce:168, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy) doProduce:310, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy) runTask:333, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy) run:118, ChannelEndPoint$2 (org.eclipse.jetty.io) fillable:102, FillInterest (org.eclipse.jetty.io) succeeded:281, AbstractConnection$ReadCallback (org.eclipse.jetty.io) onFillable:260, HttpConnection (org.eclipse.jetty.server) handle:352, HttpChannel (org.eclipse.jetty.server) handle:531, Server (org.eclipse.jetty.server) handle:132, HandlerWrapper (org.eclipse.jetty.server.handler) handle:335, RewriteHandler (org.eclipse.jetty.rewrite.handler) handle:132, HandlerWrapper (org.eclipse.jetty.server.handler) handle:126, HandlerCollection (org.eclipse.jetty.server.handler) handle:219, ContextHandlerCollection (org.eclipse.jetty.server.handler) handle:144, ScopedHandler (org.eclipse.jetty.server.handler) doScope:1219, ContextHandler (org.eclipse.jetty.server.handler) nextScope:201, ScopedHandler (org.eclipse.jetty.server.handler) doScope:1564, SessionHandler (org.eclipse.jetty.server.session) doScope:473," />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/post/solr%E6%BA%90%E7%A0%81-%E6%9B%B4%E6%96%B0%E8%BF%87%E7%A8%8B/" />
+<meta property="article:published_time" content="2019-09-30T15:05:37+00:00" />
+<meta property="article:modified_time" content="2019-09-30T15:05:37+00:00" />
+<meta itemprop="name" content="Solr源码-更新过程">
+<meta itemprop="description" content="run:748, Thread (java.lang) run:680, QueuedThreadPool$2 (org.eclipse.jetty.util.thread) runJob:762, QueuedThreadPool (org.eclipse.jetty.util.thread) run:366, ReservedThreadExecutor$ReservedThread (org.eclipse.jetty.util.thread) run:126, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy) tryProduce:168, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy) doProduce:310, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy) runTask:333, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy) run:118, ChannelEndPoint$2 (org.eclipse.jetty.io) fillable:102, FillInterest (org.eclipse.jetty.io) succeeded:281, AbstractConnection$ReadCallback (org.eclipse.jetty.io) onFillable:260, HttpConnection (org.eclipse.jetty.server) handle:352, HttpChannel (org.eclipse.jetty.server) handle:531, Server (org.eclipse.jetty.server) handle:132, HandlerWrapper (org.eclipse.jetty.server.handler) handle:335, RewriteHandler (org.eclipse.jetty.rewrite.handler) handle:132, HandlerWrapper (org.eclipse.jetty.server.handler) handle:126, HandlerCollection (org.eclipse.jetty.server.handler) handle:219, ContextHandlerCollection (org.eclipse.jetty.server.handler) handle:144, ScopedHandler (org.eclipse.jetty.server.handler) doScope:1219, ContextHandler (org.eclipse.jetty.server.handler) nextScope:201, ScopedHandler (org.eclipse.jetty.server.handler) doScope:1564, SessionHandler (org.eclipse.jetty.server.session) doScope:473,">
+<meta itemprop="datePublished" content="2019-09-30T15:05:37&#43;00:00" />
+<meta itemprop="dateModified" content="2019-09-30T15:05:37&#43;00:00" />
+<meta itemprop="wordCount" content="153">
+
+
+
+<meta itemprop="keywords" content="Solr,Lucene,搜索引擎," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Solr源码-更新过程"/>
+<meta name="twitter:description" content="run:748, Thread (java.lang) run:680, QueuedThreadPool$2 (org.eclipse.jetty.util.thread) runJob:762, QueuedThreadPool (org.eclipse.jetty.util.thread) run:366, ReservedThreadExecutor$ReservedThread (org.eclipse.jetty.util.thread) run:126, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy) tryProduce:168, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy) doProduce:310, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy) runTask:333, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy) run:118, ChannelEndPoint$2 (org.eclipse.jetty.io) fillable:102, FillInterest (org.eclipse.jetty.io) succeeded:281, AbstractConnection$ReadCallback (org.eclipse.jetty.io) onFillable:260, HttpConnection (org.eclipse.jetty.server) handle:352, HttpChannel (org.eclipse.jetty.server) handle:531, Server (org.eclipse.jetty.server) handle:132, HandlerWrapper (org.eclipse.jetty.server.handler) handle:335, RewriteHandler (org.eclipse.jetty.rewrite.handler) handle:132, HandlerWrapper (org.eclipse.jetty.server.handler) handle:126, HandlerCollection (org.eclipse.jetty.server.handler) handle:219, ContextHandlerCollection (org.eclipse.jetty.server.handler) handle:144, ScopedHandler (org.eclipse.jetty.server.handler) doScope:1219, ContextHandler (org.eclipse.jetty.server.handler) nextScope:201, ScopedHandler (org.eclipse.jetty.server.handler) doScope:1564, SessionHandler (org.eclipse.jetty.server.session) doScope:473,"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Solr源码-更新过程</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-09-30 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title"></h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>run:748, Thread (java.lang)
+run:680, QueuedThreadPool$2 (org.eclipse.jetty.util.thread)
+runJob:762, QueuedThreadPool (org.eclipse.jetty.util.thread)
+run:366, ReservedThreadExecutor$ReservedThread (org.eclipse.jetty.util.thread)
+run:126, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy)
+tryProduce:168, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy)
+doProduce:310, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy)
+runTask:333, EatWhatYouKill (org.eclipse.jetty.util.thread.strategy)
+run:118, ChannelEndPoint$2 (org.eclipse.jetty.io)
+fillable:102, FillInterest (org.eclipse.jetty.io)
+succeeded:281, AbstractConnection$ReadCallback (org.eclipse.jetty.io)
+onFillable:260, HttpConnection (org.eclipse.jetty.server)
+handle:352, HttpChannel (org.eclipse.jetty.server)
+handle:531, Server (org.eclipse.jetty.server)
+handle:132, HandlerWrapper (org.eclipse.jetty.server.handler)
+handle:335, RewriteHandler (org.eclipse.jetty.rewrite.handler)
+handle:132, HandlerWrapper (org.eclipse.jetty.server.handler)
+handle:126, HandlerCollection (org.eclipse.jetty.server.handler)
+handle:219, ContextHandlerCollection (org.eclipse.jetty.server.handler)
+handle:144, ScopedHandler (org.eclipse.jetty.server.handler)
+doScope:1219, ContextHandler (org.eclipse.jetty.server.handler)
+nextScope:201, ScopedHandler (org.eclipse.jetty.server.handler)
+doScope:1564, SessionHandler (org.eclipse.jetty.server.session)
+doScope:473, ServletHandler (org.eclipse.jetty.servlet)
+nextScope:203, ScopedHandler (org.eclipse.jetty.server.handler)
+doHandle:1317, ContextHandler (org.eclipse.jetty.server.handler)
+nextHandle:255, ScopedHandler (org.eclipse.jetty.server.handler)
+doHandle:1595, SessionHandler (org.eclipse.jetty.server.session)
+nextHandle:257, ScopedHandler (org.eclipse.jetty.server.handler)
+handle:132, HandlerWrapper (org.eclipse.jetty.server.handler)
+handle:548, SecurityHandler (org.eclipse.jetty.security)
+handle:146, ScopedHandler (org.eclipse.jetty.server.handler)
+doHandle:533, ServletHandler (org.eclipse.jetty.servlet)
+doFilter:1634, ServletHandler$CachedChain (org.eclipse.jetty.servlet)
+doFilter:323, SolrDispatchFilter (org.apache.solr.servlet)
+doFilter:377, SolrDispatchFilter (org.apache.solr.servlet)
+call:515, HttpSolrCall (org.apache.solr.servlet)
+execute:709, HttpSolrCall (org.apache.solr.servlet)
+execute:2541, SolrCore (org.apache.solr.core)
+handleRequest:199, RequestHandlerBase (org.apache.solr.handler)
+handleRequestBody:78, ContentStreamHandlerBase (org.apache.solr.handler)
+finish:80, UpdateRequestProcessor (org.apache.solr.update.processor)
+finish:80, UpdateRequestProcessor (org.apache.solr.update.processor)
+finish:80, UpdateRequestProcessor (org.apache.solr.update.processor)
+finish:80, UpdateRequestProcessor (org.apache.solr.update.processor)
+finish:80, UpdateRequestProcessor (org.apache.solr.update.processor)
+finish:80, UpdateRequestProcessor (org.apache.solr.update.processor)
+finish:80, UpdateRequestProcessor (org.apache.solr.update.processor)
+finish:80, UpdateRequestProcessor (org.apache.solr.update.processor)
+finish:182, LogUpdateProcessorFactory$LogUpdateProcessor (org.apache.solr.update.processor)
+finish:1973, DistributedUpdateProcessor (org.apache.solr.update.processor)</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title"></span>
+    <span class="item-content">olOwOlo</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title"></span>
+    <span class="item-content">
+        2019-09-30
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/solr/">Solr</a>
+          <a href="/tags/lucene/">Lucene</a>
+          <a href="/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/">搜索引擎</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/solr-lucene-merge%E8%BF%87%E7%A8%8B/">
+            <span class="next-text nav-default">Solr/Lucene Merge过程</span>
+            <span class="next-text nav-mobile"></span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://example.org/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    %!(EXTRA string=<a class="hexo-link" href="https://gohugo.io">Hugo</a>)
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+     - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">olOwOlo</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

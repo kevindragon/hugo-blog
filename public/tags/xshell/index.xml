@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Xshell on (power up)</title>
+    <link>http://example.org/tags/xshell/</link>
+    <description>Recent content in Xshell on (power up)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 21 Jan 2016 11:40:54 +0000</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/xshell/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Xshell emacs 发送alt键</title>
+      <link>http://example.org/post/xshell-emacs-%E5%8F%91%E9%80%81alt%E9%94%AE/</link>
+      <pubDate>Thu, 21 Jan 2016 11:40:54 +0000</pubDate>
+      
+      <guid>http://example.org/post/xshell-emacs-%E5%8F%91%E9%80%81alt%E9%94%AE/</guid>
+      <description>我比较喜欢使用Xshell来连接服务器，原因有下面几个： 对于个人用户是免费的； 配色不需要过多的配置，有5、6种可选的比较好看的配色。在比较亮</description>
+    </item>
+    
+  </channel>
+</rss>

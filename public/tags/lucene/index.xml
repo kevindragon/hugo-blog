@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lucene on (power up)</title>
+    <link>http://example.org/tags/lucene/</link>
+    <description>Recent content in Lucene on (power up)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 05 Mar 2019 20:13:28 +0000</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/lucene/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Solr教程-安装运行</title>
+      <link>http://example.org/post/solr%E6%95%99%E7%A8%8B-%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/</link>
+      <pubDate>Tue, 05 Mar 2019 20:13:28 +0000</pubDate>
+      
+      <guid>http://example.org/post/solr%E6%95%99%E7%A8%8B-%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/</guid>
+      <description>Solr是一个分布式高性能全文搜索引擎，是基于Lucene开发的非常流行的企业搜索引擎平台。Solr提供了非常丰富的搜索功能，可以用来构建非</description>
+    </item>
+    
+    <item>
+      <title>自定义Lucene的分词器Analyzer</title>
+      <link>http://example.org/post/%E8%87%AA%E5%AE%9A%E4%B9%89lucene%E7%9A%84%E5%88%86%E8%AF%8D%E5%99%A8analyzer/</link>
+      <pubDate>Sun, 01 Oct 2017 15:04:54 +0000</pubDate>
+      
+      <guid>http://example.org/post/%E8%87%AA%E5%AE%9A%E4%B9%89lucene%E7%9A%84%E5%88%86%E8%AF%8D%E5%99%A8analyzer/</guid>
+      <description>0、先定义一下分词的结果 从最简单的做起，把输入的内容按一个字一个字进行切分。这里只是为了说明自定义的Analyzer以及Tokenizer如</description>
+    </item>
+    
+    <item>
+      <title>Lucene7实践入坑第一步</title>
+      <link>http://example.org/post/lucene7%E5%AE%9E%E8%B7%B5%E5%85%A5%E5%9D%91%E7%AC%AC%E4%B8%80%E6%AD%A5/</link>
+      <pubDate>Sun, 27 Aug 2017 17:36:56 +0000</pubDate>
+      
+      <guid>http://example.org/post/lucene7%E5%AE%9E%E8%B7%B5%E5%85%A5%E5%9D%91%E7%AC%AC%E4%B8%80%E6%AD%A5/</guid>
+      <description>这是一篇很简单的使用Lucene7.0.0来建立索引和搜索的文章。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37</description>
+    </item>
+    
+  </channel>
+</rss>

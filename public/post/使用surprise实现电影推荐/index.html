@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用Surprise实现电影推荐 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="本文记录学习使用Surprise库实现电影数据集MovieLens的推荐系统。 安装 pip 1 2 pip install numpy pip install scikit-surprise conda 1 conda install -c conda-forge scikit-surprise 先来看一下Surprise" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师" />
+
+
+<meta name="baidu-site-verification" content="VFnag2irk8" />
+
+
+
+<meta name="generator" content="Hugo 0.71.0 with theme even" />
+
+
+<link rel="canonical" href="http://example.org/post/%E4%BD%BF%E7%94%A8surprise%E5%AE%9E%E7%8E%B0%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用Surprise实现电影推荐" />
+<meta property="og:description" content="本文记录学习使用Surprise库实现电影数据集MovieLens的推荐系统。 安装 pip 1 2 pip install numpy pip install scikit-surprise conda 1 conda install -c conda-forge scikit-surprise 先来看一下Surprise" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/post/%E4%BD%BF%E7%94%A8surprise%E5%AE%9E%E7%8E%B0%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90/" />
+<meta property="article:published_time" content="2019-01-30T17:09:06+00:00" />
+<meta property="article:modified_time" content="2019-01-30T17:09:06+00:00" />
+<meta itemprop="name" content="使用Surprise实现电影推荐">
+<meta itemprop="description" content="本文记录学习使用Surprise库实现电影数据集MovieLens的推荐系统。 安装 pip 1 2 pip install numpy pip install scikit-surprise conda 1 conda install -c conda-forge scikit-surprise 先来看一下Surprise">
+<meta itemprop="datePublished" content="2019-01-30T17:09:06&#43;00:00" />
+<meta itemprop="dateModified" content="2019-01-30T17:09:06&#43;00:00" />
+<meta itemprop="wordCount" content="1101">
+
+
+
+<meta itemprop="keywords" content="AI," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用Surprise实现电影推荐"/>
+<meta name="twitter:description" content="本文记录学习使用Surprise库实现电影数据集MovieLens的推荐系统。 安装 pip 1 2 pip install numpy pip install scikit-surprise conda 1 conda install -c conda-forge scikit-surprise 先来看一下Surprise"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用Surprise实现电影推荐</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-01-30 </span>
+        
+          <span class="more-meta"> 约 1101 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装">安装</a>
+      <ul>
+        <li><a href="#pip">pip</a></li>
+        <li><a href="#conda">conda</a></li>
+      </ul>
+    </li>
+    <li><a href="#先来看一下surprise官方的例子">先来看一下Surprise官方的例子</a></li>
+    <li><a href="#基于用户的推荐">基于用户的推荐</a>
+      <ul>
+        <li><a href="#引入必要的包及类">引入必要的包及类</a></li>
+        <li><a href="#加载数据">加载数据</a></li>
+        <li><a href="#创建训练数据">创建训练数据</a></li>
+        <li><a href="#使用基于用户的算法">使用基于用户的算法</a></li>
+        <li><a href="#实现推荐">实现推荐</a></li>
+        <li><a href="#合并推荐结果">合并推荐结果</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>本文记录学习使用Surprise库实现<a href="http://files.grouplens.org/datasets/movielens/ml-latest-small.zip">电影数据集MovieLens</a>的推荐系统。</p>
+<!-- raw HTML omitted -->
+<h2 id="安装">安装</h2>
+<h3 id="pip">pip</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pip install numpy
+pip install scikit-surprise
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="conda">conda</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">conda install -c conda-forge scikit-surprise
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="先来看一下surprise官方的例子">先来看一下Surprise官方的例子</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">SVD</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span> <span class="nn">surprise.model_selection</span> <span class="kn">import</span> <span class="n">cross_validate</span>
+
+<span class="c1"># 加载movielens-100k数据集，如果本地没有则会自动下载</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">load_builtin</span><span class="p">(</span><span class="s1">&#39;ml-100k&#39;</span><span class="p">)</span>
+
+<span class="c1"># 使用SVD算法</span>
+<span class="n">algo</span> <span class="o">=</span> <span class="n">SVD</span><span class="p">()</span>
+
+<span class="c1"># 对数据集切成5份进行交叉验证</span>
+<span class="n">cross_validate</span><span class="p">(</span><span class="n">algo</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">measures</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RMSE&#39;</span><span class="p">,</span> <span class="s1">&#39;MAE&#39;</span><span class="p">],</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>会看到类似如下的输出结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Evaluating RMSE, MAE of algorithm SVD on 5 split(s).
+
+            Fold 1  Fold 2  Fold 3  Fold 4  Fold 5  Mean    Std
+RMSE        0.9311  0.9370  0.9320  0.9317  0.9391  0.9342  0.0032
+MAE         0.7350  0.7375  0.7341  0.7342  0.7375  0.7357  0.0015
+Fit time    6.53    7.11    7.23    7.15    3.99    6.40    1.23
+Test time   0.26    0.26    0.25    0.15    0.13    0.21    0.06
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="基于用户的推荐">基于用户的推荐</h2>
+<p>基本思想是先找到给定用户<code>User</code>的相似用户，然后取各相似用户的观影记录推荐给那个给定的用户<code>User</code>。下面使用代码来实现。</p>
+<h3 id="引入必要的包及类">引入必要的包及类</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">Reader</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">KNNBaseline</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="加载数据">加载数据</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 使用pandas读取评分数据，以及电影数据</span>
+<span class="c1"># 评分数据包含四列：userId, movieId, rating, timestamp</span>
+<span class="c1"># 电影数据包含三列：movieId, title, genres</span>
+<span class="n">ratings</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;ml-latest-small/ratings.csv&#39;</span><span class="p">)</span> 
+<span class="n">movies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;ml-latest-small/movies.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># 把两个csv的数据合并成一份数据，以movieId为基准</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">ratings</span><span class="p">,</span> <span class="n">movies</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;movieId&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>合并后的数据格式如下表</p>
+<!-- raw HTML omitted -->
+<p>看下整个数据集的统计信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><!-- raw HTML omitted -->
+<h3 id="创建训练数据">创建训练数据</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 需要使用Reader对象来指定输入数据的一些格式</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">Reader</span><span class="p">(</span><span class="n">rating_scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">))</span>
+<span class="c1"># 通过surprise.Dataset类的load_from_df方法，加载pandas数据格式</span>
+<span class="c1"># 只支持user, item, rating三列的数据，所以需要从pandas里面提取对应的三列</span>
+<span class="c1"># 以rader指定的格式来加载数据</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">load_from_df</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;movieId&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]],</span> <span class="n">reader</span><span class="p">)</span>
+<span class="c1"># 把加载的数据全部作为训练数据生成训练数据集</span>
+<span class="n">trainset</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">build_full_trainset</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="使用基于用户的算法">使用基于用户的算法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 这里基于用户的算法，所以要指定user_bases为True</span>
+<span class="c1"># 如果是基于物品的算法，user_base指定为False即可</span>
+<span class="n">sim_options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;pearson_baseline&#39;</span><span class="p">,</span> <span class="s1">&#39;user_based&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
+<span class="n">algo</span> <span class="o">=</span> <span class="n">KNNBaseline</span><span class="p">(</span><span class="n">sim_options</span><span class="o">=</span><span class="n">sim_options</span><span class="p">)</span>
+<span class="n">algo</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainset</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="实现推荐">实现推荐</h3>
+<p>假设以用户<code>1</code>为指定用户，查找与userId为1的相似用户</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 首先需要把userId转换为surprise内部的id，因为真实的外部userId很有可能是不连续的，不利于计算</span>
+<span class="n">inner_user_id</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">trainset</span><span class="o">.</span><span class="n">to_inner_uid</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># 通过内部用户id获取邻近（相似）的其他内部用户id</span>
+<span class="n">neighbor_users</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">get_neighbors</span><span class="p">(</span><span class="n">inner_user_id</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;neighbor users inner id: &#39;</span><span class="p">,</span> <span class="n">neighbor_users</span><span class="p">)</span>
+<span class="c1"># 可能通过to_raw_uid把内部用户id转换为真实的用户id</span>
+<span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">neighbor_users</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;real user id: &#39;</span><span class="p">,</span> <span class="n">algo</span><span class="o">.</span><span class="n">trainset</span><span class="o">.</span><span class="n">to_raw_uid</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="查看需要被推荐的用户的记录">查看需要被推荐的用户的记录</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">userId</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>指定的用户1的前5条记录如下表</p>
+<!-- raw HTML omitted -->
+<h4 id="查看其他一个相似用户的记录">查看其他一个相似用户的记录</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">uid</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">trainset</span><span class="o">.</span><span class="n">to_raw_uid</span><span class="p">(</span><span class="n">neighbor_users</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">userId</span> <span class="o">==</span> <span class="n">uid</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>某个相似用户的影评记录如下表：</p>
+<!-- raw HTML omitted -->
+<p>可以看到两个用户之间还是有很大的相似之处的</p>
+<h3 id="合并推荐结果">合并推荐结果</h3>
+<p>最后就是把查找到的相似的用户所有的电影取出来，去掉已经看过的，剩下的就可以推荐给用户1了。</p>
+<p>如果觉得结果太多，还可以把所有相似的用户的电影评分求平均，然后取评分最高的几个推荐给用户1。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-01-30
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ai/">AI</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/solr-searchcomponent%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Solr SearchComponent开发实战</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/solr%E9%9B%86%E7%BE%A4%E7%B4%A2%E5%BC%95%E4%BB%A5%E5%8F%8A%E6%9F%A5%E8%AF%A2%E5%AF%B9%E8%B4%9F%E8%BD%BD%E7%9A%84%E5%BD%B1%E5%93%8D/">
+            <span class="next-text nav-default">Solr集群索引以及查询对负载的影响</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://example.org/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Kevin Jiang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?0ce1eb77b4e2275721d62799acd99e8b";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

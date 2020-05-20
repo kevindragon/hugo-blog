@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ClojureScript REPL on (power up)</title>
+    <link>http://example.org/tags/clojurescript-repl/</link>
+    <description>Recent content in ClojureScript REPL on (power up)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 22 Aug 2016 17:40:54 +0000</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/clojurescript-repl/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ClojureScript学习笔记一（Hello World与REPL）</title>
+      <link>http://example.org/post/clojurescript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80hello-world%E4%B8%8Erepl/</link>
+      <pubDate>Mon, 22 Aug 2016 17:40:54 +0000</pubDate>
+      
+      <guid>http://example.org/post/clojurescript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80hello-world%E4%B8%8Erepl/</guid>
+      <description>学习一门编程语言就像新出来的婴儿一样，一个裸体可以看清全部。学习编程语言也是一样的，一开始不可以使用任何一个工具。 ClojureScript</description>
+    </item>
+    
+  </channel>
+</rss>

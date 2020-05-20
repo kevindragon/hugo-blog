@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>在AWS上部署Elasticsearch集群 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="下面介绍一下在AWS上面部署Elasticsearch集群，结合AWS提供的负载均衡器(Elastic Load Balancing)和Auto Scaling Gr" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师" />
+
+
+<meta name="baidu-site-verification" content="VFnag2irk8" />
+
+
+
+<meta name="generator" content="Hugo 0.71.0 with theme even" />
+
+
+<link rel="canonical" href="http://example.org/post/%E5%9C%A8aws%E4%B8%8A%E9%83%A8%E7%BD%B2elasticsearch%E9%9B%86%E7%BE%A4/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="在AWS上部署Elasticsearch集群" />
+<meta property="og:description" content="下面介绍一下在AWS上面部署Elasticsearch集群，结合AWS提供的负载均衡器(Elastic Load Balancing)和Auto Scaling Gr" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/post/%E5%9C%A8aws%E4%B8%8A%E9%83%A8%E7%BD%B2elasticsearch%E9%9B%86%E7%BE%A4/" />
+<meta property="article:published_time" content="2019-01-08T18:27:18+00:00" />
+<meta property="article:modified_time" content="2019-01-08T18:27:18+00:00" />
+<meta itemprop="name" content="在AWS上部署Elasticsearch集群">
+<meta itemprop="description" content="下面介绍一下在AWS上面部署Elasticsearch集群，结合AWS提供的负载均衡器(Elastic Load Balancing)和Auto Scaling Gr">
+<meta itemprop="datePublished" content="2019-01-08T18:27:18&#43;00:00" />
+<meta itemprop="dateModified" content="2019-01-08T18:27:18&#43;00:00" />
+<meta itemprop="wordCount" content="4574">
+
+
+
+<meta itemprop="keywords" content="Elasticsearch,AWS," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="在AWS上部署Elasticsearch集群"/>
+<meta name="twitter:description" content="下面介绍一下在AWS上面部署Elasticsearch集群，结合AWS提供的负载均衡器(Elastic Load Balancing)和Auto Scaling Gr"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">在AWS上部署Elasticsearch集群</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-01-08 </span>
+        
+          <span class="more-meta"> 约 4574 字 </span>
+          <span class="more-meta"> 预计阅读 10 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#启动ec2实例">启动EC2实例</a></li>
+    <li><a href="#安装elasticsearch">安装Elasticsearch</a></li>
+    <li><a href="#配置elasticsearch以及制作ami">配置Elasticsearch以及制作AMI</a>
+      <ul>
+        <li><a href="#aws的iam">AWS的IAM</a></li>
+        <li><a href="#配置elasticsearch">配置Elasticsearch</a></li>
+      </ul>
+    </li>
+    <li><a href="#制作ami">制作AMI</a></li>
+    <li><a href="#创建auto-scaling-group">创建Auto Scaling Group</a></li>
+    <li><a href="#配置负载均衡器">配置负载均衡器</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>下面介绍一下在AWS上面部署Elasticsearch集群，结合AWS提供的负载均衡器(Elastic Load Balancing)和Auto Scaling Group功能实现，Elasticsearch的集群搭建。演示的版本为Elasticsearch 6.5.4。</p>
+<!-- raw HTML omitted -->
+<h2 id="启动ec2实例">启动EC2实例</h2>
+<p>首先启动一个EC2的实例，在这个实例里面安装Elasticsearch。
+<img src="/img/aws/aws_es_cluster/1.png" alt="">
+启动新实例，选择<code>Amazon Linux 2 AMI (HVM), SSD Volume Type</code>的AMI（Amazon Machine Image），然后点<code>下一步:配置实例详细信息</code>。配置详细信息界面，只需要选择一下子网即可，然后保留默认配置即可，然后点击<code>下一步:添加存储</code>。保持默认配置，继续点<code>下一步:添加标签</code>。添加标签不需要做配置，继续点<code>下一步:配置安全组</code>。在配置安全组界面，选择一个现有的安全组，或者创建一个都可以，但是有一点需要注意的：保证你选择（创建）的安全组可以让你自己或者所有IP访问。这里选择现有的安全组，后面还会介绍对安全组的配置。在<code>安全组 ID</code>表格里面选择<code>default</code>那一行，然后点击<code>审核和启动</code>。信息没有问题最后点<code>启动</code>。</p>
+<p>在弹出的<code>选择现有密钥对或创建新密钥对</code>对话框中选择你已经存在的或者创建一个新的密钥对，这个密钥对是通过ssh来访问aws的ec2实例的。如果这一步不清楚就选择创建新密钥对。</p>
+<h2 id="安装elasticsearch">安装Elasticsearch</h2>
+<p>假设上一次最后创建的密钥对为<code>aws.pem</code>，实例公有DNS(域名)为<code>ec2-100-26-149-233.compute-1.amazonaws.com</code>，使用ssh登录ec2实例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ssh -i aws.pem ec2-user@ec2-100-26-149-233.compute-1.amazonaws.com
+</code></pre></td></tr></table>
+</div>
+</div><p>实例的公有DNS（IPv4）到ec2的管理界面，点击前面启动的实例，在下面的信息面板就可以看到。</p>
+<p>Amazon本身提供的AMI是基于CentOS系列的Linux系统，可以直接使用yum来安装Elasticsearch。根据Elasticsearch官方提供的<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html">文档</a>进行安装。</p>
+<p>修改文件<code>/etc/yum.repos.d/amzn2-core.repo</code>，在文件后面添加下面的内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[elasticsearch-6.x]
+name=Elasticsearch repository for 6.x packages
+baseurl=https://artifacts.elastic.co/packages/6.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+</code></pre></td></tr></table>
+</div>
+</div><p>然后执行下面的命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo yum install -y java-1.8.0
+sudo yum install -y elasticsearch
+sudo systemctl daemon-reload
+sudo systemctl <span class="nb">enable</span> elasticsearch.service
+</code></pre></td></tr></table>
+</div>
+</div><p>后面两条systemctl命令设置Linux开机启动Elasticsearch。这样就安装好了最新版本的Elasticsearch，下面就需要对其进行配置，以及制作自己的AMI了。</p>
+<h2 id="配置elasticsearch以及制作ami">配置Elasticsearch以及制作AMI</h2>
+<h3 id="aws的iam">AWS的IAM</h3>
+<p>IAM是个什么鬼呢。IAM就是AWS在一个账户下面，提供一种机制在SDK或者aws命令行来操作AWS服务的认证方式。一个AWS账户可以创建多个IAM访问权限，Elasticsearch需要使用access_key和secret_key。</p>
+<p>在服务里面找到IAM，进入到控制面板里面，点击左侧的用户，然后按<code>添加用户</code>，用户名输入：<code>elasticsearch</code>，在访问类型一栏，把<code>编程访问</code>勾上，然后点击<code>下一步:权限</code>。在设置权限界面选择<code>直接附加现有策略</code>，在下面的列表当中选择<code>AdministratorAccess </code>，然后点击<code>下一步:标签</code>，保持默认，继续下一步。最后点击<code>创建用户</code>。</p>
+<p>创建成功后需要把<code>访问密钥 ID</code>和<code>私有访问密钥</code>保存下面，在下面的配置当中需要使用。</p>
+<h3 id="配置elasticsearch">配置Elasticsearch</h3>
+<p>首先需要对Linux系统做一点配置。修改<code>/etc/security/limits.conf</code>文件，添加如下内容到文件后面：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">* - nofile 65536
+* - nproc 4096
+</code></pre></td></tr></table>
+</div>
+</div><p>还需要安装一下<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/6.5/discovery-ec2.html">EC2 Discovery Plugin</a>插件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install discovery-ec2
+</code></pre></td></tr></table>
+</div>
+</div><p>配置access_key：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo /usr/share/elasticsearch/bin/elasticsearch-keystore add discovery.ec2.access_key
+</code></pre></td></tr></table>
+</div>
+</div><p>输入access_key，就是上面创建IAM用户的<code>访问密钥 ID</code>。</p>
+<p>配置secret_key:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo /usr/share/elasticsearch/bin/elasticsearch-keystore add discovery.ec2.secret_key
+</code></pre></td></tr></table>
+</div>
+</div><p>输入上面保存的secret_key。</p>
+<p>修改Elasticsearch的配置文件<code>/etc/elasticsearch/elasticsearch.yml</code>。添加如下内容到文件后面：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">cluster.name: es
+node.name: ${HOSTNAME}
+network.host: _ec2_
+discovery.zen.hosts_provider: ec2
+discovery.ec2.endpoint: ec2.us-east-1.amazonaws.com
+</code></pre></td></tr></table>
+</div>
+</div><p>这个配置需要注意的一点是<code>discovery.ec2.endpoint</code>需要改成你自己实例所在区域，可以查看<a href="https://docs.aws.amazon.com/zh_cn/general/latest/gr/rande.html#ec2_region">AWS文档</a></p>
+<p>另外，如果你启动的ec2实例内存只有1g，最好把Elasticsearch启动的内存设置为512M。修改配置文件<code>/etc/elasticsearch/jvm.options</code>，把<code>-Xms1g</code>和<code>-Xmx1g</code>改为<code>-Xms512M</code>和<code>-Xmx512M</code>。</p>
+<p>配置已经好了，启动一下elasticsearch试试看。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo systemctl start elasticsearch
+</code></pre></td></tr></table>
+</div>
+</div><p>访问<code>http://你的EC2公有DNS(IPv4):9200</code>你会看到下面类似的信息（有可能会部分不太一样），说明实例内部的Elasticsearch安装成功了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;name&#34;</span> <span class="p">:</span> <span class="s2">&#34;ip-172-31-11-76.ec2.internal&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;cluster_name&#34;</span> <span class="p">:</span> <span class="s2">&#34;es&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;cluster_uuid&#34;</span> <span class="p">:</span> <span class="s2">&#34;-tedL2ggQpKQ-1sqF5abLA&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;version&#34;</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;number&#34;</span> <span class="p">:</span> <span class="s2">&#34;6.5.4&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;build_flavor&#34;</span> <span class="p">:</span> <span class="s2">&#34;default&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;build_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;rpm&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;build_hash&#34;</span> <span class="p">:</span> <span class="s2">&#34;d2ef93d&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;build_date&#34;</span> <span class="p">:</span> <span class="s2">&#34;2018-12-17T21:17:40.758843Z&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;build_snapshot&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&#34;lucene_version&#34;</span> <span class="p">:</span> <span class="s2">&#34;7.5.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;minimum_wire_compatibility_version&#34;</span> <span class="p">:</span> <span class="s2">&#34;5.6.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;minimum_index_compatibility_version&#34;</span> <span class="p">:</span> <span class="s2">&#34;5.0.0&#34;</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;tagline&#34;</span> <span class="p">:</span> <span class="s2">&#34;You Know, for Search&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>好了，单个实例内部的Elasticsearch已经安装成功，然后就是制作AMI映像了。</p>
+<h2 id="制作ami">制作AMI</h2>
+<p>先执行下面两个命令，把Elasticsearch停止，把保存节点信息的目录删掉</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo systemctl stop elasticsearch
+sudo rm -r /var/lib/elasticsearch/nodes
+</code></pre></td></tr></table>
+</div>
+</div><p>这个步骤非常简单，在ec2控制台里面的实例列表里面，在创建的实例上面点击右键-&gt;映像-&gt;创建映像。然后填入映像名称和映像描述，假设我们取名为<code>Elasticsearch-6.5.4-v1</code>。点右下角的创建映像，稍等一会就可以在左侧菜单的映像下面的AMI里面看到刚刚创建的映像了。</p>
+<p>制作好了AMI映像之后就可以把用来制作ec2的实例停止，或者终止了，已经不再需要这个实例了。</p>
+<h2 id="创建auto-scaling-group">创建Auto Scaling Group</h2>
+<p>简单介绍一下AWS的Auto Scaling Group作用，这个功能可以根据系统一些状态和指标来自动扩展或者缩实例数量，这样就可以在负载或者请求增加的时候AWS自动的增加机器来应对更大的请求，当请求下降的时候AWS自动减少机器以达到节省开支的作用。</p>
+<p>下面就来创建一个自动弹性组。左侧菜单AUTO SCALING下面Auto Scaling组，点击<code>创建Auto Scaling组</code>按钮，然后点击右下角的<code>开始使用</code>按钮。Auto Scaling组需要一个启动配置，就是一个启动模板，AWS在增加机器的时候会按照这个模板来启动机器，模板里面包括了AMI、存储、安全组</p>
+<p>先是创建启动配置。第一步需要选择一个AMI，点击我的AMI，选择我们创建好的<code>Elasticsearch-6.5.4-v1</code>映像，像下图这样。
+<img src="/img/aws/aws_es_cluster/2.png" alt=""></p>
+<p>实例类型根据自己的需要选择，这里使用默认的即可，点击<code>下一步: 配置详细信息</code>。填入启动配置的名称<code>es-startup-template</code>其他保持默认，点击<code>下一步:添加存储</code>。存储保持默认即可，继续点击<code>下一步:配置安全组</code>。选择一个现有的默认安全组，点击<code>审核</code>，然后点击<code>创建启动配置</code>，弹出的选择密钥对的对话框跟上面一样，使用上面创建上密钥对。</p>
+<p>接下来就是配置Auto Scaling组了。输入组名<code>es-auto-scaling-group</code>，组大小里面输入<code>2</code>，保持最小/正常实例数量为2个。子网随便选择一个即可，点击<code>下一步:配置扩展策略</code>。扩展策略选择<code>使用扩展策略调整此组的容量</code>，下面的第二个输入框，输入<code>4</code>，保持实例数量在2-4之间弹性扩展和缩减。<code>扩展组大小</code>使用平均CPU利用率，在目标值输入框填入2，表示在CPU利用率在2%以上就会增加实例数量，点击<code>下一步:配置通知</code>。在通知里面可以填入你的邮箱地址，在实例变化的时候就可以收到通知邮件了，需要注意的一点是<code>发送通知到:</code>这个输入框里面不能输入空格（中文没有试过）。点击<code>审核</code>，最后点击<code>创建Auto Scaling组</code>。</p>
+<p>然后到ec2实例列表就可以看到刚刚创建的Auto Scaling组里面的实例了，初始就是启动2个实例。启动完成之后在ec2实例列表就可以看到已经启动好了两个实例了
+<img src="/img/aws/aws_es_cluster/3.png" alt=""></p>
+<p>然后拷贝其中一个实例的公有DNS(IPv5)到浏览器，加上<code>:9200/_cat/nodes?v</code>访问就可以看到当前集群当中有2个节点了。</p>
+<p><img src="/img/aws/aws_es_cluster/4.png" alt=""></p>
+<p>好了，到这里一个Elasticsearch的集群已经在aws上搭建好了，而且在请求增加，整个集群平均CPU利用率上升的时候就会自动的增加实例数量了。如果需要在负载下降到某个点的时候把实例数量减少怎么配置呢。还是到Auto Scaling组列表里面，选择<code>es-auto-scaling-group</code>，在下面的面板当中选择<code>扩展策略</code>。在扩展策略里面点击<code>添加策略</code>，然后点击<code>创建一个简单的扩展策略</code>链接，输入名称，<code>执行策略的时间:</code>使用后面的<code>创建新警报</code>，然后选择每当Avarage中的CPU利用率<code>是 &lt; 10 百分比</code>，就是这里把<code>&gt;=</code>修改成<code>&lt;</code>，输入框里面填入<code>10</code>，然后点击<code>创建警报</code>。在<code>请执行以下操作:</code>里面选择<code>删除</code>，后面的数字填入<code>1</code>，每次减少一个实例。</p>
+<p>现在就把自动增加和减少实例的配置做好了，当负载达到10以上的时候就会自动增加实例数量，当负载减少到10以下的时候就会一个一个实例的减少了。</p>
+<p>这里面有一个问题，当你的app在访问Elasticsearch集群的时候，你要以哪个实例的域名（公有DNS(IPv4)）访问呢？</p>
+<p>有两个办法，一个办法可以在Auto Scaling组里面设置某个实例不会被关掉，一直保持运行，然后以这个实例的域名访问即可，如下图。</p>
+<p><img src="/img/aws/aws_es_cluster/5.png" alt=""></p>
+<p>另外一个办法就是创建一个负载均衡器，负载均衡器指向到这个Auto Scaling组即可，这样就可以在app指定访问负载均衡器的域名就可以了。下面介绍负载均衡器的配置方法。</p>
+<h2 id="配置负载均衡器">配置负载均衡器</h2>
+<p>选择左侧负载均衡器菜单，点击创建负载均衡器按钮，选择HTTP/HTTPS那个点击创建。
+<img src="/img/aws/aws_es_cluster/6.png" alt=""></p>
+<p>输入负载均衡器名称<code>elb-es</code>，侦听器里面端口填入<code>9200</code>，在<code>可用区</code>里面选择你Auto Scaling组所在的区，然后再勾选一个其他的（至少要先两个），点击<code>下一步:配置安全设置</code>。有一个警告，先忽略，直接点击<code>下一步:配置安全组</code>，保持默认选择一个现有的默认安全组，继续点击<code>下一步:配置路由</code>。名称里面填入<code>elb-es-target</code>，端口改成<code>9200</code>，点击<code>下一步:注册目标</code>。保持默认，继续点击<code>下一步:审核</code>，然后点创建。</p>
+<p>这时候会创建一个目标群组，名字为<code>elb-es-target</code>，这个群组是负载均衡器用来查询所有存活的机器的一个配置。然后到Auto Scaling组里面，选择<code>es-auto-scaling-group</code>，点击上方的<code>操作</code>里面的<code>编辑</code>，在弹出框里面的<code>目标组</code>一项选择刚刚创建的目标群组<code>elb-es-target</code>。配置完成之后就做完了，这时候就可以使用elb-es里面的那个公有DNS(IPv4)来作为app访问的一个url了，注意同样需要加上9200端口。</p>
+<p>上面设置Auto Scaling组的目标组的作用是，在增加或者减少实例数量的时候会自动把实例注册到目标群组里面。</p>
+<p>上面配置完成之后需要等待一会，等待Auto Scaling组里面的机器注册完成，可以到负载平衡下面的目标群组菜单里面选择<code>elb-es-target</code>，查看下面<code>目标</code>标签里面的已注册目标，检查是否已经注册成功。</p>
+<h2 id="总结">总结</h2>
+<p>虽然配置比较多，但是每一个步骤相对还是比较简单的，综合起来就可以缓存一个稳定的Elasticsearch集群了，当你的业务请求量减少的时候，机器数量会自动减少以节省你的开支，当请求增加的时候可以自动增加机器数量以应对业务的增加，而不需要你关心硬件的事情。云计算很方便，但也不便宜。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-01-08
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/elasticsearch/">Elasticsearch</a>
+          <a href="/tags/aws/">AWS</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/solr%E9%9B%86%E7%BE%A4%E7%B4%A2%E5%BC%95%E4%BB%A5%E5%8F%8A%E6%9F%A5%E8%AF%A2%E5%AF%B9%E8%B4%9F%E8%BD%BD%E7%9A%84%E5%BD%B1%E5%93%8D/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Solr集群索引以及查询对负载的影响</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/clojurescript%E4%BD%BF%E7%94%A8npm%E6%A8%A1%E5%9D%97/">
+            <span class="next-text nav-default">ClojureScript使用npm模块</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://example.org/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Kevin Jiang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?0ce1eb77b4e2275721d62799acd99e8b";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

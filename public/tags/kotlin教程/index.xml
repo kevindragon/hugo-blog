@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kotlin教程 on (power up)</title>
+    <link>http://example.org/tags/kotlin%E6%95%99%E7%A8%8B/</link>
+    <description>Recent content in Kotlin教程 on (power up)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 20 Jun 2017 11:21:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/kotlin%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>我来学Kotlin-面向对象之属性和字段</title>
+      <link>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%B1%9E%E6%80%A7%E5%92%8C%E5%AD%97%E6%AE%B5/</link>
+      <pubDate>Tue, 20 Jun 2017 11:21:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%B1%9E%E6%80%A7%E5%92%8C%E5%AD%97%E6%AE%B5/</guid>
+      <description>定义属性 // TODO</description>
+    </item>
+    
+    <item>
+      <title>我来学Kotlin-面向对象之类和继承</title>
+      <link>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%B1%BB%E5%92%8C%E7%BB%A7%E6%89%BF/</link>
+      <pubDate>Fri, 16 Jun 2017 14:58:07 +0000</pubDate>
+      
+      <guid>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%B1%BB%E5%92%8C%E7%BB%A7%E6%89%BF/</guid>
+      <description>使用关键字class来定义类： 1 2 class Invoice { } 类的定义由header（类名，主构造函数，参数及类型等）和header构成，主体使用花括号包裹。头</description>
+    </item>
+    
+    <item>
+      <title>我来学Kotlin-基础之返回值与跳转</title>
+      <link>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E5%9F%BA%E7%A1%80%E4%B9%8B%E8%BF%94%E5%9B%9E%E5%80%BC%E4%B8%8E%E8%B7%B3%E8%BD%AC/</link>
+      <pubDate>Fri, 16 Jun 2017 13:37:43 +0000</pubDate>
+      
+      <guid>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E5%9F%BA%E7%A1%80%E4%B9%8B%E8%BF%94%E5%9B%9E%E5%80%BC%E4%B8%8E%E8%B7%B3%E8%BD%AC/</guid>
+      <description>Kotlin有三种结构性的跳转表达式： return默认从最近的函数或者匿名函数返回，后面的代码不再执行 break跳出break最近的一个循环</description>
+    </item>
+    
+    <item>
+      <title>我来学Kotlin-基础之流程控制</title>
+      <link>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/</link>
+      <pubDate>Thu, 15 Jun 2017 12:24:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/</guid>
+      <description>流程控制与Java差不多，但是更加强大，像if, when是语句也是表达式，表达式有返回值，可以赋值给一个变量。 if表达式 在Kotlin里，i</description>
+    </item>
+    
+    <item>
+      <title>我来学Kotlin-基础之包</title>
+      <link>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/</link>
+      <pubDate>Wed, 14 Jun 2017 17:43:44 +0000</pubDate>
+      
+      <guid>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/</guid>
+      <description>包对于模块化是非常重要的，Kotlin的包与Java的定义/语法类似，但是限制完全不同。 一个源文件的包定义应该放在代码开始处： 1 2 3 4 5 6 7</description>
+    </item>
+    
+    <item>
+      <title>我来学Kotlin-基础之基础类型</title>
+      <link>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Wed, 14 Jun 2017 11:45:13 +0000</pubDate>
+      
+      <guid>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/</guid>
+      <description>在Kotlin，一切皆对象，我们可以在任何变量上调用成员函数和属性。有些类型是内置的，因为它们的实现是经过优化的，但是对于用户来说，它们看起</description>
+    </item>
+    
+    <item>
+      <title>我来学Kotlin-起步之代码规范</title>
+      <link>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E8%B5%B7%E6%AD%A5%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/</link>
+      <pubDate>Wed, 14 Jun 2017 10:31:10 +0000</pubDate>
+      
+      <guid>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E8%B5%B7%E6%AD%A5%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/</guid>
+      <description>Kotlin官方提供了一份代码规范，主要介绍了命名，冒号，匿名函数，类定义，方法与属性以及Unit，比较简短。 下面是Kotlin官方提倡的一</description>
+    </item>
+    
+    <item>
+      <title>我来学Kotlin-起步之习惯用法</title>
+      <link>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E8%B5%B7%E6%AD%A5%E4%B9%8B%E4%B9%A0%E6%83%AF%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Tue, 13 Jun 2017 16:44:02 +0000</pubDate>
+      
+      <guid>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E8%B5%B7%E6%AD%A5%E4%B9%8B%E4%B9%A0%E6%83%AF%E7%94%A8%E6%B3%95/</guid>
+      <description>数据类 1 data class Customer(val name: String, val email: String) Customer提供了以下方法： getters，如果成员变量使用var定义那么还默认提供setters equals() hashCode() toString() copy() component1(), component2() &amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>我来学Kotlin-起步之基础语法</title>
+      <link>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E8%B5%B7%E6%AD%A5%E4%B9%8B%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</link>
+      <pubDate>Sat, 12 Mar 2016 13:35:02 +0000</pubDate>
+      
+      <guid>http://example.org/post/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E8%B5%B7%E6%AD%A5%E4%B9%8B%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</guid>
+      <description>零、咱们先来看看Kotlin是啥语言。 JetBrains在2016年2月15日Kotlin 1.0发布，这意味着Kotlin经过几年的发展已经</description>
+    </item>
+    
+  </channel>
+</rss>

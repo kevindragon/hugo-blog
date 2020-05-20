@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Spark on (power up)</title>
+    <link>http://example.org/tags/spark/</link>
+    <description>Recent content in Spark on (power up)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 20 Apr 2016 22:33:03 +0000</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/spark/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>spark连接mysql</title>
+      <link>http://example.org/post/spark%E8%BF%9E%E6%8E%A5mysql/</link>
+      <pubDate>Wed, 20 Apr 2016 22:33:03 +0000</pubDate>
+      
+      <guid>http://example.org/post/spark%E8%BF%9E%E6%8E%A5mysql/</guid>
+      <description>QQ: 380800878, 微信: kittenll 一、下到驱动 官网载mysql的java驱动包放到spark根目录。启动： SPARK_CLASSPATH=mysql-connector-java-x.x.x-bin.jar ./bin/spark-shell 二、连接mysql 1 2 val df = sqlContext.load(&amp;#34;jdbc&amp;#34;, Map(&amp;#34;url&amp;#34; -&amp;gt; &amp;#34;jdbc:mysql://localhost:3306/newlaw?user=root&amp;amp;password=&amp;#34;, &amp;#34;dbtable&amp;#34; -&amp;gt; &amp;#34;tax&amp;#34;)) df.count() 这里得到</description>
+    </item>
+    
+  </channel>
+</rss>

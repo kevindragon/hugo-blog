@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Webpack之Hello World - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="QQ: 380800878, 微信: kittenll 最近自己在做一些项目的时候使用Restful和react来做到前后端分离，感受到开发效率的成倍提升，故在此分享一下前端使用web" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师" />
+
+
+<meta name="baidu-site-verification" content="VFnag2irk8" />
+
+
+
+<meta name="generator" content="Hugo 0.71.0 with theme even" />
+
+
+<link rel="canonical" href="http://example.org/post/webpack%E4%B9%8Bhello-world/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Webpack之Hello World" />
+<meta property="og:description" content="QQ: 380800878, 微信: kittenll 最近自己在做一些项目的时候使用Restful和react来做到前后端分离，感受到开发效率的成倍提升，故在此分享一下前端使用web" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/post/webpack%E4%B9%8Bhello-world/" />
+<meta property="article:published_time" content="2016-08-06T14:13:55+00:00" />
+<meta property="article:modified_time" content="2016-08-06T14:13:55+00:00" />
+<meta itemprop="name" content="Webpack之Hello World">
+<meta itemprop="description" content="QQ: 380800878, 微信: kittenll 最近自己在做一些项目的时候使用Restful和react来做到前后端分离，感受到开发效率的成倍提升，故在此分享一下前端使用web">
+<meta itemprop="datePublished" content="2016-08-06T14:13:55&#43;00:00" />
+<meta itemprop="dateModified" content="2016-08-06T14:13:55&#43;00:00" />
+<meta itemprop="wordCount" content="2167">
+
+
+
+<meta itemprop="keywords" content="Webpack,webpack-dev-server," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Webpack之Hello World"/>
+<meta name="twitter:description" content="QQ: 380800878, 微信: kittenll 最近自己在做一些项目的时候使用Restful和react来做到前后端分离，感受到开发效率的成倍提升，故在此分享一下前端使用web"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Webpack之Hello World</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-08-06 </span>
+        
+          <span class="more-meta"> 约 2167 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#0安装">0、安装</a></li>
+        <li><a href="#1简单使用">1、简单使用</a></li>
+        <li><a href="#2多文件">2、多文件</a></li>
+        <li><a href="#3css">3、CSS</a></li>
+        <li><a href="#4配置文件">4、配置文件</a></li>
+        <li><a href="#5watch">5、watch</a></li>
+        <li><a href="#6webpack-dev-server">6、webpack-dev-server</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>QQ: 380800878, 微信: kittenll</p>
+<p>最近自己在做一些项目的时候使用Restful和react来做到前后端分离，感受到开发效率的成倍提升，故在此分享一下前端使用webpack作为前端的构建工具。</p>
+<p><a href="http://webpack.github.io">Webpack</a>是一个前端资源加载，编译，打包工具，可以把多个分散的功能模块javascript, css打包压缩到一个模块当中；合并图片。Webpack使用使用各种的loader来加载编译对应的资源，在网上也有非常多的loader。</p>
+<h3 id="0安装">0、安装</h3>
+<ol>
+<li>全局安装：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">npm install webpack -g
+</code></pre></td></tr></table>
+</div>
+</div><p>还有一个开发者工具，此工具非常实用，后面介绍：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">npm install webpack-dev-server -g
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>也可以使用本地模式随源码一起发行：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">npm init
+npm install webpack --save-dev
+npm install webpack-dev-server --save-dev
+</code></pre></td></tr></table>
+</div>
+</div><p>随源码一起发行的好处就是不需要别人也强制全局安装，别人拿到源码后直接<code>npm update</code>后即可使用</p>
+<h3 id="1简单使用">1、简单使用</h3>
+<p>在介绍使用配置文件之前，先来看一下官方给出的最简单的编译例子：</p>
+<p>新建一个目录<code>hello</code>，进行到<code>hello</code>目录，新建一个javascript文件<code>entry.js</code>，内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&#34;It works.&#34;</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后新建一个<code>index.html</code>文件，内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;bundle.js&#34;</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>编译<code>entry.js</code>到<code>bundle.js</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">webpack ./entry.js bundle.js
+</code></pre></td></tr></table>
+</div>
+</div><p>如果正常编译通过，你会看到如下的输出（这是我自己的输出，你的输出可能会不太一样）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Hash: a41c6217554e666594cb
+Version: webpack 1.13.1
+Time: 67ms
+    Asset     Size  Chunks             Chunk Names
+bundle.js  1.42 kB       0  [emitted]  main
+   [0] ./entry.js 29 bytes {0} [built]
+</code></pre></td></tr></table>
+</div>
+</div><p>使用浏览器打开<code>index.html</code>，你将会看到网页上呈现<code>It works.</code></p>
+<h3 id="2多文件">2、多文件</h3>
+<p>现在假设咱们的代码写了非常多，一个文件看起来已经非常长而且混乱不便于维护，这时候就需要把不同的功能代码分开到不同的文件，最终使用webpack编译打包压缩到一个文件。</p>
+<p>在<code>hello</code>目录新建一个<code>content.js</code>文件，内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="s2">&#34;It works from content.js.&#34;</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>把<code>entry.js</code>修改成下面的内容，这一行是包含<code>content.js</code>的功能，然后写到网页上面：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./content.js&#34;</span><span class="p">));</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>编译：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">webpack ./entry.js bundle.js
+</code></pre></td></tr></table>
+</div>
+</div><p>刷新浏览器打开的<code>index.html</code>，你将会看到如下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">It works from content.js.
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3css">3、CSS</h3>
+<p>是的你没有看错，webpack也可以加载编译打包压缩css文件。</p>
+<p>再来新建一个css文件<code>style.css</code>，内容如下，把内页的背景变成黄色：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">body</span> <span class="p">{</span>
+    <span class="k">background</span><span class="p">:</span> <span class="kc">yellow</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>修改<code>entry.js</code>，在原来的内容上面添加一行包含css文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;!style!css!./style.css&#34;</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./content.js&#34;</span><span class="p">));</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>继续编译：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">webpack ./entry.js bundle.js
+</code></pre></td></tr></table>
+</div>
+</div><p>这时候你会看到一个错误信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ERROR in ./entry.js
+Module not found: Error: Cannot resolve module &#39;style&#39; in ......
+</code></pre></td></tr></table>
+</div>
+</div><p>是时候loader出场了，因为在<code>entry.js</code>里面require了css代码，但是前面安装的webpack里面不带有css loader，所以编译css的时候会出错，解决办法就是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">npm install css-loader style-loader
+</code></pre></td></tr></table>
+</div>
+</div><p>再编译后，再次刷新浏览器打开的index.html，你将会看到网页的背景颜色全部变成了黄色。</p>
+<p><code>css-loader</code>加载、编译css资源文件，而<code>style-loader</code>会把编译之后的css内容放入到<code>&lt;style&gt;</code>标签内插入到dom的head里面。</p>
+<p>在<code>entry.js</code>里面使用了<code>!style!css!./style.css</code>来告诉webpack需要使用css-loader和style-loader来处理<code>style.css</code>，也可以不写<code>!style!css!</code>，而在编译的时候指定，简化<code>entry.js</code>文件如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./style.css&#34;</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./content.js&#34;</span><span class="p">));</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这时候编译需要指定多一个参数了<code>--module-bind 'css=style!css'</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">webpack ./entry.js bundle.js --module-bind <span class="s1">&#39;css=style!css&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="4配置文件">4、配置文件</h3>
+<p>webpack使用的配置文件名是<code>webpack.config.js</code>，在<code>hello</code>新建此文件，内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">entry</span><span class="o">:</span> <span class="s2">&#34;./entry.js&#34;</span><span class="p">,</span>
+    <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">path</span><span class="o">:</span> <span class="nx">__dirname</span><span class="p">,</span>
+        <span class="nx">filename</span><span class="o">:</span> <span class="s2">&#34;bundle.js&#34;</span>
+    <span class="p">},</span>
+    <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">loaders</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span> <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.css$/</span><span class="p">,</span> <span class="nx">loader</span><span class="o">:</span> <span class="s2">&#34;style!css&#34;</span> <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>entry</code>：是入口程序，从哪个文件开始编译
+<code>output</code>：指定编译后的输出目录和文件名
+<code>module</code>里面的<code>loaders</code>数组指定各种<code>loader</code>，处理各种css, image, url, ttf等待文件。</p>
+<p>这里指定的入口是<code>entry.js</code>文件，输出到当前目录的<code>bundle.js</code>文件，如果碰到代码require的css代码（在<code>test</code>处配置，这后面可以写任何js的正则表达式），使用<code>style-loader</code>和<code>css-loader</code>加载编译。</p>
+<p>编译：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">webpack
+</code></pre></td></tr></table>
+</div>
+</div><p>有了配置文件这里只需要使用一个webpack的命令就可以进行编译，省了不少打字的时间。</p>
+<h3 id="5watch">5、watch</h3>
+<p>现在在命令行里面输入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">webpack --watch
+</code></pre></td></tr></table>
+</div>
+</div><p>然后修改一下代码，webpack会实时的帮你编译，是不是又省了不少打字的时间。</p>
+<h3 id="6webpack-dev-server">6、webpack-dev-server</h3>
+<p>这是一个神器，特别是结合React的时候可以做到源代码修改的时候，不需要刷新浏览器就可以看到修改后的结果，这又省了不少时间，还可以做到可视化编程。费话不多说，首先需要安装：</p>
+<pre><code>npm install webpack-dev-server -g
+</code></pre>
+<p>命令行会输出类似如下的内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">http://localhost:8080/webpack-dev-server/
+webpack result is served from /
+content is served from /Users/Dragon/awesome/Javascript/hello
+Hash: ad76e97b228926df8b02
+Version: webpack 1.13.1
+Time: 812ms
+    Asset     Size  Chunks             Chunk Names
+bundle.js  11.8 kB       0  [emitted]  main
+chunk    {0} bundle.js (main) 9.9 kB [rendered]
+    [0] ./entry.js 66 bytes {0} [built]
+    [1] ./style.css 927 bytes {0} [built]
+    [2] ./~/.0.23.1@css-loader!./style.css 197 bytes {0} [built]
+    [3] ./~/.0.23.1@css-loader/lib/css-base.js 1.51 kB {0} [built]
+    [4] ./~/.0.13.1@style-loader/addStyles.js 7.15 kB {0} [built]
+    [5] ./content.js 46 bytes {0} [built]
+webpack: bundle is now VALID.
+</code></pre></td></tr></table>
+</div>
+</div><p>在浏览器输入<a href="http://localhost:8080/webpack-dev-server/">http://localhost:8080/webpack-dev-server/</a>，在最上方会有一个<code>App ready.</code>的黑条条，下面的iframe加载的就是<code>index.html</code>的内容。</p>
+<p>把<code>entry.js</code>修改成如下的内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./style.css&#34;</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./content.js&#34;</span><span class="p">));</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">&#39;&lt;br&gt;Hello World!&#39;</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>回到浏览器你会发现，网页的内容已经改变了，下面多了一行Hello World!。</p>
+<p>这个Hello World!有点长，呵呵！^_^</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2016-08-06
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/webpack/">Webpack</a>
+          <a href="/tags/webpack-dev-server/">webpack-dev-server</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/clojurescript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80hello-world%E4%B8%8Erepl/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">ClojureScript学习笔记一（Hello World与REPL）</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/spark%E8%BF%9E%E6%8E%A5mysql/">
+            <span class="next-text nav-default">spark连接mysql</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://example.org/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Kevin Jiang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?0ce1eb77b4e2275721d62799acd99e8b";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

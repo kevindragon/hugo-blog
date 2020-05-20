@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vagrant on (power up)</title>
+    <link>http://example.org/tags/vagrant/</link>
+    <description>Recent content in vagrant on (power up)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 24 Aug 2016 22:40:54 +0000</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/vagrant/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>从virtualbox创建vagrant box</title>
+      <link>http://example.org/post/%E4%BB%8Evirtualbox%E5%88%9B%E5%BB%BAvagrant-box/</link>
+      <pubDate>Wed, 24 Aug 2016 22:40:54 +0000</pubDate>
+      
+      <guid>http://example.org/post/%E4%BB%8Evirtualbox%E5%88%9B%E5%BB%BAvagrant-box/</guid>
+      <description>有的时候vagrant官网提供的boxes可能并不是想要的，有些包含了太多东西，有些box又没有需要的。如果你的开发团队需要这样的一个box</description>
+    </item>
+    
+  </channel>
+</rss>

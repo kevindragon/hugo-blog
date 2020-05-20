@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>yum通过ssh代理安装 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="在机房的机器有时候请第三方服务公司安装完系统后没有检查网络，结果上不了网，最后连安装个gcc都不行。没有办法，只能通过代理安装，方法很简单。" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师" />
+
+
+<meta name="baidu-site-verification" content="VFnag2irk8" />
+
+
+
+<meta name="generator" content="Hugo 0.71.0 with theme even" />
+
+
+<link rel="canonical" href="http://example.org/post/yum%E9%80%9A%E8%BF%87ssh%E4%BB%A3%E7%90%86%E5%AE%89%E8%A3%85/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="yum通过ssh代理安装" />
+<meta property="og:description" content="在机房的机器有时候请第三方服务公司安装完系统后没有检查网络，结果上不了网，最后连安装个gcc都不行。没有办法，只能通过代理安装，方法很简单。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/post/yum%E9%80%9A%E8%BF%87ssh%E4%BB%A3%E7%90%86%E5%AE%89%E8%A3%85/" />
+<meta property="article:published_time" content="2018-07-07T18:48:55+00:00" />
+<meta property="article:modified_time" content="2018-07-07T18:48:55+00:00" />
+<meta itemprop="name" content="yum通过ssh代理安装">
+<meta itemprop="description" content="在机房的机器有时候请第三方服务公司安装完系统后没有检查网络，结果上不了网，最后连安装个gcc都不行。没有办法，只能通过代理安装，方法很简单。">
+<meta itemprop="datePublished" content="2018-07-07T18:48:55&#43;00:00" />
+<meta itemprop="dateModified" content="2018-07-07T18:48:55&#43;00:00" />
+<meta itemprop="wordCount" content="606">
+
+
+
+<meta itemprop="keywords" content="yum,proxy,ssh," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="yum通过ssh代理安装"/>
+<meta name="twitter:description" content="在机房的机器有时候请第三方服务公司安装完系统后没有检查网络，结果上不了网，最后连安装个gcc都不行。没有办法，只能通过代理安装，方法很简单。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">yum通过ssh代理安装</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-07-07 </span>
+        
+          <span class="more-meta"> 约 606 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#例子">例子</a>
+      <ul>
+        <li><a href="#pip">pip</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>在机房的机器有时候请第三方服务公司安装完系统后没有检查网络，结果上不了网，最后连安装个gcc都不行。没有办法，只能通过代理安装，方法很简单。</p>
+<p>需要有一台可以上网的linux机器，假设是A机器IP是<code>192.168.1.100</code>，另外一台不能上网的是B机器IP是<code>192.168.2.200</code></p>
+<p>用Xshell（或者其他ssh客户端）登录B机器，使用下面的命令登录到A机器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">ssh -D <span class="m">1080</span> root@192.168.1.100
+</code></pre></td></tr></table>
+</div>
+</div><p>输入A机器的密码，这时候ssh会开一个1080监听端口，所有发往这个端口的请求被转发到ssh所连接的机器，然后通过所连接的机器转发请求，这样就实现了ssh代理。ssh现在支持的协议是socks4和socks5。</p>
+<p>然后在另外一个终端登录B机器，修改<code>/etc/yum.conf</code>文件，在文件最后添加下面一行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">proxy</span><span class="o">=</span>socks5h://localhost:1080
+</code></pre></td></tr></table>
+</div>
+</div><p>保存退出，这时候你再运行<code>yum</code>命令，完全不障碍。</p>
+<p>其实都已经开了1080端口了，其他任何支持代理设置的程序都可以使用此<code>socks5h://localhost:1080</code>进行代理，比如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">curl -x socks5h://localhost:1080 http://www.baidu.com
+</code></pre></td></tr></table>
+</div>
+</div><p>如果其他的方式，比如ftp之类的，也需要使用代码的话，可以把下面的内容保存到一个文件<code>proxy.sh</code>，然后使用<code>source proxy.sh</code>加载一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/sh
+</span><span class="cp"></span>
+<span class="c1"># add follows to the end (set proxy settings to the environment variables)</span>
+<span class="nv">MY_PROXY_URL</span><span class="o">=</span><span class="s2">&#34;socks5h://localhost:1080&#34;</span>
+
+<span class="nv">HTTP_PROXY</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
+<span class="nv">HTTPS_PROXY</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
+<span class="nv">FTP_PROXY</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
+<span class="nv">http_proxy</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
+<span class="nv">https_proxy</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
+<span class="nv">ftp_proxy</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
+
+<span class="nb">export</span> HTTP_PROXY HTTPS_PROXY FTP_PROXY http_proxy https_proxy ftp_proxy
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="例子">例子</h2>
+<h3 id="pip">pip</h3>
+<p>pip使用代理的时候有一点区别，需要把上面<code>proxy.sh</code>里面的协议<code>socks5h</code>修改成<code>socks5</code>才可以使用。</p>
+<p>Enjoy ^_^.</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018-07-07
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/yum/">yum</a>
+          <a href="/tags/proxy/">proxy</a>
+          <a href="/tags/ssh/">ssh</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/clojurescript%E4%BD%BF%E7%94%A8npm%E6%A8%A1%E5%9D%97/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">ClojureScript使用npm模块</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/%E4%BD%BF%E7%94%A8clojure%E5%BC%80%E5%8F%91web%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E5%9B%9B/">
+            <span class="next-text nav-default">使用Clojure开发Web入门系列（四）</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://example.org/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Kevin Jiang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?0ce1eb77b4e2275721d62799acd99e8b";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

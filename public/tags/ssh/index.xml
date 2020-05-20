@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ssh on (power up)</title>
+    <link>http://example.org/tags/ssh/</link>
+    <description>Recent content in ssh on (power up)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 07 Jul 2018 18:48:55 +0000</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/ssh/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>yum通过ssh代理安装</title>
+      <link>http://example.org/post/yum%E9%80%9A%E8%BF%87ssh%E4%BB%A3%E7%90%86%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Sat, 07 Jul 2018 18:48:55 +0000</pubDate>
+      
+      <guid>http://example.org/post/yum%E9%80%9A%E8%BF%87ssh%E4%BB%A3%E7%90%86%E5%AE%89%E8%A3%85/</guid>
+      <description>在机房的机器有时候请第三方服务公司安装完系统后没有检查网络，结果上不了网，最后连安装个gcc都不行。没有办法，只能通过代理安装，方法很简单。</description>
+    </item>
+    
+  </channel>
+</rss>

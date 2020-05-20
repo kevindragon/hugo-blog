@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Solr教程-安装运行 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="Solr是一个分布式高性能全文搜索引擎，是基于Lucene开发的非常流行的企业搜索引擎平台。Solr提供了非常丰富的搜索功能，可以用来构建非" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师" />
+
+
+<meta name="baidu-site-verification" content="VFnag2irk8" />
+
+
+
+<meta name="generator" content="Hugo 0.71.0 with theme even" />
+
+
+<link rel="canonical" href="http://example.org/post/solr%E6%95%99%E7%A8%8B-%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Solr教程-安装运行" />
+<meta property="og:description" content="Solr是一个分布式高性能全文搜索引擎，是基于Lucene开发的非常流行的企业搜索引擎平台。Solr提供了非常丰富的搜索功能，可以用来构建非" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/post/solr%E6%95%99%E7%A8%8B-%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/" />
+<meta property="article:published_time" content="2019-03-05T20:13:28+00:00" />
+<meta property="article:modified_time" content="2019-03-05T20:13:28+00:00" />
+<meta itemprop="name" content="Solr教程-安装运行">
+<meta itemprop="description" content="Solr是一个分布式高性能全文搜索引擎，是基于Lucene开发的非常流行的企业搜索引擎平台。Solr提供了非常丰富的搜索功能，可以用来构建非">
+<meta itemprop="datePublished" content="2019-03-05T20:13:28&#43;00:00" />
+<meta itemprop="dateModified" content="2019-03-05T20:13:28&#43;00:00" />
+<meta itemprop="wordCount" content="2330">
+
+
+
+<meta itemprop="keywords" content="Solr,Lucene,搜索引擎," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Solr教程-安装运行"/>
+<meta name="twitter:description" content="Solr是一个分布式高性能全文搜索引擎，是基于Lucene开发的非常流行的企业搜索引擎平台。Solr提供了非常丰富的搜索功能，可以用来构建非"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Solr教程-安装运行</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-03-05 </span>
+        
+          <span class="more-meta"> 约 2330 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#外部zookeeper">外部Zookeeper</a></li>
+    <li><a href="#启动多个solr节点">启动多个solr节点</a></li>
+    <li><a href="#负载均衡">负载均衡</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Solr是一个分布式高性能全文搜索引擎，是基于Lucene开发的非常流行的企业搜索引擎平台。Solr提供了非常丰富的搜索功能，可以用来构建非常复杂的搜索业务。</p>
+<p>这个系列教程旨在介绍Solr的常用功能。</p>
+<!-- raw HTML omitted -->
+<h1 id="准备">准备</h1>
+<p>在开始之前你需要准备一些必要的硬件及软件设施：</p>
+<ol>
+<li><a href="https://jdk.java.net/8/">JDK 1.8</a> (或者更高版本)</li>
+<li><a href="http://www.apache.org/dyn/closer.lua/lucene/solr/7.5.0">Solr 7.5.x</a></li>
+<li><a href="https://www.getpostman.com/">Postman</a> （可选）</li>
+<li><a href="https://www.centos.org/">CentOS 7.x</a> (本系列以此OS为准)</li>
+<li><a href="https://www.virtualbox.org/">VirtualBox</a> (可选)</li>
+</ol>
+<p>CentOS可以选择安装，Solr是支持多操作系统的，但是在Linux下体验更好，大部分生产环境也都是Linux系统，建议使用CentOS来学习以及使用Solr。</p>
+<p>VirtualBox可以选择安装，如果你是Windows操作系统，建议使用VirtualBox安装CentOS来学习使用Solr。</p>
+<p>后面的操作都是基于CentOS 7.x版本操作系统来运行。</p>
+<h1 id="安装solr">安装Solr</h1>
+<p>安装Solr需要Java 1.8或者更高版本，可以使用<code>java -version</code>命令检查你系统上安装的Java版本。由于Java语言有好几个实现，有些实现并不能非常好的支持Solr，根据<a href="https://wiki.apache.org/lucene-java/JavaBugs">Lucene JavaBugs</a>来检查你的Java是否对Solr有很好的支持。Solr支持的操作系统包括Linux, MacOS, Windows。</p>
+<p>到<a href="https://lucene.apache.org/solr/mirrors-solr-latest-redir.html">https://lucene.apache.org/solr/mirrors-solr-latest-redir.html</a>下载对应操作系统的7.5.0版本的Solr安装包。</p>
+<ul>
+<li><code>solr-7.5.0.tgz</code> 是针对Linux/Unix/MacOS系统的安装包</li>
+<li><code>solr-7.5.0.zip</code> 是针对Windows系统的安装包</li>
+<li><code>solr-7.5.0-src.tgz</code> 是源码包</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tar zxf solr-7.5.0.tgz
+<span class="nb">cd</span> solr-7.5.0
+bin/solr start
+</code></pre></td></tr></table>
+</div>
+</div><p>然后使用浏览器打开<a href="http://localhost:8983">http://localhost:8983</a>，你就可以看到Solr Admin UI的界面了，这是Solr自带的管理界面，使用非常方便，在里面可以查看状态，管理core，进行查询。</p>
+<p>以<code>bin/solr start</code>运行的solr是以standalone模式（非分布式）运行的，如果是学习可以使用此模式快速的尝试。但是建议使用后面将要介绍的SolrCloud模式来运行，SolrCloud模式可以很好的进行扩展，应对海量数据的实时搜索，动态剔除/增加机器节点，动态转移数据分片(shard)，所有这些操作都可以不停机进行操作。生产环境也建议使用SolrCloud模式运行。</p>
+<p>这是以SolrCloud模式启动solr的命令，只需要添加一个<code>-c</code>参数即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">bin/solr start -c
+</code></pre></td></tr></table>
+</div>
+</div><p>详细的命令行参数请参考<a href="https://kevinjiang.info/2018/03/19/Solr%E6%8E%A7%E5%88%B6%E8%84%9A%E6%9C%AC%E5%8F%82%E8%80%83/">Solr控制脚本参考</a></p>
+<p>SolrCloud启动之后会占用8983端口，默认会启动一个内置的zookeeper实例，占用9983端口（在solr的端口上加1000）。</p>
+<h1 id="多节点的solrcloud安装-生产环境部署">多节点的SolrCloud安装-生产环境部署</h1>
+<p>一般生产环境部署会把zookeeper单独部署，其他的solr节点单独部署。</p>
+<h2 id="外部zookeeper">外部Zookeeper</h2>
+<p>下面假设是生产环境部署zookeeper，建议至少需要三个zookeeper节点。 <em>开发环境以及测试使用一个zookeeper也没有关系。</em></p>
+<p>假设已经有三个机器来运行zookeeper来组建一个小的zookeeper集群：</p>
+<ol>
+<li>192.168.1.2</li>
+<li>192.168.1.3</li>
+<li>192.168.1.4</li>
+</ol>
+<p>步骤为：下载<a href="https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/zookeeper-3.4.13/zookeeper-3.4.13.tar.gz">zookeeper-3.4.13</a> -&gt; 解压 -&gt; 配置conf/zoo.cfg -&gt; 启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">curl -o zookeeper-3.4.13.tar.gz <span class="s1">&#39;https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/zookeeper-3.4.13/zookeeper-3.4.13.tar.gz&#39;</span>
+tar -xzvf zookeeper-3.4.13.tar.gz
+<span class="nb">cd</span> zookeeper-3.4.13
+cp conf/zoo_sample.cfg conf/zoo.cfg
+sed -i <span class="s1">&#39;s/dataDir=.*/dataDir=.\/data/g&#39;</span> conf/zoo.cfg
+mkdir data
+<span class="nb">echo</span> -e <span class="s2">&#34;\nserver.1=192.168.1.2:2888:3888\nserver.2=192.168.1.3:2888:3888\nserver.3=192.168.1.4:2888:3888&#34;</span> &gt;&gt; conf/zoo.cfg
+<span class="nb">echo</span> <span class="m">1</span> &gt; data/myid
+</code></pre></td></tr></table>
+</div>
+</div><p>解释一下上面的一些命令：</p>
+<p>前四行就不过多解释，下载zookeeper-3.4.13安装包，解压，拷贝conf/zoo_example.cfg为conf/zoo.cfg配置文件。conf/zoo.cfg为必须的配置文件，否则zookeeper是无法启动的。</p>
+<p>第五行使用<code>sed</code>命令把conf/zoo.cfg配置文件里面的dataDir设置为安装目录下面的data目录。接着第六行创建dataDir指定的目录，否则也无法正确启动zookeeper。第七行写入三台机器互相通信的配置，2888是连接leader端口，3888是选举端口，两个端口都可以修改。</p>
+<p><strong>最后一行也是最重要的一行，每台机器在data/myid文件里面写入一个不重复的值来标识每个节点。所以在其他两台机器就不能再写入1了，分别写入2和3即可。</strong></p>
+<p>上面拷贝conf/zoo_example.cfg为conf/zoo.cfg的时候，已经默认设置了2181端口为zookeeper客户端连接的端口，下面在solr启动的时候使用。</p>
+<p>最后运行<code>bin/zkServer.sh start</code>启动三台机器上的zookeeper即可。</p>
+<h2 id="启动多个solr节点">启动多个solr节点</h2>
+<p>假设现在也有三个机器安装了solr（下载下来直接解压即可），分别为<code>192.168.1.10</code>、<code>192.168.1.11</code>、<code>192.168.1.12</code>，解压的目录都为<code>solr-7.5.0</code>。命令行切换到solr-7.5.0目录运行如下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">bin/solr start -c -z 192.168.1.2:2181,192.168.1.3:2181,192.168.1.4:2181
+</code></pre></td></tr></table>
+</div>
+</div><p>三台机器运行同样的命令后，整个SolrCloud集群就已经启动好了，可以访问<a href="http://192.168.1.10:8983">http://192.168.1.10:8983</a>查看solr admin ui。</p>
+<h2 id="负载均衡">负载均衡</h2>
+<p>这个话题比较有意思，很多人问我SolrCloud已经使用了Zookeeper来选举leader了，SolrCloud里面的leader shard也会把请求分发到其他的shard上，为什么还要做负载均衡呢。如果你深入了解过solr的search component你就会明白，接收请求的那个机器做的计算是要比其他机器多的，如果你在代码当中只是访问其中一台机器，那么这台机器的负载会高于其他的机器。所以你需要在你的应用程序和SolrCloud之间搭建一个负载均衡，把请求均匀的分布到各个机器上去。</p>
+<p>常用的有nginx, haproxy这两个做负载均衡的软件了。最后要保证高可用，还需要做一个负载均衡层面的热备的配置，这样你的SolrCloud可以说已经非常坚固了。</p>
+<p><!-- raw HTML omitted --></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-03-05
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/solr/">Solr</a>
+          <a href="/tags/lucene/">Lucene</a>
+          <a href="/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/">搜索引擎</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/python%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E8%B7%B5/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Python项目结构实践</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/solr-searchcomponent%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98/">
+            <span class="next-text nav-default">Solr SearchComponent开发实战</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://example.org/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Kevin Jiang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?0ce1eb77b4e2275721d62799acd99e8b";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>
