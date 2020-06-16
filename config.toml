@@ -188,8 +188,8 @@ posts = "/:year/:month/:day/:slug"
 
   [params.reward]                                         # 文章打赏
     enable = true
-    wechat = "/img/wechat_pay.jpg"           # 微信二维码
-    alipay = "/img/alipay.jpg"           # 支付宝二维码
+    wechat = "/img/wechat_pay_1242x1242.jpg"           # 微信二维码
+    alipay = "/img/alipay_600x600.jpg"           # 支付宝二维码
 
   [params.social]                                         # 社交链接
     g-github = "https://github.com/kevindragon"
