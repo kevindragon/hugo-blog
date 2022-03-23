@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.71.0 with theme even" />
+<meta name="generator" content="Hugo 0.95.0 with theme even" />
 
 
 <link rel="canonical" href="http://example.org/" />
@@ -45,7 +45,7 @@
 <meta property="og:description" content="KevinJiang的个人博客，80后码农的独立宣言." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://example.org/" />
-<meta property="og:updated_time" content="2017-06-13T10:53:25+00:00" />
+
 <meta itemprop="name" content="(power up)">
 <meta itemprop="description" content="KevinJiang的个人博客，80后码农的独立宣言."><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="(power up)"/>
@@ -116,7 +116,49 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/solr7%E9%85%8D%E7%BD%AE%E5%90%8C%E4%B9%89%E8%AF%8D/">solr7配置同义词</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/clojure/clojure%E5%8E%8B%E7%BC%A9%E7%9B%AE%E5%BD%95%E4%B8%BAzip/">Clojure压缩目录为zip</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-03-08 </span>
+      
+        <span class="more-meta"> 约 346 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      创建zip压缩文件主要思想： 创建ZipOutputStream 创建ZipEntry，并调用putNextEntry copy文件到output
+    </div>
+    <div class="read-more">
+      <a href="/post/clojure/clojure%E5%8E%8B%E7%BC%A9%E7%9B%AE%E5%BD%95%E4%B8%BAzip/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/react%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/">react初始配置</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-02-13 </span>
+      
+        <span class="more-meta"> 约 340 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      下面webpack babel react 2018年最新最小化配置模板 package.js 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 { &#34;name&#34;: &#34;{{NAME}}&#34;, &#34;version&#34;: &#34;1.0.0&#34;, &#34;description&#34;: &#34;{{DESCRIPTION}}&#34;, &#34;main&#34;: &#34;index.js&#34;, &#34;scripts&#34;: { &#34;start&#34;: &#34;webpack-dev-server&#34;, &#34;test&#34;:
+    </div>
+    <div class="read-more">
+      <a href="/post/react%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/searchengine/solr7%E9%85%8D%E7%BD%AE%E5%90%8C%E4%B9%89%E8%AF%8D/">solr7配置同义词</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2018-01-10 </span>
       
@@ -130,14 +172,14 @@
       Solr的同义词可以满足绝大部分的需求，可以配置双向，也可以配置单向的同义词列表，功能非常的强大。 Solr的同义词可以在两个方面设置，一是索
     </div>
     <div class="read-more">
-      <a href="/post/solr7%E9%85%8D%E7%BD%AE%E5%90%8C%E4%B9%89%E8%AF%8D/" class="read-more-link">阅读更多</a>
+      <a href="/post/searchengine/solr7%E9%85%8D%E7%BD%AE%E5%90%8C%E4%B9%89%E8%AF%8D/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
 
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/solr7%E4%BB%8E%E6%90%AD%E5%BB%BA%E5%88%B0%E5%85%A5%E5%9D%91/">Solr7从搭建到入坑</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/searchengine/solr7%E4%BB%8E%E6%90%AD%E5%BB%BA%E5%88%B0%E5%85%A5%E5%9D%91/">Solr7从搭建到入坑</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2017-10-08 </span>
       
@@ -151,14 +193,14 @@
       solr7搭建运行非常简单，首先下载压缩包，然后解压，到解压出来的目录执行：bin/solr start即可启动solr。以这种方式启动的so
     </div>
     <div class="read-more">
-      <a href="/post/solr7%E4%BB%8E%E6%90%AD%E5%BB%BA%E5%88%B0%E5%85%A5%E5%9D%91/" class="read-more-link">阅读更多</a>
+      <a href="/post/searchengine/solr7%E4%BB%8E%E6%90%AD%E5%BB%BA%E5%88%B0%E5%85%A5%E5%9D%91/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
 
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/%E8%87%AA%E5%AE%9A%E4%B9%89lucene%E7%9A%84%E5%88%86%E8%AF%8D%E5%99%A8analyzer/">自定义Lucene的分词器Analyzer</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/searchengine/%E8%87%AA%E5%AE%9A%E4%B9%89lucene%E7%9A%84%E5%88%86%E8%AF%8D%E5%99%A8analyzer/">自定义Lucene的分词器Analyzer</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2017-10-01 </span>
       
@@ -172,51 +214,7 @@
       0、先定义一下分词的结果 从最简单的做起，把输入的内容按一个字一个字进行切分。这里只是为了说明自定义的Analyzer以及Tokenizer如
     </div>
     <div class="read-more">
-      <a href="/post/%E8%87%AA%E5%AE%9A%E4%B9%89lucene%E7%9A%84%E5%88%86%E8%AF%8D%E5%99%A8analyzer/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/lucene7%E5%AE%9E%E8%B7%B5%E5%85%A5%E5%9D%91%E7%AC%AC%E4%B8%80%E6%AD%A5/">Lucene7实践入坑第一步</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2017-08-27 </span>
-      
-        <span class="more-meta"> 约 229 字 </span>
-        <span class="more-meta"> 预计阅读 1 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      这是一篇很简单的使用Lucene7.0.0来建立索引和搜索的文章。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37
-    </div>
-    <div class="read-more">
-      <a href="/post/lucene7%E5%AE%9E%E8%B7%B5%E5%85%A5%E5%9D%91%E7%AC%AC%E4%B8%80%E6%AD%A5/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/make-you-own-emacs-package/">Make your own Emacs package</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2017-07-24 </span>
-      <div class="post-category">
-          <a href="/categories/emacs/"> Emacs </a>
-          </div>
-        <span class="more-meta"> 约 1217 字 </span>
-        <span class="more-meta"> 预计阅读 3 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Make you own Emacs package. 创建自己的Emacs包。 在Elpa、MELPA上面有许多的包，可以做各种各样的事情，但有可能你找不到一个合适你的某个问题的包，这时
-    </div>
-    <div class="read-more">
-      <a href="/post/make-you-own-emacs-package/" class="read-more-link">阅读更多</a>
+      <a href="/post/searchengine/%E8%87%AA%E5%AE%9A%E4%B9%89lucene%E7%9A%84%E5%88%86%E8%AF%8D%E5%99%A8analyzer/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -262,7 +260,7 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -282,7 +280,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>spacemacs配置figwheel环境 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="0. &amp;hellip; clojure和clojurescript不像ruby on rails和django那样all in one的模式，只需要很少的配置就可以建立项目" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师" />
+
+
+<meta name="baidu-site-verification" content="VFnag2irk8" />
+
+
+
+<meta name="generator" content="Hugo 0.95.0 with theme even" />
+
+
+<link rel="canonical" href="http://example.org/post/emacs/spacemacs%E9%85%8D%E7%BD%AEfigwheel%E7%8E%AF%E5%A2%83/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="spacemacs配置figwheel环境" />
+<meta property="og:description" content="0. &hellip; clojure和clojurescript不像ruby on rails和django那样all in one的模式，只需要很少的配置就可以建立项目" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/post/emacs/spacemacs%E9%85%8D%E7%BD%AEfigwheel%E7%8E%AF%E5%A2%83/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2016-09-01T09:04:01+00:00" />
+<meta property="article:modified_time" content="2016-09-01T09:04:01+00:00" />
+
+<meta itemprop="name" content="spacemacs配置figwheel环境">
+<meta itemprop="description" content="0. &hellip; clojure和clojurescript不像ruby on rails和django那样all in one的模式，只需要很少的配置就可以建立项目"><meta itemprop="datePublished" content="2016-09-01T09:04:01+00:00" />
+<meta itemprop="dateModified" content="2016-09-01T09:04:01+00:00" />
+<meta itemprop="wordCount" content="1631">
+<meta itemprop="keywords" content="ClojureScript,Emacs," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="spacemacs配置figwheel环境"/>
+<meta name="twitter:description" content="0. &hellip; clojure和clojurescript不像ruby on rails和django那样all in one的模式，只需要很少的配置就可以建立项目"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">spacemacs配置figwheel环境</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-09-01 </span>
+        <div class="post-category">
+            <a href="/categories/%E7%BC%96%E8%BE%91%E5%99%A8/"> 编辑器 </a>
+            </div>
+          <span class="more-meta"> 约 1631 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-">0. &hellip;</a></li>
+    <li><a href="#1-配置emacs">1. 配置emacs</a></li>
+    <li><a href="#2-建立项目修改projectclj">2. 建立项目，修改project.clj</a></li>
+    <li><a href="#3-添加html">3. 添加html</a></li>
+    <li><a href="#4-corecljs">4. core.cljs</a></li>
+    <li><a href="#5-run">5. run</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="0-">0. &hellip;</h2>
+<p><code>clojure</code>和<code>clojurescript</code>不像ruby on rails和django那样all in one的模式，只需要很少的配置就可以建立项目开始开发。clojure系的东西都是library，什么用着顺手就把什么加进来，然后稍做配置再使用。这跟emacs一样，完全私人定制，每个人都有自己的喜欢的extension，这应该是lisp系的习惯吧。所以在使用lisp系的东西的时候没有什么框架能一桶江湖。不过在<code>clojurescript</code>的开发当中<code>figwheel</code>还是少不了的，代码热加载功能太赞了，边写代码边看效果，不需要刷新浏览器，这就是传说的living coding。另外使用集成的IDE工具后，所有东西都有提示，敲两个字母就自动补全了，对于学习一门语言来说的确不是什么好事。闲话不多说，下面来配置一下livind coding的环境，使用<code>spacemacs</code>加上<code>cider</code>，<code>info-clojure</code>两个扩展。</p>
+<p>了解更多<code>figwheel</code>请查看其<a href="https://github.com/bhauman/lein-figwheel">github</a></p>
+<h2 id="1-配置emacs">1. 配置emacs</h2>
+<p>在<code>spacemacs</code>的配置文件<code>.spacemacs</code>的<code>dotspacemacs-configuration-layers</code>添加<code>clojure</code></p>
+<pre><code>dotspacemacs-configuration-layers '(clojure)
+</code></pre>
+<p>另外还需要<code>inf-clojure</code>，由于这个扩展不在<code>spacemacs</code>的layer列表里面，需要另外添加，在<code>dotspacemacs-additional-packages</code>添加即可</p>
+<pre><code>dotspacemacs-additional-packages '(inf-clojure)
+</code></pre>
+<p>重启<code>spacemacs</code>或者按<code>SPC-f-e-R</code>执行<code>dotspacemacs/sync-configuration-layers</code></p>
+<p>然后还需要添加一个个启动figwheel的函数，在<code>.spacemacs</code>后面添加下面的函数</p>
+<pre><code>(defun figwheel-repl ()
+  (interactive)
+  (run-clojure &quot;lein figwheel&quot;))
+</code></pre>
+<p>在后面按<code>c-x c-e</code>执行上面函数的定义</p>
+<h2 id="2-建立项目修改projectclj">2. 建立项目，修改project.clj</h2>
+<p>现在新建一个项目叫hello</p>
+<pre><code>lein new app hello
+</code></pre>
+<p>修改<code>project.clj</code>为如下内容</p>
+<pre><code>(defproject hello &quot;0.1.0-SNAPSHOT&quot;
+  :description &quot;FIXME: write description&quot;
+  :url &quot;http://example.com/FIXME&quot;
+  :license {:name &quot;Eclipse Public License&quot;
+            :url &quot;http://www.eclipse.org/legal/epl-v10.html&quot;}
+  :dependencies [[org.clojure/clojure &quot;1.8.0&quot;]]
+  :plugins [[lein-figwheel &quot;0.5.6&quot;]]  ;(1)
+  :main ^:skip-aot hello.core
+  :target-path &quot;target/%s&quot;
+
+  ;;(2)
+  :cljsbuild {:builds [{:id &quot;dev&quot;
+                        :source-paths [&quot;src/cljs&quot;]
+                        :figwheel true
+                        :compiler {:main &quot;hello.core&quot;
+                                   :asset-path &quot;js/out&quot;
+                                   :output-to &quot;resources/public/js/app.js&quot;
+                                   :output-dir &quot;resources/public/js/out&quot;}}]}
+
+  :profiles {:uberjar {:aot :all}})
+</code></pre>
+<p>添加了两处：
+(1) 添加<code>figwheel</code>的支持
+(2) 添加<code>cljsbuild</code>配置，这里需要注意的就是<code>:figwheel true</code>这一行，这是在编译的js文件里面添加<code>figwheel</code>的支持。还有<code>:asset-path &quot;js/out&quot;</code>这一行，不然加载google closure library会找不到对应的路径。</p>
+<h2 id="3-添加html">3. 添加html</h2>
+<p>有了编译配置文件，还需要一个html页面来展示效果，添加一个<code>index.html</code>到<code>resources/public</code>目录</p>
+<pre><code>&lt;html&gt;
+  &lt;body&gt;
+    &lt;script src=&quot;js/app.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="4-corecljs">4. core.cljs</h2>
+<p>添加cljs源代码，需要在<code>src</code>目录下面新建一个目录<code>cljs</code>，由于上面的<code>project.clj</code>指定的<code>:main</code>是<code>hello.core</code>，所以还需要在<code>src/cljs</code>目录下面建一个<code>hello</code>目录以跟包名匹配。然后在<code>src/cljs/hello</code>目录下建一个<code>core.cljs</code>文件，内容如下：</p>
+<pre><code>(ns hello.core)
+
+(enable-console-print!)
+
+(println &quot;Hello World!&quot;)
+</code></pre>
+<h2 id="5-run">5. run</h2>
+<p>用emacs打开hello下面的clj或者cljs文件，然后<code>M-x figwheel-repl RET</code>，会出来一个<code>*inf-clojure*</code>的buffer，稍微等待一会就会看到下面的内容</p>
+<pre><code>Figwheel: Cutting some fruit, just a sec ...
+Figwheel: Validating the configuration found in project.clj
+Figwheel: Configuration Valid :)
+Figwheel: Starting server at http://0.0.0.0:3449
+Figwheel: Watching build - dev
+Compiling &quot;resources/public/js/app.js&quot; from [&quot;src/cljs&quot;]...
+Successfully compiled &quot;resources/public/js/app.js&quot; in 6.043 seconds.
+Launching ClojureScript REPL for build: dev
+Figwheel Controls:
+          (stop-autobuild)                ;; stops Figwheel autobuilder
+          (start-autobuild [id ...])      ;; starts autobuilder focused on optional ids
+          (switch-to-build id ...)        ;; switches autobuilder to different build
+          (reset-autobuild)               ;; stops, cleans, and starts autobuilder
+          (reload-config)                 ;; reloads build config and resets autobuild
+          (build-once [id ...])           ;; builds source one time
+          (clean-builds [id ..])          ;; deletes compiled cljs target files
+          (print-config [id ...])         ;; prints out build configurations
+          (fig-status)                    ;; displays current state of system
+  Switch REPL build focus:
+          :cljs/quit                      ;; allows you to switch REPL to another build
+    Docs: (doc function-name-here)
+    Exit: Control+C or :cljs/quit
+ Results: Stored in vars *1, *2, *3, *e holds last exception object
+Prompt will show when Figwheel connects to your application
+</code></pre>
+<p>然后启动浏览器，打开<code>http://localhost:3499/index.html</code>，把浏览器的console打开就会看到有<code>Hello World!</code>的打印输出。<code>*inf-clojure*</code>的后面会输出：</p>
+<pre><code>To quit, type: :cljs/quit
+cljs.user=&gt;
+</code></pre>
+<p>输入一个<code>(js/alert &quot;Hello World!&quot;)</code>试试看&hellip;</p>
+<p>如果不是在<code>emacs</code>使用的话，在命令行使用下面的命令启动<code>figwheel</code></p>
+<pre><code>lein figwheel
+</code></pre>
+<p>QQ: 380800878, 微信: kittenll</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2016-09-01
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/clojurescript/">ClojureScript</a>
+          <a href="/tags/emacs/">Emacs</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/searchengine/elasticsearch2.3.4%E5%88%86%E8%AF%8D%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Elasticsearch2.3.4分词插件开发</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/%E4%BB%8Evirtualbox%E5%88%9B%E5%BB%BAvagrant-box/">
+            <span class="next-text nav-default">从virtualbox创建vagrant box</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://example.org/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2022
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Kevin Jiang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?0ce1eb77b4e2275721d62799acd99e8b";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

@@ -6,11 +6,7 @@
     <description>Recent content in webpack-dev-server on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 06 Aug 2016 14:13:55 +0000</lastBuildDate>
-    
-	<atom:link href="http://example.org/tags/webpack-dev-server/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 06 Aug 2016 14:13:55 +0000</lastBuildDate><atom:link href="http://example.org/tags/webpack-dev-server/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Webpack之Hello World</title>
       <link>http://example.org/post/webpack%E4%B9%8Bhello-world/</link>

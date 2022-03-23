@@ -6,17 +6,13 @@
     <description>Recent content in nagios on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 24 Jan 2016 22:50:54 +0000</lastBuildDate>
-    
-	<atom:link href="http://example.org/tags/nagios/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 24 Jan 2016 22:50:54 +0000</lastBuildDate><atom:link href="http://example.org/tags/nagios/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>nagios使用check_nrpe调用子命令</title>
-      <link>http://example.org/post/nagios%E4%BD%BF%E7%94%A8check_nrpe%E8%B0%83%E7%94%A8%E5%AD%90%E5%91%BD%E4%BB%A4/</link>
+      <link>http://example.org/post/linux/nagios%E4%BD%BF%E7%94%A8check_nrpe%E8%B0%83%E7%94%A8%E5%AD%90%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Sun, 24 Jan 2016 22:50:54 +0000</pubDate>
       
-      <guid>http://example.org/post/nagios%E4%BD%BF%E7%94%A8check_nrpe%E8%B0%83%E7%94%A8%E5%AD%90%E5%91%BD%E4%BB%A4/</guid>
+      <guid>http://example.org/post/linux/nagios%E4%BD%BF%E7%94%A8check_nrpe%E8%B0%83%E7%94%A8%E5%AD%90%E5%91%BD%E4%BB%A4/</guid>
       <description>以http为例子，如果单独使用的话可以： $ ./libexec/check_http -H 192.168.1.1 通过check_nrpe使用nrpe检查http $ ./libexec/check_nrpe -H 192.168.2.142 -c check_http 调用上面的命令需要客户机安装了n</description>
     </item>
     

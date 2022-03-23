@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用Clojure开发Web入门系列（四） - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="在（三）介绍并使用了Hiccup这个生成html的库，甚是方便，但是对于前后端分离的一些web站点也不是太方便。接下来介绍另外一种方法来渲染" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师" />
+
+
+<meta name="baidu-site-verification" content="VFnag2irk8" />
+
+
+
+<meta name="generator" content="Hugo 0.95.0 with theme even" />
+
+
+<link rel="canonical" href="http://example.org/post/clojure/%E4%BD%BF%E7%94%A8clojure%E5%BC%80%E5%8F%91web%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E5%9B%9B/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用Clojure开发Web入门系列（四）" />
+<meta property="og:description" content="在（三）介绍并使用了Hiccup这个生成html的库，甚是方便，但是对于前后端分离的一些web站点也不是太方便。接下来介绍另外一种方法来渲染" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/post/clojure/%E4%BD%BF%E7%94%A8clojure%E5%BC%80%E5%8F%91web%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E5%9B%9B/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-07-01T21:32:08+00:00" />
+<meta property="article:modified_time" content="2018-07-01T21:32:08+00:00" />
+
+<meta itemprop="name" content="使用Clojure开发Web入门系列（四）">
+<meta itemprop="description" content="在（三）介绍并使用了Hiccup这个生成html的库，甚是方便，但是对于前后端分离的一些web站点也不是太方便。接下来介绍另外一种方法来渲染"><meta itemprop="datePublished" content="2018-07-01T21:32:08+00:00" />
+<meta itemprop="dateModified" content="2018-07-01T21:32:08+00:00" />
+<meta itemprop="wordCount" content="2716">
+<meta itemprop="keywords" content="Clojure,Web," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用Clojure开发Web入门系列（四）"/>
+<meta name="twitter:description" content="在（三）介绍并使用了Hiccup这个生成html的库，甚是方便，但是对于前后端分离的一些web站点也不是太方便。接下来介绍另外一种方法来渲染"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用Clojure开发Web入门系列（四）</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-07-01 </span>
+        
+          <span class="more-meta"> 约 2716 字 </span>
+          <span class="more-meta"> 预计阅读 6 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#home">home</a></li>
+    <li><a href="#form">form</a></li>
+    <li><a href="#message">message</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>在<a href="/2016/03/14/%E4%BD%BF%E7%94%A8Clojure%E5%BC%80%E5%8F%91Web%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%89%EF%BC%89">（三）</a>介绍并使用了Hiccup这个生成html的库，甚是方便，但是对于前后端分离的一些web站点也不是太方便。接下来介绍另外一种方法来渲染html页面，<a href="https://github.com/yogthos/Selmer">selmer</a>。如果你是一个PHP程序员，那么你会发现他跟smarty有几分相似。</p>
+<h1 id="零添加依赖">零、添加依赖</h1>
+<p>在<code>project.clj</code>的<code>dependencies</code>添加<code>[selmer &quot;1.11.8&quot;]</code></p>
+<h1 id="一修改代码">一、修改代码</h1>
+<p>修改系列三里面的代码到selmer实现。</p>
+<h2 id="home">home</h2>
+<p>首先在<code>resources</code>目录下添加<code>home.html</code>，内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Home<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>resources</code>目录添加是因为selmer默认会去classpath指定的路径里面找对应的模板文件。</p>
+<p>修改<code>core.clj</code>，在<code>:require</code>后面添加selmer：<code>[selmer.parser :refer [render-file]]</code></p>
+<p>修改<code>defroutes app</code>，在添加一条路由规则:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">GET</span> <span class="s">&#34;/home&#34;</span> <span class="p">[]</span> <span class="p">(</span><span class="nf">render-file</span> <span class="s">&#34;home.html&#34;</span> <span class="p">{}))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>访问<code>http://localhost:3000/home</code>，可以看到html模板里面的内容已经显示出来了。如果没有运行程序请执行：<code>lein run</code></p>
+<!-- raw HTML omitted -->
+<h2 id="form">form</h2>
+<p>现在来修改表单页面，使用<code>resources/index.html</code>作为模板文件，内容如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hello form<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;/message&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;name&#34;</span><span class="p">&gt;</span>名字:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;name&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;message&#34;</span><span class="p">&gt;</span>消息:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">cols</span><span class="o">=</span><span class="s">&#34;80&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;message&#34;</span> <span class="na">rows</span><span class="o">=</span><span class="s">&#34;5&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;提交&#34;</span> <span class="p">/&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改<code>defroutes app</code>里面<code>&quot;/&quot;</code>的定义为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">GET</span> <span class="s">&#34;/&#34;</span> <span class="p">[]</span> <span class="p">(</span><span class="nf">render-file</span> <span class="s">&#34;index.html&#34;</span> <span class="p">{}))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>访问<code>http://localhost:3000</code>，表单出来了。</p>
+<h2 id="message">message</h2>
+<p>修改表单提交后的页面。</p>
+<p>先在建立消息模板文件<code>resources/message.html</code>，内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>{{ name }}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{ message }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>{{ name }}</code>和<code>{{ message }}</code>是占位符，selmer把render-file的第二个map参数解析到模板文件里面，<code>{{ name }}</code>对应的是<code>:name</code>的值。</p>
+<p>接着修改<code>core.clj</code>的<code>show-message</code>函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="kd">defn </span><span class="nv">show-message</span> <span class="p">[</span><span class="nv">params</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="k">let </span><span class="p">[{</span><span class="nb">name </span><span class="s">&#34;name&#34;</span> <span class="nv">message</span> <span class="s">&#34;message&#34;</span><span class="p">}</span> <span class="nv">params</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nf">render-file</span> <span class="s">&#34;message.html&#34;</span> <span class="p">{</span><span class="ss">:name</span> <span class="nb">name </span><span class="ss">:message</span> <span class="nv">message</span><span class="p">})))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>访问<a href="http://localhost:3000"><code>http://localhost:3000</code></a>`，填写表单，提交消息后就可以看到跟原来一样的效果了。现在clj文件的代码更加简短，模板文件也被分离出来了，这样更便于前端和后端的协作。</p>
+<p>这其实是一个相对比较传统前后端分离的方案，后面介绍了ClojureScript后，还有比较时尚的玩法。</p>
+<h1 id="二抽取layout">二、抽取layout</h1>
+<p>index.html和message.html两个文件还是有不少的相同代码，如果html模板文件内容比较多，引用了很多的css和js的话，就少产生不少冗余代码。</p>
+<p>layout就应运而生。layout是一个大的框架，把相同的代码抽离出来，然后把不相同的部分在layout里面做面变量或者替换的方式，不同的页面做不同的替换。在selmer里面，有两个办法：一是使用extends；二是使用include。这里先使用extends方法。</p>
+<p>那么先来定义<code>resources/layout.html</code>，使用<code>block</code>和<code>endblock</code>这个<a href="https://github.com/yogthos/Selmer#tags">tag</a>定义一个body块，这个块及其内容可以被子模板的同名块替换。再来看子模板<code>resources/index.html</code>，第一行使用tag<code>extends</code>引用父模板<code>layout.html</code>（路径也必须要在classpath当中）。</p>
+<p>同样的原理修改<code>message.html</code>。</p>
+<p>修改完后再访问<a href="http://localhost:3000"><code>http://localhost:3000</code></a>，结果是一样的。</p>
+<h1 id="filter">filter</h1>
+<p>filter跟clojure里面的filter不是一个概念，selmer的filter是对模板里面的变量做转换，其实是一个转换函数，比如把输出的内容全部变成大写或者小写。这里实现消息名字大写，把<code>{{ name }}</code>改成<code>{{ name|upper }}</code>。需要注意一个竖线两边不能有空格，否则就不对了。</p>
+<p>selmer已经内置了非常多的filter以供使用，像：截取<code>abbreviate</code>、日期格式<code>date</code>等等。</p>
+<p>如果selmer提供的filter不能满足你的需求，你还可以实现自定义的filter：</p>
+<p>首先在<code>:require</code>引入<code>[selmer.filters :refer [add-filter!]]</code>，然后调用<code>add-filter!</code>添加自定义filter。例如要实现自己的大写filter：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">add-filter!</span> <span class="ss">:embiginate</span> <span class="nv">clojure.string/upper-case</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用方法与内置的filter一样，在模板的变量后面加竖线和filter钟宇：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{{shout|embiginate}}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="tag">tag</h1>
+<p>假设你想在模板输出变量内容的时候，如果变量保存的是一段html内容，你并不想把标签显示在页面上，而是解析html的内容，显示相应html的样式，这个可以使用selmer的tag来实现。selmer默认会把变量的输出进行html转义，以保证表单或者其他地方来的数据的安全性，防止跨站脚本攻击（XSS）。例如要实现消息内容html格式输出，在<code>{{ message }}</code>的外面加上<code>safe</code>和<code>endsafe</code>这个tag：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{% safe %}{{ message }}{% endsafe %}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>selmer的tag分两种，一个是单一出现的，像上面layout介绍的<code>extends</code>；另外一种是成对出现的，像<code>safe</code>和<code>endsafe</code>。</p>
+<p>selmer内置了很多的tag来解决模板当中常见的一些问题。像条件判断<code>if else</code>、<code>for</code>、<code>now</code>、<code>script</code>、<code>style</code>等等很实用的tag。</p>
+<p>与filter一样，如果selmer内置的tag不能满足你的需求，可以实现自定义的tag。</p>
+<p>需要在<code>:require</code>引入：<code>[selmer.parser :refer [add-tag!]]</code>。调用<code>add-tag!</code>定义tag，定义tag稍微复杂一点，因为tag有两种形式，一个是单一出现的tag，<code>add-tag!</code>接受两个或者三个参数，两个参数的是定义单一的tag，三个参数的是定义成对出现的tag。</p>
+<p>先来看单一出来的tag的定义：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">add-tag!</span> <span class="ss">:foo</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">args</span> <span class="nv">context-map</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nb">str </span><span class="s">&#34;foo &#34;</span> <span class="p">(</span><span class="nb">first </span><span class="nv">args</span><span class="p">))))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>先来看一下在模板里面如何调用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">render</span> <span class="s">&#34;{% foo quux %}&#34;</span> <span class="p">{})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">=&gt;&#34;foo quux&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>foo是tag的名字，第二个参数是一个函数，这个函数接受两个参数，第一个参数<code>args</code>是模板里面写的tag后面的数据，上面的例子里面的quux；还有一个<code>context-map</code>是一个上下文map，里面包含有这个tag执行时的相关信息。</p>
+<p>再看一下成对出来的tag的定义：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">add-tag!</span> <span class="ss">:uppercase</span>
+</span></span><span class="line"><span class="cl">          <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">args</span> <span class="nv">context-map</span> <span class="nv">content</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nf">.toUpperCase</span> <span class="p">(</span><span class="nf">get-in</span> <span class="nv">content</span> <span class="p">[</span><span class="ss">:uppercase</span> <span class="ss">:content</span><span class="p">])))</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">:enduppercase</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>调用方式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">render</span> <span class="s">&#34;{% uppercase %}foo {{bar}} baz{% enduppercase %}&#34;</span> <span class="p">{</span><span class="ss">:bar</span> <span class="s">&#34;injected&#34;</span><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">=&gt;&#34;FOO INJECTED BAZ&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个自定义的tag把包裹起来的内容全部转换成大写。定义的时候需要写上成对出现的tag名字，中间也是一个处理函数，这个函数接受三个参数了，<code>args</code>、<code>context-map</code>和上面是一样的，多了一个<code>content</code>参数，<code>[:uppercase :content]</code>存的是tag包裹的内容。</p>
+<p>完整<a href="https://github.com/kevindragon/learn-clojure-web">代码</a>请：<code>git checkout 1.4</code>。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018-07-01
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/clojure/">Clojure</a>
+          <a href="/tags/web/">Web</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux/yum%E9%80%9A%E8%BF%87ssh%E4%BB%A3%E7%90%86%E5%AE%89%E8%A3%85/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">yum通过ssh代理安装</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/searchengine/solr%E5%BC%80%E5%8F%91%E5%88%86%E8%AF%8D%E6%8F%92%E4%BB%B6/">
+            <span class="next-text nav-default">Solr开发分词插件</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://example.org/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2022
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Kevin Jiang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?0ce1eb77b4e2275721d62799acd99e8b";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

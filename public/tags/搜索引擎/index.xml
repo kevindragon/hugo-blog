@@ -6,17 +6,13 @@
     <description>Recent content in 搜索引擎 on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 05 Mar 2019 20:13:28 +0000</lastBuildDate>
-    
-	<atom:link href="http://example.org/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 05 Mar 2019 20:13:28 +0000</lastBuildDate><atom:link href="http://example.org/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Solr教程-安装运行</title>
-      <link>http://example.org/post/solr%E6%95%99%E7%A8%8B-%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/</link>
+      <link>http://example.org/post/searchengine/solr%E6%95%99%E7%A8%8B-%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/</link>
       <pubDate>Tue, 05 Mar 2019 20:13:28 +0000</pubDate>
       
-      <guid>http://example.org/post/solr%E6%95%99%E7%A8%8B-%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/</guid>
+      <guid>http://example.org/post/searchengine/solr%E6%95%99%E7%A8%8B-%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/</guid>
       <description>Solr是一个分布式高性能全文搜索引擎，是基于Lucene开发的非常流行的企业搜索引擎平台。Solr提供了非常丰富的搜索功能，可以用来构建非</description>
     </item>
     

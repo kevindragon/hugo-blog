@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.71.0 with theme even" />
+<meta name="generator" content="Hugo 0.95.0 with theme even" />
 
 
 <link rel="canonical" href="http://example.org/post/racket%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83emacs%E9%85%8D%E7%BD%AE/" />
@@ -42,17 +42,14 @@
 <meta property="og:title" content="Racket开发环境Emacs配置" />
 <meta property="og:description" content="首先到Racket官网下载安装包，然后你还需要Emacs。 在Emacs安装rakcet-mode，M-x输入package-install，" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/post/racket%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83emacs%E9%85%8D%E7%BD%AE/" />
+<meta property="og:url" content="http://example.org/post/racket%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83emacs%E9%85%8D%E7%BD%AE/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2017-06-23T16:59:43+00:00" />
 <meta property="article:modified_time" content="2017-06-23T16:59:43+00:00" />
+
 <meta itemprop="name" content="Racket开发环境Emacs配置">
-<meta itemprop="description" content="首先到Racket官网下载安装包，然后你还需要Emacs。 在Emacs安装rakcet-mode，M-x输入package-install，">
-<meta itemprop="datePublished" content="2017-06-23T16:59:43&#43;00:00" />
-<meta itemprop="dateModified" content="2017-06-23T16:59:43&#43;00:00" />
+<meta itemprop="description" content="首先到Racket官网下载安装包，然后你还需要Emacs。 在Emacs安装rakcet-mode，M-x输入package-install，"><meta itemprop="datePublished" content="2017-06-23T16:59:43+00:00" />
+<meta itemprop="dateModified" content="2017-06-23T16:59:43+00:00" />
 <meta itemprop="wordCount" content="175">
-
-
-
 <meta itemprop="keywords" content="Scheme,Racket,Emacs," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Racket开发环境Emacs配置"/>
 <meta name="twitter:description" content="首先到Racket官网下载安装包，然后你还需要Emacs。 在Emacs安装rakcet-mode，M-x输入package-install，"/>
@@ -144,15 +141,15 @@
 <p>在Emacs安装<code>rakcet-mode</code>，<code>M-x</code>输入<code>package-install</code>，再输入<code>racket-mode</code>。安装完后在 init.el 初始化文件添加下面配置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-elisp" data-lang="elisp"><span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nv">package-installed-p</span> <span class="ss">&#39;racket-mode</span><span class="p">)</span>
-  <span class="p">(</span><span class="nb">setq</span> <span class="nv">racket-racket-program</span> <span class="s">&#34;C:/Program Files/Racket/Racket.exe&#34;</span><span class="p">)</span>
-  <span class="p">(</span><span class="nb">setq</span> <span class="nv">racket-raco-program</span> <span class="s">&#34;C:/Program Files/Racket/raco.exe&#34;</span><span class="p">))</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nv">package-installed-p</span> <span class="ss">&#39;racket-mode</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nb">setq</span> <span class="nv">racket-racket-program</span> <span class="s">&#34;C:/Program Files/Racket/Racket.exe&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nb">setq</span> <span class="nv">racket-raco-program</span> <span class="s">&#34;C:/Program Files/Racket/raco.exe&#34;</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>把 <code>C:/Program Files/Racket/</code> 改成对应的自己机器对应的路径即可。</p>
 <p>如果是Linux或者maxOS系统，相应的程序应该是<code>racket</code>和<code>raco</code>。</p>
@@ -198,12 +195,12 @@
           <a href="/tags/emacs/">Emacs</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/%E8%AE%B0%E4%B8%80%E6%AC%A1php5-3-10%E5%AE%89%E8%A3%85/">
+        <a class="prev" href="/post/php/%E8%AE%B0%E4%B8%80%E6%AC%A1php5-3-10%E5%AE%89%E8%A3%85/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">记一次php5.3.10安装</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85emacs25/">
+        <a class="next" href="/post/emacs/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85emacs25/">
             <span class="next-text nav-default">源码安装emacs25</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -244,7 +241,7 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -264,7 +261,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

@@ -6,11 +6,7 @@
     <description>Recent content in Haskell on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 17 Aug 2019 21:48:21 +0000</lastBuildDate>
-    
-	<atom:link href="http://example.org/tags/haskell/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 17 Aug 2019 21:48:21 +0000</lastBuildDate><atom:link href="http://example.org/tags/haskell/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Haskell在Windows上的起步</title>
       <link>http://example.org/post/haskell%E5%9C%A8windows%E4%B8%8A%E7%9A%84%E8%B5%B7%E6%AD%A5/</link>

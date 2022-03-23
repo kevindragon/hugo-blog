@@ -6,26 +6,22 @@
     <description>Recent content in Emacs on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 20 Mar 2018 13:56:32 +0000</lastBuildDate>
-    
-	<atom:link href="http://example.org/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 20 Mar 2018 13:56:32 +0000</lastBuildDate><atom:link href="http://example.org/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Emacs下Python开发配置</title>
-      <link>http://example.org/post/emacs%E4%B8%8Bpython%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/</link>
+      <link>http://example.org/post/emacs/emacs%E4%B8%8Bpython%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Tue, 20 Mar 2018 13:56:32 +0000</pubDate>
       
-      <guid>http://example.org/post/emacs%E4%B8%8Bpython%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/</guid>
+      <guid>http://example.org/post/emacs/emacs%E4%B8%8Bpython%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/</guid>
       <description>Python开发环境配置其实比较简单，而我一直没有配置好是参照了网上各种各样的配置，导致了非常混乱的配置，这次自己亲自测试安装自己需要的Em</description>
     </item>
     
     <item>
       <title>Make your own Emacs package</title>
-      <link>http://example.org/post/make-you-own-emacs-package/</link>
+      <link>http://example.org/post/emacs/make-you-own-emacs-package/</link>
       <pubDate>Mon, 24 Jul 2017 16:13:11 +0000</pubDate>
       
-      <guid>http://example.org/post/make-you-own-emacs-package/</guid>
+      <guid>http://example.org/post/emacs/make-you-own-emacs-package/</guid>
       <description>Make you own Emacs package. 创建自己的Emacs包。 在Elpa、MELPA上面有许多的包，可以做各种各样的事情，但有可能你找不到一个合适你的某个问题的包，这时</description>
     </item>
     
@@ -40,28 +36,28 @@
     
     <item>
       <title>源码安装emacs25</title>
-      <link>http://example.org/post/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85emacs25/</link>
+      <link>http://example.org/post/emacs/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85emacs25/</link>
       <pubDate>Wed, 21 Jun 2017 17:03:29 +0000</pubDate>
       
-      <guid>http://example.org/post/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85emacs25/</guid>
+      <guid>http://example.org/post/emacs/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85emacs25/</guid>
       <description>在Ubuntu系列用源码安装Emacs25非常简单 下载源码包 1 2 wget &amp;#39;http://mirrors.ustc.edu.cn/gnu/emacs/emacs-25.2.tar.gz&amp;#39; tar -xzvf emacs-25.2.tar.gz 安装编译环境，依赖 首先需要把安装源码的选项打开。找到Softwar</description>
     </item>
     
     <item>
       <title>spacemacs配置figwheel环境</title>
-      <link>http://example.org/post/spacemacs%E9%85%8D%E7%BD%AEfigwheel%E7%8E%AF%E5%A2%83/</link>
+      <link>http://example.org/post/emacs/spacemacs%E9%85%8D%E7%BD%AEfigwheel%E7%8E%AF%E5%A2%83/</link>
       <pubDate>Thu, 01 Sep 2016 09:04:01 +0000</pubDate>
       
-      <guid>http://example.org/post/spacemacs%E9%85%8D%E7%BD%AEfigwheel%E7%8E%AF%E5%A2%83/</guid>
+      <guid>http://example.org/post/emacs/spacemacs%E9%85%8D%E7%BD%AEfigwheel%E7%8E%AF%E5%A2%83/</guid>
       <description>0. &amp;hellip; clojure和clojurescript不像ruby on rails和django那样all in one的模式，只需要很少的配置就可以建立项目</description>
     </item>
     
     <item>
       <title>Xshell emacs 发送alt键</title>
-      <link>http://example.org/post/xshell-emacs-%E5%8F%91%E9%80%81alt%E9%94%AE/</link>
+      <link>http://example.org/post/emacs/xshell-emacs-%E5%8F%91%E9%80%81alt%E9%94%AE/</link>
       <pubDate>Thu, 21 Jan 2016 11:40:54 +0000</pubDate>
       
-      <guid>http://example.org/post/xshell-emacs-%E5%8F%91%E9%80%81alt%E9%94%AE/</guid>
+      <guid>http://example.org/post/emacs/xshell-emacs-%E5%8F%91%E9%80%81alt%E9%94%AE/</guid>
       <description>我比较喜欢使用Xshell来连接服务器，原因有下面几个： 对于个人用户是免费的； 配色不需要过多的配置，有5、6种可选的比较好看的配色。在比较亮</description>
     </item>
     

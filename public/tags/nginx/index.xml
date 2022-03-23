@@ -6,17 +6,13 @@
     <description>Recent content in nginx on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 10 Jan 2016 10:26:28 +0000</lastBuildDate>
-    
-	<atom:link href="http://example.org/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 10 Jan 2016 10:26:28 +0000</lastBuildDate><atom:link href="http://example.org/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>nginx添加无密码启动ssl</title>
-      <link>http://example.org/post/nginx%E6%B7%BB%E5%8A%A0%E6%97%A0%E5%AF%86%E7%A0%81%E5%90%AF%E5%8A%A8ssl/</link>
+      <link>http://example.org/post/linux/nginx%E6%B7%BB%E5%8A%A0%E6%97%A0%E5%AF%86%E7%A0%81%E5%90%AF%E5%8A%A8ssl/</link>
       <pubDate>Sun, 10 Jan 2016 10:26:28 +0000</pubDate>
       
-      <guid>http://example.org/post/nginx%E6%B7%BB%E5%8A%A0%E6%97%A0%E5%AF%86%E7%A0%81%E5%90%AF%E5%8A%A8ssl/</guid>
+      <guid>http://example.org/post/linux/nginx%E6%B7%BB%E5%8A%A0%E6%97%A0%E5%AF%86%E7%A0%81%E5%90%AF%E5%8A%A8ssl/</guid>
       <description>QQ: 380800878, 微信: kittenll 可以参考官方文档 在nginx启动的时候不用password需要pem和chain.cer文件： # cat xxxx.pem chain.cer &amp;gt; xxxx.crt # openssl rsa -in need_pwd.key -out nopwd.key 修改ng</description>
     </item>
     

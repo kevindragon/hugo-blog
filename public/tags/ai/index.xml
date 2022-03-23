@@ -6,11 +6,7 @@
     <description>Recent content in AI on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 30 Jan 2019 17:09:06 +0000</lastBuildDate>
-    
-	<atom:link href="http://example.org/tags/ai/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 30 Jan 2019 17:09:06 +0000</lastBuildDate><atom:link href="http://example.org/tags/ai/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用Surprise实现电影推荐</title>
       <link>http://example.org/post/%E4%BD%BF%E7%94%A8surprise%E5%AE%9E%E7%8E%B0%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90/</link>

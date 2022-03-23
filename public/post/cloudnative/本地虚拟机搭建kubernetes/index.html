@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>本地虚拟机搭建Kubernetes - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="以下内容都是在Ubuntu20.04.3系统上完成。 安装Docker-ce 1 2 3 4 5 6 7 8 9 10 11 # step 1: 安装必要的一些系统工具 sudo apt-get update sudo apt-get -y install apt-transport-https" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师" />
+
+
+<meta name="baidu-site-verification" content="VFnag2irk8" />
+
+
+
+<meta name="generator" content="Hugo 0.95.0 with theme even" />
+
+
+<link rel="canonical" href="http://example.org/post/cloudnative/%E6%9C%AC%E5%9C%B0%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BAkubernetes/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="本地虚拟机搭建Kubernetes" />
+<meta property="og:description" content="以下内容都是在Ubuntu20.04.3系统上完成。 安装Docker-ce 1 2 3 4 5 6 7 8 9 10 11 # step 1: 安装必要的一些系统工具 sudo apt-get update sudo apt-get -y install apt-transport-https" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/post/cloudnative/%E6%9C%AC%E5%9C%B0%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BAkubernetes/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-12-02T12:45:39+08:00" />
+<meta property="article:modified_time" content="2021-12-02T12:45:39+08:00" />
+
+<meta itemprop="name" content="本地虚拟机搭建Kubernetes">
+<meta itemprop="description" content="以下内容都是在Ubuntu20.04.3系统上完成。 安装Docker-ce 1 2 3 4 5 6 7 8 9 10 11 # step 1: 安装必要的一些系统工具 sudo apt-get update sudo apt-get -y install apt-transport-https"><meta itemprop="datePublished" content="2021-12-02T12:45:39+08:00" />
+<meta itemprop="dateModified" content="2021-12-02T12:45:39+08:00" />
+<meta itemprop="wordCount" content="1556">
+<meta itemprop="keywords" content="Kubernetes," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="本地虚拟机搭建Kubernetes"/>
+<meta name="twitter:description" content="以下内容都是在Ubuntu20.04.3系统上完成。 安装Docker-ce 1 2 3 4 5 6 7 8 9 10 11 # step 1: 安装必要的一些系统工具 sudo apt-get update sudo apt-get -y install apt-transport-https"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">本地虚拟机搭建Kubernetes</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-12-02 </span>
+        
+          <span class="more-meta"> 约 1556 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装docker-ce">安装Docker-ce</a></li>
+    <li><a href="#允许-iptables-检查桥接流量">允许 iptables 检查桥接流量</a></li>
+    <li><a href="#安装kubernetes">安装Kubernetes</a></li>
+    <li><a href="#关闭swap">关闭swap</a></li>
+    <li><a href="#复制两个worker">复制两个worker</a></li>
+    <li><a href="#设置hostname">设置hostname</a></li>
+    <li><a href="#在master上安装网络插件calico">在master上安装网络插件（Calico）</a></li>
+    <li><a href="#添加work节点">添加work节点</a></li>
+    <li><a href="#查看状态">查看状态</a></li>
+    <li><a href="#autoscaling">Autoscaling</a></li>
+    <li><a href="#安装dashboard">安装Dashboard</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>以下内容都是在Ubuntu20.04.3系统上完成。</p>
+<h2 id="安装docker-ce">安装Docker-ce</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># step 1: 安装必要的一些系统工具</span>
+</span></span><span class="line"><span class="cl">sudo apt-get update
+</span></span><span class="line"><span class="cl">sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># step 2: 安装GPG证书</span>
+</span></span><span class="line"><span class="cl">curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg <span class="p">|</span> sudo apt-key add -
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Step 3: 写入软件源信息</span>
+</span></span><span class="line"><span class="cl">sudo add-apt-repository <span class="s2">&#34;deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu </span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> stable&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo apt -y install docker-ce docker-ce-cli containerd.io
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改 Docker 的 Cgroup Driver，编辑 ~/etc/docker/daemon.json~ (没有该文件就新建一个），添加如下参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;exec-opts&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;native.cgroupdriver=systemd&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;registry-mirrors&#34;</span><span class="p">:[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;http://docker.mirrors.ustc.edu.cn&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;http://registry.docker-cn.com&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;http://hub-mirror.c.163.com&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;insecure-registries&#34;</span><span class="p">:[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;docker.mirrors.ustc.edu.cn&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;registry.docker-cn.com&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;hub-mirror.c.163.com&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果当前用户为非root用户，把当前用户加入到docker用户组。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo usermod -a -G docker CURRENT_USER
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后重启docker</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl restart docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="允许-iptables-检查桥接流量">允许 iptables 检查桥接流量</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat <span class="s">&lt;&lt;EOF | sudo tee /etc/modules-load.d/k8s.conf
+</span></span></span><span class="line"><span class="cl"><span class="s">br_netfilter
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat <span class="s">&lt;&lt;EOF | sudo tee /etc/sysctl.d/k8s.conf
+</span></span></span><span class="line"><span class="cl"><span class="s">net.bridge.bridge-nf-call-ip6tables = 1
+</span></span></span><span class="line"><span class="cl"><span class="s">net.bridge.bridge-nf-call-iptables = 1
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">sudo sysctl --system
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="安装kubernetes">安装Kubernetes</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg <span class="p">|</span> sudo apt-key add -
+</span></span><span class="line"><span class="cl">cat <span class="s">&lt;&lt;EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+</span></span></span><span class="line"><span class="cl"><span class="s">deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">sudo apt-get update
+</span></span><span class="line"><span class="cl">sudo apt-get install -y kubelet kubeadm kubectl
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="关闭swap">关闭swap</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo swapoff -a
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后修改 ~/etc/fstab~ 把 /swap.img 的行注释掉</p>
+<p>** 获取镜像列表及版本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubeadm config images list
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">k8s.gcr.io/kube-apiserver:v1.22.3
+</span></span><span class="line"><span class="cl">k8s.gcr.io/kube-controller-manager:v1.22.3
+</span></span><span class="line"><span class="cl">k8s.gcr.io/kube-scheduler:v1.22.3
+</span></span><span class="line"><span class="cl">k8s.gcr.io/kube-proxy:v1.22.3
+</span></span><span class="line"><span class="cl">k8s.gcr.io/pause:3.5
+</span></span><span class="line"><span class="cl">k8s.gcr.io/etcd:3.5.0-0
+</span></span><span class="line"><span class="cl">k8s.gcr.io/coredns/coredns:v1.8.4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编写一个shell (pull-k8s-images.sh) 脚本从阿里云的镜像仓库拉取必须的镜像，注意不要直接拷贝上面的列表内容到 ~images~ 变量，需要把前面的 ~k8s.gcr.io/~ 去掉。并且 ~k8s.gcr.io/coredns/coredns~ 在阿里云里面的名字是就是 ~coredns~ 并没有 ~coredns~ 的中间路径。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 下面的镜像应该去除&#34;k8s.gcr.io/&#34;的前缀，版本换成上面获取到的版本</span>
+</span></span><span class="line"><span class="cl"><span class="nv">images</span><span class="o">=(</span>
+</span></span><span class="line"><span class="cl">    kube-apiserver:v1.22.3
+</span></span><span class="line"><span class="cl">    kube-controller-manager:v1.22.3
+</span></span><span class="line"><span class="cl">    kube-scheduler:v1.22.3
+</span></span><span class="line"><span class="cl">    kube-proxy:v1.22.3
+</span></span><span class="line"><span class="cl">    pause:3.5
+</span></span><span class="line"><span class="cl">    etcd:3.5.0-0
+</span></span><span class="line"><span class="cl">    coredns:v1.8.4
+</span></span><span class="line"><span class="cl"><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> imageName in <span class="si">${</span><span class="nv">images</span><span class="p">[@]</span><span class="si">}</span> <span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/<span class="nv">$imageName</span>
+</span></span><span class="line"><span class="cl">    docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/<span class="nv">$imageName</span> k8s.gcr.io/<span class="nv">$imageName</span>
+</span></span><span class="line"><span class="cl">    docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/<span class="nv">$imageName</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># coredns在阿里云里面的名字和k8s.gcr.io里面的名字不一致，需要额外修改</span>
+</span></span><span class="line"><span class="cl">docker tag k8s.gcr.io/coredns:v1.8.4 k8s.gcr.io/coredns/coredns:v1.8.4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后运行 ~bash pull-k8s-images.sh~</p>
+<h2 id="复制两个worker">复制两个worker</h2>
+<p>把安装好的虚拟机复制（Worker1, Worker2），复制的时候为 ~MAC地址设定~ 选择 ~为所有网卡重新生成MAC地址~ ，并设置三个虚拟机的静态IP地址，修改文件 ~/etc/netplan/00-installer-config.yaml~ 把所有对应的IP地址修改成适当有效的IP</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">network</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ethernets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enp0s3</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">dhcp4</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">addresses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">192.168.0.103</span><span class="l">/24]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">gateway4</span><span class="p">:</span><span class="w"> </span><span class="m">192.168.0.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nameservers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">addresses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">192.168.0.1</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>改完配置执行命令： ~sudo netplan apply~</p>
+<p>这里需要注意的一个地方，虚拟机的网络连接方式需要选择桥接网卡，这样虚拟机就会被当作局域网内部的一个单独的机器来看待了。</p>
+<blockquote>
+<p>如果你连接了vpn，很有可能换了网络连接方式之后你就连不上虚拟机了，请把vpn退出，然后再连接虚拟机。</p>
+</blockquote>
+<h2 id="设置hostname">设置hostname</h2>
+<p>在master节点上执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo hostnamectl set-hostname master
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>分别在两个worker节点执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo hostnamectl set-hostname worker1
+</span></span><span class="line"><span class="cl">sudo hostnamectl set-hostname worker2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在master虚拟机初始化k8s环境</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo kubeadm init
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>初始化成功之后会看到如下的信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Your Kubernetes control-plane has initialized successfully!
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">To start using your cluster, you need to run the following as a regular user:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  mkdir -p $HOME/.kube
+</span></span><span class="line"><span class="cl">  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+</span></span><span class="line"><span class="cl">  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Alternatively, if you are the root user, you can run:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  export KUBECONFIG=/etc/kubernetes/admin.conf
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">You should now deploy a pod network to the cluster.
+</span></span><span class="line"><span class="cl">Run &#34;kubectl apply -f [podnetwork].yaml&#34; with one of the options listed at:
+</span></span><span class="line"><span class="cl">  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Then you can join any number of worker nodes by running the following on each as root:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">kubeadm join 192.168.0.115:6443 --token qdz06o.hwsj4fqbecad870p \
+</span></span><span class="line"><span class="cl">	--discovery-token-ca-cert-hash sha256:064f95e49b5d0de08c7196f21a4b3fcd15805b8ec3c2dcdeb42ed4aa6154f638
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="在master上安装网络插件calico">在master上安装网络插件（Calico）</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl https://docs.projectcalico.org/manifests/calico.yaml -O
+</span></span><span class="line"><span class="cl">kubectl apply -f calico.yaml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>参考Calico官方文档 [[https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#install-calico-with-kubernetes-api-datastore-50-nodes-or-less][Install Calico networking and network policy for on-premises deployments]]</p>
+<p>在安装的过程当中很有可能摘取镜像失败导致calico启动失败：</p>
+<p>STATUS可能会是： ~Init:ImagePullBackOff~ ~ErrImagePull~</p>
+<p>这时得想办法手动下载对应版本的 <code>calico/cni</code> 镜像</p>
+<h2 id="添加work节点">添加work节点</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo kubeadm join 192.168.0.115:6443 --token qdz06o.hwsj4fqbecad870p --discovery-token-ca-cert-hash sha256:064f95e49b5d0de08c7196f21a4b3fcd15805b8ec3c2dcdeb42ed4aa6154f638
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="查看状态">查看状态</h2>
+<p>在master机器上运行： <code>kubectl get nodes</code> 命令可以查看集群的所有节点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">NAME            STATUS     ROLES                  AGE   VERSION
+</span></span><span class="line"><span class="cl">dragon-master   NotReady   control-plane,master   37m   v1.22.3
+</span></span><span class="line"><span class="cl">dragon-node1    NotReady   &lt;none&gt;                 86s   v1.22.3
+</span></span><span class="line"><span class="cl">dragon-node2    NotReady   &lt;none&gt;                 17s   v1.22.3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当所有节点的 STATUS 都为 Ready 的时候说明所有的节点都已经就绪，可以在集群里面部署应用了</p>
+<h2 id="autoscaling">Autoscaling</h2>
+<p>如果运行了2个replica的nginx deployment之后，每个node上会有一个pod运行。当把node2机器关掉之后，node1机器上会自动创建一个pod运行。但是当node2重新启动之后，两个pod仍然都在node1上运行着。</p>
+<h2 id="安装dashboard">安装Dashboard</h2>
+<p>下载v2.4.0版本的relaese包<a href="https://github.com/kubernetes/dashboard/releases/tag/v2.4.0">https://github.com/kubernetes/dashboard/releases/tag/v2.4.0</a></p>
+<p>在master节点解压后，使用dashboard-2.4.0/aio/deploy/recommended.yaml文件进行安装。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-12-02
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/kubernetes/">Kubernetes</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/java/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%BB%8E%E5%B0%8F%E7%99%BD%E5%88%B0%E4%B8%93%E5%AE%B6/">
+            <span class="next-text nav-default">微服务从小白到专家</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://example.org/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2022
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Kevin Jiang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?0ce1eb77b4e2275721d62799acd99e8b";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

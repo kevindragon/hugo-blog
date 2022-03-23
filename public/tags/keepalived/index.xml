@@ -6,11 +6,7 @@
     <description>Recent content in keepalived on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 07 Jan 2016 10:26:28 +0000</lastBuildDate>
-    
-	<atom:link href="http://example.org/tags/keepalived/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 07 Jan 2016 10:26:28 +0000</lastBuildDate><atom:link href="http://example.org/tags/keepalived/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>keepalived安装配置</title>
       <link>http://example.org/post/keepalived%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</link>
