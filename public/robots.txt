@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: http://example.org/sitemap.xml
+Sitemap: http://kevinjiang.info/sitemap.xml

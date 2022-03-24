@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>keepalived on (power up)</title>
-    <link>http://example.org/tags/keepalived/</link>
+    <link>http://kevinjiang.info/tags/keepalived/</link>
     <description>Recent content in keepalived on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 07 Jan 2016 10:26:28 +0000</lastBuildDate><atom:link href="http://example.org/tags/keepalived/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Jan 2016 10:26:28 +0000</lastBuildDate><atom:link href="http://kevinjiang.info/tags/keepalived/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>keepalived安装配置</title>
-      <link>http://example.org/post/keepalived%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</link>
+      <link>http://kevinjiang.info/post/keepalived%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Thu, 07 Jan 2016 10:26:28 +0000</pubDate>
       
-      <guid>http://example.org/post/keepalived%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</guid>
+      <guid>http://kevinjiang.info/post/keepalived%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</guid>
       <description>QQ: 380800878, 微信: kittenll 下载源码包，直接上官方网站 解压 tar -xzvf keepalived-1.2.7.tar.gz 编译安装，没什么特别的，指定一下安装目录即可 # cd keepalived-1.2.7 # ./configure --prefix=/usr/local/keepalived-1.2.7 # make # make install 添加软链，升级测试方便 # cd</description>
     </item>
     

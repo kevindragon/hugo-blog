@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Scheme on (power up)</title>
-    <link>http://example.org/tags/scheme/</link>
+    <link>http://kevinjiang.info/tags/scheme/</link>
     <description>Recent content in Scheme on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 23 Jun 2017 16:59:43 +0000</lastBuildDate><atom:link href="http://example.org/tags/scheme/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Jun 2017 16:59:43 +0000</lastBuildDate><atom:link href="http://kevinjiang.info/tags/scheme/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Racket开发环境Emacs配置</title>
-      <link>http://example.org/post/racket%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83emacs%E9%85%8D%E7%BD%AE/</link>
+      <link>http://kevinjiang.info/post/racket%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83emacs%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Fri, 23 Jun 2017 16:59:43 +0000</pubDate>
       
-      <guid>http://example.org/post/racket%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83emacs%E9%85%8D%E7%BD%AE/</guid>
+      <guid>http://kevinjiang.info/post/racket%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83emacs%E9%85%8D%E7%BD%AE/</guid>
       <description>首先到Racket官网下载安装包，然后你还需要Emacs。 在Emacs安装rakcet-mode，M-x输入package-install，</description>
     </item>
     

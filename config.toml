@@ -1,4 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "http://kevinjiang.info/"
 languageCode = "en"
 defaultContentLanguage = "zh-cn"
 title = "(power up)"
@@ -73,8 +73,8 @@ posts = "/:year/:month/:day/:slug"
 
   # site info (optional)                                  # 站点信息（可选，不需要的可以直接注释掉）
   logoTitle = "(Power up)"        # default: the title value    # 默认值: 上面设置的title值
-  keywords = ["KevinJiang", "博客", "全栈工程师"]
-  description = "KevinJiang的个人博客，80后码农的独立宣言."
+  keywords = ["KevinJiang", "博客", "全栈工程师", "Java", "Spring Boot", "Clojure", "Scala"]
+  description = "KevinJiang的个人博客."
 
   # paginate of archives, tags and categories             # 归档、标签、分类每页显示的文章数目，建议修改为一个较大的值
   archivePaginate = 15
@@ -113,8 +113,8 @@ posts = "/:year/:month/:day/:slug"
   livereUID = ""            # LiveRe UID                  # 来必力
 
   baiduPush = false        # baidu push                  # 百度
-  baiduAnalytics = "0ce1eb77b4e2275721d62799acd99e8b"      # Baidu Analytics
-  baiduVerification = "VFnag2irk8"   # Baidu Verification
+  baiduAnalytics = "b73ff6d4afc4af9e582d8a5dc068bab9"      # Baidu Analytics
+  baiduVerification = ""   # Baidu Verification
   googleVerification = ""  # Google Verification         # 谷歌
 
   # Link custom CSS and JS assets

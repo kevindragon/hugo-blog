@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Emacs on (power up)</title>
-    <link>http://example.org/categories/emacs/</link>
+    <link>http://kevinjiang.info/categories/emacs/</link>
     <description>Recent content in Emacs on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 24 Jul 2017 16:13:11 +0000</lastBuildDate><atom:link href="http://example.org/categories/emacs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 Jul 2017 16:13:11 +0000</lastBuildDate><atom:link href="http://kevinjiang.info/categories/emacs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Make your own Emacs package</title>
-      <link>http://example.org/post/emacs/make-you-own-emacs-package/</link>
+      <link>http://kevinjiang.info/post/emacs/make-you-own-emacs-package/</link>
       <pubDate>Mon, 24 Jul 2017 16:13:11 +0000</pubDate>
       
-      <guid>http://example.org/post/emacs/make-you-own-emacs-package/</guid>
+      <guid>http://kevinjiang.info/post/emacs/make-you-own-emacs-package/</guid>
       <description>Make you own Emacs package. 创建自己的Emacs包。 在Elpa、MELPA上面有许多的包，可以做各种各样的事情，但有可能你找不到一个合适你的某个问题的包，这时</description>
     </item>
     

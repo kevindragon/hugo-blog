@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>webpack-dev-server on (power up)</title>
-    <link>http://example.org/tags/webpack-dev-server/</link>
+    <link>http://kevinjiang.info/tags/webpack-dev-server/</link>
     <description>Recent content in webpack-dev-server on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 06 Aug 2016 14:13:55 +0000</lastBuildDate><atom:link href="http://example.org/tags/webpack-dev-server/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 Aug 2016 14:13:55 +0000</lastBuildDate><atom:link href="http://kevinjiang.info/tags/webpack-dev-server/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Webpack之Hello World</title>
-      <link>http://example.org/post/webpack%E4%B9%8Bhello-world/</link>
+      <link>http://kevinjiang.info/post/webpack%E4%B9%8Bhello-world/</link>
       <pubDate>Sat, 06 Aug 2016 14:13:55 +0000</pubDate>
       
-      <guid>http://example.org/post/webpack%E4%B9%8Bhello-world/</guid>
+      <guid>http://kevinjiang.info/post/webpack%E4%B9%8Bhello-world/</guid>
       <description>QQ: 380800878, 微信: kittenll 最近自己在做一些项目的时候使用Restful和react来做到前后端分离，感受到开发效率的成倍提升，故在此分享一下前端使用web</description>
     </item>
     

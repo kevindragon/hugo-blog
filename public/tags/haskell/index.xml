@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Haskell on (power up)</title>
-    <link>http://example.org/tags/haskell/</link>
+    <link>http://kevinjiang.info/tags/haskell/</link>
     <description>Recent content in Haskell on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 17 Aug 2019 21:48:21 +0000</lastBuildDate><atom:link href="http://example.org/tags/haskell/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 17 Aug 2019 21:48:21 +0000</lastBuildDate><atom:link href="http://kevinjiang.info/tags/haskell/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Haskell在Windows上的起步</title>
-      <link>http://example.org/post/haskell%E5%9C%A8windows%E4%B8%8A%E7%9A%84%E8%B5%B7%E6%AD%A5/</link>
+      <link>http://kevinjiang.info/post/haskell%E5%9C%A8windows%E4%B8%8A%E7%9A%84%E8%B5%B7%E6%AD%A5/</link>
       <pubDate>Sat, 17 Aug 2019 21:48:21 +0000</pubDate>
       
-      <guid>http://example.org/post/haskell%E5%9C%A8windows%E4%B8%8A%E7%9A%84%E8%B5%B7%E6%AD%A5/</guid>
+      <guid>http://kevinjiang.info/post/haskell%E5%9C%A8windows%E4%B8%8A%E7%9A%84%E8%B5%B7%E6%AD%A5/</guid>
       <description>学习Haskel痛苦又快乐的经历 使用Haskell Platform安装的Haskell 安装的时候最好指定安装在c:\Hs目录，因为路径短。然</description>
     </item>
     

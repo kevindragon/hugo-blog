@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>webpack on (power up)</title>
-    <link>http://example.org/tags/webpack/</link>
+    <link>http://kevinjiang.info/tags/webpack/</link>
     <description>Recent content in webpack on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 13 Feb 2018 17:11:29 +0000</lastBuildDate><atom:link href="http://example.org/tags/webpack/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Feb 2018 17:11:29 +0000</lastBuildDate><atom:link href="http://kevinjiang.info/tags/webpack/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>react初始配置</title>
-      <link>http://example.org/post/react%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/</link>
+      <link>http://kevinjiang.info/post/react%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Tue, 13 Feb 2018 17:11:29 +0000</pubDate>
       
-      <guid>http://example.org/post/react%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/</guid>
+      <guid>http://kevinjiang.info/post/react%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/</guid>
       <description>下面webpack babel react 2018年最新最小化配置模板 package.js 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 { &amp;#34;name&amp;#34;: &amp;#34;{{NAME}}&amp;#34;, &amp;#34;version&amp;#34;: &amp;#34;1.0.0&amp;#34;, &amp;#34;description&amp;#34;: &amp;#34;{{DESCRIPTION}}&amp;#34;, &amp;#34;main&amp;#34;: &amp;#34;index.js&amp;#34;, &amp;#34;scripts&amp;#34;: { &amp;#34;start&amp;#34;: &amp;#34;webpack-dev-server&amp;#34;, &amp;#34;test&amp;#34;:</description>
     </item>
     
     <item>
       <title>Webpack之Hello World</title>
-      <link>http://example.org/post/webpack%E4%B9%8Bhello-world/</link>
+      <link>http://kevinjiang.info/post/webpack%E4%B9%8Bhello-world/</link>
       <pubDate>Sat, 06 Aug 2016 14:13:55 +0000</pubDate>
       
-      <guid>http://example.org/post/webpack%E4%B9%8Bhello-world/</guid>
+      <guid>http://kevinjiang.info/post/webpack%E4%B9%8Bhello-world/</guid>
       <description>QQ: 380800878, 微信: kittenll 最近自己在做一些项目的时候使用Restful和react来做到前后端分离，感受到开发效率的成倍提升，故在此分享一下前端使用web</description>
     </item>
     

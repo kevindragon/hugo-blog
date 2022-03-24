@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ubuntu on (power up)</title>
-    <link>http://example.org/tags/ubuntu/</link>
+    <link>http://kevinjiang.info/tags/ubuntu/</link>
     <description>Recent content in Ubuntu on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 21 Jun 2017 17:03:29 +0000</lastBuildDate><atom:link href="http://example.org/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Jun 2017 17:03:29 +0000</lastBuildDate><atom:link href="http://kevinjiang.info/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>源码安装emacs25</title>
-      <link>http://example.org/post/emacs/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85emacs25/</link>
+      <link>http://kevinjiang.info/post/emacs/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85emacs25/</link>
       <pubDate>Wed, 21 Jun 2017 17:03:29 +0000</pubDate>
       
-      <guid>http://example.org/post/emacs/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85emacs25/</guid>
+      <guid>http://kevinjiang.info/post/emacs/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85emacs25/</guid>
       <description>在Ubuntu系列用源码安装Emacs25非常简单 下载源码包 1 2 wget &amp;#39;http://mirrors.ustc.edu.cn/gnu/emacs/emacs-25.2.tar.gz&amp;#39; tar -xzvf emacs-25.2.tar.gz 安装编译环境，依赖 首先需要把安装源码的选项打开。找到Softwar</description>
     </item>
     
     <item>
       <title>Ubuntu彻底删除kubuntu,xubuntu和Lubuntu的完整命令</title>
-      <link>http://example.org/post/linux/ubuntu%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4kubuntuxubuntu%E5%92%8Clubuntu%E7%9A%84%E5%AE%8C%E6%95%B4%E5%91%BD%E4%BB%A4/</link>
+      <link>http://kevinjiang.info/post/linux/ubuntu%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4kubuntuxubuntu%E5%92%8Clubuntu%E7%9A%84%E5%AE%8C%E6%95%B4%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 20 Jan 2016 15:10:54 +0000</pubDate>
       
-      <guid>http://example.org/post/linux/ubuntu%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4kubuntuxubuntu%E5%92%8Clubuntu%E7%9A%84%E5%AE%8C%E6%95%B4%E5%91%BD%E4%BB%A4/</guid>
+      <guid>http://kevinjiang.info/post/linux/ubuntu%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4kubuntuxubuntu%E5%92%8Clubuntu%E7%9A%84%E5%AE%8C%E6%95%B4%E5%91%BD%E4%BB%A4/</guid>
       <description>Remove Kubuntu: sudo apt-get remove akonadi-backend-mysql akonadi-server akregator amarok amarok-common amarok-utils apport-kde apturl-kde ark bluedevil cdparanoia cdrdao cryptsetup docbook-xml docbook-xsl dolphin dragonplayer freespacenotifier gnupg-agent gnupg2 gpgsm gpsd gstreamer0.10-qapt gtk2-engines-oxygen gtk3-engines-oxygen gwenview ibus-qt4 icoutils jockey-kde k3b k3b-data kaccessible kaddressbook kamera kate kate-data katepart kcalc kde-baseapps-bin kde-baseapps-data kde-config-gtk kde-config-touchpad kde-runtime kde-runtime-data kde-style-oxygen kde-wallpapers-default kde-window-manager kde-window-manager-common kde-workspace kde-workspace-bin kde-workspace-data kde-workspace-kgreet-plugins kde-zeroconf kdegames-card-data kdegraphics-strigi-analyzer kdelibs-bin kdelibs5-data kdelibs5-plugins kdemultimedia-kio-plugins kdenetwork-filesharing kdepasswd kdepim-kresources kdepim-runtime kdepim-strigi-plugins kdepimlibs-kio-plugins</description>
     </item>
     

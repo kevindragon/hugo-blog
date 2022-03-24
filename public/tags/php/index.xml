@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>php on (power up)</title>
-    <link>http://example.org/tags/php/</link>
+    <link>http://kevinjiang.info/tags/php/</link>
     <description>Recent content in php on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 27 Jun 2017 14:23:16 +0000</lastBuildDate><atom:link href="http://example.org/tags/php/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 Jun 2017 14:23:16 +0000</lastBuildDate><atom:link href="http://kevinjiang.info/tags/php/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>记一次php5.3.10安装</title>
-      <link>http://example.org/post/php/%E8%AE%B0%E4%B8%80%E6%AC%A1php5-3-10%E5%AE%89%E8%A3%85/</link>
+      <link>http://kevinjiang.info/post/php/%E8%AE%B0%E4%B8%80%E6%AC%A1php5-3-10%E5%AE%89%E8%A3%85/</link>
       <pubDate>Tue, 27 Jun 2017 14:23:16 +0000</pubDate>
       
-      <guid>http://example.org/post/php/%E8%AE%B0%E4%B8%80%E6%AC%A1php5-3-10%E5%AE%89%E8%A3%85/</guid>
+      <guid>http://kevinjiang.info/post/php/%E8%AE%B0%E4%B8%80%E6%AC%A1php5-3-10%E5%AE%89%E8%A3%85/</guid>
       <description>安装环境 1 2 CentOS 6.6 x64 php 5.3.10 安装编译工具 1 yum install -y gcc gcc-c++ 安装mysql 1 2 3 yum install -y mysql mysql-devel #如果是64位系统，执行 ln -s /usr/lib64/mysql/* /usr/lib/ 安装依赖 1 2 3 4 yum install -y libxml2-devel openssl-devel libcurl-devel libjpeg-turbo-devel libpng-devel</description>
     </item>
     
