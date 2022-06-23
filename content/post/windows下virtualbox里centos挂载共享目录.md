@@ -36,10 +36,10 @@ sudo apt-get install linux-headers-$(uname -r)
 然后在centos挂载iso文件，执行安装程序：
 
 ```bash
-mkdir /media/cdrom
-mount /dev/cdrom /media/cdrom
-cd /media/cdrom
-./VBoxLinuxAdditions.run
+sudo mkdir /media/cdrom
+sudo mount /dev/cdrom /media/cdrom
+sudo cd /media/cdrom
+sudo ./VBoxLinuxAdditions.run
 ```
 
 如果没有error说明安装成功，如果有关于X的错误，有可能是你没有安装X环境，如果只是使用命令行，这个也不用管。安装完增强功能后最好把centos重启一下。
