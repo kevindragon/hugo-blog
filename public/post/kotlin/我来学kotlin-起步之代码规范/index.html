@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/kotlin/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E8%B5%B7%E6%AD%A5%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -164,41 +174,41 @@
 <p>如果冒号出现在类型与类型之间，前后都应该有一个空格。而如果出现在变量名与其类型之间，前面不要空格，后面应该有一个空格：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">interface</span> <span class="nc">Foo</span><span class="p">&lt;</span><span class="k">out</span> <span class="n">T</span> <span class="p">:</span> <span class="n">Any</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">Bar</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">T</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">interface</span> <span class="nc">Foo</span><span class="p">&lt;</span><span class="k">out</span> <span class="n">T</span> <span class="p">:</span> <span class="n">Any</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">Bar</span> <span class="p">{</span>
+    <span class="k">fun</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">T</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="匿名函数lambdas">匿名函数/Lambdas</h2>
 <p>匿名函数在花括号内部两边应留一个空格，与前面调用的函数名之间留一个空格，剪头两边也需要有空格：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="n">list</span><span class="p">.</span><span class="n">filter</span> <span class="p">{</span> <span class="k">it</span> <span class="p">&gt;</span> <span class="m">10</span> <span class="p">}.</span><span class="n">map</span> <span class="p">{</span> <span class="n">element</span> <span class="o">-&gt;</span> <span class="n">element</span> <span class="p">*</span> <span class="m">2</span> <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="n">list</span><span class="p">.</span><span class="n">filter</span> <span class="p">{</span> <span class="k">it</span> <span class="p">&gt;</span> <span class="m">10</span> <span class="p">}.</span><span class="n">map</span> <span class="p">{</span> <span class="n">element</span> <span class="o">-&gt;</span> <span class="n">element</span> <span class="p">*</span> <span class="m">2</span> <span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>匿名函数应该尽量简短，避免嵌套。推荐使用<code>it</code>代替自定义的参数名。在嵌套匿名函数里，最好显示的自定义参数名称。</p>
 <h2 id="类定义格式">类定义格式</h2>
 <p>如果类包含较少的参数，应该写在一行：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">id</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">id</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>如果比较长的话，构造函数的参数一个写一行，前面使用4个空格缩进，右圆括号另起一行。如果使用了继承，那么父类的构造函数或者接口应该写在括号后面：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -207,19 +217,19 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">id</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="n">surname</span><span class="p">:</span> <span class="n">String</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">:</span> <span class="n">Human</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span>
+    <span class="n">id</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
+    <span class="n">surname</span><span class="p">:</span> <span class="n">String</span>
+<span class="p">)</span> <span class="p">:</span> <span class="n">Human</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>如果继承了父类以及多个接口，父类与括号写在一行，每个接口单独写一行：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -229,27 +239,27 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">id</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="n">surname</span><span class="p">:</span> <span class="n">String</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">:</span> <span class="n">Human</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">    <span class="n">KotlinMaker</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span>
+    <span class="n">id</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
+    <span class="n">surname</span><span class="p">:</span> <span class="n">String</span>
+<span class="p">)</span> <span class="p">:</span> <span class="n">Human</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span>
+    <span class="n">KotlinMaker</span> <span class="p">{</span>
+    <span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="unit">Unit</h2>
 <p>函数返回<code>Unit</code>时，函数的返回值类型可以省略：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// &#34;: Unit&#34; is omitted here
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">fun</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// &#34;: Unit&#34; is omitted here
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="方法与属性">方法与属性</h2>
 <p>有些情况下，无参数的方法与只读属性表达的意思一样，可以互换使用。尽管在语义上是相似的，但还是有一些约定在什么情况使用什么方式。下面的情况提倡使用属性：</p>
@@ -346,13 +356,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -366,7 +373,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

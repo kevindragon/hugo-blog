@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/clojure/%E4%BD%BF%E7%94%A8clojure%E5%BC%80%E5%8F%91web%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%BA%8C/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -151,31 +161,31 @@
 <p>打开根目录下的<code>project.clj</code>，找到<code>:dependencies</code>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">org.clojure/clojure</span> <span class="s">&#34;1.8.0&#34;</span><span class="p">]]</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">org.clojure/clojure</span> <span class="s">&#34;1.8.0&#34;</span><span class="p">]]</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>有可能你看到的clojure版本跟我的不太一样，在里添加(<code>ring</code>)[https://github.com/ring-clojure/ring]，添加后像下面这样</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">org.clojure/clojure</span> <span class="s">&#34;1.8.0&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">               <span class="p">[</span><span class="nv">ring</span> <span class="s">&#34;1.6.3&#34;</span><span class="p">]]</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">org.clojure/clojure</span> <span class="s">&#34;1.8.0&#34;</span><span class="p">]</span>
+               <span class="p">[</span><span class="nv">ring</span> <span class="s">&#34;1.6.3&#34;</span><span class="p">]]</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>然后在命令行运行：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">lein deps
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">lein deps
+</code></pre></td></tr></table>
 </div>
 </div><p><code>lein</code>底层使用的是<code>maven</code>和(<code>clojars</code>)[https://clojars.org/]，下载下来的依赖包会在你的用户目录下的<code>.m2</code>目录，下载的所有文件可以在<code>~/.m2/repository/ring/ring/1.6.3/</code>找到。如果你身在&quot;赵国&quot;，那么你家里应该常备&quot;楼梯&quot;。</p>
 <!-- raw HTML omitted -->
@@ -183,7 +193,7 @@
 <p>打开<code>src/learnweb/core.clj</code>，这个是在<code>project.clj</code>里面的<code>:main</code>定义的入口点：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -192,19 +202,19 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="kd">ns </span><span class="nv">learnweb.core</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="ss">:gen-class</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="kd">defn </span><span class="nv">-main</span>
-</span></span><span class="line"><span class="cl">  <span class="s">&#34;I don&#39;t do a whole lot ... yet.&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nb">println </span><span class="s">&#34;Hello, World!&#34;</span><span class="p">))</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">ns </span><span class="nv">learnweb.core</span>
+  <span class="p">(</span><span class="ss">:gen-class</span><span class="p">))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">-main</span>
+  <span class="s">&#34;I don&#39;t do a whole lot ... yet.&#34;</span>
+  <span class="p">[</span><span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">println </span><span class="s">&#34;Hello, World!&#34;</span><span class="p">))</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>下面来改造一下<code>core.clj</code>文件，把需要的函数包含进代码，然后把http server跑起来，最终的代码如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -219,20 +229,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="kd">ns </span><span class="nv">learnweb.core</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">ring.adapter.jetty</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">run-jetty</span><span class="p">]])</span>  <span class="c1">;(1)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="ss">:gen-class</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="kd">defn </span><span class="nv">handler</span> <span class="p">[</span><span class="nv">request</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span><span class="ss">:status</span> <span class="mi">200</span>
-</span></span><span class="line"><span class="cl">   <span class="ss">:headers</span> <span class="p">{</span><span class="s">&#34;Content-Type&#34;</span> <span class="s">&#34;text/html&#34;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">   <span class="ss">:body</span> <span class="s">&#34;Hello World!&#34;</span><span class="p">})</span> <span class="c1">;(2)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="kd">defn </span><span class="nv">-main</span>
-</span></span><span class="line"><span class="cl">  <span class="s">&#34;I don&#39;t do a whole lot ... yet.&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">run-jetty</span> <span class="nv">handler</span> <span class="p">{</span><span class="ss">:port</span> <span class="mi">3000</span><span class="p">}))</span> <span class="c1">;(3)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">ns </span><span class="nv">learnweb.core</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">ring.adapter.jetty</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">run-jetty</span><span class="p">]])</span>  <span class="c1">;(1)</span>
+  <span class="p">(</span><span class="ss">:gen-class</span><span class="p">))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">handler</span> <span class="p">[</span><span class="nv">request</span><span class="p">]</span>
+  <span class="p">{</span><span class="ss">:status</span> <span class="mi">200</span>
+   <span class="ss">:headers</span> <span class="p">{</span><span class="s">&#34;Content-Type&#34;</span> <span class="s">&#34;text/html&#34;</span><span class="p">}</span>
+   <span class="ss">:body</span> <span class="s">&#34;Hello World!&#34;</span><span class="p">})</span> <span class="c1">;(2)</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">-main</span>
+  <span class="s">&#34;I don&#39;t do a whole lot ... yet.&#34;</span>
+  <span class="p">[</span><span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">run-jetty</span> <span class="nv">handler</span> <span class="p">{</span><span class="ss">:port</span> <span class="mi">3000</span><span class="p">}))</span> <span class="c1">;(3)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>改造了三个地方(1), (2), (3)</p>
 <p>(1) 添加运行http server的函数<code>run-jetty</code>，<code>run-jetty</code>函数需要另外一个函数来处理http请求，同时会把请求的参数传递给那个函数；</p>
@@ -241,38 +251,38 @@
 <p>然后在命令行运行如下命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="nv">lein</span> <span class="nv">run</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="nv">lein</span> <span class="nv">run</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>你将会看到如下的输出：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">2016-03-08 21:47:49.003:INFO::main: Logging initialized @1130ms
-</span></span><span class="line"><span class="cl">2016-03-08 21:47:49.073:INFO:oejs.Server:main: jetty-9.2.10.v20150310
-</span></span><span class="line"><span class="cl">2016-03-08 21:47:49.113:INFO:oejs.ServerConnector:main: Started ServerConnector@29a5f4e7{HTTP/1.1}{0.0.0.0:3000}
-</span></span><span class="line"><span class="cl">2016-03-08 21:47:49.114:INFO:oejs.Server:main: Started @1241ms
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-text" data-lang="text">2016-03-08 21:47:49.003:INFO::main: Logging initialized @1130ms
+2016-03-08 21:47:49.073:INFO:oejs.Server:main: jetty-9.2.10.v20150310
+2016-03-08 21:47:49.113:INFO:oejs.ServerConnector:main: Started ServerConnector@29a5f4e7{HTTP/1.1}{0.0.0.0:3000}
+2016-03-08 21:47:49.114:INFO:oejs.Server:main: Started @1241ms
+</code></pre></td></tr></table>
 </div>
 </div><p>打开浏览器，访问<a href="http://localhost:3000">http://localhost:3000</a>，你就会看到一个网页版的Hello World!</p>
 <p>完整代码在我的github上面：<a href="https://github.com/kevindragon/learn-clojure-web">Learn Clojure web</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git clone https://github.com/kevindragon/learn-clojure-web
-</span></span><span class="line"><span class="cl">git checkout 1.2
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">git clone https://github.com/kevindragon/learn-clojure-web
+git checkout 1.2
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="工作原理">工作原理</h2>
 <p><code>run-jetty</code>函数在指定的端口启动一个web server，接收http request，然后把请求交给<code>handler</code>函数进行处理，上面的<code>handler</code>函数返回一个状态码200，响应头指定Content-Type为html内容，响应的内容为Hello World!</p>
@@ -281,35 +291,35 @@
 <p>把<code>&quot;Hello World!&quot;</code>改成</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">str </span><span class="s">&#34;User agent: &#34;</span> <span class="p">(</span><span class="nf">get-in</span> <span class="nv">request</span> <span class="p">[</span><span class="ss">:headers</span> <span class="s">&#34;user-agent&#34;</span><span class="p">]))</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nb">str </span><span class="s">&#34;User agent: &#34;</span> <span class="p">(</span><span class="nf">get-in</span> <span class="nv">request</span> <span class="p">[</span><span class="ss">:headers</span> <span class="s">&#34;user-agent&#34;</span><span class="p">]))</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>handler函数变成如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="kd">defn </span><span class="nv">handler</span> <span class="p">[</span><span class="nv">request</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span><span class="ss">:status</span> <span class="mi">200</span>
-</span></span><span class="line"><span class="cl">   <span class="ss">:headers</span> <span class="p">{</span><span class="s">&#34;Content-Type&#34;</span> <span class="s">&#34;text/html&#34;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">   <span class="ss">:body</span> <span class="p">(</span><span class="nb">str </span><span class="s">&#34;User agent: &#34;</span> <span class="p">(</span><span class="nf">get-in</span> <span class="nv">request</span> <span class="p">[</span><span class="ss">:headers</span> <span class="s">&#34;user-agent&#34;</span><span class="p">]))})</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">handler</span> <span class="p">[</span><span class="nv">request</span><span class="p">]</span>
+  <span class="p">{</span><span class="ss">:status</span> <span class="mi">200</span>
+   <span class="ss">:headers</span> <span class="p">{</span><span class="s">&#34;Content-Type&#34;</span> <span class="s">&#34;text/html&#34;</span><span class="p">}</span>
+   <span class="ss">:body</span> <span class="p">(</span><span class="nb">str </span><span class="s">&#34;User agent: &#34;</span> <span class="p">(</span><span class="nf">get-in</span> <span class="nv">request</span> <span class="p">[</span><span class="ss">:headers</span> <span class="s">&#34;user-agent&#34;</span><span class="p">]))})</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>然后在命令行按ctrl-c终止上次的运行，再次执行<code>lein run</code>，刷新浏览器便可以看到你自己浏览器的user agent，我的浏览器显示为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">User agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">User agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36
+</code></pre></td></tr></table>
 </div>
 </div><p>你的浏览器显示可能会不一样。<code>handler</code>函数的参数为http request的内容，包括请求头信息、url、请求参数等等。这里面直接从request中取出user-agent的信息。</p>
 <h2 id="根据url上面的参数显示不同的内容">根据url上面的参数显示不同的内容</h2>
@@ -320,7 +330,7 @@
 <p>完整代码如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -349,34 +359,34 @@
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="kd">ns </span><span class="nv">learnweb.core</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">ring.adapter.jetty</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">run-jetty</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl">            <span class="p">[</span><span class="nv">clojure.string</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">split</span><span class="p">]])</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="ss">:gen-class</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="kd">defn </span><span class="nv">uri-split</span> <span class="p">[</span><span class="nv">str</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nb">filter </span><span class="o">#</span><span class="p">(</span><span class="nf">not-empty</span> <span class="nv">%</span><span class="p">)</span> <span class="p">(</span><span class="nf">split</span> <span class="nb">str </span><span class="o">#</span><span class="s">&#34;/&#34;</span><span class="p">)))</span>    <span class="c1">; (1)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="kd">defn </span><span class="nv">route</span> <span class="p">[</span><span class="nv">request</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">uri</span> <span class="p">(</span><span class="ss">:uri</span> <span class="nv">request</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">seg</span> <span class="p">(</span><span class="nf">uri-split</span> <span class="nv">uri</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nf">cond</span>
-</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nb">= </span><span class="nv">uri</span> <span class="s">&#34;/&#34;</span><span class="p">)</span> <span class="s">&#34;Index page&#34;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nb">first </span><span class="nv">seg</span><span class="p">)</span> <span class="s">&#34;hello&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nb">str </span><span class="s">&#34;你好&#34;</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">seg</span> <span class="mi">1</span> <span class="s">&#34;Oops&#34;</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">      <span class="ss">:else</span> <span class="s">&#34;Page not found&#34;</span><span class="p">)))</span>    <span class="c1">; (2)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="kd">defn </span><span class="nv">handler</span> <span class="p">[</span><span class="nv">request</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">uri</span> <span class="p">(</span><span class="ss">:uri</span> <span class="nv">request</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">seg</span> <span class="p">(</span><span class="nf">uri-split</span> <span class="nv">uri</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="ss">:status</span> <span class="mi">200</span>
-</span></span><span class="line"><span class="cl">     <span class="ss">:headers</span> <span class="p">{</span><span class="s">&#34;Content-Type&#34;</span> <span class="s">&#34;text/html; charset=utf-8&#34;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">     <span class="ss">:body</span> <span class="p">(</span><span class="nf">route</span> <span class="nv">request</span><span class="p">)}))</span>    <span class="c1">; (3)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="kd">defn </span><span class="nv">-main</span>
-</span></span><span class="line"><span class="cl">  <span class="s">&#34;I don&#39;t do a whole lot ... yet.&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">run-jetty</span> <span class="nv">handler</span> <span class="p">{</span><span class="ss">:port</span> <span class="mi">3000</span><span class="p">}))</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">ns </span><span class="nv">learnweb.core</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">ring.adapter.jetty</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">run-jetty</span><span class="p">]]</span>
+            <span class="p">[</span><span class="nv">clojure.string</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">split</span><span class="p">]])</span>
+  <span class="p">(</span><span class="ss">:gen-class</span><span class="p">))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">uri-split</span> <span class="p">[</span><span class="nv">str</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">filter </span><span class="o">#</span><span class="p">(</span><span class="nf">not-empty</span> <span class="nv">%</span><span class="p">)</span> <span class="p">(</span><span class="nf">split</span> <span class="nb">str </span><span class="o">#</span><span class="s">&#34;/&#34;</span><span class="p">)))</span>    <span class="c1">; (1)</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">route</span> <span class="p">[</span><span class="nv">request</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">uri</span> <span class="p">(</span><span class="ss">:uri</span> <span class="nv">request</span><span class="p">)</span>
+        <span class="nv">seg</span> <span class="p">(</span><span class="nf">uri-split</span> <span class="nv">uri</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nf">cond</span>
+      <span class="p">(</span><span class="nb">= </span><span class="nv">uri</span> <span class="s">&#34;/&#34;</span><span class="p">)</span> <span class="s">&#34;Index page&#34;</span>
+      <span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nb">first </span><span class="nv">seg</span><span class="p">)</span> <span class="s">&#34;hello&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nb">str </span><span class="s">&#34;你好&#34;</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">seg</span> <span class="mi">1</span> <span class="s">&#34;Oops&#34;</span><span class="p">))</span>
+      <span class="ss">:else</span> <span class="s">&#34;Page not found&#34;</span><span class="p">)))</span>    <span class="c1">; (2)</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">handler</span> <span class="p">[</span><span class="nv">request</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">uri</span> <span class="p">(</span><span class="ss">:uri</span> <span class="nv">request</span><span class="p">)</span>
+        <span class="nv">seg</span> <span class="p">(</span><span class="nf">uri-split</span> <span class="nv">uri</span><span class="p">)]</span>
+    <span class="p">{</span><span class="ss">:status</span> <span class="mi">200</span>
+     <span class="ss">:headers</span> <span class="p">{</span><span class="s">&#34;Content-Type&#34;</span> <span class="s">&#34;text/html; charset=utf-8&#34;</span><span class="p">}</span>
+     <span class="ss">:body</span> <span class="p">(</span><span class="nf">route</span> <span class="nv">request</span><span class="p">)}))</span>    <span class="c1">; (3)</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">-main</span>
+  <span class="s">&#34;I don&#39;t do a whole lot ... yet.&#34;</span>
+  <span class="p">[</span><span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">run-jetty</span> <span class="nv">handler</span> <span class="p">{</span><span class="ss">:port</span> <span class="mi">3000</span><span class="p">}))</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>(1) 添加uri-split函数，用于分割uri成列表。/hello/Kitty &ndash;&gt; [&ldquo;hello&rdquo; &ldquo;Kitty&rdquo;]</p>
 <p>(2) 添加路由处理函数<code>route</code>，也就是根据uri参数把请求分发到不同的处理函数，得到uri列表后，然后使用<code>cond</code>函数做分发处理</p>
@@ -469,13 +479,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -489,7 +496,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

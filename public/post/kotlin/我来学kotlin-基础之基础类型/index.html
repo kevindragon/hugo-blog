@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/kotlin/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -212,91 +222,91 @@
 <p>比较长的数字使用下划线可以更易于阅读，这和Swift的使用方法一样</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">oneMillion</span> <span class="p">=</span> <span class="m">1</span><span class="n">_000_000</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">creditCardNumber</span> <span class="p">=</span> <span class="m">1234</span><span class="n">_5678_9012_3456L</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">socialSecurityNumber</span> <span class="p">=</span> <span class="m">999</span><span class="n">_99_9999L</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">hexBytes</span> <span class="p">=</span> <span class="m">0xFF</span><span class="n">_EC_DE_5E</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">bytes</span> <span class="p">=</span> <span class="m">0</span><span class="n">b11010010_01101001_10010100_10010010</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">oneMillion</span> <span class="p">=</span> <span class="m">1</span><span class="n">_000_000</span>
+<span class="k">val</span> <span class="py">creditCardNumber</span> <span class="p">=</span> <span class="m">1234</span><span class="n">_5678_9012_3456L</span>
+<span class="k">val</span> <span class="py">socialSecurityNumber</span> <span class="p">=</span> <span class="m">999</span><span class="n">_99_9999L</span>
+<span class="k">val</span> <span class="py">hexBytes</span> <span class="p">=</span> <span class="m">0xFF</span><span class="n">_EC_DE_5E</span>
+<span class="k">val</span> <span class="py">bytes</span> <span class="p">=</span> <span class="m">0</span><span class="n">b11010010_01101001_10010100_10010010</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="representation">Representation</h2>
 <p>在JVM平台，数字被物理地存储为JVM原始类型，除非我们需要一个可空的数字引用（例如Int?）或者泛型。在后一种情况下数字会被装箱（boxed）。</p>
 <p><strong>注意：装箱后的数字不一定会保持引用</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">a</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="m">10000</span>
-</span></span><span class="line"><span class="cl"><span class="n">print</span><span class="p">(</span><span class="n">a</span> <span class="o">===</span> <span class="n">a</span><span class="p">)</span> <span class="c1">// Prints &#39;true&#39;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="py">boxedA</span><span class="p">:</span> <span class="n">Int</span><span class="p">?</span> <span class="p">=</span> <span class="n">a</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">anotherBoxedA</span><span class="p">:</span> <span class="n">Int</span><span class="p">?</span> <span class="p">=</span> <span class="n">a</span>
-</span></span><span class="line"><span class="cl"><span class="n">print</span><span class="p">(</span><span class="n">boxedA</span> <span class="o">===</span> <span class="n">anotherBoxedA</span><span class="p">)</span> <span class="c1">// !!!Prints &#39;false&#39;!!!
-</span></span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">a</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="m">10000</span>
+<span class="n">print</span><span class="p">(</span><span class="n">a</span> <span class="o">===</span> <span class="n">a</span><span class="p">)</span> <span class="c1">// Prints &#39;true&#39;
+</span><span class="c1"></span><span class="k">val</span> <span class="py">boxedA</span><span class="p">:</span> <span class="n">Int</span><span class="p">?</span> <span class="p">=</span> <span class="n">a</span>
+<span class="k">val</span> <span class="py">anotherBoxedA</span><span class="p">:</span> <span class="n">Int</span><span class="p">?</span> <span class="p">=</span> <span class="n">a</span>
+<span class="n">print</span><span class="p">(</span><span class="n">boxedA</span> <span class="o">===</span> <span class="n">anotherBoxedA</span><span class="p">)</span> <span class="c1">// !!!Prints &#39;false&#39;!!!
+</span></code></pre></td></tr></table>
 </div>
 </div><p>但是会保持值的相等（使用两个等号<code>==</code>）。三个等号（<code>===</code>）会判断是否是同一个对象，就是上面说的引用，内存地址相等。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">a</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="m">10000</span>
-</span></span><span class="line"><span class="cl"><span class="n">print</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">a</span><span class="p">)</span> <span class="c1">// Prints &#39;true&#39;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="py">boxedA</span><span class="p">:</span> <span class="n">Int</span><span class="p">?</span> <span class="p">=</span> <span class="n">a</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">anotherBoxedA</span><span class="p">:</span> <span class="n">Int</span><span class="p">?</span> <span class="p">=</span> <span class="n">a</span>
-</span></span><span class="line"><span class="cl"><span class="n">print</span><span class="p">(</span><span class="n">boxedA</span> <span class="o">==</span> <span class="n">anotherBoxedA</span><span class="p">)</span> <span class="c1">// Prints &#39;true&#39;
-</span></span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">a</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="m">10000</span>
+<span class="n">print</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">a</span><span class="p">)</span> <span class="c1">// Prints &#39;true&#39;
+</span><span class="c1"></span><span class="k">val</span> <span class="py">boxedA</span><span class="p">:</span> <span class="n">Int</span><span class="p">?</span> <span class="p">=</span> <span class="n">a</span>
+<span class="k">val</span> <span class="py">anotherBoxedA</span><span class="p">:</span> <span class="n">Int</span><span class="p">?</span> <span class="p">=</span> <span class="n">a</span>
+<span class="n">print</span><span class="p">(</span><span class="n">boxedA</span> <span class="o">==</span> <span class="n">anotherBoxedA</span><span class="p">)</span> <span class="c1">// Prints &#39;true&#39;
+</span></code></pre></td></tr></table>
 </div>
 </div><h2 id="显示转换">显示转换</h2>
 <p>由于表示方法的不同，较小的类型不是较大类型的子类型。如果是，我们将会遇到以下问题：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="c1">// 假设有如下代码，实际是不能编译的：
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="py">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">?</span> <span class="p">=</span> <span class="m">1</span> <span class="c1">// 一个Int对象（在Java是java.lang.Integer）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="py">b</span><span class="p">:</span> <span class="n">Long</span><span class="p">?</span> <span class="p">=</span> <span class="n">a</span> <span class="c1">// 隐式转换为Long对象（在Java是java.lang.Long）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">print</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span> <span class="c1">// 惊讶！这会打印出`false`，两个等号使用的是equals方法来判断相等性，a和b的类型不一样，所以打开出来是false
-</span></span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="c1">// 假设有如下代码，实际是不能编译的：
+</span><span class="c1"></span><span class="k">val</span> <span class="py">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">?</span> <span class="p">=</span> <span class="m">1</span> <span class="c1">// 一个Int对象（在Java是java.lang.Integer）
+</span><span class="c1"></span><span class="k">val</span> <span class="py">b</span><span class="p">:</span> <span class="n">Long</span><span class="p">?</span> <span class="p">=</span> <span class="n">a</span> <span class="c1">// 隐式转换为Long对象（在Java是java.lang.Long）
+</span><span class="c1"></span><span class="n">print</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span> <span class="c1">// 惊讶！这会打印出`false`，两个等号使用的是equals方法来判断相等性，a和b的类型不一样，所以打开出来是false
+</span></code></pre></td></tr></table>
 </div>
 </div><p>所以不仅在引用上，而且相等性在这里也默默的消失了。因此较小类型不隐式的转换成较大类型。这意味着，在没有显示转换时，我们不能将一个<code>Byte</code>类型赋值给一个<code>Int</code>类型：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">b</span><span class="p">:</span> <span class="n">Byte</span> <span class="p">=</span> <span class="m">1</span> <span class="c1">// OK, literals are checked statically
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="py">i</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">b</span> <span class="c1">// ERROR
-</span></span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">b</span><span class="p">:</span> <span class="n">Byte</span> <span class="p">=</span> <span class="m">1</span> <span class="c1">// OK, literals are checked statically
+</span><span class="c1"></span><span class="k">val</span> <span class="py">i</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">b</span> <span class="c1">// ERROR
+</span></code></pre></td></tr></table>
 </div>
 </div><p>使用显示转换到更宽（较大）的数字：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">i</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">b</span><span class="p">.</span><span class="n">toInt</span><span class="p">()</span> <span class="c1">// OK: explicitly widened
-</span></span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">i</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">b</span><span class="p">.</span><span class="n">toInt</span><span class="p">()</span> <span class="c1">// OK: explicitly widened
+</span></code></pre></td></tr></table>
 </div>
 </div><p>每一个数字类型支持下面的转换：</p>
 <ul>
@@ -311,22 +321,22 @@
 <p>隐式转换的缺失很少会被注意到，因为类型是从上下文推断出来的，算术运算符做了重载，例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">l</span> <span class="p">=</span> <span class="m">1L</span> <span class="p">+</span> <span class="m">3</span> <span class="c1">// Long + Int =&gt; Long
-</span></span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">l</span> <span class="p">=</span> <span class="m">1L</span> <span class="p">+</span> <span class="m">3</span> <span class="c1">// Long + Int =&gt; Long
+</span></code></pre></td></tr></table>
 </div>
 </div><h2 id="运算符">运算符</h2>
 <p>Kotlin支持标准的数学运算集，它们是以类成员的方式定义的（但是编译器会将调用优化为相应的指令）。</p>
 <p>对于位运算，不是使用特殊字符（像&raquo;, &laquo;），而是以命名函数的方式进行中缀调用，例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">x</span> <span class="p">=</span> <span class="p">(</span><span class="m">1</span> <span class="n">shl</span> <span class="m">2</span><span class="p">)</span> <span class="n">and</span> <span class="m">0x000FF000</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">x</span> <span class="p">=</span> <span class="p">(</span><span class="m">1</span> <span class="n">shl</span> <span class="m">2</span><span class="p">)</span> <span class="n">and</span> <span class="m">0x000FF000</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>这里是完整的位运算列表（只针对<code>Int</code>和<code>Long</code>类型）：</p>
 <ul>
@@ -342,36 +352,36 @@
 <p>字符使用<code>Char</code>表示，不能直接当作数字来对待（相对于Java字符与ascii整数是可以互换的）：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">check</span><span class="p">(</span><span class="n">c</span><span class="p">:</span> <span class="n">Char</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="m">1</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// ERROR: incompatible types
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">fun</span> <span class="nf">check</span><span class="p">(</span><span class="n">c</span><span class="p">:</span> <span class="n">Char</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="m">1</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// ERROR: incompatible types
+</span><span class="c1"></span>        <span class="c1">// ...
+</span><span class="c1"></span>    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>字符字面量使用单引号：<code>'1'</code>。特殊字条使用反斜杠进行转义，支持：<code>\t</code>, <code>\b</code>, <code>\n</code>, <code>\r</code>, <code>\'</code>, <code>\&quot;</code>, <code>\\</code>, <code>\$</code>。其他的字符可以使用Unicode转义语法：<code>\uFF00</code>。我们可以显示的把字符转换成数字，例如把<code>'1'</code>转换成<code>1</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">decimalDigitValue</span><span class="p">(</span><span class="n">c</span><span class="p">:</span> <span class="n">Char</span><span class="p">):</span> <span class="n">Int</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">!in</span> <span class="sc">&#39;0&#39;</span><span class="o">..</span><span class="sc">&#39;9&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s2">&#34;Out of range&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">c</span><span class="p">.</span><span class="n">toInt</span><span class="p">()</span> <span class="p">-</span> <span class="sc">&#39;0&#39;</span><span class="p">.</span><span class="n">toInt</span><span class="p">()</span> <span class="c1">// Explicit conversions to numbers
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">fun</span> <span class="nf">decimalDigitValue</span><span class="p">(</span><span class="n">c</span><span class="p">:</span> <span class="n">Char</span><span class="p">):</span> <span class="n">Int</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">!in</span> <span class="sc">&#39;0&#39;</span><span class="o">..</span><span class="sc">&#39;9&#39;</span><span class="p">)</span>
+        <span class="k">throw</span> <span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s2">&#34;Out of range&#34;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">c</span><span class="p">.</span><span class="n">toInt</span><span class="p">()</span> <span class="p">-</span> <span class="sc">&#39;0&#39;</span><span class="p">.</span><span class="n">toInt</span><span class="p">()</span> <span class="c1">// Explicit conversions to numbers
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>跟数字一样，在需要可空类型的时候会进行装箱，并且不会保持引用的不变。</p>
 <h1 id="布尔类型">布尔类型</h1>
@@ -385,7 +395,7 @@
 <p>数组在Kotlin以<code>Array</code>类表示，它具有get和set方法（可以使用[]重载调用），以及size属性，还有一些其他有用的方法：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -395,76 +405,76 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Array</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="k">private</span> <span class="k">constructor</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">size</span><span class="p">:</span> <span class="n">Int</span>
-</span></span><span class="line"><span class="cl">    <span class="k">operator</span> <span class="k">fun</span> <span class="nf">get</span><span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">T</span>
-</span></span><span class="line"><span class="cl">    <span class="k">operator</span> <span class="k">fun</span> <span class="nf">set</span><span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span> <span class="n">Unit</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">operator</span> <span class="k">fun</span> <span class="nf">iterator</span><span class="p">():</span> <span class="n">Iterator</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Array</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="k">private</span> <span class="k">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">val</span> <span class="py">size</span><span class="p">:</span> <span class="n">Int</span>
+    <span class="k">operator</span> <span class="k">fun</span> <span class="nf">get</span><span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">T</span>
+    <span class="k">operator</span> <span class="k">fun</span> <span class="nf">set</span><span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span> <span class="n">Unit</span>
+
+    <span class="k">operator</span> <span class="k">fun</span> <span class="nf">iterator</span><span class="p">():</span> <span class="n">Iterator</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+    <span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>要创建一个数组，我们可以使用库函数<code>arrayOf()</code>和传递一些值给函数，<code>arrayOf(1, 2, 3)</code>会创建一个数组[1, 2, 3]。<code>arrayOfNulls(size: Int)</code>库函数用来创建给定大小的数组，所有元素的值都为null。另一个选择是使用工厂方法，传一个大小值和一个给定索引值返回元素值的函数：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="c1">// Creates an Array&lt;String&gt; with values [&#34;0&#34;, &#34;1&#34;, &#34;4&#34;, &#34;9&#34;, &#34;16&#34;]
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="py">asc</span> <span class="p">=</span> <span class="n">Array</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="p">{</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">i</span> <span class="p">*</span> <span class="n">i</span><span class="p">).</span><span class="n">toString</span><span class="p">()</span> <span class="p">})</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="c1">// Creates an Array&lt;String&gt; with values [&#34;0&#34;, &#34;1&#34;, &#34;4&#34;, &#34;9&#34;, &#34;16&#34;]
+</span><span class="c1"></span><span class="k">val</span> <span class="py">asc</span> <span class="p">=</span> <span class="n">Array</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="p">{</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">i</span> <span class="p">*</span> <span class="n">i</span><span class="p">).</span><span class="n">toString</span><span class="p">()</span> <span class="p">})</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>上面说过，<code>[]</code>操作符全调用<code>get()</code>和<code>set()</code>方法。</p>
 <p><strong>注意：不像Java，Kotlin的数组类型是不能转变的。这意味着不能把<code>Array&lt;String&gt;</code>赋值为<code>Array&lt;Any&gt;</code>，以防止可能的运行时错误（但是仍然可以使用<code>Array&lt;out Any&gt;</code>），这是Kotlin添加的协变和逆变概念</strong></p>
 <p>Kotlin还有其他的类来表示其他的的基础类型数组而不需要装箱：<code>ByteArray</code>, <code>ShortArray</code>, <code>IntArray</code>等等。这些类并不是继承自<code>Array</code>，但是他们有着相关的方法和属性。每一个都有相应的库函数：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">x</span><span class="p">:</span> <span class="n">IntArray</span> <span class="p">=</span> <span class="n">intArrayOf</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">x</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">=</span> <span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">]</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">x</span><span class="p">:</span> <span class="n">IntArray</span> <span class="p">=</span> <span class="n">intArrayOf</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">)</span>
+<span class="n">x</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">=</span> <span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">]</span>
+</code></pre></td></tr></table>
 </div>
 </div><h1 id="字符串">字符串</h1>
 <p>字符串使用<code>String</code>类表示，并且是不可变的（immutable）。字符串是以字符组成，每一个元素是一个字条，可以使用索引来访问每个位置上的字符值：<code>s[i]</code>，可以使用for循环来迭代：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="n">c</span> <span class="k">in</span> <span class="n">str</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">println</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">for</span> <span class="p">(</span><span class="n">c</span> <span class="k">in</span> <span class="n">str</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="字符串字面量">字符串字面量</h2>
 <p>Kotlin有两种字面量：双引号和三个双引号包裹。前一种可以包含转义字符，后一种可以显示的换行。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">s</span> <span class="p">=</span> <span class="s2">&#34;Hello, world!</span><span class="se">\n</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">text</span> <span class="p">=</span> <span class="s">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s">    for (c in &#34;foo&#34;)
-</span></span></span><span class="line"><span class="cl"><span class="s">        print(c)
-</span></span></span><span class="line"><span class="cl"><span class="s">&#34;&#34;&#34;</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">s</span> <span class="p">=</span> <span class="s2">&#34;Hello, world!</span><span class="se">\n</span><span class="s2">&#34;</span>
+<span class="k">val</span> <span class="py">text</span> <span class="p">=</span> <span class="s">&#34;&#34;&#34;
+</span><span class="s">    for (c in &#34;foo&#34;)
+</span><span class="s">        print(c)
+</span><span class="s">&#34;&#34;&#34;</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>可以使用<code>trimMargin()</code>方法删除原始字符串前面的空白，默认使用竖线<code>|</code>，但是可以其他的字符达到同样的效果，例如<code>trimMargin(&quot;&gt;&quot;)</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -472,51 +482,51 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">text</span> <span class="p">=</span> <span class="s">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s">    |Tell me and I forget.
-</span></span></span><span class="line"><span class="cl"><span class="s">    |Teach me and I remember.
-</span></span></span><span class="line"><span class="cl"><span class="s">    |Involve me and I learn.
-</span></span></span><span class="line"><span class="cl"><span class="s">    |(Benjamin Franklin)
-</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;&#34;&#34;</span><span class="p">.</span><span class="n">trimMargin</span><span class="p">()</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">text</span> <span class="p">=</span> <span class="s">&#34;&#34;&#34;
+</span><span class="s">    |Tell me and I forget.
+</span><span class="s">    |Teach me and I remember.
+</span><span class="s">    |Involve me and I learn.
+</span><span class="s">    |(Benjamin Franklin)
+</span><span class="s">    &#34;&#34;&#34;</span><span class="p">.</span><span class="n">trimMargin</span><span class="p">()</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="字符串模板">字符串模板</h2>
 <p>字符串可以包含模板表达式，例如可以把一小代码写在字符串里面，并且把代码的结果与字符串其他部分进行组装。字符串模板以<code>$</code>开头和一个简单的名字组成：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">i</span> <span class="p">=</span> <span class="m">10</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">s</span> <span class="p">=</span> <span class="s2">&#34;i = </span><span class="si">$i</span><span class="s2">&#34;</span> <span class="c1">// 结果为：&#34;i = 10&#34;
-</span></span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">i</span> <span class="p">=</span> <span class="m">10</span>
+<span class="k">val</span> <span class="py">s</span> <span class="p">=</span> <span class="s2">&#34;i = </span><span class="si">$i</span><span class="s2">&#34;</span> <span class="c1">// 结果为：&#34;i = 10&#34;
+</span></code></pre></td></tr></table>
 </div>
 </div><p>或者以任意被花括号包裹的表达式：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">s</span> <span class="p">=</span> <span class="s2">&#34;abc&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">str</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="si">$s</span><span class="s2">.length is </span><span class="si">${s.length}</span><span class="s2">&#34;</span> <span class="c1">// 结果为：&#34;abc.length is 3&#34;
-</span></span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">s</span> <span class="p">=</span> <span class="s2">&#34;abc&#34;</span>
+<span class="k">val</span> <span class="py">str</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="si">$s</span><span class="s2">.length is </span><span class="si">${s.length}</span><span class="s2">&#34;</span> <span class="c1">// 结果为：&#34;abc.length is 3&#34;
+</span></code></pre></td></tr></table>
 </div>
 </div><p>两种字符串方式都支持字符串模板，如果想使用<code>$</code>本身怎么办呢，可以使用<code>${'$'}</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">price</span> <span class="p">=</span> <span class="s">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s"></span><span class="si">${&#39;$&#39;}</span><span class="s">9.99
-</span></span></span><span class="line"><span class="cl"><span class="s">&#34;&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">tpl</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="si">${&#39;$&#39;}</span><span class="s2">a&#34;</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">price</span> <span class="p">=</span> <span class="s">&#34;&#34;&#34;
+</span><span class="s"></span><span class="si">${&#39;$&#39;}</span><span class="s">9.99
+</span><span class="s">&#34;&#34;&#34;</span>
+<span class="k">val</span> <span class="py">tpl</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="si">${&#39;$&#39;}</span><span class="s2">a&#34;</span>
+</code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -605,13 +615,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -625,7 +632,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

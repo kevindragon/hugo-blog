@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/searchengine/solr7%E4%B8%AD%E7%9A%84learnin-to-rank%E4%BD%BF%E7%94%A8/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -146,7 +156,7 @@
 <p><code>solr-ltr-7.1.0.jar</code>已经自带在solr的发行包里面，只需要在<code>solrconfig.xml</code>配置即可，把下面的内容添加到<code>solrconfig.xml</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -159,25 +169,25 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;lib</span> <span class="na">dir=</span><span class="s">&#34;${solr.install.dir:../../../..}/dist/&#34;</span> <span class="na">regex=</span><span class="s">&#34;solr-ltr-\d.*\.jar&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;queryParser</span> <span class="na">name=</span><span class="s">&#34;ltr&#34;</span> <span class="na">class=</span><span class="s">&#34;org.apache.solr.ltr.search.LTRQParserPlugin&#34;</span><span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;cache</span> <span class="na">name=</span><span class="s">&#34;QUERY_DOC_FV&#34;</span>
-</span></span><span class="line"><span class="cl">       <span class="na">class=</span><span class="s">&#34;solr.search.LRUCache&#34;</span>
-</span></span><span class="line"><span class="cl">       <span class="na">size=</span><span class="s">&#34;4096&#34;</span>
-</span></span><span class="line"><span class="cl">       <span class="na">initialSize=</span><span class="s">&#34;2048&#34;</span>
-</span></span><span class="line"><span class="cl">       <span class="na">autowarmCount=</span><span class="s">&#34;4096&#34;</span>
-</span></span><span class="line"><span class="cl">       <span class="na">regenerator=</span><span class="s">&#34;solr.search.NoOpRegenerator&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;transformer</span> <span class="na">name=</span><span class="s">&#34;features&#34;</span> <span class="na">class=</span><span class="s">&#34;org.apache.solr.ltr.response.transform.LTRFeatureLoggerTransformerFactory&#34;</span><span class="nt">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;str</span> <span class="na">name=</span><span class="s">&#34;fvCacheName&#34;</span><span class="nt">&gt;</span>QUERY_DOC_FV<span class="nt">&lt;/str&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;/transformer&gt;</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;lib</span> <span class="na">dir=</span><span class="s">&#34;${solr.install.dir:../../../..}/dist/&#34;</span> <span class="na">regex=</span><span class="s">&#34;solr-ltr-\d.*\.jar&#34;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;queryParser</span> <span class="na">name=</span><span class="s">&#34;ltr&#34;</span> <span class="na">class=</span><span class="s">&#34;org.apache.solr.ltr.search.LTRQParserPlugin&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;cache</span> <span class="na">name=</span><span class="s">&#34;QUERY_DOC_FV&#34;</span>
+       <span class="na">class=</span><span class="s">&#34;solr.search.LRUCache&#34;</span>
+       <span class="na">size=</span><span class="s">&#34;4096&#34;</span>
+       <span class="na">initialSize=</span><span class="s">&#34;2048&#34;</span>
+       <span class="na">autowarmCount=</span><span class="s">&#34;4096&#34;</span>
+       <span class="na">regenerator=</span><span class="s">&#34;solr.search.NoOpRegenerator&#34;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;transformer</span> <span class="na">name=</span><span class="s">&#34;features&#34;</span> <span class="na">class=</span><span class="s">&#34;org.apache.solr.ltr.response.transform.LTRFeatureLoggerTransformerFactory&#34;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;str</span> <span class="na">name=</span><span class="s">&#34;fvCacheName&#34;</span><span class="nt">&gt;</span>QUERY_DOC_FV<span class="nt">&lt;/str&gt;</span>
+<span class="nt">&lt;/transformer&gt;</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>添加了以上的配置后还需要把<code>dist</code>目录下的<code>solr-ltr-7.1.0.jar</code>拷贝到<code>server/solr-webapp/webapp/WEB-INF/lib/</code>目录下面，如果不添加的话，用rest api设置model的时候会报class not found exception。</p>
 <!-- raw HTML omitted -->
 <h1 id="上传feature">上传feature</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -219,47 +229,47 @@
 </span><span class="lnt">40
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">[</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;store&#34;</span><span class="p">:</span> <span class="s2">&#34;featureStore&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;title&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;class&#34;</span><span class="p">:</span> <span class="s2">&#34;org.apache.solr.ltr.feature.SolrFeature&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;params&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&#34;q&#34;</span><span class="p">:</span> <span class="s2">&#34;{!func}query({!v=title:${query}})&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;store&#34;</span><span class="p">:</span> <span class="s2">&#34;featureStore&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;content&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;class&#34;</span><span class="p">:</span> <span class="s2">&#34;org.apache.solr.ltr.feature.SolrFeature&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;params&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&#34;q&#34;</span><span class="p">:</span> <span class="s2">&#34;{!func}query({!v=content:${query}})&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;store&#34;</span><span class="p">:</span> <span class="s2">&#34;featureStore&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;originalScore&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;class&#34;</span><span class="p">:</span> <span class="s2">&#34;org.apache.solr.ltr.feature.OriginalScoreFeature&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;params&#34;</span><span class="p">:</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;store&#34;</span><span class="p">:</span> <span class="s2">&#34;featureStore&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;level&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;class&#34;</span><span class="p">:</span> <span class="s2">&#34;org.apache.solr.ltr.feature.FieldValueFeature&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;params&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&#34;field&#34;</span><span class="p">:</span> <span class="s2">&#34;level&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;store&#34;</span><span class="p">:</span> <span class="s2">&#34;featureStore&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;year&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;class&#34;</span><span class="p">:</span> <span class="s2">&#34;org.apache.solr.ltr.feature.FieldValueFeature&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;params&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&#34;field&#34;</span><span class="p">:</span> <span class="s2">&#34;year&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">]</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nt">&#34;store&#34;</span><span class="p">:</span> <span class="s2">&#34;featureStore&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;title&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;class&#34;</span><span class="p">:</span> <span class="s2">&#34;org.apache.solr.ltr.feature.SolrFeature&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;params&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;q&#34;</span><span class="p">:</span> <span class="s2">&#34;{!func}query({!v=title:${query}})&#34;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&#34;store&#34;</span><span class="p">:</span> <span class="s2">&#34;featureStore&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;content&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;class&#34;</span><span class="p">:</span> <span class="s2">&#34;org.apache.solr.ltr.feature.SolrFeature&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;params&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;q&#34;</span><span class="p">:</span> <span class="s2">&#34;{!func}query({!v=content:${query}})&#34;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&#34;store&#34;</span><span class="p">:</span> <span class="s2">&#34;featureStore&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;originalScore&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;class&#34;</span><span class="p">:</span> <span class="s2">&#34;org.apache.solr.ltr.feature.OriginalScoreFeature&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;params&#34;</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&#34;store&#34;</span><span class="p">:</span> <span class="s2">&#34;featureStore&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;level&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;class&#34;</span><span class="p">:</span> <span class="s2">&#34;org.apache.solr.ltr.feature.FieldValueFeature&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;params&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;field&#34;</span><span class="p">:</span> <span class="s2">&#34;level&#34;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&#34;store&#34;</span><span class="p">:</span> <span class="s2">&#34;featureStore&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;year&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;class&#34;</span><span class="p">:</span> <span class="s2">&#34;org.apache.solr.ltr.feature.FieldValueFeature&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;params&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;field&#34;</span><span class="p">:</span> <span class="s2">&#34;year&#34;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>上面是四个feature：</p>
 <ol>
@@ -272,11 +282,11 @@
 <p>使用下面的命令上传feature</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -XPUT <span class="s1">&#39;http://localhost:8983/solr/collection_name/schema/feature-store&#39;</span> -d <span class="s2">&#34;your json string&#34;</span> -H <span class="s1">&#39;Content-type:application/json&#39;</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">curl -XPUT <span class="s1">&#39;http://localhost:8983/solr/collection_name/schema/feature-store&#39;</span> -d <span class="s2">&#34;your json string&#34;</span> -H <span class="s1">&#39;Content-type:application/json&#39;</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>查看feature可以使用下面的url
 <code>http://host:port/solr/collection_name/schema/feature-store</code></p>
@@ -286,16 +296,16 @@
 <p>上传完feature，就可以通过下面的url查看每个文档各个feature的值。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">http://host:port/solr/collection_name/query?q=YOUR_KEYWORD&amp;fl=id,score,[features store=featureStore efi.query=&#39;YOUR_KEYWORD&#39;]
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">http://host:port/solr/collection_name/query?q=YOUR_KEYWORD&amp;fl=id,score,[features store=featureStore efi.query=&#39;YOUR_KEYWORD&#39;]
+</code></pre></td></tr></table>
 </div>
 </div><h1 id="上传model">上传model</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -318,28 +328,28 @@
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;class&#34;</span><span class="p">:</span> <span class="s2">&#34;org.apache.solr.ltr.model.LinearModel&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;store&#34;</span><span class="p">:</span> <span class="s2">&#34;featureStore&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;modelStore&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;features&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;title&#34;</span><span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;content&#34;</span><span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;originalScore&#34;</span><span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;level&#34;</span><span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;year&#34;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">],</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;params&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;weights&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="mf">0.420081550114</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;content&#34;</span><span class="p">:</span> <span class="mf">-0.054514139045</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;originalScore&#34;</span><span class="p">:</span> <span class="mf">0.0413832540555</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;level&#34;</span><span class="p">:</span> <span class="mf">-0.0150990612159</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;year&#34;</span><span class="p">:</span> <span class="mf">1.0</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;class&#34;</span><span class="p">:</span> <span class="s2">&#34;org.apache.solr.ltr.model.LinearModel&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;store&#34;</span><span class="p">:</span> <span class="s2">&#34;featureStore&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;modelStore&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;features&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;title&#34;</span><span class="p">},</span>
+    <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;content&#34;</span><span class="p">},</span>
+    <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;originalScore&#34;</span><span class="p">},</span>
+    <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;level&#34;</span><span class="p">},</span>
+    <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;year&#34;</span><span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;params&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;weights&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="mf">0.420081550114</span><span class="p">,</span>
+      <span class="nt">&#34;content&#34;</span><span class="p">:</span> <span class="mf">-0.054514139045</span><span class="p">,</span>
+      <span class="nt">&#34;originalScore&#34;</span><span class="p">:</span> <span class="mf">0.0413832540555</span><span class="p">,</span>
+      <span class="nt">&#34;level&#34;</span><span class="p">:</span> <span class="mf">-0.0150990612159</span><span class="p">,</span>
+      <span class="nt">&#34;year&#34;</span><span class="p">:</span> <span class="mf">1.0</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>这个模型配置使用一个<a href="https://lucene.apache.org/solr/7_1_0//solr-ltr/org/apache/solr/ltr/model/LinearModel.html">线性函数</a>来对搜索结果进行再次打分</p>
 <p>查找模型
@@ -348,11 +358,11 @@
 <p>在查询的时候指定rq参数使用ltr，然后指定使用的model，传入需要的参数即可。针对上面的feature和model使用下面的url进行查询</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">http://host:port/solr/collection_name/query?q=YOUR_KEYWORD&amp;rq={!ltr model=modelStore reRankDocs=100 efi.query=&#39;YOUR_KEYWORD&#39;}&amp;fl=id,score,[features store=featureStore efi.query=&#39;YOUR_KEYWORD&#39;]
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">http://host:port/solr/collection_name/query?q=YOUR_KEYWORD&amp;rq={!ltr model=modelStore reRankDocs=100 efi.query=&#39;YOUR_KEYWORD&#39;}&amp;fl=id,score,[features store=featureStore efi.query=&#39;YOUR_KEYWORD&#39;]
+</code></pre></td></tr></table>
 </div>
 </div><p>这个url可以使用ltr进行打分，同时还可以取到各个feature的值。</p>
 
@@ -441,13 +451,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -461,7 +468,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

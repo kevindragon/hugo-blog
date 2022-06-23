@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/searchengine/solr%E6%95%99%E7%A8%8B-%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -168,26 +178,26 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">tar zxf solr-7.5.0.tgz
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> solr-7.5.0
-</span></span><span class="line"><span class="cl">bin/solr start
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">tar zxf solr-7.5.0.tgz
+<span class="nb">cd</span> solr-7.5.0
+bin/solr start
+</code></pre></td></tr></table>
 </div>
 </div><p>然后使用浏览器打开<a href="http://localhost:8983">http://localhost:8983</a>，你就可以看到Solr Admin UI的界面了，这是Solr自带的管理界面，使用非常方便，在里面可以查看状态，管理core，进行查询。</p>
 <p>以<code>bin/solr start</code>运行的solr是以standalone模式（非分布式）运行的，如果是学习可以使用此模式快速的尝试。但是建议使用后面将要介绍的SolrCloud模式来运行，SolrCloud模式可以很好的进行扩展，应对海量数据的实时搜索，动态剔除/增加机器节点，动态转移数据分片(shard)，所有这些操作都可以不停机进行操作。生产环境也建议使用SolrCloud模式运行。</p>
 <p>这是以SolrCloud模式启动solr的命令，只需要添加一个<code>-c</code>参数即可</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">bin/solr start -c
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">bin/solr start -c
+</code></pre></td></tr></table>
 </div>
 </div><p>详细的命令行参数请参考<a href="https://kevinjiang.info/2018/03/19/Solr%E6%8E%A7%E5%88%B6%E8%84%9A%E6%9C%AC%E5%8F%82%E8%80%83/">Solr控制脚本参考</a></p>
 <p>SolrCloud启动之后会占用8983端口，默认会启动一个内置的zookeeper实例，占用9983端口（在solr的端口上加1000）。</p>
@@ -204,7 +214,7 @@
 <p>步骤为：下载<a href="https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/zookeeper-3.4.13/zookeeper-3.4.13.tar.gz">zookeeper-3.4.13</a> -&gt; 解压 -&gt; 配置conf/zoo.cfg -&gt; 启动</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -214,15 +224,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">curl -o zookeeper-3.4.13.tar.gz <span class="s1">&#39;https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/zookeeper-3.4.13/zookeeper-3.4.13.tar.gz&#39;</span>
-</span></span><span class="line"><span class="cl">tar -xzvf zookeeper-3.4.13.tar.gz
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> zookeeper-3.4.13
-</span></span><span class="line"><span class="cl">cp conf/zoo_sample.cfg conf/zoo.cfg
-</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/dataDir=.*/dataDir=.\/data/g&#39;</span> conf/zoo.cfg
-</span></span><span class="line"><span class="cl">mkdir data
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\nserver.1=192.168.1.2:2888:3888\nserver.2=192.168.1.3:2888:3888\nserver.3=192.168.1.4:2888:3888&#34;</span> &gt;&gt; conf/zoo.cfg
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="m">1</span> &gt; data/myid
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">curl -o zookeeper-3.4.13.tar.gz <span class="s1">&#39;https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/zookeeper-3.4.13/zookeeper-3.4.13.tar.gz&#39;</span>
+tar -xzvf zookeeper-3.4.13.tar.gz
+<span class="nb">cd</span> zookeeper-3.4.13
+cp conf/zoo_sample.cfg conf/zoo.cfg
+sed -i <span class="s1">&#39;s/dataDir=.*/dataDir=.\/data/g&#39;</span> conf/zoo.cfg
+mkdir data
+<span class="nb">echo</span> -e <span class="s2">&#34;\nserver.1=192.168.1.2:2888:3888\nserver.2=192.168.1.3:2888:3888\nserver.3=192.168.1.4:2888:3888&#34;</span> &gt;&gt; conf/zoo.cfg
+<span class="nb">echo</span> <span class="m">1</span> &gt; data/myid
+</code></pre></td></tr></table>
 </div>
 </div><p>解释一下上面的一些命令：</p>
 <p>前四行就不过多解释，下载zookeeper-3.4.13安装包，解压，拷贝conf/zoo_example.cfg为conf/zoo.cfg配置文件。conf/zoo.cfg为必须的配置文件，否则zookeeper是无法启动的。</p>
@@ -234,17 +244,17 @@
 <p>假设现在也有三个机器安装了solr（下载下来直接解压即可），分别为<code>192.168.1.10</code>、<code>192.168.1.11</code>、<code>192.168.1.12</code>，解压的目录都为<code>solr-7.5.0</code>。命令行切换到solr-7.5.0目录运行如下命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">bin/solr start -c -z 192.168.1.2:2181,192.168.1.3:2181,192.168.1.4:2181
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">bin/solr start -c -z 192.168.1.2:2181,192.168.1.3:2181,192.168.1.4:2181
+</code></pre></td></tr></table>
 </div>
 </div><p>三台机器运行同样的命令后，整个SolrCloud集群就已经启动好了，可以访问<a href="http://192.168.1.10:8983">http://192.168.1.10:8983</a>查看solr admin ui。</p>
 <h2 id="负载均衡">负载均衡</h2>
 <p>这个话题比较有意思，很多人问我SolrCloud已经使用了Zookeeper来选举leader了，SolrCloud里面的leader shard也会把请求分发到其他的shard上，为什么还要做负载均衡呢。如果你深入了解过solr的search component你就会明白，接收请求的那个机器做的计算是要比其他机器多的，如果你在代码当中只是访问其中一台机器，那么这台机器的负载会高于其他的机器。所以你需要在你的应用程序和SolrCloud之间搭建一个负载均衡，把请求均匀的分布到各个机器上去。</p>
 <p>常用的有nginx, haproxy这两个做负载均衡的软件了。最后要保证高可用，还需要做一个负载均衡层面的热备的配置，这样你的SolrCloud可以说已经非常坚固了。</p>
-<!-- raw HTML omitted -->
+<p><!-- raw HTML omitted --></p>
 
     </div>
 
@@ -333,13 +343,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -353,7 +360,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

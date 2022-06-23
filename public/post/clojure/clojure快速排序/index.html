@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/clojure/clojure%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -141,7 +151,7 @@
 <p>看过Haskell的快速排序之后，真的是被折服了，简洁明了。现在用Clojure也来写一个快排，同样也是相当的简单。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -151,15 +161,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(defn quick-sort [coll]
-</span></span><span class="line"><span class="cl">  (if (empty? coll)
-</span></span><span class="line"><span class="cl">    []
-</span></span><span class="line"><span class="cl">    (let [[first &amp; r] coll]
-</span></span><span class="line"><span class="cl">      (concat
-</span></span><span class="line"><span class="cl">        (quick-sort (filter #(&lt; % first) r))
-</span></span><span class="line"><span class="cl">        [first]
-</span></span><span class="line"><span class="cl">        (quick-sort (filter #(&gt;= % first) r))))))
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">(defn quick-sort [coll]
+  (if (empty? coll)
+    []
+    (let [[first &amp; r] coll]
+      (concat
+        (quick-sort (filter #(&lt; % first) r))
+        [first]
+        (quick-sort (filter #(&gt;= % first) r))))))
+</code></pre></td></tr></table>
 </div>
 </div><p>算法的定义：排过序的 List 就是令所有小于等于头部的元素在先（它们已经排过了序）， 后跟大于头部的元素（它们同样已经排过了序）。</p>
 
@@ -249,13 +259,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -269,7 +276,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

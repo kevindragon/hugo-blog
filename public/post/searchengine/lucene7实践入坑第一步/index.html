@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/searchengine/lucene7%E5%AE%9E%E8%B7%B5%E5%85%A5%E5%9D%91%E7%AC%AC%E4%B8%80%E6%AD%A5/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -140,7 +150,7 @@
       <p>这是一篇很简单的使用Lucene7.0.0来建立索引和搜索的文章。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -191,56 +201,56 @@
 </span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.lucene.analysis.core.WhitespaceAnalyzer</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.lucene.document.*</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.lucene.index.DirectoryReader</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.lucene.index.IndexWriter</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.lucene.index.IndexWriterConfig</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.lucene.index.Term</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.lucene.search.IndexSearcher</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.lucene.search.PhraseQuery</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.lucene.search.SearcherManager</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.lucene.search.TopDocs</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.lucene.store.FSDirectory</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.nio.file.Paths</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UseLucene2</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">FSDirectory</span> <span class="n">indexDir</span> <span class="o">=</span> <span class="n">FSDirectory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="n">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;index&#34;</span><span class="o">));</span>
-</span></span><span class="line"><span class="cl">        <span class="n">IndexWriterConfig</span> <span class="n">iwc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IndexWriterConfig</span><span class="o">(</span><span class="k">new</span> <span class="n">WhitespaceAnalyzer</span><span class="o">());</span>
-</span></span><span class="line"><span class="cl">        <span class="n">iwc</span><span class="o">.</span><span class="na">setOpenMode</span><span class="o">(</span><span class="n">IndexWriterConfig</span><span class="o">.</span><span class="na">OpenMode</span><span class="o">.</span><span class="na">CREATE</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="n">IndexWriter</span> <span class="n">indexWriter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IndexWriter</span><span class="o">(</span><span class="n">indexDir</span><span class="o">,</span> <span class="n">iwc</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="n">DirectoryReader</span> <span class="n">dir</span> <span class="o">=</span> <span class="n">DirectoryReader</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="n">indexWriter</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="n">Document</span> <span class="n">doc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Document</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">        <span class="n">doc</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">StringField</span><span class="o">(</span><span class="s">&#34;first&#34;</span><span class="o">,</span> <span class="s">&#34;测试&#34;</span><span class="o">,</span> <span class="n">Field</span><span class="o">.</span><span class="na">Store</span><span class="o">.</span><span class="na">YES</span><span class="o">));</span>
-</span></span><span class="line"><span class="cl">        <span class="n">indexWriter</span><span class="o">.</span><span class="na">addDocument</span><span class="o">(</span><span class="n">doc</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="n">SearcherManager</span> <span class="n">sm</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SearcherManager</span><span class="o">(</span><span class="n">indexWriter</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="n">PhraseQuery</span><span class="o">.</span><span class="na">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PhraseQuery</span><span class="o">.</span><span class="na">Builder</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">        <span class="n">builder</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Term</span><span class="o">(</span><span class="s">&#34;first&#34;</span><span class="o">,</span> <span class="s">&#34;测试&#34;</span><span class="o">));</span>
-</span></span><span class="line"><span class="cl">        <span class="n">PhraseQuery</span> <span class="n">pq</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="n">IndexSearcher</span> <span class="n">searcher</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="na">acquire</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">        <span class="n">TopDocs</span> <span class="n">docs</span> <span class="o">=</span> <span class="n">searcher</span><span class="o">.</span><span class="na">search</span><span class="o">(</span><span class="n">pq</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">docs</span><span class="o">.</span><span class="na">totalHits</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">docs</span><span class="o">.</span><span class="na">totalHits</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">docs</span><span class="o">.</span><span class="na">scoreDocs</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="n">sm</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">        <span class="n">indexWriter</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">org.apache.lucene.analysis.core.WhitespaceAnalyzer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.lucene.document.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.lucene.index.DirectoryReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.lucene.index.IndexWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.lucene.index.IndexWriterConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.lucene.index.Term</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.lucene.search.IndexSearcher</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.lucene.search.PhraseQuery</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.lucene.search.SearcherManager</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.lucene.search.TopDocs</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.lucene.store.FSDirectory</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.nio.file.Paths</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UseLucene2</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">FSDirectory</span> <span class="n">indexDir</span> <span class="o">=</span> <span class="n">FSDirectory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="n">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;index&#34;</span><span class="o">));</span>
+        <span class="n">IndexWriterConfig</span> <span class="n">iwc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IndexWriterConfig</span><span class="o">(</span><span class="k">new</span> <span class="n">WhitespaceAnalyzer</span><span class="o">());</span>
+        <span class="n">iwc</span><span class="o">.</span><span class="na">setOpenMode</span><span class="o">(</span><span class="n">IndexWriterConfig</span><span class="o">.</span><span class="na">OpenMode</span><span class="o">.</span><span class="na">CREATE</span><span class="o">);</span>
+        <span class="n">IndexWriter</span> <span class="n">indexWriter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IndexWriter</span><span class="o">(</span><span class="n">indexDir</span><span class="o">,</span> <span class="n">iwc</span><span class="o">);</span>
+        <span class="n">DirectoryReader</span> <span class="n">dir</span> <span class="o">=</span> <span class="n">DirectoryReader</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="n">indexWriter</span><span class="o">);</span>
+
+        <span class="n">Document</span> <span class="n">doc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Document</span><span class="o">();</span>
+        <span class="n">doc</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">StringField</span><span class="o">(</span><span class="s">&#34;first&#34;</span><span class="o">,</span> <span class="s">&#34;测试&#34;</span><span class="o">,</span> <span class="n">Field</span><span class="o">.</span><span class="na">Store</span><span class="o">.</span><span class="na">YES</span><span class="o">));</span>
+        <span class="n">indexWriter</span><span class="o">.</span><span class="na">addDocument</span><span class="o">(</span><span class="n">doc</span><span class="o">);</span>
+
+
+        <span class="n">SearcherManager</span> <span class="n">sm</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SearcherManager</span><span class="o">(</span><span class="n">indexWriter</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+
+
+        <span class="n">PhraseQuery</span><span class="o">.</span><span class="na">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PhraseQuery</span><span class="o">.</span><span class="na">Builder</span><span class="o">();</span>
+        <span class="n">builder</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Term</span><span class="o">(</span><span class="s">&#34;first&#34;</span><span class="o">,</span> <span class="s">&#34;测试&#34;</span><span class="o">));</span>
+        <span class="n">PhraseQuery</span> <span class="n">pq</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+        <span class="n">IndexSearcher</span> <span class="n">searcher</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="na">acquire</span><span class="o">();</span>
+        <span class="n">TopDocs</span> <span class="n">docs</span> <span class="o">=</span> <span class="n">searcher</span><span class="o">.</span><span class="na">search</span><span class="o">(</span><span class="n">pq</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">docs</span><span class="o">.</span><span class="na">totalHits</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">docs</span><span class="o">.</span><span class="na">totalHits</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">docs</span><span class="o">.</span><span class="na">scoreDocs</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+        <span class="o">}</span>
+
+        <span class="n">sm</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">indexWriter</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>// TODO 补充解释</p>
 
@@ -329,13 +339,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -349,7 +356,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

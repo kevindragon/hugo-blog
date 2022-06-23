@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/clojure/clojure%E5%8E%8B%E7%BC%A9%E7%9B%AE%E5%BD%95%E4%B8%BAzip/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -147,7 +157,7 @@
 <!-- raw HTML omitted -->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -168,26 +178,26 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Clojure" data-lang="Clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">require</span> <span class="o">&#39;</span><span class="p">[</span><span class="nv">clojure.java.io</span> <span class="ss">:as</span> <span class="nv">io</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">         <span class="o">&#39;</span><span class="p">[</span><span class="nv">clojure.string</span> <span class="ss">:as</span> <span class="nv">str</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">import </span><span class="p">(</span><span class="nf">java.io</span> <span class="nv">FileOutputStream</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="nf">java.util.zip</span> <span class="nv">ZipEntry</span> <span class="nv">ZipOutputStream</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="kd">defn </span><span class="nv">zip-dir</span>
-</span></span><span class="line"><span class="cl">  <span class="s">&#34;以zip格式压缩目录path&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">path </span><span class="nv">zip-file</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">root-path</span> <span class="p">(</span><span class="nf">.toPath</span> <span class="p">(</span><span class="nf">io/file</span> <span class="nv">path</span><span class="p">))]</span> 
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nb">with-open </span><span class="p">[</span><span class="nv">zip</span> <span class="p">(</span><span class="nf">ZipOutputStream.</span> <span class="p">(</span><span class="nf">FileOutputStream.</span> <span class="nv">zip-file</span><span class="p">))]</span>
-</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nb">doseq </span><span class="p">[</span><span class="nv">f</span> <span class="p">(</span><span class="nb">file-seq </span><span class="p">(</span><span class="nf">io/file</span> <span class="nv">path</span><span class="p">))]</span>
-</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">p</span> <span class="p">(</span><span class="nf">.toPath</span> <span class="nv">f</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">              <span class="nv">subpath</span> <span class="p">(</span><span class="nf">str/replace</span> <span class="p">(</span><span class="nb">str </span><span class="p">(</span><span class="nf">.relativize</span> <span class="nv">root-path</span> <span class="nv">p</span><span class="p">))</span> <span class="s">&#34;\\&#34;</span> <span class="s">&#34;/&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">              <span class="nv">path-name</span> <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">.isDirectory</span> <span class="nv">f</span><span class="p">)</span> <span class="p">(</span><span class="nb">str </span><span class="nv">subpath</span> <span class="s">&#34;/&#34;</span><span class="p">)</span> <span class="nv">subpath</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">          <span class="p">(</span><span class="nb">when-not </span><span class="p">(</span><span class="nb">= </span><span class="s">&#34;&#34;</span> <span class="nv">subpath</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nf">.putNextEntry</span> <span class="nv">zip</span> <span class="p">(</span><span class="nf">ZipEntry.</span> <span class="nv">path-name</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nf">.isFile</span> <span class="nv">f</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">              <span class="p">(</span><span class="nf">io/copy</span> <span class="nv">f</span> <span class="nv">zip</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nf">.closeEntry</span> <span class="nv">zip</span><span class="p">)))))))</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Clojure" data-lang="Clojure"><span class="p">(</span><span class="nf">require</span> <span class="o">&#39;</span><span class="p">[</span><span class="nv">clojure.java.io</span> <span class="ss">:as</span> <span class="nv">io</span><span class="p">]</span>
+         <span class="o">&#39;</span><span class="p">[</span><span class="nv">clojure.string</span> <span class="ss">:as</span> <span class="nv">str</span><span class="p">])</span>
+<span class="p">(</span><span class="nb">import </span><span class="p">(</span><span class="nf">java.io</span> <span class="nv">FileOutputStream</span><span class="p">)</span>
+        <span class="p">(</span><span class="nf">java.util.zip</span> <span class="nv">ZipEntry</span> <span class="nv">ZipOutputStream</span><span class="p">))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">zip-dir</span>
+  <span class="s">&#34;以zip格式压缩目录path&#34;</span>
+  <span class="p">[</span><span class="nb">path </span><span class="nv">zip-file</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">root-path</span> <span class="p">(</span><span class="nf">.toPath</span> <span class="p">(</span><span class="nf">io/file</span> <span class="nv">path</span><span class="p">))]</span> 
+    <span class="p">(</span><span class="nb">with-open </span><span class="p">[</span><span class="nv">zip</span> <span class="p">(</span><span class="nf">ZipOutputStream.</span> <span class="p">(</span><span class="nf">FileOutputStream.</span> <span class="nv">zip-file</span><span class="p">))]</span>
+      <span class="p">(</span><span class="nb">doseq </span><span class="p">[</span><span class="nv">f</span> <span class="p">(</span><span class="nb">file-seq </span><span class="p">(</span><span class="nf">io/file</span> <span class="nv">path</span><span class="p">))]</span>
+        <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">p</span> <span class="p">(</span><span class="nf">.toPath</span> <span class="nv">f</span><span class="p">)</span>
+              <span class="nv">subpath</span> <span class="p">(</span><span class="nf">str/replace</span> <span class="p">(</span><span class="nb">str </span><span class="p">(</span><span class="nf">.relativize</span> <span class="nv">root-path</span> <span class="nv">p</span><span class="p">))</span> <span class="s">&#34;\\&#34;</span> <span class="s">&#34;/&#34;</span><span class="p">)</span>
+              <span class="nv">path-name</span> <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">.isDirectory</span> <span class="nv">f</span><span class="p">)</span> <span class="p">(</span><span class="nb">str </span><span class="nv">subpath</span> <span class="s">&#34;/&#34;</span><span class="p">)</span> <span class="nv">subpath</span><span class="p">)]</span>
+          <span class="p">(</span><span class="nb">when-not </span><span class="p">(</span><span class="nb">= </span><span class="s">&#34;&#34;</span> <span class="nv">subpath</span><span class="p">)</span>
+            <span class="p">(</span><span class="nf">.putNextEntry</span> <span class="nv">zip</span> <span class="p">(</span><span class="nf">ZipEntry.</span> <span class="nv">path-name</span><span class="p">))</span>
+            <span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nf">.isFile</span> <span class="nv">f</span><span class="p">)</span>
+              <span class="p">(</span><span class="nf">io/copy</span> <span class="nv">f</span> <span class="nv">zip</span><span class="p">))</span>
+            <span class="p">(</span><span class="nf">.closeEntry</span> <span class="nv">zip</span><span class="p">)))))))</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>特别需要注意:</p>
 <ol>
@@ -282,13 +292,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -302,7 +309,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

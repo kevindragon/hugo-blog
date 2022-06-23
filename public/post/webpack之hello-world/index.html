@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/webpack%E4%B9%8Bhello-world/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -160,35 +170,35 @@
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install webpack -g
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">npm install webpack -g
+</code></pre></td></tr></table>
 </div>
 </div><p>还有一个开发者工具，此工具非常实用，后面介绍：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install webpack-dev-server -g
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">npm install webpack-dev-server -g
+</code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li>也可以使用本地模式随源码一起发行：</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm init
-</span></span><span class="line"><span class="cl">npm install webpack --save-dev
-</span></span><span class="line"><span class="cl">npm install webpack-dev-server --save-dev
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">npm init
+npm install webpack --save-dev
+npm install webpack-dev-server --save-dev
+</code></pre></td></tr></table>
 </div>
 </div><p>随源码一起发行的好处就是不需要别人也强制全局安装，别人拿到源码后直接<code>npm update</code>后即可使用</p>
 <h3 id="1简单使用">1、简单使用</h3>
@@ -196,16 +206,16 @@
 <p>新建一个目录<code>hello</code>，进行到<code>hello</code>目录，新建一个javascript文件<code>entry.js</code>，内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&#34;It works.&#34;</span><span class="p">);</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&#34;It works.&#34;</span><span class="p">);</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>然后新建一个<code>index.html</code>文件，内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -215,29 +225,29 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;bundle.js&#34;</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;bundle.js&#34;</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>编译<code>entry.js</code>到<code>bundle.js</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">webpack ./entry.js bundle.js
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">webpack ./entry.js bundle.js
+</code></pre></td></tr></table>
 </div>
 </div><p>如果正常编译通过，你会看到如下的输出（这是我自己的输出，你的输出可能会不太一样）：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -245,13 +255,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Hash: a41c6217554e666594cb
-</span></span><span class="line"><span class="cl">Version: webpack 1.13.1
-</span></span><span class="line"><span class="cl">Time: 67ms
-</span></span><span class="line"><span class="cl">    Asset     Size  Chunks             Chunk Names
-</span></span><span class="line"><span class="cl">bundle.js  1.42 kB       0  [emitted]  main
-</span></span><span class="line"><span class="cl">   [0] ./entry.js 29 bytes {0} [built]
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Hash: a41c6217554e666594cb
+Version: webpack 1.13.1
+Time: 67ms
+    Asset     Size  Chunks             Chunk Names
+bundle.js  1.42 kB       0  [emitted]  main
+   [0] ./entry.js 29 bytes {0} [built]
+</code></pre></td></tr></table>
 </div>
 </div><p>使用浏览器打开<code>index.html</code>，你将会看到网页上呈现<code>It works.</code></p>
 <h3 id="2多文件">2、多文件</h3>
@@ -259,121 +269,121 @@
 <p>在<code>hello</code>目录新建一个<code>content.js</code>文件，内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="s2">&#34;It works from content.js.&#34;</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="s2">&#34;It works from content.js.&#34;</span><span class="p">;</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>把<code>entry.js</code>修改成下面的内容，这一行是包含<code>content.js</code>的功能，然后写到网页上面：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./content.js&#34;</span><span class="p">));</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./content.js&#34;</span><span class="p">));</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>编译：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">webpack ./entry.js bundle.js
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">webpack ./entry.js bundle.js
+</code></pre></td></tr></table>
 </div>
 </div><p>刷新浏览器打开的<code>index.html</code>，你将会看到如下内容：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">It works from content.js.
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">It works from content.js.
+</code></pre></td></tr></table>
 </div>
 </div><h3 id="3css">3、CSS</h3>
 <p>是的你没有看错，webpack也可以加载编译打包压缩css文件。</p>
 <p>再来新建一个css文件<code>style.css</code>，内容如下，把内页的背景变成黄色：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">body</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">background</span><span class="p">:</span> <span class="kc">yellow</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">body</span> <span class="p">{</span>
+    <span class="k">background</span><span class="p">:</span> <span class="kc">yellow</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>修改<code>entry.js</code>，在原来的内容上面添加一行包含css文件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;!style!css!./style.css&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./content.js&#34;</span><span class="p">));</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;!style!css!./style.css&#34;</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./content.js&#34;</span><span class="p">));</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>继续编译：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">webpack ./entry.js bundle.js
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">webpack ./entry.js bundle.js
+</code></pre></td></tr></table>
 </div>
 </div><p>这时候你会看到一个错误信息：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ERROR in ./entry.js
-</span></span><span class="line"><span class="cl">Module not found: Error: Cannot resolve module &#39;style&#39; in ......
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ERROR in ./entry.js
+Module not found: Error: Cannot resolve module &#39;style&#39; in ......
+</code></pre></td></tr></table>
 </div>
 </div><p>是时候loader出场了，因为在<code>entry.js</code>里面require了css代码，但是前面安装的webpack里面不带有css loader，所以编译css的时候会出错，解决办法就是：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install css-loader style-loader
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">npm install css-loader style-loader
+</code></pre></td></tr></table>
 </div>
 </div><p>再编译后，再次刷新浏览器打开的index.html，你将会看到网页的背景颜色全部变成了黄色。</p>
 <p><code>css-loader</code>加载、编译css资源文件，而<code>style-loader</code>会把编译之后的css内容放入到<code>&lt;style&gt;</code>标签内插入到dom的head里面。</p>
 <p>在<code>entry.js</code>里面使用了<code>!style!css!./style.css</code>来告诉webpack需要使用css-loader和style-loader来处理<code>style.css</code>，也可以不写<code>!style!css!</code>，而在编译的时候指定，简化<code>entry.js</code>文件如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./style.css&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./content.js&#34;</span><span class="p">));</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./style.css&#34;</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./content.js&#34;</span><span class="p">));</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>这时候编译需要指定多一个参数了<code>--module-bind 'css=style!css'</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">webpack ./entry.js bundle.js --module-bind <span class="s1">&#39;css=style!css&#39;</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">webpack ./entry.js bundle.js --module-bind <span class="s1">&#39;css=style!css&#39;</span>
+</code></pre></td></tr></table>
 </div>
 </div><h3 id="4配置文件">4、配置文件</h3>
 <p>webpack使用的配置文件名是<code>webpack.config.js</code>，在<code>hello</code>新建此文件，内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -387,19 +397,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">entry</span><span class="o">:</span> <span class="s2">&#34;./entry.js&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">path</span><span class="o">:</span> <span class="nx">__dirname</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">filename</span><span class="o">:</span> <span class="s2">&#34;bundle.js&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">loaders</span><span class="o">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">            <span class="p">{</span> <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.css$/</span><span class="p">,</span> <span class="nx">loader</span><span class="o">:</span> <span class="s2">&#34;style!css&#34;</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">entry</span><span class="o">:</span> <span class="s2">&#34;./entry.js&#34;</span><span class="p">,</span>
+    <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">path</span><span class="o">:</span> <span class="mi">__</span><span class="nx">dirname</span><span class="p">,</span>
+        <span class="nx">filename</span><span class="o">:</span> <span class="s2">&#34;bundle.js&#34;</span>
+    <span class="p">},</span>
+    <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">loaders</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span> <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.css$/</span><span class="p">,</span> <span class="nx">loader</span><span class="o">:</span> <span class="s2">&#34;style!css&#34;</span> <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
 </div>
 </div><p><code>entry</code>：是入口程序，从哪个文件开始编译
 <code>output</code>：指定编译后的输出目录和文件名
@@ -408,22 +418,22 @@
 <p>编译：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">webpack
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">webpack
+</code></pre></td></tr></table>
 </div>
 </div><p>有了配置文件这里只需要使用一个webpack的命令就可以进行编译，省了不少打字的时间。</p>
 <h3 id="5watch">5、watch</h3>
 <p>现在在命令行里面输入：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">webpack --watch
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">webpack --watch
+</code></pre></td></tr></table>
 </div>
 </div><p>然后修改一下代码，webpack会实时的帮你编译，是不是又省了不少打字的时间。</p>
 <h3 id="6webpack-dev-server">6、webpack-dev-server</h3>
@@ -433,7 +443,7 @@
 <p>命令行会输出类似如下的内容：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -451,37 +461,37 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">http://localhost:8080/webpack-dev-server/
-</span></span><span class="line"><span class="cl">webpack result is served from /
-</span></span><span class="line"><span class="cl">content is served from /Users/Dragon/awesome/Javascript/hello
-</span></span><span class="line"><span class="cl">Hash: ad76e97b228926df8b02
-</span></span><span class="line"><span class="cl">Version: webpack 1.13.1
-</span></span><span class="line"><span class="cl">Time: 812ms
-</span></span><span class="line"><span class="cl">    Asset     Size  Chunks             Chunk Names
-</span></span><span class="line"><span class="cl">bundle.js  11.8 kB       0  [emitted]  main
-</span></span><span class="line"><span class="cl">chunk    {0} bundle.js (main) 9.9 kB [rendered]
-</span></span><span class="line"><span class="cl">    [0] ./entry.js 66 bytes {0} [built]
-</span></span><span class="line"><span class="cl">    [1] ./style.css 927 bytes {0} [built]
-</span></span><span class="line"><span class="cl">    [2] ./~/.0.23.1@css-loader!./style.css 197 bytes {0} [built]
-</span></span><span class="line"><span class="cl">    [3] ./~/.0.23.1@css-loader/lib/css-base.js 1.51 kB {0} [built]
-</span></span><span class="line"><span class="cl">    [4] ./~/.0.13.1@style-loader/addStyles.js 7.15 kB {0} [built]
-</span></span><span class="line"><span class="cl">    [5] ./content.js 46 bytes {0} [built]
-</span></span><span class="line"><span class="cl">webpack: bundle is now VALID.
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">http://localhost:8080/webpack-dev-server/
+webpack result is served from /
+content is served from /Users/Dragon/awesome/Javascript/hello
+Hash: ad76e97b228926df8b02
+Version: webpack 1.13.1
+Time: 812ms
+    Asset     Size  Chunks             Chunk Names
+bundle.js  11.8 kB       0  [emitted]  main
+chunk    {0} bundle.js (main) 9.9 kB [rendered]
+    [0] ./entry.js 66 bytes {0} [built]
+    [1] ./style.css 927 bytes {0} [built]
+    [2] ./~/.0.23.1@css-loader!./style.css 197 bytes {0} [built]
+    [3] ./~/.0.23.1@css-loader/lib/css-base.js 1.51 kB {0} [built]
+    [4] ./~/.0.13.1@style-loader/addStyles.js 7.15 kB {0} [built]
+    [5] ./content.js 46 bytes {0} [built]
+webpack: bundle is now VALID.
+</code></pre></td></tr></table>
 </div>
 </div><p>在浏览器输入<a href="http://localhost:8080/webpack-dev-server/">http://localhost:8080/webpack-dev-server/</a>，在最上方会有一个<code>App ready.</code>的黑条条，下面的iframe加载的就是<code>index.html</code>的内容。</p>
 <p>把<code>entry.js</code>修改成如下的内容：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./style.css&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./content.js&#34;</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">&#39;&lt;br&gt;Hello World!&#39;</span><span class="p">);</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./style.css&#34;</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;./content.js&#34;</span><span class="p">));</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">&#39;&lt;br&gt;Hello World!&#39;</span><span class="p">);</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>回到浏览器你会发现，网页的内容已经改变了，下面多了一行Hello World!。</p>
 <p>这个Hello World!有点长，呵呵！^_^</p>
@@ -572,13 +582,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -592,7 +599,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

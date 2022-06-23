@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/clojure/clojurescript%E4%BD%BF%E7%94%A8npm%E6%A8%A1%E5%9D%97/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -151,50 +161,50 @@
 <h1 id="create-project">Create project</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">lein new figwheel hello-world
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">lein new figwheel hello-world
+</code></pre></td></tr></table>
 </div>
 </div><p>直接使用figwheel的templaate来创建项目</p>
 <h1 id="add-dependencies">Add dependencies</h1>
 <p>修改<code>project.clj</code>，在<code>cljsbuild</code>修改id为dev的<code>:compiler</code>内容，添加如下代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="ss">:closure-defines</span> <span class="p">{</span><span class="nv">process.env/NODE_ENV</span> <span class="s">&#34;development&#34;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="ss">:install-deps</span> <span class="nv">true</span>
-</span></span><span class="line"><span class="cl"><span class="ss">:npm-deps</span> <span class="p">{</span><span class="ss">:react</span> <span class="s">&#34;16.4.1&#34;</span>
-</span></span><span class="line"><span class="cl">           <span class="ss">:react-dom</span> <span class="s">&#34;16.4.1&#34;</span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="ss">:closure-defines</span> <span class="p">{</span><span class="nv">process.env/NODE_ENV</span> <span class="s">&#34;development&#34;</span><span class="p">}</span>
+<span class="ss">:install-deps</span> <span class="nv">true</span>
+<span class="ss">:npm-deps</span> <span class="p">{</span><span class="ss">:react</span> <span class="s">&#34;16.4.1&#34;</span>
+           <span class="ss">:react-dom</span> <span class="s">&#34;16.4.1&#34;</span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>id为min的<code>:compiler</code>内容，只是修改了<code>:closure-defines</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="ss">:closure-defines</span> <span class="p">{</span><span class="nv">process.env/NODE_ENV</span> <span class="s">&#34;production&#34;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="ss">:install-deps</span> <span class="nv">true</span>
-</span></span><span class="line"><span class="cl"><span class="ss">:npm-deps</span> <span class="p">{</span><span class="ss">:react</span> <span class="s">&#34;16.4.1&#34;</span>
-</span></span><span class="line"><span class="cl">           <span class="ss">:react-dom</span> <span class="s">&#34;16.4.1&#34;</span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="ss">:closure-defines</span> <span class="p">{</span><span class="nv">process.env/NODE_ENV</span> <span class="s">&#34;production&#34;</span><span class="p">}</span>
+<span class="ss">:install-deps</span> <span class="nv">true</span>
+<span class="ss">:npm-deps</span> <span class="p">{</span><span class="ss">:react</span> <span class="s">&#34;16.4.1&#34;</span>
+           <span class="ss">:react-dom</span> <span class="s">&#34;16.4.1&#34;</span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p><code>:closure-defines</code>定义的内容，可以直接在cljs里面进行读取。</p>
 <h1 id="source-code">Source code</h1>
 <p>ClojureScript代码如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -209,30 +219,30 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="kd">ns </span><span class="nv">hello-world.core</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">react</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">createElement</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl">            <span class="p">[</span><span class="nv">react-dom</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">render</span><span class="p">]]))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">enable-console-print!</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">js/console.log</span> <span class="s">&#34;Node enviornment is&#34;</span> <span class="nv">process.env/NODE_ENV</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">def </span><span class="nv">appDiv</span> <span class="p">(</span><span class="nf">.getElementById</span> <span class="nv">js/document</span> <span class="s">&#34;app&#34;</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">render</span>
-</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nf">createElement</span> <span class="s">&#34;h1&#34;</span> <span class="nv">nil</span> <span class="s">&#34;Hello, World!&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"> <span class="nv">appDiv</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">ns </span><span class="nv">hello-world.core</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">react</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">createElement</span><span class="p">]]</span>
+            <span class="p">[</span><span class="nv">react-dom</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">render</span><span class="p">]]))</span>
+
+<span class="p">(</span><span class="nf">enable-console-print!</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nf">js/console.log</span> <span class="s">&#34;Node enviornment is&#34;</span> <span class="nv">process.env/NODE_ENV</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">appDiv</span> <span class="p">(</span><span class="nf">.getElementById</span> <span class="nv">js/document</span> <span class="s">&#34;app&#34;</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">render</span>
+ <span class="p">(</span><span class="nf">createElement</span> <span class="s">&#34;h1&#34;</span> <span class="nv">nil</span> <span class="s">&#34;Hello, World!&#34;</span><span class="p">)</span>
+ <span class="nv">appDiv</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>require部分的使用跟cljs的包一样，可以直接从一个包require函数以及对象，剩下的部分就跟js使用react/react-dom的方式一样，调用render函数渲染元素到指定的html节点下面。</p>
 <h1 id="run">Run</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">lein figwheel
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">lein figwheel
+</code></pre></td></tr></table>
 </div>
 </div><p>使用此命令运行代码，编译完成后figwheel会自动打开浏览器访问：<a href="http://localhost:3449/index.html"><code>http://localhost:3449/index.html</code></a>，完成后你会看到下面的内容：</p>
 <p><img src="/img/cljs_npm_react_module.png" alt=""></p>
@@ -323,13 +333,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -343,7 +350,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

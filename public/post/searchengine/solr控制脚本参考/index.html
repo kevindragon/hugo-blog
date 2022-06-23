@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/searchengine/solr%E6%8E%A7%E5%88%B6%E8%84%9A%E6%9C%AC%E5%8F%82%E8%80%83/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -194,11 +204,11 @@
 <p><code>bin/solr</code>的使用格式如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">bin/solr cmd [options]
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/solr cmd [options]
+</code></pre></td></tr></table>
 </div>
 </div><!-- raw HTML omitted -->
 <h1 id="启动-start">启动 Start</h1>
@@ -207,17 +217,17 @@
 <p><code>start</code>和<code>restart</code>有很多的选项，可以指定运行在SolrCloud模式，可以使用自带的样例配置集，同时还可以指定hostname, port, ZooKeeper。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">bin/solr start [options]
-</span></span><span class="line"><span class="cl">bin/solr start -help
-</span></span><span class="line"><span class="cl">bin/solr restart [options]
-</span></span><span class="line"><span class="cl">bin/solr restart -help
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/solr start [options]
+bin/solr start -help
+bin/solr restart [options]
+bin/solr restart -help
+</code></pre></td></tr></table>
 </div>
 </div><p>当使用<code>restart</code>命令时，命令参数必须与<code>start</code>的命令参数一致。重启的过程是先执行<code>stop</code>命令停止solr，然后再启动solr，所以<code>restart</code>的参数必须要跟<code>start</code>的参数一致。</p>
 <h2 id="启动参数">启动参数</h2>
@@ -227,11 +237,11 @@
 <p><strong>Example</strong>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">bin/solr start -a &#34;-Xdebug -Xrunjdwp:transport=dt_socket, server=y,suspend=n,address=1044&#34;
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/solr start -a &#34;-Xdebug -Xrunjdwp:transport=dt_socket, server=y,suspend=n,address=1044&#34;
+</code></pre></td></tr></table>
 </div>
 </div><h3 id="-cloud"><code>-cloud</code></h3>
 <p>在SolrCloud模式启动，同时启动内置的ZooKeeper。这个选项可以简写为：<code>-c</code>。如果已经有一个ZooKeeper实例在运行，可以使用<code>-z</code>选项参数替换内置的ZooKeeper。查看更多<a href="http://lucene.apache.org/solr/guide/7_2/solr-control-script-reference.html#solrcloud-mode">SolrCloud</a>细节。</p>
@@ -288,35 +298,35 @@
 <p>下面两个命令是等价的：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">bin/solr start
-</span></span><span class="line"><span class="cl">bin/solr start -h localhost -p 8983 -d server -s solr -m 512m
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/solr start
+bin/solr start -h localhost -p 8983 -d server -s solr -m 512m
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="设置jvm参数">设置JVM参数</h2>
 <p>跟启动Java程序一样，可以使用<code>-D</code>选项指定属性值。例如，指定自动提交频率为3秒：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">bin/solr start -Dsolr.autoSoftCommit.maxTime=3000
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/solr start -Dsolr.autoSoftCommit.maxTime=3000
+</code></pre></td></tr></table>
 </div>
 </div><h1 id="停止-stop">停止 Stop</h1>
 <p><code>stop</code>命令发送一个<code>STOP</code>请求到运行状态节点，这个姿势可以优雅的关闭Solr。此命令会先等待180秒的时间进行优雅的停止，如果还没有停止则强制杀掉进程（kill -9）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">bin/solr stop [options]
-</span></span><span class="line"><span class="cl">bin/solr stop -help
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/solr stop [options]
+bin/solr stop -help
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="停止参数">停止参数</h2>
 <h3 id="-p-port-1"><code>-p &lt;port&gt;</code></h3>
@@ -333,26 +343,26 @@
 <p><code>version</code>命令可以查看Solr的版本信息：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">bin/solr version
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/solr version
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="状态">状态</h2>
 <p><code>status</code>用来查看本地运行中的Solr节点的状态信息，以JSON格式输出状态信息。<code>status</code>会读取<code>SOLR_PID_DIR</code>环境变量指定的目录来查找pid文件，默认是<code>bin</code>目录。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">bin/solr status
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/solr status
+</code></pre></td></tr></table>
 </div>
 </div><p>输出信息包含每个节点的状态，例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -379,64 +389,64 @@
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Found 2 Solr nodes:
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Solr process 39920 running on port 7574
-</span></span><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">  &#34;solr_home&#34;:&#34;/Applications/Solr/example/cloud/node2/solr/&#34;,
-</span></span><span class="line"><span class="cl">  &#34;version&#34;:&#34;X.Y.0&#34;,
-</span></span><span class="line"><span class="cl">  &#34;startTime&#34;:&#34;2015-02-10T17:19:54.739Z&#34;,
-</span></span><span class="line"><span class="cl">  &#34;uptime&#34;:&#34;1 days, 23 hours, 55 minutes, 48 seconds&#34;,
-</span></span><span class="line"><span class="cl">  &#34;memory&#34;:&#34;77.2 MB (%15.7) of 490.7 MB&#34;,
-</span></span><span class="line"><span class="cl">  &#34;cloud&#34;:{
-</span></span><span class="line"><span class="cl">    &#34;ZooKeeper&#34;:&#34;localhost:9865&#34;,
-</span></span><span class="line"><span class="cl">    &#34;liveNodes&#34;:&#34;2&#34;,
-</span></span><span class="line"><span class="cl">    &#34;collections&#34;:&#34;2&#34;}}
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Solr process 39827 running on port 8865
-</span></span><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">  &#34;solr_home&#34;:&#34;/Applications/Solr/example/cloud/node1/solr/&#34;,
-</span></span><span class="line"><span class="cl">  &#34;version&#34;:&#34;X.Y.0&#34;,
-</span></span><span class="line"><span class="cl">  &#34;startTime&#34;:&#34;2015-02-10T17:19:49.057Z&#34;,
-</span></span><span class="line"><span class="cl">  &#34;uptime&#34;:&#34;1 days, 23 hours, 55 minutes, 54 seconds&#34;,
-</span></span><span class="line"><span class="cl">  &#34;memory&#34;:&#34;94.2 MB (%19.2) of 490.7 MB&#34;,
-</span></span><span class="line"><span class="cl">  &#34;cloud&#34;:{
-</span></span><span class="line"><span class="cl">    &#34;ZooKeeper&#34;:&#34;localhost:9865&#34;,
-</span></span><span class="line"><span class="cl">    &#34;liveNodes&#34;:&#34;2&#34;,
-</span></span><span class="line"><span class="cl">    &#34;collections&#34;:&#34;2&#34;}}
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Found 2 Solr nodes:
+
+Solr process 39920 running on port 7574
+{
+  &#34;solr_home&#34;:&#34;/Applications/Solr/example/cloud/node2/solr/&#34;,
+  &#34;version&#34;:&#34;X.Y.0&#34;,
+  &#34;startTime&#34;:&#34;2015-02-10T17:19:54.739Z&#34;,
+  &#34;uptime&#34;:&#34;1 days, 23 hours, 55 minutes, 48 seconds&#34;,
+  &#34;memory&#34;:&#34;77.2 MB (%15.7) of 490.7 MB&#34;,
+  &#34;cloud&#34;:{
+    &#34;ZooKeeper&#34;:&#34;localhost:9865&#34;,
+    &#34;liveNodes&#34;:&#34;2&#34;,
+    &#34;collections&#34;:&#34;2&#34;}}
+
+Solr process 39827 running on port 8865
+{
+  &#34;solr_home&#34;:&#34;/Applications/Solr/example/cloud/node1/solr/&#34;,
+  &#34;version&#34;:&#34;X.Y.0&#34;,
+  &#34;startTime&#34;:&#34;2015-02-10T17:19:49.057Z&#34;,
+  &#34;uptime&#34;:&#34;1 days, 23 hours, 55 minutes, 54 seconds&#34;,
+  &#34;memory&#34;:&#34;94.2 MB (%19.2) of 490.7 MB&#34;,
+  &#34;cloud&#34;:{
+    &#34;ZooKeeper&#34;:&#34;localhost:9865&#34;,
+    &#34;liveNodes&#34;:&#34;2&#34;,
+    &#34;collections&#34;:&#34;2&#34;}}
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="assert-检查安装正确">Assert 检查安装正确</h2>
 <p><code>assert</code>命令可以检查一般的安装问题，检查目录权限，目录是否存在，指定的URL是否可用。此命令会输出错误信息，或者改变exit code（Linux可以使用<code>echo $?</code>查看）。下面是一个例子：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">bin/solr assert --exists /opt/bin/solr
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/solr assert --exists /opt/bin/solr
+</code></pre></td></tr></table>
 </div>
 </div><p>输出结果如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ERROR: Directory /opt/bin/solr does not exist.
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ERROR: Directory /opt/bin/solr does not exist.
+</code></pre></td></tr></table>
 </div>
 </div><p>使用<code>bin/solr assert -help</code>查看更多<code>assert</code>命令帮助</p>
 <h2 id="健康检查">健康检查</h2>
 <p><code>healthcheck</code>命令会生成SolrCloud模式下指定collection的JSON格式的健康报告。报告提供关于所有分片的复制的状态信息，包括提交的文档数，当着状态。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">bin/solr healthcheck [options]
-</span></span><span class="line"><span class="cl">bin/solr healthcheck -help
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/solr healthcheck [options]
+bin/solr healthcheck -help
+</code></pre></td></tr></table>
 </div>
 </div><h3 id="选项参数">选项参数</h3>
 <h4 id="-c-collection"><code>-c &lt;collection&gt;</code></h4>
@@ -448,15 +458,15 @@
 <p>下面是一个健康检查命令和结果执行：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ bin/solr healthcheck -c gettingstarted -z localhost:9865
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ bin/solr healthcheck -c gettingstarted -z localhost:9865
+</code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -502,51 +512,51 @@
 </span><span class="lnt">44
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;collection&#34;</span><span class="p">:</span><span class="s2">&#34;gettingstarted&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;status&#34;</span><span class="p">:</span><span class="s2">&#34;healthy&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;numDocs&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;numShards&#34;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;shards&#34;</span><span class="p">:[</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;shard&#34;</span><span class="p">:</span><span class="s2">&#34;shard1&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;status&#34;</span><span class="p">:</span><span class="s2">&#34;healthy&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;replicas&#34;</span><span class="p">:[</span>
-</span></span><span class="line"><span class="cl">        <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;core_node1&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;url&#34;</span><span class="p">:</span><span class="s2">&#34;http://10.0.1.10:8865/solr/gettingstarted_shard1_replica2/&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;numDocs&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;status&#34;</span><span class="p">:</span><span class="s2">&#34;active&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;uptime&#34;</span><span class="p">:</span><span class="s2">&#34;2 days, 1 hours, 18 minutes, 48 seconds&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;memory&#34;</span><span class="p">:</span><span class="s2">&#34;25.6 MB (%5.2) of 490.7 MB&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;leader&#34;</span><span class="p">:</span><span class="kc">true</span><span class="p">},</span>
-</span></span><span class="line"><span class="cl">        <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;core_node4&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;url&#34;</span><span class="p">:</span><span class="s2">&#34;http://10.0.1.10:7574/solr/gettingstarted_shard1_replica1/&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;numDocs&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;status&#34;</span><span class="p">:</span><span class="s2">&#34;active&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;uptime&#34;</span><span class="p">:</span><span class="s2">&#34;2 days, 1 hours, 18 minutes, 42 seconds&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;memory&#34;</span><span class="p">:</span><span class="s2">&#34;95.3 MB (%19.4) of 490.7 MB&#34;</span><span class="p">}]},</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;shard&#34;</span><span class="p">:</span><span class="s2">&#34;shard2&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;status&#34;</span><span class="p">:</span><span class="s2">&#34;healthy&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;replicas&#34;</span><span class="p">:[</span>
-</span></span><span class="line"><span class="cl">        <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;core_node2&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;url&#34;</span><span class="p">:</span><span class="s2">&#34;http://10.0.1.10:8865/solr/gettingstarted_shard2_replica2/&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;numDocs&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;status&#34;</span><span class="p">:</span><span class="s2">&#34;active&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;uptime&#34;</span><span class="p">:</span><span class="s2">&#34;2 days, 1 hours, 18 minutes, 48 seconds&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;memory&#34;</span><span class="p">:</span><span class="s2">&#34;25.8 MB (%5.3) of 490.7 MB&#34;</span><span class="p">},</span>
-</span></span><span class="line"><span class="cl">        <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;core_node3&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;url&#34;</span><span class="p">:</span><span class="s2">&#34;http://10.0.1.10:7574/solr/gettingstarted_shard2_replica1/&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;numDocs&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;status&#34;</span><span class="p">:</span><span class="s2">&#34;active&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;uptime&#34;</span><span class="p">:</span><span class="s2">&#34;2 days, 1 hours, 18 minutes, 42 seconds&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;memory&#34;</span><span class="p">:</span><span class="s2">&#34;95.4 MB (%19.4) of 490.7 MB&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;leader&#34;</span><span class="p">:</span><span class="kc">true</span><span class="p">}]}]}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;collection&#34;</span><span class="p">:</span><span class="s2">&#34;gettingstarted&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;status&#34;</span><span class="p">:</span><span class="s2">&#34;healthy&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;numDocs&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+  <span class="nt">&#34;numShards&#34;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+  <span class="nt">&#34;shards&#34;</span><span class="p">:[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;shard&#34;</span><span class="p">:</span><span class="s2">&#34;shard1&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;status&#34;</span><span class="p">:</span><span class="s2">&#34;healthy&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;replicas&#34;</span><span class="p">:[</span>
+        <span class="p">{</span>
+          <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;core_node1&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;url&#34;</span><span class="p">:</span><span class="s2">&#34;http://10.0.1.10:8865/solr/gettingstarted_shard1_replica2/&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;numDocs&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&#34;status&#34;</span><span class="p">:</span><span class="s2">&#34;active&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;uptime&#34;</span><span class="p">:</span><span class="s2">&#34;2 days, 1 hours, 18 minutes, 48 seconds&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;memory&#34;</span><span class="p">:</span><span class="s2">&#34;25.6 MB (%5.2) of 490.7 MB&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;leader&#34;</span><span class="p">:</span><span class="kc">true</span><span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;core_node4&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;url&#34;</span><span class="p">:</span><span class="s2">&#34;http://10.0.1.10:7574/solr/gettingstarted_shard1_replica1/&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;numDocs&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&#34;status&#34;</span><span class="p">:</span><span class="s2">&#34;active&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;uptime&#34;</span><span class="p">:</span><span class="s2">&#34;2 days, 1 hours, 18 minutes, 42 seconds&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;memory&#34;</span><span class="p">:</span><span class="s2">&#34;95.3 MB (%19.4) of 490.7 MB&#34;</span><span class="p">}]},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;shard&#34;</span><span class="p">:</span><span class="s2">&#34;shard2&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;status&#34;</span><span class="p">:</span><span class="s2">&#34;healthy&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;replicas&#34;</span><span class="p">:[</span>
+        <span class="p">{</span>
+          <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;core_node2&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;url&#34;</span><span class="p">:</span><span class="s2">&#34;http://10.0.1.10:8865/solr/gettingstarted_shard2_replica2/&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;numDocs&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&#34;status&#34;</span><span class="p">:</span><span class="s2">&#34;active&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;uptime&#34;</span><span class="p">:</span><span class="s2">&#34;2 days, 1 hours, 18 minutes, 48 seconds&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;memory&#34;</span><span class="p">:</span><span class="s2">&#34;25.8 MB (%5.3) of 490.7 MB&#34;</span><span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;core_node3&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;url&#34;</span><span class="p">:</span><span class="s2">&#34;http://10.0.1.10:7574/solr/gettingstarted_shard2_replica1/&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;numDocs&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&#34;status&#34;</span><span class="p">:</span><span class="s2">&#34;active&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;uptime&#34;</span><span class="p">:</span><span class="s2">&#34;2 days, 1 hours, 18 minutes, 42 seconds&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;memory&#34;</span><span class="p">:</span><span class="s2">&#34;95.4 MB (%19.4) of 490.7 MB&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;leader&#34;</span><span class="p">:</span><span class="kc">true</span><span class="p">}]}]}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h1 id="数据集合collectionscores">数据集合（collections/cores）</h1>
 <blockquote>
@@ -560,13 +570,13 @@
 <p>创建数据集合使用<code>create</code>命令，要求Solr必须是运行状态，具体是创建的collection还是core要根据Solr运行的模式来定。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">bin/solr create [options]
-</span></span><span class="line"><span class="cl">bin/solr create -help
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/solr create [options]
+bin/solr create -help
+</code></pre></td></tr></table>
 </div>
 </div><h3 id="创建数据集合的选项参数">创建数据集合的选项参数</h3>
 <h4 id="-c-name"><code>-c &lt;name&gt;</code></h4>
@@ -678,13 +688,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -698,7 +705,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

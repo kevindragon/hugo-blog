@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/kotlin/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%B1%BB%E5%92%8C%E7%BB%A7%E6%89%BF/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -155,142 +165,142 @@
       <p>使用关键字<code>class</code>来定义类：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Invoice</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Invoice</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>类的定义由header（类名，主构造函数，参数及类型等）和header构成，主体使用花括号包裹。头和主体都不是必须的，如果没有主体花括号可以省略。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Empty</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Empty</span>
+</code></pre></td></tr></table>
 </div>
 </div><!-- raw HTML omitted -->
 <h2 id="构造函数">构造函数</h2>
 <p>类有一个主构造函数以及一个或多个辅构造函数。主构造函数是header的一部分，紧跟在类名的后面。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span> <span class="k">constructor</span><span class="p">(</span><span class="n">firstName</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Person</span> <span class="k">constructor</span><span class="p">(</span><span class="n">firstName</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>如果主构造函数没有注解或者可见性修饰符，关键字<code>constructor</code>可以省略：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">firstName</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">firstName</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>主构造函数不能包含任何的求值表达式，仅仅是定义参数及类型。如果要做一些初始化的工作，可以放在以<code>init</code>关键字开头的代码块当中：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Customer</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">init</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Customer initialized with value </span><span class="si">${name}</span><span class="s2">&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Customer</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">init</span> <span class="p">{</span>
+        <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Customer initialized with value </span><span class="si">${name}</span><span class="s2">&#34;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>主构造函数的参数可以在初始化代码块中使用。同样也可以在属性的定义及初始化的时候使用：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Customer</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">customerKey</span> <span class="p">=</span> <span class="n">name</span><span class="p">.</span><span class="n">toUpperCase</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Customer</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">val</span> <span class="py">customerKey</span> <span class="p">=</span> <span class="n">name</span><span class="p">.</span><span class="n">toUpperCase</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>属性的定义及初始化可以简单的通过构造函数完成，同时可以定义属性的可变性（mutable/immutable），<code>var</code>是可变，<code>val</code>是不可变：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="k">val</span> <span class="py">firstName</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">lastName</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">var</span> <span class="py">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="k">val</span> <span class="py">firstName</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">lastName</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">var</span> <span class="py">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>如果有可见性及注释修饰符，那么<code>constructor</code>关键字是不可以省略的，而且要请在<code>constructor</code>前面：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Customer</span> <span class="k">public</span> <span class="nd">@Inject</span> <span class="k">constructor</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Customer</span> <span class="k">public</span> <span class="nd">@Inject</span> <span class="k">constructor</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="辅助构造函数">辅助构造函数</h2>
 <p>辅助构造函数就像Java的多构造函数类似。在Kotlin使用<code>constructorr</code>关键字定义，在Java中是使用与类同名的函数名定义的。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">constructor</span><span class="p">(</span><span class="n">parent</span><span class="p">:</span> <span class="n">Person</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">parent</span><span class="p">.</span><span class="n">children</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Person</span> <span class="p">{</span>
+    <span class="k">constructor</span><span class="p">(</span><span class="n">parent</span><span class="p">:</span> <span class="n">Person</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">parent</span><span class="p">.</span><span class="n">children</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>如果类有辅助构造函数同时还有主构造函数，那么辅助构造函数必须要显示的调用主构造函数，直接调用，或者调用其他的辅助构造函数。调用其他的构造函数可以使用<code>this</code>关键字：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">constructor</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Person</span><span class="p">)</span> <span class="p">:</span> <span class="k">this</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">parent</span><span class="p">.</span><span class="n">children</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">constructor</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Person</span><span class="p">)</span> <span class="p">:</span> <span class="k">this</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">parent</span><span class="p">.</span><span class="n">children</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>如果类没有定义任何的构造函数（主或者辅助构造函数），默认会有一个无参数的主构造函数，且其可见性是<code>public</code>的。如果要修改可见性，必须显示的定义一个空的构造函数：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DontCreateMe</span> <span class="k">private</span> <span class="k">constructor</span> <span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">DontCreateMe</span> <span class="k">private</span> <span class="k">constructor</span> <span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>总结一下辅助构造函数，一句话：不管是直接调用主构造函数，可以调用其他的构造函数，一个辅助构造函数最终必须调用到主构造函数。</p>
 <ul>
@@ -307,19 +317,19 @@
 <p>创建实例非常简单，就像调用一个函数一样。不像Java需要<code>new</code>关键字。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Invoice</span>
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Customer</span><span class="p">(</span><span class="k">val</span> <span class="py">customerName</span><span class="p">:</span> <span class="n">String</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">invoice</span> <span class="p">=</span> <span class="n">Invoice</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">customer</span> <span class="p">=</span> <span class="n">Customer</span><span class="p">(</span><span class="s2">&#34;Kevin Jiang&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">customer</span> <span class="p">=</span> <span class="n">Customer</span><span class="p">()</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Invoice</span>
+<span class="k">class</span> <span class="nc">Customer</span><span class="p">(</span><span class="k">val</span> <span class="py">customerName</span><span class="p">:</span> <span class="n">String</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">invoice</span> <span class="p">=</span> <span class="n">Invoice</span><span class="p">()</span>
+<span class="k">val</span> <span class="py">customer</span> <span class="p">=</span> <span class="n">Customer</span><span class="p">(</span><span class="s2">&#34;Kevin Jiang&#34;</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">customer</span> <span class="p">=</span> <span class="n">Customer</span><span class="p">()</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="类成员">类成员</h2>
 <p>类可以包含：</p>
@@ -334,37 +344,37 @@
 <p>所有的类都有一个共同的父类<code>Any</code>，这是没有指定父类的默认父类：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Example</span> <span class="c1">// 默认继承自`Any`
-</span></span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Example</span> <span class="c1">// 默认继承自`Any`
+</span></code></pre></td></tr></table>
 </div>
 </div><p><code>Any</code>不是Java的<code>java.lang.Object</code>，<code>Any</code>只包含<code>equals()</code>, <code>hashCode()</code>, <code>toString()</code>三个方法。可以通过把父类放在冒号后面来指定父类，而且必须显示的指定调用父类的哪个构造函数，如果父类是无参娄的构造，也需要显示的写明。而且父类必须明确标记为<code>open</code>，不然就是<code>final</code>不能被继承：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">open</span> <span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">Base</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">open</span> <span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">Base</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>如果类没有主构造函数，每个辅助构造函数必须使用<code>super</code>关键字调用父类的构造函数，或者调用自己其他的构造函数。在下面的例子中，不同的构造函数可以调用父类不同的构造函数：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyView</span> <span class="p">:</span> <span class="n">View</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">constructor</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">:</span> <span class="k">super</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">constructor</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="n">attrs</span><span class="p">:</span> <span class="n">AttributeSet</span><span class="p">)</span> <span class="p">:</span> <span class="k">super</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">MyView</span> <span class="p">:</span> <span class="n">View</span> <span class="p">{</span>
+    <span class="k">constructor</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">:</span> <span class="k">super</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+    <span class="k">constructor</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="n">attrs</span><span class="p">:</span> <span class="n">AttributeSet</span><span class="p">)</span> <span class="p">:</span> <span class="k">super</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p><strong>在Kotlin里，类默认是<code>final</code>的&ndash;也就是不能被继承的，必须使用<code>open</code>关键字标记才可以被继承</strong></p>
 <p>总结一下继承当中的的构造函数定义，两句话：子类的主构造函数要调用父类的主构造函数；子类的辅助构造函数必须最终调用到父类的主构造函数：</p>
@@ -377,7 +387,7 @@
 <p>在Kotlin里，覆写父类的方法需要显示的指明，使用<code>override</code>关键字可以覆写父类的方法，而且父类的方法必须标注为<code>open</code>才可以被子类覆写：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -386,33 +396,33 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">open</span> <span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">open</span> <span class="k">fun</span> <span class="nf">v</span><span class="p">()</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">nv</span><span class="p">()</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived</span><span class="p">()</span> <span class="p">:</span> <span class="n">Base</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">fun</span> <span class="nf">v</span><span class="p">()</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">open</span> <span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span>
+    <span class="k">open</span> <span class="k">fun</span> <span class="nf">v</span><span class="p">()</span> <span class="p">{}</span>
+    <span class="k">fun</span> <span class="nf">nv</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+<span class="k">class</span> <span class="nc">Derived</span><span class="p">()</span> <span class="p">:</span> <span class="n">Base</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">v</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>使用了<code>override</code>关键字的方法，默认是<code>open</code>的，可以被其子类覆写，如果不想让子类覆写，需要在前面使用<code>final</code>关键字指定：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">open</span> <span class="k">class</span> <span class="nc">AnotherDerived</span><span class="p">()</span> <span class="p">:</span> <span class="n">Base</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">final</span> <span class="k">override</span> <span class="k">fun</span> <span class="nf">v</span><span class="p">()</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">open</span> <span class="k">class</span> <span class="nc">AnotherDerived</span><span class="p">()</span> <span class="p">:</span> <span class="n">Base</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">final</span> <span class="k">override</span> <span class="k">fun</span> <span class="nf">v</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="属性覆写overriding-properties">属性覆写（Overriding Properties）</h2>
 <p>属性的覆写跟方法的覆写差不多，<code>opeen</code>和<code>override</code>是必不可少的：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -420,19 +430,19 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">open</span> <span class="k">class</span> <span class="nc">Foo</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">open</span> <span class="k">val</span> <span class="py">x</span><span class="p">:</span> <span class="n">Int</span> <span class="k">get</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Bar1</span> <span class="p">:</span> <span class="n">Foo</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">val</span> <span class="py">x</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">open</span> <span class="k">class</span> <span class="nc">Foo</span> <span class="p">{</span>
+    <span class="k">open</span> <span class="k">val</span> <span class="py">x</span><span class="p">:</span> <span class="n">Int</span> <span class="k">get</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">class</span> <span class="nc">Bar1</span> <span class="p">:</span> <span class="n">Foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="k">val</span> <span class="py">x</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>使用<code>val</code>定义的属性，可以被覆写为<code>var</code>，反过来是不行的。</p>
 <p>可以在主构造函数对属性进行覆写，像下面的例子，在Foo接口中定义了一个<code>count</code>属性，Bar类在主构造函数使用<code>override</code>关键字对Foo接口中的count进行了覆写：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -443,22 +453,22 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">interface</span> <span class="nc">Foo</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">count</span><span class="p">:</span> <span class="n">Int</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Bar1</span><span class="p">(</span><span class="k">override</span> <span class="k">val</span> <span class="py">count</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">Foo</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Bar2</span> <span class="p">:</span> <span class="n">Foo</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">var</span> <span class="py">count</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">interface</span> <span class="nc">Foo</span> <span class="p">{</span>
+    <span class="k">val</span> <span class="py">count</span><span class="p">:</span> <span class="n">Int</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Bar1</span><span class="p">(</span><span class="k">override</span> <span class="k">val</span> <span class="py">count</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">Foo</span>
+
+<span class="k">class</span> <span class="nc">Bar2</span> <span class="p">:</span> <span class="n">Foo</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="k">var</span> <span class="py">count</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="m">0</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="覆写规则">覆写规则</h2>
 <p>Kotlin和Java一样，只允许继承一个类，可以继承多个接口。当一个类有多个继承（多个接口，一个类+一个或多个接口）时，如果出现了同名的方法，那么子类必须自己实现这个方法，像下面的例子，类<code>C</code>必须实现<code>f()</code>方法，而<code>a()</code>，<code>b()</code>可以是继承自父类和父接口。调用父类或父接口的语法使用<code>super</code>关键字，使用<code>&lt;&gt;</code>括起来父类或父接口</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -478,32 +488,32 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">open</span> <span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">open</span> <span class="k">fun</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;A&#34;</span><span class="p">)</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">a</span><span class="p">()</span> <span class="p">{</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;a&#34;</span><span class="p">)</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">interface</span> <span class="nc">B</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;B&#34;</span><span class="p">)</span> <span class="p">}</span> <span class="c1">// interface members are &#39;open&#39; by default
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">fun</span> <span class="nf">b</span><span class="p">()</span> <span class="p">{</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;b&#34;</span><span class="p">)</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">C</span><span class="p">()</span> <span class="p">:</span> <span class="n">A</span><span class="p">(),</span> <span class="n">B</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// The compiler requires f() to be overridden:
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">override</span> <span class="k">fun</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">super</span><span class="p">&lt;</span><span class="n">A</span><span class="p">&gt;.</span><span class="n">f</span><span class="p">()</span> <span class="c1">// 指明调用父类A.f()
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">super</span><span class="p">&lt;</span><span class="n">B</span><span class="p">&gt;.</span><span class="n">f</span><span class="p">()</span> <span class="c1">// 或者指明调用父接口B.f()
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 或者实现自己的逻辑
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">open</span> <span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
+    <span class="k">open</span> <span class="k">fun</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;A&#34;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="k">fun</span> <span class="nf">a</span><span class="p">()</span> <span class="p">{</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;a&#34;</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="nc">B</span> <span class="p">{</span>
+    <span class="k">fun</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;B&#34;</span><span class="p">)</span> <span class="p">}</span> <span class="c1">// interface members are &#39;open&#39; by default
+</span><span class="c1"></span>    <span class="k">fun</span> <span class="nf">b</span><span class="p">()</span> <span class="p">{</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;b&#34;</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">C</span><span class="p">()</span> <span class="p">:</span> <span class="n">A</span><span class="p">(),</span> <span class="n">B</span> <span class="p">{</span>
+    <span class="c1">// The compiler requires f() to be overridden:
+</span><span class="c1"></span>    <span class="k">override</span> <span class="k">fun</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">&lt;</span><span class="n">A</span><span class="p">&gt;.</span><span class="n">f</span><span class="p">()</span> <span class="c1">// 指明调用父类A.f()
+</span><span class="c1"></span>        <span class="k">super</span><span class="p">&lt;</span><span class="n">B</span><span class="p">&gt;.</span><span class="n">f</span><span class="p">()</span> <span class="c1">// 或者指明调用父接口B.f()
+</span><span class="c1"></span>        <span class="c1">// 或者实现自己的逻辑
+</span><span class="c1"></span>    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>这一点是为了避免像C++和Python那么可以继承多个类的时候，发生菱形继承的问题，Kotlin通过上面的规则来消除菱形继承问题，这样就显得非常的明确，而不会产生歧义。</p>
 <h2 id="抽象类">抽象类</h2>
 <p>抽象类是含有抽象方法的类，抽象方法是没有具体实现而只有定义的一个方法，像下面抽象类<code>Derived</code>的抽象方法<code>f()</code>。如果继承了这个抽象类，必须实现这个抽象方法，或者继续用<code>abstract</code>标记这个方法和类为抽象的。这一点和Java是一样的。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -512,14 +522,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">open</span> <span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">open</span> <span class="k">fun</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Derived</span> <span class="p">:</span> <span class="n">Base</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">abstract</span> <span class="k">fun</span> <span class="nf">f</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">open</span> <span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span>
+    <span class="k">open</span> <span class="k">fun</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="k">abstract</span> <span class="k">class</span> <span class="nc">Derived</span> <span class="p">:</span> <span class="n">Base</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="k">abstract</span> <span class="k">fun</span> <span class="nf">f</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="伴生对象在scala是这么称呼">伴生对象（在Scala是这么称呼）</h2>
 <p>不像Java和C#，Kotlin是没有静态方法的，Kotlin提倡定义包级别的函数（因为函数可以使用<code>fun</code>关键字直接定义在包下面）。</p>
@@ -611,13 +621,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -631,7 +638,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

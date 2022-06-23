@@ -13,7 +13,7 @@
       <pubDate>Tue, 13 Feb 2018 17:11:29 +0000</pubDate>
       
       <guid>http://kevinjiang.info/post/react%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/</guid>
-      <description>下面webpack babel react 2018年最新最小化配置模板 package.js 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 { &amp;#34;name&amp;#34;: &amp;#34;{{NAME}}&amp;#34;, &amp;#34;version&amp;#34;: &amp;#34;1.0.0&amp;#34;, &amp;#34;description&amp;#34;: &amp;#34;{{DESCRIPTION}}&amp;#34;, &amp;#34;main&amp;#34;: &amp;#34;index.js&amp;#34;, &amp;#34;scripts&amp;#34;: { &amp;#34;start&amp;#34;: &amp;#34;webpack-dev-server&amp;#34;, &amp;#34;test&amp;#34;:</description>
+      <description>下面webpack babel react 2018年最新最小化配置模板 package.js 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 { &amp;#34;name&amp;#34;: &amp;#34;{{NAME}}&amp;#34;, &amp;#34;version&amp;#34;: &amp;#34;1.0.0&amp;#34;, &amp;#34;description&amp;#34;: &amp;#34;{{DESCRIPTION}}&amp;#34;, &amp;#34;main&amp;#34;: &amp;#34;index.js&amp;#34;, &amp;#34;scripts&amp;#34;: { &amp;#34;start&amp;#34;: &amp;#34;webpack-dev-server&amp;#34;,</description>
     </item>
     
   </channel>

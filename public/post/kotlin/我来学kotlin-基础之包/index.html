@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/kotlin/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -150,7 +160,7 @@
 <p>一个源文件的包定义应该放在代码开始处：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -159,14 +169,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">package</span> <span class="nn">foo.bar</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">baz</span><span class="p">()</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Goo</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// ...
-</span></span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">package</span> <span class="nn">foo.bar</span>
+
+<span class="k">fun</span> <span class="nf">baz</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="k">class</span> <span class="nc">Goo</span> <span class="p">{}</span>
+
+<span class="c1">// ...
+</span></code></pre></td></tr></table>
 </div>
 </div><p>所有的内容被包含在此包的定义下面，在上面的例子中，<code>baz()</code>的全名是<code>foo.bar.bax</code>，<code>Goo</code>的全名是<code>foo.bar.Goo</code>。如果没有指定包名，那么些文件的代码属于默认没有名字的包。</p>
 <h2 id="默认引入">默认引入</h2>
@@ -200,31 +210,31 @@
 <p>可以引入一个单独的名称，如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">foo.Bar</span> <span class="c1">// Bar可以直接使用，而不需要前面的前缀foo
-</span></span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">import</span> <span class="nn">foo.Bar</span> <span class="c1">// Bar可以直接使用，而不需要前面的前缀foo
+</span></code></pre></td></tr></table>
 </div>
 </div><p>或者一个包下面的所有内容（包，类，对象等等）：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">foo.*</span> <span class="c1">// foo下面的所有内容都可以直接访问
-</span></span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">import</span> <span class="nn">foo.*</span> <span class="c1">// foo下面的所有内容都可以直接访问
+</span></code></pre></td></tr></table>
 </div>
 </div><p>如果有名称冲突了，可以使用<code>as</code>关键字在文件范围内重命名来消除冲突：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">foo.Bar</span> <span class="c1">// Bar可以直接访问
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">import</span> <span class="nn">bar.Bar</span> <span class="k">as</span> <span class="n">bBar</span> <span class="c1">// 使用bBar代替&#39;bar.Bar&#39;
-</span></span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">import</span> <span class="nn">foo.Bar</span> <span class="c1">// Bar可以直接访问
+</span><span class="c1"></span><span class="k">import</span> <span class="nn">bar.Bar</span> <span class="k">as</span> <span class="n">bBar</span> <span class="c1">// 使用bBar代替&#39;bar.Bar&#39;
+</span></code></pre></td></tr></table>
 </div>
 </div><p>关键字<code>import</code>不局限于引入类，还可以引入其他的定义/声明：</p>
 <ul>
@@ -322,13 +332,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -342,7 +349,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

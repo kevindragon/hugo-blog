@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/java/scala%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -142,17 +152,17 @@
 <p>Scala提供的正则表达式功能是通过类<code>Regex</code>来实现，函数签名为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="nc">Regex</span><span class="o">(</span><span class="n">regex</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">groupNames</span><span class="k">:</span> <span class="kt">String*</span><span class="o">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="nc">Regex</span><span class="o">(</span><span class="n">regex</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">groupNames</span><span class="k">:</span> <span class="kt">String*</span><span class="o">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>第一个参数为正则表达式的字符串，后面是可变参数列表，是给regex里面的分组起一个名字。Scala的正则表达式的功能非常强大，这要得益于Scala本身特别的设计，尤其是pattern match，是其他编程语言很难超越的。</p>
 <p>先来看第一个例子，匹配小写英文字母（如下代码中单独一行的=&gt;表示接下来是结果）:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -161,19 +171,19 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">scala.util.matching.Regex</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="s">&#34;abc&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">regex</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Regex</span><span class="o">(</span><span class="s">&#34;[a-z]+&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="o">(</span><span class="n">regex</span><span class="o">.</span><span class="n">findAllIn</span><span class="o">(</span><span class="n">str</span><span class="o">).</span><span class="n">toList</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">=&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nc">List</span><span class="o">(</span><span class="n">abc</span><span class="o">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">scala.util.matching.Regex</span>
+<span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="s">&#34;abc&#34;</span>
+<span class="k">val</span> <span class="n">regex</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Regex</span><span class="o">(</span><span class="s">&#34;[a-z]+&#34;</span><span class="o">)</span>
+<span class="n">println</span><span class="o">(</span><span class="n">regex</span><span class="o">.</span><span class="n">findAllIn</span><span class="o">(</span><span class="n">str</span><span class="o">).</span><span class="n">toList</span><span class="o">)</span>
+
+<span class="k">=&gt;</span>
+<span class="nc">List</span><span class="o">(</span><span class="n">abc</span><span class="o">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>可以结果看到是一个元素的的List，匹配到字符串abc。如果要匹配到大写和小写，正则表达式需要修改成<code>[a-zA-Z]</code>，还有另外一个办法就是为正则表达式添加选项，让<code>[a-z]</code>可以直接匹配到大写和小写字母，正则表达式就需要写成<code>(?i)[a-z]+</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -182,28 +192,28 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">scala.util.matching.Regex</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="s">&#34;abcEFGhijk&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">regex</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Regex</span><span class="o">(</span><span class="s">&#34;(?i)[a-z]+&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="o">(</span><span class="n">regex</span><span class="o">.</span><span class="n">findAllIn</span><span class="o">(</span><span class="n">str</span><span class="o">).</span><span class="n">toList</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">=&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nc">List</span><span class="o">(</span><span class="n">abcEFGhijk</span><span class="o">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">scala.util.matching.Regex</span>
+<span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="s">&#34;abcEFGhijk&#34;</span>
+<span class="k">val</span> <span class="n">regex</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Regex</span><span class="o">(</span><span class="s">&#34;(?i)[a-z]+&#34;</span><span class="o">)</span>
+<span class="n">println</span><span class="o">(</span><span class="n">regex</span><span class="o">.</span><span class="n">findAllIn</span><span class="o">(</span><span class="n">str</span><span class="o">).</span><span class="n">toList</span><span class="o">)</span>
+
+<span class="k">=&gt;</span>
+<span class="nc">List</span><span class="o">(</span><span class="n">abcEFGhijk</span><span class="o">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>所以在Scala添加选项的正确姿势就是在正则表达式的前面用使用括号问号+选项字母，这与PHP的正则完全不同，PHP使用如下的方式，使用相同的字符来做开头和结尾，这里就是<code>/</code>，其实在PHP里面使用<code>%</code>, <code>|</code>这些字符也是完全可以的，然后在后面的分割符后面加上选项字母</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/[a-z]+/i
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">/[a-z]+/i
+</code></pre></td></tr></table>
 </div>
 </div><p>匹配简单的电话号码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -212,20 +222,20 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">scala.util.matching.Regex</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="s">&#34;13907461234&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">regex</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Regex</span><span class="o">(</span><span class="s">&#34;&#34;&#34;^1[358]\d{9}$&#34;&#34;&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="o">(</span><span class="n">regex</span><span class="o">.</span><span class="n">findAllIn</span><span class="o">(</span><span class="n">str</span><span class="o">).</span><span class="n">toList</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">=&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nc">List</span><span class="o">(</span><span class="mi">13907461234</span><span class="o">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">scala.util.matching.Regex</span>
+<span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="s">&#34;13907461234&#34;</span>
+<span class="k">val</span> <span class="n">regex</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Regex</span><span class="o">(</span><span class="s">&#34;&#34;&#34;^1[358]\d{9}$&#34;&#34;&#34;</span><span class="o">)</span>
+<span class="n">println</span><span class="o">(</span><span class="n">regex</span><span class="o">.</span><span class="n">findAllIn</span><span class="o">(</span><span class="n">str</span><span class="o">).</span><span class="n">toList</span><span class="o">)</span>
+
+<span class="k">=&gt;</span>
+<span class="nc">List</span><span class="o">(</span><span class="mi">13907461234</span><span class="o">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>这里使用了<code>&quot;&quot;&quot;</code>raw string，三个双引号括起来的内容不需要做转义，正则表达式本身就比较难看，如果再加上转义就更难于阅读和理解。</p>
 <p>匹配简单的电子邮件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -233,18 +243,18 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="s">&#34;email: abc@xyz.com&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">regex</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Regex</span><span class="o">(</span><span class="s">&#34;&#34;&#34;(?i)[a-z0-9._-]+@[a-z0-9._-]+(\.[a-z0-9._-]+)+&#34;&#34;&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="o">(</span><span class="n">regex</span><span class="o">.</span><span class="n">findAllIn</span><span class="o">(</span><span class="n">str</span><span class="o">).</span><span class="n">toList</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">=&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nc">List</span><span class="o">(</span><span class="n">abc</span><span class="nd">@xyz</span><span class="o">.</span><span class="n">com</span><span class="o">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="s">&#34;email: abc@xyz.com&#34;</span>
+<span class="k">val</span> <span class="n">regex</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Regex</span><span class="o">(</span><span class="s">&#34;&#34;&#34;(?i)[a-z0-9._-]+@[a-z0-9._-]+(\.[a-z0-9._-]+)+&#34;&#34;&#34;</span><span class="o">)</span>
+<span class="n">println</span><span class="o">(</span><span class="n">regex</span><span class="o">.</span><span class="n">findAllIn</span><span class="o">(</span><span class="n">str</span><span class="o">).</span><span class="n">toList</span><span class="o">)</span>
+
+<span class="k">=&gt;</span>
+<span class="nc">List</span><span class="o">(</span><span class="n">abc</span><span class="nd">@xyz</span><span class="o">.</span><span class="n">com</span><span class="o">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>Scala的正则表达式还有一个非常有用的功能，那就是模式匹配（pattern match），不仅可以查找所有匹配的的字符串，还可以直接提取分组的内容，请看下面api手册的例子：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -253,19 +263,19 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">date</span> <span class="k">=</span> <span class="s">&#34;&#34;&#34;(\d\d\d\d)-(\d\d)-(\d\d)&#34;&#34;&#34;</span><span class="o">.</span><span class="n">r</span> <span class="c1">//可以直接使用.r生成一个Regex对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="s">&#34;2004-01-20&#34;</span> <span class="k">match</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="n">date</span><span class="o">(</span><span class="n">year</span><span class="o">,</span> <span class="n">month</span><span class="o">,</span> <span class="n">day</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">s&#34;</span><span class="si">$year</span><span class="s"> was a good year for PLs.&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">=&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2004</span> <span class="n">was</span> <span class="n">a</span> <span class="n">good</span> <span class="n">year</span> <span class="k">for</span> <span class="nc">PLs</span><span class="o">.</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">date</span> <span class="k">=</span> <span class="s">&#34;&#34;&#34;(\d\d\d\d)-(\d\d)-(\d\d)&#34;&#34;&#34;</span><span class="o">.</span><span class="n">r</span> <span class="c1">//可以直接使用.r生成一个Regex对象
+</span><span class="c1"></span><span class="s">&#34;2004-01-20&#34;</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="n">date</span><span class="o">(</span><span class="n">year</span><span class="o">,</span> <span class="n">month</span><span class="o">,</span> <span class="n">day</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">s&#34;</span><span class="si">$year</span><span class="s"> was a good year for PLs.&#34;</span>
+<span class="o">}</span>
+
+<span class="k">=&gt;</span>
+<span class="mi">2004</span> <span class="n">was</span> <span class="n">a</span> <span class="n">good</span> <span class="n">year</span> <span class="k">for</span> <span class="nc">PLs</span><span class="o">.</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>可以看到上面的例子直接把年份的分组提取了出来，month, day同样也可以提取出来。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -274,20 +284,20 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">scala.util.matching.Regex</span>
-</span></span><span class="line"><span class="cl"><span class="s">&#34;2004-01-20&#34;</span> <span class="k">match</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="n">date</span><span class="o">(</span><span class="k">_</span><span class="o">*)</span> <span class="k">=&gt;</span> <span class="s">&#34;It&#39;s a date!&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">=&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nc">It</span>&#39;s <span class="n">a</span> <span class="n">data</span><span class="o">!</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">scala.util.matching.Regex</span>
+<span class="s">&#34;2004-01-20&#34;</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="n">date</span><span class="o">(</span><span class="k">_</span><span class="o">*)</span> <span class="k">=&gt;</span> <span class="s">&#34;It&#39;s a date!&#34;</span>
+<span class="o">}</span>
+
+<span class="k">=&gt;</span>
+<span class="nc">It</span>&#39;s <span class="n">a</span> <span class="n">data</span><span class="o">!</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>可以忽略匹配到的参数。</p>
 <p>上面仅当字符串为XXXX-XX-XX的时候才可以使用，如果一个字符串不仅仅是只是一个年份，模式匹配是否也可以提取呢？答案是Yes，使用unanchored就可以做到，看下面的例子：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -297,20 +307,20 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">date</span> <span class="k">=</span> <span class="s">&#34;&#34;&#34;(\d\d\d\d)-(\d\d)-(\d\d)&#34;&#34;&#34;</span><span class="o">.</span><span class="n">r</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">embeddedDate</span> <span class="k">=</span> <span class="n">date</span><span class="o">.</span><span class="n">unanchored</span>
-</span></span><span class="line"><span class="cl"><span class="s">&#34;Date: 2004-01-20 17:25:18 GMT (10 years, 28 weeks, 5 days, 17 hours and 51 minutes ago)&#34;</span> <span class="k">match</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="n">embeddedDate</span><span class="o">(</span><span class="s">&#34;2004&#34;</span><span class="o">,</span> <span class="s">&#34;01&#34;</span><span class="o">,</span> <span class="s">&#34;20&#34;</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">&#34;A Scala is born.&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">=&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="nc">Scala</span> <span class="n">is</span> <span class="n">born</span><span class="o">.</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">date</span> <span class="k">=</span> <span class="s">&#34;&#34;&#34;(\d\d\d\d)-(\d\d)-(\d\d)&#34;&#34;&#34;</span><span class="o">.</span><span class="n">r</span>
+<span class="k">val</span> <span class="n">embeddedDate</span> <span class="k">=</span> <span class="n">date</span><span class="o">.</span><span class="n">unanchored</span>
+<span class="s">&#34;Date: 2004-01-20 17:25:18 GMT (10 years, 28 weeks, 5 days, 17 hours and 51 minutes ago)&#34;</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="n">embeddedDate</span><span class="o">(</span><span class="s">&#34;2004&#34;</span><span class="o">,</span> <span class="s">&#34;01&#34;</span><span class="o">,</span> <span class="s">&#34;20&#34;</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">&#34;A Scala is born.&#34;</span>
+<span class="o">}</span>
+
+<span class="k">=&gt;</span>
+<span class="n">A</span> <span class="nc">Scala</span> <span class="n">is</span> <span class="n">born</span><span class="o">.</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>给正则表达式的分组命名：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -320,20 +330,20 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">scala.util.matching.Regex</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="s">&#34;2016-08-23&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">date</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Regex</span><span class="o">(</span><span class="s">&#34;&#34;&#34;(\d\d\d\d)-(\d\d)-(\d\d)&#34;&#34;&#34;</span><span class="o">,</span> <span class="s">&#34;year&#34;</span><span class="o">,</span> <span class="s">&#34;month&#34;</span><span class="o">,</span> <span class="s">&#34;day&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">matches</span> <span class="k">=</span> <span class="n">date</span><span class="o">.</span><span class="n">findAllIn</span><span class="o">(</span><span class="n">str</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="o">(</span><span class="s">&#34;year: &#34;</span> <span class="o">+</span> <span class="n">matches</span><span class="o">.</span><span class="n">group</span><span class="o">(</span><span class="s">&#34;year&#34;</span><span class="o">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">=&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="n">year</span><span class="k">:</span> <span class="err">2016</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">scala.util.matching.Regex</span>
+<span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="s">&#34;2016-08-23&#34;</span>
+<span class="k">val</span> <span class="n">date</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Regex</span><span class="o">(</span><span class="s">&#34;&#34;&#34;(\d\d\d\d)-(\d\d)-(\d\d)&#34;&#34;&#34;</span><span class="o">,</span> <span class="s">&#34;year&#34;</span><span class="o">,</span> <span class="s">&#34;month&#34;</span><span class="o">,</span> <span class="s">&#34;day&#34;</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">matches</span> <span class="k">=</span> <span class="n">date</span><span class="o">.</span><span class="n">findAllIn</span><span class="o">(</span><span class="n">str</span><span class="o">)</span>
+<span class="n">println</span><span class="o">(</span><span class="s">&#34;year: &#34;</span> <span class="o">+</span> <span class="n">matches</span><span class="o">.</span><span class="n">group</span><span class="o">(</span><span class="s">&#34;year&#34;</span><span class="o">))</span>
+
+<span class="k">=&gt;</span>
+<span class="n">year</span><span class="k">:</span> <span class="err">2016</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>Scala的正则表达式默认使用单行模式去匹配文本内容</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -342,19 +352,19 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">scala.util.matching.Regex</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="s">&#34;abc\nefg&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">regex</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Regex</span><span class="o">(</span><span class="s">&#34;^[a-z].*&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="o">(</span><span class="n">regex</span><span class="o">.</span><span class="n">findAllIn</span><span class="o">(</span><span class="n">str</span><span class="o">).</span><span class="n">toList</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">=&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nc">List</span><span class="o">(</span><span class="n">abc</span><span class="o">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">scala.util.matching.Regex</span>
+<span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="s">&#34;abc\nefg&#34;</span>
+<span class="k">val</span> <span class="n">regex</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Regex</span><span class="o">(</span><span class="s">&#34;^[a-z].*&#34;</span><span class="o">)</span>
+<span class="n">println</span><span class="o">(</span><span class="n">regex</span><span class="o">.</span><span class="n">findAllIn</span><span class="o">(</span><span class="n">str</span><span class="o">).</span><span class="n">toList</span><span class="o">)</span>
+
+<span class="k">=&gt;</span>
+<span class="nc">List</span><span class="o">(</span><span class="n">abc</span><span class="o">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>只是匹配到了<code>abc</code>，把正则表达式加上<code>s</code>选项那么<code>.</code>就可以匹配到换行符。结果就<code>abc\nefg</code>可以全部匹配到。如果想以多选的方式匹配一段文本内容，那么就需要使用<code>m</code>选项：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -363,19 +373,19 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">scala.util.matching.Regex</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="s">&#34;abc\nefg&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">regex</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Regex</span><span class="o">(</span><span class="s">&#34;(?m)^[a-z].*&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="o">(</span><span class="n">regex</span><span class="o">.</span><span class="n">findAllIn</span><span class="o">(</span><span class="n">str</span><span class="o">).</span><span class="n">toList</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">=&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nc">List</span><span class="o">(</span><span class="n">abc</span><span class="o">,</span> <span class="n">efg</span><span class="o">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">scala.util.matching.Regex</span>
+<span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="s">&#34;abc\nefg&#34;</span>
+<span class="k">val</span> <span class="n">regex</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Regex</span><span class="o">(</span><span class="s">&#34;(?m)^[a-z].*&#34;</span><span class="o">)</span>
+<span class="n">println</span><span class="o">(</span><span class="n">regex</span><span class="o">.</span><span class="n">findAllIn</span><span class="o">(</span><span class="n">str</span><span class="o">).</span><span class="n">toList</span><span class="o">)</span>
+
+<span class="k">=&gt;</span>
+<span class="nc">List</span><span class="o">(</span><span class="n">abc</span><span class="o">,</span> <span class="n">efg</span><span class="o">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>测试一个字符串是否匹配一个模式：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -383,13 +393,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">val str = &#34;abc123&#34;
-</span></span><span class="line"><span class="cl">val pattern = &#34;[a-z]{3}[0-9]{3}&#34;
-</span></span><span class="line"><span class="cl">println(str.matches(pattern))
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">=&gt;
-</span></span><span class="line"><span class="cl">true
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">val str = &#34;abc123&#34;
+val pattern = &#34;[a-z]{3}[0-9]{3}&#34;
+println(str.matches(pattern))
+
+=&gt;
+true
+</code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -478,13 +488,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -498,7 +505,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

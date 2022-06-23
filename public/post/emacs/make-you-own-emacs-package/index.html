@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/emacs/make-you-own-emacs-package/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -169,39 +179,39 @@
 <h2 id="alarm-pkgel">alarm-pkg.el</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nv">define-package</span>
-</span></span><span class="line"><span class="cl">  <span class="s">&#34;alarm&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="s">&#34;20170724.1502&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="s">&#34;A package to alarm yourself at some time.&#34;</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-elisp" data-lang="elisp"><span class="p">(</span><span class="nv">define-package</span>
+  <span class="s">&#34;alarm&#34;</span>
+  <span class="s">&#34;20170724.1502&#34;</span>
+  <span class="s">&#34;A package to alarm yourself at some time.&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>这个文件比较简单，只是调用了<code>define-package</code>来定义你的包信息，此函数的签名如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">defun</span> <span class="nv">define-package</span> <span class="p">(</span><span class="nv">_name-string</span> <span class="nv">_version-string</span>
-</span></span><span class="line"><span class="cl">                                    <span class="kp">&amp;optional</span> <span class="nv">_docstring</span> <span class="nv">_requirements</span>
-</span></span><span class="line"><span class="cl">                                    <span class="kp">&amp;rest</span> <span class="nv">_extra-properties</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="ne">error</span> <span class="s">&#34;Don&#39;t call me!&#34;</span><span class="p">))</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-elisp" data-lang="elisp"><span class="p">(</span><span class="nb">defun</span> <span class="nv">define-package</span> <span class="p">(</span><span class="nv">_name-string</span> <span class="nv">_version-string</span>
+                                    <span class="kp">&amp;optional</span> <span class="nv">_docstring</span> <span class="nv">_requirements</span>
+                                    <span class="kp">&amp;rest</span> <span class="nv">_extra-properties</span><span class="p">)</span>
+  <span class="p">(</span><span class="ne">error</span> <span class="s">&#34;Don&#39;t call me!&#34;</span><span class="p">))</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>第一个参数是包名，第二个参数是版本号，第三个参数可以是一个长字符串提供说明文档</p>
 <h2 id="alarmel">alarm.el</h2>
 <p>这个文件的约定比较多，先看一下这个文件的头部</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -219,42 +229,42 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="c1">;;; alarm.el --- Alarm</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;; Copyright (C) 2017, Emacs guys, all rights reserved.</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;; Author: Kevim Jiang &lt;wenlin1988@126.com&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">;; Version: 20170724.1502</span>
-</span></span><span class="line"><span class="cl"><span class="c1">;; Keywords: alarm</span>
-</span></span><span class="line"><span class="cl"><span class="c1">;; Maintainer: Kevin Jaing &lt;wenlin1988@126.com&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">;; Created: 2017-07-24 12:00:00</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;;; Commentary:</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;; Set an alarm with `alarm-clock&#39;, and enter the time;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">;; cancel the alarm with `alarm-clock-cancel&#39;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;;; Code:</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-elisp" data-lang="elisp"><span class="c1">;;; alarm.el --- Alarm</span>
+
+<span class="c1">;; Copyright (C) 2017, Emacs guys, all rights reserved.</span>
+
+<span class="c1">;; Author: Kevim Jiang &lt;wenlin1988@126.com&gt;</span>
+<span class="c1">;; Version: 20170724.1502</span>
+<span class="c1">;; Keywords: alarm</span>
+<span class="c1">;; Maintainer: Kevin Jaing &lt;wenlin1988@126.com&gt;</span>
+<span class="c1">;; Created: 2017-07-24 12:00:00</span>
+
+<span class="c1">;;; Commentary:</span>
+
+<span class="c1">;; Set an alarm with `alarm-clock&#39;, and enter the time;</span>
+<span class="c1">;; cancel the alarm with `alarm-clock-cancel&#39;</span>
+
+<span class="c1">;;; Code:</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>每一个段落以空白行隔开。第一行是文件名和一个简短的说明，而且开头以<code>;;;</code>三个分号注释。<code>Commentary</code>一段可以是长一些的说明文档，以及使用说明。最后是<code>;;; Code:</code>段，接下面就是真正的代码内容。可以使用<code>checkdoc</code>来检查头部的文档是否正确。还可以使用<code>package-lint</code>包的<code>package-lint-current-buffer</code>命令检查。</p>
 <p>最后需要：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">provide</span> <span class="ss">&#39;alarm</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;;; alarm.el ends here</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-elisp" data-lang="elisp"><span class="p">(</span><span class="nb">provide</span> <span class="ss">&#39;alarm</span><span class="p">)</span>
+
+<span class="c1">;;; alarm.el ends here</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>完整的<code>alarm.el</code>如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -305,56 +315,56 @@
 </span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="c1">;;; alarm.el --- Alarm</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;; Copyright (C) 2017, Emacs guys, all rights reserved.</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;; Author: Kevim Jiang &lt;wenlin1988@126.com&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">;; Version: 20170724.1502</span>
-</span></span><span class="line"><span class="cl"><span class="c1">;; Keywords: alarm</span>
-</span></span><span class="line"><span class="cl"><span class="c1">;; Maintainer: Kevin Jaing &lt;wenlin1988@126.com&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">;; Created: 2017-07-24 12:00:00</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;;; Commentary:</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;; require alarm in you init.el: `(require &#39;alarm)&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">;; Set an alarm with `alarm-clock&#39;, and enter the time;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">;; cancel the alarm with `alarm-clock-cancel&#39;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;;; Code:</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">defvar</span> <span class="nv">alarm-version</span> <span class="s">&#34;20170724.1502&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">defvar</span> <span class="nv">alarm-clock-timer</span> <span class="no">nil</span>
-</span></span><span class="line"><span class="cl">  <span class="s">&#34;Keep timer so that the user can cancel the alerm.&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">defun</span> <span class="nv">alarm-ding3</span> <span class="p">()</span>
-</span></span><span class="line"><span class="cl">  <span class="s">&#34;Play 3 times ding.&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nb">dotimes</span> <span class="p">(</span><span class="nv">n</span> <span class="mi">3</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nv">play-sound-file</span>
-</span></span><span class="line"><span class="cl">     <span class="p">(</span><span class="nf">concat</span> <span class="nv">package-user-dir</span>
-</span></span><span class="line"><span class="cl">             <span class="s">&#34;/alarm-&#34;</span> <span class="nv">alarm-version</span>
-</span></span><span class="line"><span class="cl">             <span class="s">&#34;/alarm.wav&#34;</span><span class="p">))))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;;;###autoload</span>
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">defun</span> <span class="nv">alarm-clock-cancel</span> <span class="p">()</span>
-</span></span><span class="line"><span class="cl">  <span class="s">&#34;Cancel the alarm clock.&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nb">interactive</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nv">cancel-timer</span> <span class="nv">alarm-clock-timer</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;;;###autoload</span>
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">defun</span> <span class="nv">alarm-clock</span> <span class="p">()</span>
-</span></span><span class="line"><span class="cl">  <span class="s">&#34;Set an alarm.
-</span></span></span><span class="line"><span class="cl"><span class="s">The time format is the same accepted by </span><span class="ss">`run-at-time&#39;</span><span class="s">.
-</span></span></span><span class="line"><span class="cl"><span class="s">For example 12:00am.&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nb">interactive</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nb">let</span> <span class="p">((</span><span class="nv">time</span> <span class="p">(</span><span class="nf">read-string</span> <span class="s">&#34;Time(example, 12:00am): &#34;</span><span class="p">)))</span>
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nb">setq</span> <span class="nv">alarm-clock-timer</span> <span class="p">(</span><span class="nv">run-at-time</span> <span class="nv">time</span> <span class="no">nil</span> <span class="ss">&#39;alarm-ding3</span><span class="p">))))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">provide</span> <span class="ss">&#39;alarm</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;;; alarm.el ends here</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-elisp" data-lang="elisp"><span class="c1">;;; alarm.el --- Alarm</span>
+
+<span class="c1">;; Copyright (C) 2017, Emacs guys, all rights reserved.</span>
+
+<span class="c1">;; Author: Kevim Jiang &lt;wenlin1988@126.com&gt;</span>
+<span class="c1">;; Version: 20170724.1502</span>
+<span class="c1">;; Keywords: alarm</span>
+<span class="c1">;; Maintainer: Kevin Jaing &lt;wenlin1988@126.com&gt;</span>
+<span class="c1">;; Created: 2017-07-24 12:00:00</span>
+
+<span class="c1">;;; Commentary:</span>
+
+<span class="c1">;; require alarm in you init.el: `(require &#39;alarm)&#39;</span>
+<span class="c1">;; Set an alarm with `alarm-clock&#39;, and enter the time;</span>
+<span class="c1">;; cancel the alarm with `alarm-clock-cancel&#39;</span>
+
+<span class="c1">;;; Code:</span>
+
+<span class="p">(</span><span class="nb">defvar</span> <span class="nv">alarm-version</span> <span class="s">&#34;20170724.1502&#34;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">defvar</span> <span class="nv">alarm-clock-timer</span> <span class="no">nil</span>
+  <span class="s">&#34;Keep timer so that the user can cancel the alerm.&#34;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">alarm-ding3</span> <span class="p">()</span>
+  <span class="s">&#34;Play 3 times ding.&#34;</span>
+  <span class="p">(</span><span class="nb">dotimes</span> <span class="p">(</span><span class="nv">n</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">play-sound-file</span>
+     <span class="p">(</span><span class="nf">concat</span> <span class="nv">package-user-dir</span>
+             <span class="s">&#34;/alarm-&#34;</span> <span class="nv">alarm-version</span>
+             <span class="s">&#34;/alarm.wav&#34;</span><span class="p">))))</span>
+
+<span class="c1">;;;###autoload</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">alarm-clock-cancel</span> <span class="p">()</span>
+  <span class="s">&#34;Cancel the alarm clock.&#34;</span>
+  <span class="p">(</span><span class="nb">interactive</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">cancel-timer</span> <span class="nv">alarm-clock-timer</span><span class="p">))</span>
+
+<span class="c1">;;;###autoload</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">alarm-clock</span> <span class="p">()</span>
+  <span class="s">&#34;Set an alarm.
+</span><span class="s">The time format is the same accepted by </span><span class="ss">`run-at-time&#39;</span><span class="s">.
+</span><span class="s">For example 12:00am.&#34;</span>
+  <span class="p">(</span><span class="nb">interactive</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">let</span> <span class="p">((</span><span class="nv">time</span> <span class="p">(</span><span class="nf">read-string</span> <span class="s">&#34;Time(example, 12:00am): &#34;</span><span class="p">)))</span>
+    <span class="p">(</span><span class="nb">setq</span> <span class="nv">alarm-clock-timer</span> <span class="p">(</span><span class="nv">run-at-time</span> <span class="nv">time</span> <span class="no">nil</span> <span class="ss">&#39;alarm-ding3</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="nb">provide</span> <span class="ss">&#39;alarm</span><span class="p">)</span>
+
+<span class="c1">;;; alarm.el ends here</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="打包">打包</h2>
 <p><code>tar -cvf alarm-20170724.1502.tar alarm-20170724.1502</code></p>
@@ -363,15 +373,15 @@
 <p>首先得在github上clone melpa仓库，然后添加一个以包名命令的文件到<code>recipes</code>目录下，这里的文件是<code>alarm</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nv">alarm</span>
-</span></span><span class="line"><span class="cl"> <span class="nb">:repo</span> <span class="s">&#34;kevindragon/alerm.el&#34;</span>
-</span></span><span class="line"><span class="cl"> <span class="nb">:fetcher</span> <span class="nv">github</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-elisp" data-lang="elisp"><span class="p">(</span><span class="nv">alarm</span>
+ <span class="nb">:repo</span> <span class="s">&#34;kevindragon/alerm.el&#34;</span>
+ <span class="nb">:fetcher</span> <span class="nv">github</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>提交，然后提pull request，等待接收。</p>
 <p>希望我的<a href="https://github.com/melpa/melpa/pull/4877">提交</a>可以顺利通过。</p>
@@ -461,13 +471,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -481,7 +488,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

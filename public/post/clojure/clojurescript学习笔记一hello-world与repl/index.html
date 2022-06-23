@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/clojure/clojurescript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80hello-world%E4%B8%8Erepl/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -150,24 +160,24 @@
 <p>在core.cljs写入如下内容：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(ns cljs-first-project.core)
-</span></span><span class="line"><span class="cl">(js/alert &#34;Hello world!&#34;)
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">(ns cljs-first-project.core)
+(js/alert &#34;Hello world!&#34;)
+</code></pre></td></tr></table>
 </div>
 </div><p>这段代码定义一个命名空间，然后是一个javascript里面的alert弹出框。另外还需要写一个clojure文件来对源代码进行编译，在根目录下新建一个build.clj文件，内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(require &#39;cljs.build.api)
-</span></span><span class="line"><span class="cl">(cljs.build.api/build &#34;src&#34; {:output-to &#34;out/main.js&#34;})
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">(require &#39;cljs.build.api)
+(cljs.build.api/build &#34;src&#34; {:output-to &#34;out/main.js&#34;})
+</code></pre></td></tr></table>
 </div>
 </div><p>包含<code>cljs.build.api</code>命名空间，然后调整<code>build</code>函数，此函数接受两个参数，第一个是ClojureScript源代码目录，第二个是是一个map数据结果，这里指定了输出编译后的js的路径。现在使用前面下载的编译器进行编译：</p>
 <p>Windows下编译</p>
@@ -179,7 +189,7 @@
 <p>编译完成后会在out目录生成main.js，同时还有其他一些目录。要运行main.js还需要一个greet.html，内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -190,76 +200,76 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;out/goog/base.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;out/main.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">goog</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;cljs_first_project.core&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;out/goog/base.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;out/main.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
+      <span class="nx">goog</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;cljs_first_project.core&#34;</span><span class="p">)</span>
+    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>用浏览器打开greet.html就可以看到alert框了。第一个ClojureScript编写编译完成！</p>
 <p>再来一点高级功能，把<code>goog/base.js</code>依赖从html去掉，把<code>goog.require(&quot;cljs_first_project&quot;)</code>也从html里面去掉，只需要包含main.js就可以让程序跑起来。只需要对build.clj修改一下，内容修改如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(require &#39;cljs.build.api)
-</span></span><span class="line"><span class="cl">(cljs.build.api/build
-</span></span><span class="line"><span class="cl">  &#34;src&#34;
-</span></span><span class="line"><span class="cl">  {:main &#39;cljs-first-project.core
-</span></span><span class="line"><span class="cl">  :output-to &#34;out/main.js&#34;})
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">(require &#39;cljs.build.api)
+(cljs.build.api/build
+  &#34;src&#34;
+  {:main &#39;cljs-first-project.core
+  :output-to &#34;out/main.js&#34;})
+</code></pre></td></tr></table>
 </div>
 </div><p>greet.html的内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;out/main.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;out/main.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>打开greet.html，效果跟之前一样。</p>
 <p>另外一个高级功能是当编辑源代码的时候不需要手动多次编译，另外在根目录下再写一个watch.clj文件，内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(require &#39;cljs.build.api)
-</span></span><span class="line"><span class="cl">(cljs.build.api/watch
-</span></span><span class="line"><span class="cl">  &#34;src&#34;
-</span></span><span class="line"><span class="cl">  {:main &#39;cljs-first-project.core
-</span></span><span class="line"><span class="cl">  :output-to &#34;out/main.js&#34;})
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">(require &#39;cljs.build.api)
+(cljs.build.api/watch
+  &#34;src&#34;
+  {:main &#39;cljs-first-project.core
+  :output-to &#34;out/main.js&#34;})
+</code></pre></td></tr></table>
 </div>
 </div><p>只是把调用build的地方改成调用watch函数即可。运行<code>java -cp &quot;cljs.jar;src&quot; clojure.main watch.clj</code>（*nix运行<code>java -cp cljs.jar:src clojure.main watch.clj</code>），此时若修改源文件core.cljs，编译器会自动检测到文件的修改，然后自动进行编译，自动编译后在浏览器刷新即可看到效果。</p>
 <p>既然是lisp系，怎么可以少得了REPL(Read-Eval-Print-Loop)。REPL可以让我们直接把代码片段推送到浏览器运行，只需要在REPL里面写上代码，然后立马可以在浏览器看到效果，这个Live Codiing的基础。</p>
 <p>同样的要想运行repl也需要clojure的支持，在根目录下新建一个repl.clj，内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -275,21 +285,21 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(require &#39;cljs.repl)
-</span></span><span class="line"><span class="cl">(require &#39;cljs.build.api)
-</span></span><span class="line"><span class="cl">(require &#39;cljs.repl.browser)
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">(cljs.build.api/build
-</span></span><span class="line"><span class="cl">  &#34;src&#34;
-</span></span><span class="line"><span class="cl">  {:main &#39;cljs-first-project.core
-</span></span><span class="line"><span class="cl">   :output-to &#34;out/main.js&#34;
-</span></span><span class="line"><span class="cl">   :verbose true})
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">(cljs.repl/repl
-</span></span><span class="line"><span class="cl">  (cljs.repl.browser/repl-env)
-</span></span><span class="line"><span class="cl">  :watch &#34;src&#34;
-</span></span><span class="line"><span class="cl">  :output-dir &#34;out&#34;)
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">(require &#39;cljs.repl)
+(require &#39;cljs.build.api)
+(require &#39;cljs.repl.browser)
+    
+(cljs.build.api/build
+  &#34;src&#34;
+  {:main &#39;cljs-first-project.core
+   :output-to &#34;out/main.js&#34;
+   :verbose true})
+    
+(cljs.repl/repl
+  (cljs.repl.browser/repl-env)
+  :watch &#34;src&#34;
+  :output-dir &#34;out&#34;)
+</code></pre></td></tr></table>
 </div>
 </div><p>调整的build函数还是没有变，后面添加一个<code>cljs.repl/repl</code>函数调用。·cljs.repl.browser/repl-env·这个函数定义了一些默认配置，比如打开一个9000端口作为http的服务端口。<code>cljs.repl/repl</code>函数作了下面几件事情：</p>
 <ol>
@@ -301,7 +311,7 @@
 <p>修改core.cljs内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -310,14 +320,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(ns cljs-first-project.core
-</span></span><span class="line"><span class="cl">  (:require [clojure.browser.repl :as repl]))
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">(defonce conn
-</span></span><span class="line"><span class="cl">  (repl/connect &#34;http://localhost:9000/repl&#34;))
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">(js/alert &#34;Hello world!&#34;)
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">(ns cljs-first-project.core
+  (:require [clojure.browser.repl :as repl]))
+    
+(defonce conn
+  (repl/connect &#34;http://localhost:9000/repl&#34;))
+    
+(js/alert &#34;Hello world!&#34;)
+</code></pre></td></tr></table>
 </div>
 </div><p>可以看到这里初始化了一个connection，连接到9000端口的/repl，这里使用defonce是只初始化一次，之后的每次修改都不再连接服务端的REPL。</p>
 <p>Ok再来运行repl.clj</p>
@@ -422,13 +432,10 @@ cljs.user=&gt;
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -442,7 +449,7 @@ cljs.user=&gt;
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

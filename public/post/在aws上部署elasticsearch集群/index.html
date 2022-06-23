@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/%E5%9C%A8aws%E4%B8%8A%E9%83%A8%E7%BD%B2elasticsearch%E9%9B%86%E7%BE%A4/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -163,18 +173,18 @@
 <p>假设上一次最后创建的密钥对为<code>aws.pem</code>，实例公有DNS(域名)为<code>ec2-100-26-149-233.compute-1.amazonaws.com</code>，使用ssh登录ec2实例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ssh -i aws.pem ec2-user@ec2-100-26-149-233.compute-1.amazonaws.com
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">ssh -i aws.pem ec2-user@ec2-100-26-149-233.compute-1.amazonaws.com
+</code></pre></td></tr></table>
 </div>
 </div><p>实例的公有DNS（IPv4）到ec2的管理界面，点击前面启动的实例，在下面的信息面板就可以看到。</p>
 <p>Amazon本身提供的AMI是基于CentOS系列的Linux系统，可以直接使用yum来安装Elasticsearch。根据Elasticsearch官方提供的<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html">文档</a>进行安装。</p>
 <p>修改文件<code>/etc/yum.repos.d/amzn2-core.repo</code>，在文件后面添加下面的内容：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -184,30 +194,30 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[elasticsearch-6.x]
-</span></span><span class="line"><span class="cl">name=Elasticsearch repository for 6.x packages
-</span></span><span class="line"><span class="cl">baseurl=https://artifacts.elastic.co/packages/6.x/yum
-</span></span><span class="line"><span class="cl">gpgcheck=1
-</span></span><span class="line"><span class="cl">gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
-</span></span><span class="line"><span class="cl">enabled=1
-</span></span><span class="line"><span class="cl">autorefresh=1
-</span></span><span class="line"><span class="cl">type=rpm-md
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[elasticsearch-6.x]
+name=Elasticsearch repository for 6.x packages
+baseurl=https://artifacts.elastic.co/packages/6.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+</code></pre></td></tr></table>
 </div>
 </div><p>然后执行下面的命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo yum install -y java-1.8.0
-</span></span><span class="line"><span class="cl">sudo yum install -y elasticsearch
-</span></span><span class="line"><span class="cl">sudo systemctl daemon-reload
-</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> elasticsearch.service
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo yum install -y java-1.8.0
+sudo yum install -y elasticsearch
+sudo systemctl daemon-reload
+sudo systemctl <span class="nb">enable</span> elasticsearch.service
+</code></pre></td></tr></table>
 </div>
 </div><p>后面两条systemctl命令设置Linux开机启动Elasticsearch。这样就安装好了最新版本的Elasticsearch，下面就需要对其进行配置，以及制作自己的AMI了。</p>
 <h2 id="配置elasticsearch以及制作ami">配置Elasticsearch以及制作AMI</h2>
@@ -219,75 +229,75 @@
 <p>首先需要对Linux系统做一点配置。修改<code>/etc/security/limits.conf</code>文件，添加如下内容到文件后面：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">* - nofile 65536
-</span></span><span class="line"><span class="cl">* - nproc 4096
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-text" data-lang="text">* - nofile 65536
+* - nproc 4096
+</code></pre></td></tr></table>
 </div>
 </div><p>还需要安装一下<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/6.5/discovery-ec2.html">EC2 Discovery Plugin</a>插件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install discovery-ec2
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install discovery-ec2
+</code></pre></td></tr></table>
 </div>
 </div><p>配置access_key：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo /usr/share/elasticsearch/bin/elasticsearch-keystore add discovery.ec2.access_key
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo /usr/share/elasticsearch/bin/elasticsearch-keystore add discovery.ec2.access_key
+</code></pre></td></tr></table>
 </div>
 </div><p>输入access_key，就是上面创建IAM用户的<code>访问密钥 ID</code>。</p>
 <p>配置secret_key:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo /usr/share/elasticsearch/bin/elasticsearch-keystore add discovery.ec2.secret_key
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo /usr/share/elasticsearch/bin/elasticsearch-keystore add discovery.ec2.secret_key
+</code></pre></td></tr></table>
 </div>
 </div><p>输入上面保存的secret_key。</p>
 <p>修改Elasticsearch的配置文件<code>/etc/elasticsearch/elasticsearch.yml</code>。添加如下内容到文件后面：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cluster.name: es
-</span></span><span class="line"><span class="cl">node.name: ${HOSTNAME}
-</span></span><span class="line"><span class="cl">network.host: _ec2_
-</span></span><span class="line"><span class="cl">discovery.zen.hosts_provider: ec2
-</span></span><span class="line"><span class="cl">discovery.ec2.endpoint: ec2.us-east-1.amazonaws.com
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-text" data-lang="text">cluster.name: es
+node.name: ${HOSTNAME}
+network.host: _ec2_
+discovery.zen.hosts_provider: ec2
+discovery.ec2.endpoint: ec2.us-east-1.amazonaws.com
+</code></pre></td></tr></table>
 </div>
 </div><p>这个配置需要注意的一点是<code>discovery.ec2.endpoint</code>需要改成你自己实例所在区域，可以查看<a href="https://docs.aws.amazon.com/zh_cn/general/latest/gr/rande.html#ec2_region">AWS文档</a></p>
 <p>另外，如果你启动的ec2实例内存只有1g，最好把Elasticsearch启动的内存设置为512M。修改配置文件<code>/etc/elasticsearch/jvm.options</code>，把<code>-Xms1g</code>和<code>-Xmx1g</code>改为<code>-Xms512M</code>和<code>-Xmx512M</code>。</p>
 <p>配置已经好了，启动一下elasticsearch试试看。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo systemctl start elasticsearch
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo systemctl start elasticsearch
+</code></pre></td></tr></table>
 </div>
 </div><p>访问<code>http://你的EC2公有DNS(IPv4):9200</code>你会看到下面类似的信息（有可能会部分不太一样），说明实例内部的Elasticsearch安装成功了。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -306,37 +316,37 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span> <span class="p">:</span> <span class="s2">&#34;ip-172-31-11-76.ec2.internal&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;cluster_name&#34;</span> <span class="p">:</span> <span class="s2">&#34;es&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;cluster_uuid&#34;</span> <span class="p">:</span> <span class="s2">&#34;-tedL2ggQpKQ-1sqF5abLA&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;version&#34;</span> <span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;number&#34;</span> <span class="p">:</span> <span class="s2">&#34;6.5.4&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;build_flavor&#34;</span> <span class="p">:</span> <span class="s2">&#34;default&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;build_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;rpm&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;build_hash&#34;</span> <span class="p">:</span> <span class="s2">&#34;d2ef93d&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;build_date&#34;</span> <span class="p">:</span> <span class="s2">&#34;2018-12-17T21:17:40.758843Z&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;build_snapshot&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;lucene_version&#34;</span> <span class="p">:</span> <span class="s2">&#34;7.5.0&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;minimum_wire_compatibility_version&#34;</span> <span class="p">:</span> <span class="s2">&#34;5.6.0&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;minimum_index_compatibility_version&#34;</span> <span class="p">:</span> <span class="s2">&#34;5.0.0&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tagline&#34;</span> <span class="p">:</span> <span class="s2">&#34;You Know, for Search&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;name&#34;</span> <span class="p">:</span> <span class="s2">&#34;ip-172-31-11-76.ec2.internal&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;cluster_name&#34;</span> <span class="p">:</span> <span class="s2">&#34;es&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;cluster_uuid&#34;</span> <span class="p">:</span> <span class="s2">&#34;-tedL2ggQpKQ-1sqF5abLA&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;version&#34;</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;number&#34;</span> <span class="p">:</span> <span class="s2">&#34;6.5.4&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;build_flavor&#34;</span> <span class="p">:</span> <span class="s2">&#34;default&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;build_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;rpm&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;build_hash&#34;</span> <span class="p">:</span> <span class="s2">&#34;d2ef93d&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;build_date&#34;</span> <span class="p">:</span> <span class="s2">&#34;2018-12-17T21:17:40.758843Z&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;build_snapshot&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&#34;lucene_version&#34;</span> <span class="p">:</span> <span class="s2">&#34;7.5.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;minimum_wire_compatibility_version&#34;</span> <span class="p">:</span> <span class="s2">&#34;5.6.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;minimum_index_compatibility_version&#34;</span> <span class="p">:</span> <span class="s2">&#34;5.0.0&#34;</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;tagline&#34;</span> <span class="p">:</span> <span class="s2">&#34;You Know, for Search&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>好了，单个实例内部的Elasticsearch已经安装成功，然后就是制作AMI映像了。</p>
 <h2 id="制作ami">制作AMI</h2>
 <p>先执行下面两个命令，把Elasticsearch停止，把保存节点信息的目录删掉</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo systemctl stop elasticsearch
-</span></span><span class="line"><span class="cl">sudo rm -r /var/lib/elasticsearch/nodes
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo systemctl stop elasticsearch
+sudo rm -r /var/lib/elasticsearch/nodes
+</code></pre></td></tr></table>
 </div>
 </div><p>这个步骤非常简单，在ec2控制台里面的实例列表里面，在创建的实例上面点击右键-&gt;映像-&gt;创建映像。然后填入映像名称和映像描述，假设我们取名为<code>Elasticsearch-6.5.4-v1</code>。点右下角的创建映像，稍等一会就可以在左侧菜单的映像下面的AMI里面看到刚刚创建的映像了。</p>
 <p>制作好了AMI映像之后就可以把用来制作ec2的实例停止，或者终止了，已经不再需要这个实例了。</p>
@@ -453,13 +463,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -473,7 +480,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

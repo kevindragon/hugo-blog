@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/searchengine/solr7%E9%85%8D%E7%BD%AE%E5%90%8C%E4%B9%89%E8%AF%8D/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -148,16 +158,16 @@
 <p>假设我们有同义词列表<code>synonyms_en.txt</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ability,capability
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ability,capability
+</code></pre></td></tr></table>
 </div>
 </div><p>配置Solr的<code>fieldtype</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -170,18 +180,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;fieldType name=&#34;text_en&#34; class=&#34;solr.TextField&#34; positionIncrementGap=&#34;100&#34;&gt;
-</span></span><span class="line"><span class="cl">  &lt;analyzer type=&#34;index&#34;&gt;
-</span></span><span class="line"><span class="cl">    &lt;tokenizer class=&#34;solr.StandardTokenizerFactory&#34;/&gt;
-</span></span><span class="line"><span class="cl">    &lt;!-- synonym --&gt;
-</span></span><span class="line"><span class="cl">    &lt;filter class=&#34;solr.SynonymGraphFilterFactory&#34; synonyms=&#34;synonyms_en.txt&#34; ignoreCase=&#34;true&#34; expand=&#34;false&#34;/&gt;
-</span></span><span class="line"><span class="cl">    ......
-</span></span><span class="line"><span class="cl">  &lt;/analyzer&gt;
-</span></span><span class="line"><span class="cl">  &lt;analyzer type=&#34;query&#34;&gt;
-</span></span><span class="line"><span class="cl">    ......
-</span></span><span class="line"><span class="cl">  &lt;/analyzer&gt;
-</span></span><span class="line"><span class="cl">&lt;/fieldType&gt;
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;fieldType name=&#34;text_en&#34; class=&#34;solr.TextField&#34; positionIncrementGap=&#34;100&#34;&gt;
+  &lt;analyzer type=&#34;index&#34;&gt;
+    &lt;tokenizer class=&#34;solr.StandardTokenizerFactory&#34;/&gt;
+    &lt;!-- synonym --&gt;
+    &lt;filter class=&#34;solr.SynonymGraphFilterFactory&#34; synonyms=&#34;synonyms_en.txt&#34; ignoreCase=&#34;true&#34; expand=&#34;false&#34;/&gt;
+    ......
+  &lt;/analyzer&gt;
+  &lt;analyzer type=&#34;query&#34;&gt;
+    ......
+  &lt;/analyzer&gt;
+&lt;/fieldType&gt;
+</code></pre></td></tr></table>
 </div>
 </div><p>先尝试索引时候设置同义词，直接在<code>analyzer type=&quot;index&quot;</code>内部配置即可，<code>SynonymGraphFilterFactory</code>暂时还是一个试验性质的功能，以后的版本可能会有所改动。class还可以设置成<code>solr.SynonymFilterFactory</code></p>
 <p>Solr自带的同义词配置有很多的参数：</p>
@@ -197,7 +207,7 @@
 <p>只需要把index部分的配置移到query部分即可，如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -210,41 +220,41 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;fieldType name=&#34;text_en&#34; class=&#34;solr.TextField&#34; positionIncrementGap=&#34;100&#34;&gt;
-</span></span><span class="line"><span class="cl">  &lt;analyzer type=&#34;index&#34;&gt;
-</span></span><span class="line"><span class="cl">    ......
-</span></span><span class="line"><span class="cl">  &lt;/analyzer&gt;
-</span></span><span class="line"><span class="cl">  &lt;analyzer type=&#34;query&#34;&gt;
-</span></span><span class="line"><span class="cl">    &lt;tokenizer class=&#34;solr.StandardTokenizerFactory&#34;/&gt;
-</span></span><span class="line"><span class="cl">    &lt;!-- synonym --&gt;
-</span></span><span class="line"><span class="cl">    &lt;filter class=&#34;solr.SynonymGraphFilterFactory&#34; synonyms=&#34;synonyms_en.txt&#34; ignoreCase=&#34;true&#34; expand=&#34;false&#34;/&gt;
-</span></span><span class="line"><span class="cl">    ......
-</span></span><span class="line"><span class="cl">  &lt;/analyzer&gt;
-</span></span><span class="line"><span class="cl">&lt;/fieldType&gt;
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;fieldType name=&#34;text_en&#34; class=&#34;solr.TextField&#34; positionIncrementGap=&#34;100&#34;&gt;
+  &lt;analyzer type=&#34;index&#34;&gt;
+    ......
+  &lt;/analyzer&gt;
+  &lt;analyzer type=&#34;query&#34;&gt;
+    &lt;tokenizer class=&#34;solr.StandardTokenizerFactory&#34;/&gt;
+    &lt;!-- synonym --&gt;
+    &lt;filter class=&#34;solr.SynonymGraphFilterFactory&#34; synonyms=&#34;synonyms_en.txt&#34; ignoreCase=&#34;true&#34; expand=&#34;false&#34;/&gt;
+    ......
+  &lt;/analyzer&gt;
+&lt;/fieldType&gt;
+</code></pre></td></tr></table>
 </div>
 </div><p>如果这时候把expand设置成true，那么搜索任何一个词，最终都会转换成搜索：<code>SynonymQuery(Synonym(field:ability field:capability))</code>。注意你看到的可能会是<code>SynonymQuery(Synonym(title.en:abil title.en:capabl))</code>，这是使用了porter stemming之后的结果。</p>
 <p>我的请求语句如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">http://192.168.0.106:8983/solr/lnc/select?debug=query&amp;df=title.en&amp;q=capability
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">http://192.168.0.106:8983/solr/lnc/select?debug=query&amp;df=title.en&amp;q=capability
+</code></pre></td></tr></table>
 </div>
 </div><h1 id="单向双向概念">单向，双向概念</h1>
 <p>这两个概念弄得还是有点模糊。第一：如果设置expand=false，那么同义词都会转换成第一个词进行索引（或者查询）；第二：如果设置expand=true，那么一个词会扩展成多个词同时查询；第三：使用<code>ability =&gt; capability</code>的配置时，如果查询<code>ability</code>，不管expand是true还是false，都会转换成对<code>capability</code>的搜索。</p>
 <p>我理解的单向可以做成下面的列表：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ability =&gt; capability
-</span></span><span class="line"><span class="cl">ability =&gt; ability
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ability =&gt; capability
+ability =&gt; ability
+</code></pre></td></tr></table>
 </div>
 </div><p>这样搜索<code>ability</code>的时候，搜索会变成：<code>SynonymQuery(Synonym(field:ability field:capability))</code>，而搜索<code>capability</code>的时候，只会搜索<code>capability</code>。</p>
 <p>通过这样的设置来达到单向同义词的目标。</p>
@@ -252,17 +262,17 @@
 <p>这个问题的由来是这样的，假设我们使用的分词器叫<code>ABCTokenizerFactory</code>。现在有下面的同义词列表<code>synonyms_cn.txt</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">中华人民共和国,中国
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">中华人民共和国,中国
+</code></pre></td></tr></table>
 </div>
 </div><p>这里假设<code>中华人民共和国</code>分词为<code>中华/人民/共和国</code>三个词</p>
 <p>schema如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -278,26 +288,26 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;fieldType name=&#34;text_cn&#34; class=&#34;solr.TextField&#34; positionIncrementGap=&#34;100&#34;&gt;
-</span></span><span class="line"><span class="cl">    &lt;analyzer type=&#34;index&#34;&gt;
-</span></span><span class="line"><span class="cl">        &lt;tokenizer class=&#34;ABCTokenizerFactory&#34;/&gt;
-</span></span><span class="line"><span class="cl">        ...
-</span></span><span class="line"><span class="cl">    &lt;/analyzer&gt;
-</span></span><span class="line"><span class="cl">    &lt;analyzer type=&#34;query&#34;&gt;
-</span></span><span class="line"><span class="cl">        &lt;tokenizer class=&#34;ABCTokenizerFactory&#34;/&gt;
-</span></span><span class="line"><span class="cl">        &lt;filter class=&#34;solr.SynonymGraphFilterFactory&#34;
-</span></span><span class="line"><span class="cl">                synonyms=&#34;synonyms_cn.txt&#34;
-</span></span><span class="line"><span class="cl">                ignoreCase=&#34;true&#34;
-</span></span><span class="line"><span class="cl">                expand=&#34;true&#34;/&gt;
-</span></span><span class="line"><span class="cl">        ...
-</span></span><span class="line"><span class="cl">    &lt;/analyzer&gt;
-</span></span><span class="line"><span class="cl">&lt;/fieldType&gt;
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;fieldType name=&#34;text_cn&#34; class=&#34;solr.TextField&#34; positionIncrementGap=&#34;100&#34;&gt;
+    &lt;analyzer type=&#34;index&#34;&gt;
+        &lt;tokenizer class=&#34;ABCTokenizerFactory&#34;/&gt;
+        ...
+    &lt;/analyzer&gt;
+    &lt;analyzer type=&#34;query&#34;&gt;
+        &lt;tokenizer class=&#34;ABCTokenizerFactory&#34;/&gt;
+        &lt;filter class=&#34;solr.SynonymGraphFilterFactory&#34;
+                synonyms=&#34;synonyms_cn.txt&#34;
+                ignoreCase=&#34;true&#34;
+                expand=&#34;true&#34;/&gt;
+        ...
+    &lt;/analyzer&gt;
+&lt;/fieldType&gt;
+</code></pre></td></tr></table>
 </div>
 </div><p>这样配置的时候，你搜索<code>中华人民共和国</code>是没有办法匹配到<code>中国</code>的。因为同义词有自己的分词器，如果这两个分词器的分词结果不相同，那么这个同义词设置基本上就是无效的，Synonyms的源码也可以体现这一点：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -307,21 +317,21 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public class SolrSynonymParser extends SynonymMap.Parser {
-</span></span><span class="line"><span class="cl">  private final boolean expand;
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  public SolrSynonymParser(boolean dedup, boolean expand, Analyzer analyzer) {
-</span></span><span class="line"><span class="cl">    super(dedup, analyzer);
-</span></span><span class="line"><span class="cl">    this.expand = expand;
-</span></span><span class="line"><span class="cl">  }
-</span></span><span class="line"><span class="cl">}
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">public class SolrSynonymParser extends SynonymMap.Parser {
+  private final boolean expand;
+  
+  public SolrSynonymParser(boolean dedup, boolean expand, Analyzer analyzer) {
+    super(dedup, analyzer);
+    this.expand = expand;
+  }
+}
+</code></pre></td></tr></table>
 </div>
 </div><p>可以看到有一个analyzer，这个analyzer就是对同义词列表进行分词用的。</p>
 <p>所以需要设置synonym的tokenizerFactory。如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -338,22 +348,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;fieldType name=&#34;text_cn&#34; class=&#34;solr.TextField&#34; positionIncrementGap=&#34;100&#34;&gt;
-</span></span><span class="line"><span class="cl">    &lt;analyzer type=&#34;index&#34;&gt;
-</span></span><span class="line"><span class="cl">        &lt;tokenizer class=&#34;ABCTokenizerFactory&#34;/&gt;
-</span></span><span class="line"><span class="cl">        ...
-</span></span><span class="line"><span class="cl">    &lt;/analyzer&gt;
-</span></span><span class="line"><span class="cl">    &lt;analyzer type=&#34;query&#34;&gt;
-</span></span><span class="line"><span class="cl">        &lt;tokenizer class=&#34;ABCTokenizerFactory&#34;/&gt;
-</span></span><span class="line"><span class="cl">        &lt;filter class=&#34;solr.SynonymGraphFilterFactory&#34;
-</span></span><span class="line"><span class="cl">                synonyms=&#34;synonyms_cn.txt&#34;
-</span></span><span class="line"><span class="cl">                ignoreCase=&#34;true&#34;
-</span></span><span class="line"><span class="cl">                expand=&#34;true&#34;
-</span></span><span class="line"><span class="cl">                tokenizerFactory=&#34;ABCTokenizerFactory&#34;/&gt;
-</span></span><span class="line"><span class="cl">        ...
-</span></span><span class="line"><span class="cl">    &lt;/analyzer&gt;
-</span></span><span class="line"><span class="cl">&lt;/fieldType&gt;
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;fieldType name=&#34;text_cn&#34; class=&#34;solr.TextField&#34; positionIncrementGap=&#34;100&#34;&gt;
+    &lt;analyzer type=&#34;index&#34;&gt;
+        &lt;tokenizer class=&#34;ABCTokenizerFactory&#34;/&gt;
+        ...
+    &lt;/analyzer&gt;
+    &lt;analyzer type=&#34;query&#34;&gt;
+        &lt;tokenizer class=&#34;ABCTokenizerFactory&#34;/&gt;
+        &lt;filter class=&#34;solr.SynonymGraphFilterFactory&#34;
+                synonyms=&#34;synonyms_cn.txt&#34;
+                ignoreCase=&#34;true&#34;
+                expand=&#34;true&#34;
+                tokenizerFactory=&#34;ABCTokenizerFactory&#34;/&gt;
+        ...
+    &lt;/analyzer&gt;
+&lt;/fieldType&gt;
+</code></pre></td></tr></table>
 </div>
 </div><p>这样就解决了分词为多个的问题了。</p>
 <h1 id="总结">总结</h1>
@@ -448,13 +458,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -468,7 +475,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

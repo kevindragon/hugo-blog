@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/java/java%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -141,7 +151,7 @@
 <!-- raw HTML omitted -->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -200,69 +210,69 @@
 </span><span class="lnt">57
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">QuickSort</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="o">{</span><span class="n">5</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">4</span><span class="o">,</span> <span class="n">7</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="n">8</span><span class="o">,</span> <span class="n">3</span><span class="o">,</span> <span class="n">4</span><span class="o">};</span>
-</span></span><span class="line"><span class="cl">        <span class="n">printArray</span><span class="o">(</span><span class="n">arr</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="n">quickSort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="n">printArray</span><span class="o">(</span><span class="n">arr</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">quickSort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">partition</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">j</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">            <span class="n">printArray</span><span class="o">(</span><span class="n">arr</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;分别排左边和右边&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">            <span class="n">quickSort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">pos</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">            <span class="n">quickSort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">j</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="kt">int</span> <span class="nf">partition</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
-</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;基准值：&#34;</span> <span class="o">+</span> <span class="n">pivot</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;游标：&#34;</span> <span class="o">+</span> <span class="n">cursor</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">j</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;循环到第[&#34;</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="s">&#34;]个值&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">pivot</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;交换位置[&#34;</span> <span class="o">+</span> <span class="n">cursor</span> <span class="o">+</span> <span class="s">&#34;]与[&#34;</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="s">&#34;]的值&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">                <span class="n">swap</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">k</span><span class="o">,</span> <span class="n">cursor</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">                <span class="n">cursor</span> <span class="o">+=</span> <span class="n">1</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">            <span class="o">}</span>
-</span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&#34;循环完成后：&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">            <span class="n">printArray</span><span class="o">(</span><span class="n">arr</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;游标：&#34;</span> <span class="o">+</span> <span class="n">cursor</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span>
-</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;交换位置[&#34;</span> <span class="o">+</span> <span class="n">cursor</span> <span class="o">+</span> <span class="s">&#34;]与[&#34;</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="s">&#34;]的值&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="n">swap</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">j</span><span class="o">,</span> <span class="n">cursor</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;游标：&#34;</span> <span class="o">+</span> <span class="n">cursor</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">cursor</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">swap</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
-</span></span><span class="line"><span class="cl">        <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
-</span></span><span class="line"><span class="cl">        <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printArray</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">anArr</span> <span class="o">:</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">anArr</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; &#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span>
-</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">trim</span><span class="o">());</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">QuickSort</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="o">{</span><span class="n">5</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">4</span><span class="o">,</span> <span class="n">7</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="n">8</span><span class="o">,</span> <span class="n">3</span><span class="o">,</span> <span class="n">4</span><span class="o">};</span>
+        <span class="n">printArray</span><span class="o">(</span><span class="n">arr</span><span class="o">);</span>
+        <span class="n">quickSort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+        <span class="n">printArray</span><span class="o">(</span><span class="n">arr</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">quickSort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">partition</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">j</span><span class="o">);</span>
+            <span class="n">printArray</span><span class="o">(</span><span class="n">arr</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;分别排左边和右边&#34;</span><span class="o">);</span>
+            <span class="n">quickSort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">pos</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+            <span class="n">quickSort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">j</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kt">int</span> <span class="nf">partition</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;基准值：&#34;</span> <span class="o">+</span> <span class="n">pivot</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;游标：&#34;</span> <span class="o">+</span> <span class="n">cursor</span><span class="o">);</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">j</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;循环到第[&#34;</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="s">&#34;]个值&#34;</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">pivot</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;交换位置[&#34;</span> <span class="o">+</span> <span class="n">cursor</span> <span class="o">+</span> <span class="s">&#34;]与[&#34;</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="s">&#34;]的值&#34;</span><span class="o">);</span>
+                <span class="n">swap</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">k</span><span class="o">,</span> <span class="n">cursor</span><span class="o">);</span>
+                <span class="n">cursor</span> <span class="o">+=</span> <span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&#34;循环完成后：&#34;</span><span class="o">);</span>
+            <span class="n">printArray</span><span class="o">(</span><span class="n">arr</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;游标：&#34;</span> <span class="o">+</span> <span class="n">cursor</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;交换位置[&#34;</span> <span class="o">+</span> <span class="n">cursor</span> <span class="o">+</span> <span class="s">&#34;]与[&#34;</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="s">&#34;]的值&#34;</span><span class="o">);</span>
+        <span class="n">swap</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">j</span><span class="o">,</span> <span class="n">cursor</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;游标：&#34;</span> <span class="o">+</span> <span class="n">cursor</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">cursor</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">swap</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+        <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printArray</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">anArr</span> <span class="o">:</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">anArr</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; &#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">trim</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>输出如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+<pre class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -529,272 +539,272 @@
 </span><span class="lnt">265
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">5 2 4 7 1 8 3 4
-</span></span><span class="line"><span class="cl">基准值：4
-</span></span><span class="line"><span class="cl">游标：0
-</span></span><span class="line"><span class="cl">循环到第[0]个值
-</span></span><span class="line"><span class="cl">循环完成后：5 2 4 7 1 8 3 4
-</span></span><span class="line"><span class="cl">游标：0
-</span></span><span class="line"><span class="cl">循环到第[1]个值
-</span></span><span class="line"><span class="cl">交换位置[0]与[1]的值
-</span></span><span class="line"><span class="cl">循环完成后：2 5 4 7 1 8 3 4
-</span></span><span class="line"><span class="cl">游标：1
-</span></span><span class="line"><span class="cl">循环到第[2]个值
-</span></span><span class="line"><span class="cl">交换位置[1]与[2]的值
-</span></span><span class="line"><span class="cl">循环完成后：2 4 5 7 1 8 3 4
-</span></span><span class="line"><span class="cl">游标：2
-</span></span><span class="line"><span class="cl">循环到第[3]个值
-</span></span><span class="line"><span class="cl">循环完成后：2 4 5 7 1 8 3 4
-</span></span><span class="line"><span class="cl">游标：2
-</span></span><span class="line"><span class="cl">循环到第[4]个值
-</span></span><span class="line"><span class="cl">交换位置[2]与[4]的值
-</span></span><span class="line"><span class="cl">循环完成后：2 4 1 7 5 8 3 4
-</span></span><span class="line"><span class="cl">游标：3
-</span></span><span class="line"><span class="cl">循环到第[5]个值
-</span></span><span class="line"><span class="cl">循环完成后：2 4 1 7 5 8 3 4
-</span></span><span class="line"><span class="cl">游标：3
-</span></span><span class="line"><span class="cl">循环到第[6]个值
-</span></span><span class="line"><span class="cl">交换位置[3]与[6]的值
-</span></span><span class="line"><span class="cl">循环完成后：2 4 1 3 5 8 7 4
-</span></span><span class="line"><span class="cl">游标：4
-</span></span><span class="line"><span class="cl">交换位置[4]与[7]的值
-</span></span><span class="line"><span class="cl">游标：4
-</span></span><span class="line"><span class="cl">2 4 1 3 4 8 7 5
-</span></span><span class="line"><span class="cl">分别排左边和右边
-</span></span><span class="line"><span class="cl">基准值：3
-</span></span><span class="line"><span class="cl">游标：0
-</span></span><span class="line"><span class="cl">循环到第[0]个值
-</span></span><span class="line"><span class="cl">交换位置[0]与[0]的值
-</span></span><span class="line"><span class="cl">循环完成后：2 4 1 3 4 8 7 5
-</span></span><span class="line"><span class="cl">游标：1
-</span></span><span class="line"><span class="cl">循环到第[1]个值
-</span></span><span class="line"><span class="cl">循环完成后：2 4 1 3 4 8 7 5
-</span></span><span class="line"><span class="cl">游标：1
-</span></span><span class="line"><span class="cl">循环到第[2]个值
-</span></span><span class="line"><span class="cl">交换位置[1]与[2]的值
-</span></span><span class="line"><span class="cl">循环完成后：2 1 4 3 4 8 7 5
-</span></span><span class="line"><span class="cl">游标：2
-</span></span><span class="line"><span class="cl">交换位置[2]与[3]的值
-</span></span><span class="line"><span class="cl">游标：2
-</span></span><span class="line"><span class="cl">2 1 3 4 4 8 7 5
-</span></span><span class="line"><span class="cl">分别排左边和右边
-</span></span><span class="line"><span class="cl">基准值：1
-</span></span><span class="line"><span class="cl">游标：0
-</span></span><span class="line"><span class="cl">循环到第[0]个值
-</span></span><span class="line"><span class="cl">循环完成后：2 1 3 4 4 8 7 5
-</span></span><span class="line"><span class="cl">游标：0
-</span></span><span class="line"><span class="cl">交换位置[0]与[1]的值
-</span></span><span class="line"><span class="cl">游标：0
-</span></span><span class="line"><span class="cl">1 2 3 4 4 8 7 5
-</span></span><span class="line"><span class="cl">分别排左边和右边
-</span></span><span class="line"><span class="cl">基准值：5
-</span></span><span class="line"><span class="cl">游标：5
-</span></span><span class="line"><span class="cl">循环到第[5]个值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 8 7 5
-</span></span><span class="line"><span class="cl">游标：5
-</span></span><span class="line"><span class="cl">循环到第[6]个值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 8 7 5
-</span></span><span class="line"><span class="cl">游标：5
-</span></span><span class="line"><span class="cl">交换位置[5]与[7]的值
-</span></span><span class="line"><span class="cl">游标：5
-</span></span><span class="line"><span class="cl">1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">分别排左边和右边
-</span></span><span class="line"><span class="cl">基准值：4
-</span></span><span class="line"><span class="cl">游标：0
-</span></span><span class="line"><span class="cl">循环到第[0]个值
-</span></span><span class="line"><span class="cl">交换位置[0]与[0]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：1
-</span></span><span class="line"><span class="cl">循环到第[1]个值
-</span></span><span class="line"><span class="cl">交换位置[1]与[1]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：2
-</span></span><span class="line"><span class="cl">循环到第[2]个值
-</span></span><span class="line"><span class="cl">交换位置[2]与[2]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：3
-</span></span><span class="line"><span class="cl">循环到第[3]个值
-</span></span><span class="line"><span class="cl">交换位置[3]与[3]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：4
-</span></span><span class="line"><span class="cl">交换位置[4]与[4]的值
-</span></span><span class="line"><span class="cl">游标：4
-</span></span><span class="line"><span class="cl">1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">分别排左边和右边
-</span></span><span class="line"><span class="cl">基准值：4
-</span></span><span class="line"><span class="cl">游标：0
-</span></span><span class="line"><span class="cl">循环到第[0]个值
-</span></span><span class="line"><span class="cl">交换位置[0]与[0]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：1
-</span></span><span class="line"><span class="cl">循环到第[1]个值
-</span></span><span class="line"><span class="cl">交换位置[1]与[1]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：2
-</span></span><span class="line"><span class="cl">循环到第[2]个值
-</span></span><span class="line"><span class="cl">交换位置[2]与[2]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：3
-</span></span><span class="line"><span class="cl">交换位置[3]与[3]的值
-</span></span><span class="line"><span class="cl">游标：3
-</span></span><span class="line"><span class="cl">1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">分别排左边和右边
-</span></span><span class="line"><span class="cl">基准值：3
-</span></span><span class="line"><span class="cl">游标：0
-</span></span><span class="line"><span class="cl">循环到第[0]个值
-</span></span><span class="line"><span class="cl">交换位置[0]与[0]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：1
-</span></span><span class="line"><span class="cl">循环到第[1]个值
-</span></span><span class="line"><span class="cl">交换位置[1]与[1]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：2
-</span></span><span class="line"><span class="cl">交换位置[2]与[2]的值
-</span></span><span class="line"><span class="cl">游标：2
-</span></span><span class="line"><span class="cl">1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">分别排左边和右边
-</span></span><span class="line"><span class="cl">基准值：2
-</span></span><span class="line"><span class="cl">游标：0
-</span></span><span class="line"><span class="cl">循环到第[0]个值
-</span></span><span class="line"><span class="cl">交换位置[0]与[0]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：1
-</span></span><span class="line"><span class="cl">交换位置[1]与[1]的值
-</span></span><span class="line"><span class="cl">游标：1
-</span></span><span class="line"><span class="cl">1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">分别排左边和右边
-</span></span><span class="line"><span class="cl">基准值：8
-</span></span><span class="line"><span class="cl">游标：6
-</span></span><span class="line"><span class="cl">循环到第[6]个值
-</span></span><span class="line"><span class="cl">交换位置[6]与[6]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：7
-</span></span><span class="line"><span class="cl">交换位置[7]与[7]的值
-</span></span><span class="line"><span class="cl">游标：7
-</span></span><span class="line"><span class="cl">1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">分别排左边和右边
-</span></span><span class="line"><span class="cl">基准值：7
-</span></span><span class="line"><span class="cl">游标：0
-</span></span><span class="line"><span class="cl">循环到第[0]个值
-</span></span><span class="line"><span class="cl">交换位置[0]与[0]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：1
-</span></span><span class="line"><span class="cl">循环到第[1]个值
-</span></span><span class="line"><span class="cl">交换位置[1]与[1]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：2
-</span></span><span class="line"><span class="cl">循环到第[2]个值
-</span></span><span class="line"><span class="cl">交换位置[2]与[2]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：3
-</span></span><span class="line"><span class="cl">循环到第[3]个值
-</span></span><span class="line"><span class="cl">交换位置[3]与[3]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：4
-</span></span><span class="line"><span class="cl">循环到第[4]个值
-</span></span><span class="line"><span class="cl">交换位置[4]与[4]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：5
-</span></span><span class="line"><span class="cl">循环到第[5]个值
-</span></span><span class="line"><span class="cl">交换位置[5]与[5]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：6
-</span></span><span class="line"><span class="cl">交换位置[6]与[6]的值
-</span></span><span class="line"><span class="cl">游标：6
-</span></span><span class="line"><span class="cl">1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">分别排左边和右边
-</span></span><span class="line"><span class="cl">基准值：5
-</span></span><span class="line"><span class="cl">游标：0
-</span></span><span class="line"><span class="cl">循环到第[0]个值
-</span></span><span class="line"><span class="cl">交换位置[0]与[0]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：1
-</span></span><span class="line"><span class="cl">循环到第[1]个值
-</span></span><span class="line"><span class="cl">交换位置[1]与[1]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：2
-</span></span><span class="line"><span class="cl">循环到第[2]个值
-</span></span><span class="line"><span class="cl">交换位置[2]与[2]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：3
-</span></span><span class="line"><span class="cl">循环到第[3]个值
-</span></span><span class="line"><span class="cl">交换位置[3]与[3]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：4
-</span></span><span class="line"><span class="cl">循环到第[4]个值
-</span></span><span class="line"><span class="cl">交换位置[4]与[4]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：5
-</span></span><span class="line"><span class="cl">交换位置[5]与[5]的值
-</span></span><span class="line"><span class="cl">游标：5
-</span></span><span class="line"><span class="cl">1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">分别排左边和右边
-</span></span><span class="line"><span class="cl">基准值：4
-</span></span><span class="line"><span class="cl">游标：0
-</span></span><span class="line"><span class="cl">循环到第[0]个值
-</span></span><span class="line"><span class="cl">交换位置[0]与[0]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：1
-</span></span><span class="line"><span class="cl">循环到第[1]个值
-</span></span><span class="line"><span class="cl">交换位置[1]与[1]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：2
-</span></span><span class="line"><span class="cl">循环到第[2]个值
-</span></span><span class="line"><span class="cl">交换位置[2]与[2]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：3
-</span></span><span class="line"><span class="cl">循环到第[3]个值
-</span></span><span class="line"><span class="cl">交换位置[3]与[3]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：4
-</span></span><span class="line"><span class="cl">交换位置[4]与[4]的值
-</span></span><span class="line"><span class="cl">游标：4
-</span></span><span class="line"><span class="cl">1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">分别排左边和右边
-</span></span><span class="line"><span class="cl">基准值：4
-</span></span><span class="line"><span class="cl">游标：0
-</span></span><span class="line"><span class="cl">循环到第[0]个值
-</span></span><span class="line"><span class="cl">交换位置[0]与[0]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：1
-</span></span><span class="line"><span class="cl">循环到第[1]个值
-</span></span><span class="line"><span class="cl">交换位置[1]与[1]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：2
-</span></span><span class="line"><span class="cl">循环到第[2]个值
-</span></span><span class="line"><span class="cl">交换位置[2]与[2]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：3
-</span></span><span class="line"><span class="cl">交换位置[3]与[3]的值
-</span></span><span class="line"><span class="cl">游标：3
-</span></span><span class="line"><span class="cl">1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">分别排左边和右边
-</span></span><span class="line"><span class="cl">基准值：3
-</span></span><span class="line"><span class="cl">游标：0
-</span></span><span class="line"><span class="cl">循环到第[0]个值
-</span></span><span class="line"><span class="cl">交换位置[0]与[0]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：1
-</span></span><span class="line"><span class="cl">循环到第[1]个值
-</span></span><span class="line"><span class="cl">交换位置[1]与[1]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：2
-</span></span><span class="line"><span class="cl">交换位置[2]与[2]的值
-</span></span><span class="line"><span class="cl">游标：2
-</span></span><span class="line"><span class="cl">1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">分别排左边和右边
-</span></span><span class="line"><span class="cl">基准值：2
-</span></span><span class="line"><span class="cl">游标：0
-</span></span><span class="line"><span class="cl">循环到第[0]个值
-</span></span><span class="line"><span class="cl">交换位置[0]与[0]的值
-</span></span><span class="line"><span class="cl">循环完成后：1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">游标：1
-</span></span><span class="line"><span class="cl">交换位置[1]与[1]的值
-</span></span><span class="line"><span class="cl">游标：1
-</span></span><span class="line"><span class="cl">1 2 3 4 4 5 7 8
-</span></span><span class="line"><span class="cl">分别排左边和右边
-</span></span><span class="line"><span class="cl">1 2 3 4 4 5 7 8
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">5 2 4 7 1 8 3 4
+基准值：4
+游标：0
+循环到第[0]个值
+循环完成后：5 2 4 7 1 8 3 4
+游标：0
+循环到第[1]个值
+交换位置[0]与[1]的值
+循环完成后：2 5 4 7 1 8 3 4
+游标：1
+循环到第[2]个值
+交换位置[1]与[2]的值
+循环完成后：2 4 5 7 1 8 3 4
+游标：2
+循环到第[3]个值
+循环完成后：2 4 5 7 1 8 3 4
+游标：2
+循环到第[4]个值
+交换位置[2]与[4]的值
+循环完成后：2 4 1 7 5 8 3 4
+游标：3
+循环到第[5]个值
+循环完成后：2 4 1 7 5 8 3 4
+游标：3
+循环到第[6]个值
+交换位置[3]与[6]的值
+循环完成后：2 4 1 3 5 8 7 4
+游标：4
+交换位置[4]与[7]的值
+游标：4
+2 4 1 3 4 8 7 5
+分别排左边和右边
+基准值：3
+游标：0
+循环到第[0]个值
+交换位置[0]与[0]的值
+循环完成后：2 4 1 3 4 8 7 5
+游标：1
+循环到第[1]个值
+循环完成后：2 4 1 3 4 8 7 5
+游标：1
+循环到第[2]个值
+交换位置[1]与[2]的值
+循环完成后：2 1 4 3 4 8 7 5
+游标：2
+交换位置[2]与[3]的值
+游标：2
+2 1 3 4 4 8 7 5
+分别排左边和右边
+基准值：1
+游标：0
+循环到第[0]个值
+循环完成后：2 1 3 4 4 8 7 5
+游标：0
+交换位置[0]与[1]的值
+游标：0
+1 2 3 4 4 8 7 5
+分别排左边和右边
+基准值：5
+游标：5
+循环到第[5]个值
+循环完成后：1 2 3 4 4 8 7 5
+游标：5
+循环到第[6]个值
+循环完成后：1 2 3 4 4 8 7 5
+游标：5
+交换位置[5]与[7]的值
+游标：5
+1 2 3 4 4 5 7 8
+分别排左边和右边
+基准值：4
+游标：0
+循环到第[0]个值
+交换位置[0]与[0]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：1
+循环到第[1]个值
+交换位置[1]与[1]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：2
+循环到第[2]个值
+交换位置[2]与[2]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：3
+循环到第[3]个值
+交换位置[3]与[3]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：4
+交换位置[4]与[4]的值
+游标：4
+1 2 3 4 4 5 7 8
+分别排左边和右边
+基准值：4
+游标：0
+循环到第[0]个值
+交换位置[0]与[0]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：1
+循环到第[1]个值
+交换位置[1]与[1]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：2
+循环到第[2]个值
+交换位置[2]与[2]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：3
+交换位置[3]与[3]的值
+游标：3
+1 2 3 4 4 5 7 8
+分别排左边和右边
+基准值：3
+游标：0
+循环到第[0]个值
+交换位置[0]与[0]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：1
+循环到第[1]个值
+交换位置[1]与[1]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：2
+交换位置[2]与[2]的值
+游标：2
+1 2 3 4 4 5 7 8
+分别排左边和右边
+基准值：2
+游标：0
+循环到第[0]个值
+交换位置[0]与[0]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：1
+交换位置[1]与[1]的值
+游标：1
+1 2 3 4 4 5 7 8
+分别排左边和右边
+基准值：8
+游标：6
+循环到第[6]个值
+交换位置[6]与[6]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：7
+交换位置[7]与[7]的值
+游标：7
+1 2 3 4 4 5 7 8
+分别排左边和右边
+基准值：7
+游标：0
+循环到第[0]个值
+交换位置[0]与[0]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：1
+循环到第[1]个值
+交换位置[1]与[1]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：2
+循环到第[2]个值
+交换位置[2]与[2]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：3
+循环到第[3]个值
+交换位置[3]与[3]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：4
+循环到第[4]个值
+交换位置[4]与[4]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：5
+循环到第[5]个值
+交换位置[5]与[5]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：6
+交换位置[6]与[6]的值
+游标：6
+1 2 3 4 4 5 7 8
+分别排左边和右边
+基准值：5
+游标：0
+循环到第[0]个值
+交换位置[0]与[0]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：1
+循环到第[1]个值
+交换位置[1]与[1]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：2
+循环到第[2]个值
+交换位置[2]与[2]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：3
+循环到第[3]个值
+交换位置[3]与[3]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：4
+循环到第[4]个值
+交换位置[4]与[4]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：5
+交换位置[5]与[5]的值
+游标：5
+1 2 3 4 4 5 7 8
+分别排左边和右边
+基准值：4
+游标：0
+循环到第[0]个值
+交换位置[0]与[0]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：1
+循环到第[1]个值
+交换位置[1]与[1]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：2
+循环到第[2]个值
+交换位置[2]与[2]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：3
+循环到第[3]个值
+交换位置[3]与[3]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：4
+交换位置[4]与[4]的值
+游标：4
+1 2 3 4 4 5 7 8
+分别排左边和右边
+基准值：4
+游标：0
+循环到第[0]个值
+交换位置[0]与[0]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：1
+循环到第[1]个值
+交换位置[1]与[1]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：2
+循环到第[2]个值
+交换位置[2]与[2]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：3
+交换位置[3]与[3]的值
+游标：3
+1 2 3 4 4 5 7 8
+分别排左边和右边
+基准值：3
+游标：0
+循环到第[0]个值
+交换位置[0]与[0]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：1
+循环到第[1]个值
+交换位置[1]与[1]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：2
+交换位置[2]与[2]的值
+游标：2
+1 2 3 4 4 5 7 8
+分别排左边和右边
+基准值：2
+游标：0
+循环到第[0]个值
+交换位置[0]与[0]的值
+循环完成后：1 2 3 4 4 5 7 8
+游标：1
+交换位置[1]与[1]的值
+游标：1
+1 2 3 4 4 5 7 8
+分别排左边和右边
+1 2 3 4 4 5 7 8
+</code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -882,13 +892,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -902,7 +909,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

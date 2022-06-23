@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/windows%E4%B8%8Bvirtualbox%E9%87%8Ccentos%E6%8C%82%E8%BD%BD%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95/" />
@@ -49,7 +49,7 @@
 <meta itemprop="name" content="windows下virtualbox里centos挂载共享目录">
 <meta itemprop="description" content="环境 Windows 10 Virtualbox 5.1.18 CentOS 6.6 minimal 依赖 virtualbox的增强功能需要用到linux的源码，所以需要先把linux的开发包装上，还有编译工具。还需要把开发"><meta itemprop="datePublished" content="2017-06-28T09:33:39+00:00" />
 <meta itemprop="dateModified" content="2017-06-28T09:33:39+00:00" />
-<meta itemprop="wordCount" content="631">
+<meta itemprop="wordCount" content="635">
 <meta itemprop="keywords" content="virtualbox," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="windows下virtualbox里centos挂载共享目录"/>
 <meta name="twitter:description" content="环境 Windows 10 Virtualbox 5.1.18 CentOS 6.6 minimal 依赖 virtualbox的增强功能需要用到linux的源码，所以需要先把linux的开发包装上，还有编译工具。还需要把开发"/>
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -124,7 +134,7 @@
       <div class="post-meta">
         <span class="post-time"> 2017-06-28 </span>
         
-          <span class="more-meta"> 约 631 字 </span>
+          <span class="more-meta"> 约 635 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
@@ -152,22 +162,22 @@ CentOS 6.6 minimal</p>
 <p>virtualbox的增强功能需要用到linux的源码，所以需要先把linux的开发包装上，还有编译工具。还需要把开发包目录链接到<code>/usr/src/linux</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install kernel-devel kernel-devel-<span class="k">$(</span>uname -r<span class="k">)</span> gcc perl
-</span></span><span class="line"><span class="cl">ln -s /usr/src/kernels/2.6.32-696.3.2.el6.x86_64 /usr/src/linux
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">yum install kernel-devel kernel-devel-<span class="k">$(</span>uname -r<span class="k">)</span> gcc perl
+ln -s /usr/src/kernels/2.6.32-696.3.2.el6.x86_64 /usr/src/linux
+</code></pre></td></tr></table>
 </div>
 </div><p>Ubuntu</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get install linux-headers-<span class="k">$(</span>uname -r<span class="k">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">sudo apt-get install linux-headers-<span class="k">$(</span>uname -r<span class="k">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><!-- raw HTML omitted -->
 <h2 id="安装">安装</h2>
@@ -176,17 +186,17 @@ CentOS 6.6 minimal</p>
 <p>然后在centos挂载iso文件，执行安装程序：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir /media/cdrom
-</span></span><span class="line"><span class="cl">mount /dev/cdrom /media/cdrom
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /media/cdrom
-</span></span><span class="line"><span class="cl">./VBoxLinuxAdditions.run
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">sudo mkdir /media/cdrom
+sudo mount /dev/cdrom /media/cdrom
+sudo <span class="nb">cd</span> /media/cdrom
+sudo ./VBoxLinuxAdditions.run
+</code></pre></td></tr></table>
 </div>
 </div><p>如果没有error说明安装成功，如果有关于X的错误，有可能是你没有安装X环境，如果只是使用命令行，这个也不用管。安装完增强功能后最好把centos重启一下。</p>
 <h2 id="配置共享目录">配置共享目录</h2>
@@ -195,37 +205,37 @@ CentOS 6.6 minimal</p>
 <p>这里有一个<code>共享文件夹名称</code>，这个名称可以直接在centos里面使用。然后在centos挂载这个目录:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ~
-</span></span><span class="line"><span class="cl">mkdir folder
-</span></span><span class="line"><span class="cl">mount -t vboxsf workspace folder
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~
+mkdir folder
+mount -t vboxsf workspace folder
+</code></pre></td></tr></table>
 </div>
 </div><p><code>mount</code>只有有root权限的才可以执行，如果是普通用户使用<code>sudo</code>，修改<code>/etc/sudoers</code>，把下面一行的注释去掉：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># %wheel	ALL=(ALL)	ALL</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># -&gt; 去掉注释变成下面的</span>
-</span></span><span class="line"><span class="cl">%wheel	<span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span>	ALL
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># %wheel	ALL=(ALL)	ALL</span>
+<span class="c1"># -&gt; 去掉注释变成下面的</span>
+%wheel	<span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span>	ALL
+</code></pre></td></tr></table>
 </div>
 </div><p>然后把普通用户（我这里是www用户）加入到<code>wheel</code>组即可使用<code>sudo</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">usermod -a -G wheel www
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">usermod -a -G wheel www
+</code></pre></td></tr></table>
 </div>
 </div><p>到这已经把共享目录挂载完成了。如果不想每次都手动挂载，就把这个挂载写到<code>/etc/fstab</code>文件里，每次开机自动挂载：</p>
 <p>在<code>/etc/fstab</code>后面添加一行:</p>
@@ -316,13 +326,10 @@ CentOS 6.6 minimal</p>
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -336,7 +343,7 @@ CentOS 6.6 minimal</p>
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

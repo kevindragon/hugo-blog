@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/kotlin/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E8%B5%B7%E6%AD%A5%E4%B9%8B%E4%B9%A0%E6%83%AF%E7%94%A8%E6%B3%95/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -165,11 +175,11 @@
       <h2 id="数据类">数据类</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">data</span> <span class="k">class</span> <span class="nc">Customer</span><span class="p">(</span><span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">email</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">data</span> <span class="k">class</span> <span class="nc">Customer</span><span class="p">(</span><span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">email</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>Customer提供了以下方法：</p>
 <ul>
@@ -184,213 +194,213 @@
 <h2 id="函数默认值">函数默认值</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">String</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span><span class="p">)</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">fun</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">String</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span><span class="p">)</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="列表过滤">列表过滤</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">positives</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">filter</span> <span class="p">{</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="p">&gt;</span> <span class="m">0</span> <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">positives</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">filter</span> <span class="p">{</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="p">&gt;</span> <span class="m">0</span> <span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>或者更短一点</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">positives</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">filter</span> <span class="p">{</span> <span class="k">it</span> <span class="p">&gt;</span> <span class="m">0</span> <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">positives</span> <span class="p">=</span> <span class="n">list</span><span class="p">.</span><span class="n">filter</span> <span class="p">{</span> <span class="k">it</span> <span class="p">&gt;</span> <span class="m">0</span> <span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>默认使用it来接收单个的参数</p>
 <h2 id="字符串插值">字符串插值</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="n">println</span><span class="p">(</span><span class="s2">&#34;Name </span><span class="si">$name</span><span class="s2">&#34;</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="n">println</span><span class="p">(</span><span class="s2">&#34;Name </span><span class="si">$name</span><span class="s2">&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="对象检查">对象检查</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">when</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">is</span> <span class="n">Foo</span> <span class="o">-&gt;</span> <span class="o">..</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl">    <span class="k">is</span> <span class="n">Bar</span> <span class="o">-&gt;</span> <span class="o">..</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl">    <span class="k">else</span>   <span class="o">-&gt;</span> <span class="o">..</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">when</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">is</span> <span class="n">Foo</span> <span class="o">-&gt;</span> <span class="o">..</span><span class="p">.</span>
+    <span class="k">is</span> <span class="n">Bar</span> <span class="o">-&gt;</span> <span class="o">..</span><span class="p">.</span>
+    <span class="k">else</span>   <span class="o">-&gt;</span> <span class="o">..</span><span class="p">.</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>非常精简，再也不要写Java那个烦人的<code>instanceof</code></p>
 <h2 id="遍历映射列表">遍历映射/列表</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">in</span> <span class="n">map</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">println</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">$k</span><span class="s2"> -&gt; </span><span class="si">$v</span><span class="s2">&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">for</span> <span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">in</span> <span class="n">map</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">println</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">$k</span><span class="s2"> -&gt; </span><span class="si">$v</span><span class="s2">&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>k, v分别是map的key和value，是list的index和value</p>
 <h2 id="使用范围">使用范围</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">100</span><span class="p">)</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>  <span class="c1">// closed range: includes 100
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="m">1</span> <span class="n">until</span> <span class="m">100</span><span class="p">)</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span> <span class="c1">// half-open range: does not include 100
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">for</span> <span class="p">(</span><span class="n">x</span> <span class="k">in</span> <span class="m">2.</span><span class="p">.</span><span class="m">10</span> <span class="n">step</span> <span class="m">2</span><span class="p">)</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="n">x</span> <span class="k">in</span> <span class="m">10</span> <span class="n">downTo</span> <span class="m">1</span><span class="p">)</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">)</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">100</span><span class="p">)</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>  <span class="c1">// closed range: includes 100
+</span><span class="c1"></span><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="m">1</span> <span class="n">until</span> <span class="m">100</span><span class="p">)</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span> <span class="c1">// half-open range: does not include 100
+</span><span class="c1"></span><span class="k">for</span> <span class="p">(</span><span class="n">x</span> <span class="k">in</span> <span class="m">2.</span><span class="p">.</span><span class="m">10</span> <span class="n">step</span> <span class="m">2</span><span class="p">)</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">x</span> <span class="k">in</span> <span class="m">10</span> <span class="n">downTo</span> <span class="m">1</span><span class="p">)</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">)</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="只读映射列表">只读映射/列表</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">list</span> <span class="p">=</span> <span class="n">listOf</span><span class="p">(</span><span class="s2">&#34;a&#34;</span><span class="p">,</span> <span class="s2">&#34;b&#34;</span><span class="p">,</span> <span class="s2">&#34;c&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">map</span> <span class="p">=</span> <span class="n">mapOf</span><span class="p">(</span><span class="s2">&#34;a&#34;</span> <span class="n">to</span> <span class="m">1</span><span class="p">,</span> <span class="s2">&#34;b&#34;</span> <span class="n">to</span> <span class="m">2</span><span class="p">,</span> <span class="s2">&#34;c&#34;</span> <span class="n">to</span> <span class="m">3</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">list</span> <span class="p">=</span> <span class="n">listOf</span><span class="p">(</span><span class="s2">&#34;a&#34;</span><span class="p">,</span> <span class="s2">&#34;b&#34;</span><span class="p">,</span> <span class="s2">&#34;c&#34;</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">map</span> <span class="p">=</span> <span class="n">mapOf</span><span class="p">(</span><span class="s2">&#34;a&#34;</span> <span class="n">to</span> <span class="m">1</span><span class="p">,</span> <span class="s2">&#34;b&#34;</span> <span class="n">to</span> <span class="m">2</span><span class="p">,</span> <span class="s2">&#34;c&#34;</span> <span class="n">to</span> <span class="m">3</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>如果是集合是不是还有<code>setOf</code>，命名的统一性也是Kotlin的一个亮点，如果你使用过php的话，感觉函数总是记不住。</p>
 <h2 id="映射访问">映射访问</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="n">println</span><span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="s2">&#34;key&#34;</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl"><span class="n">map</span><span class="p">[</span><span class="s2">&#34;key&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="n">value</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="n">println</span><span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="s2">&#34;key&#34;</span><span class="p">])</span>
+<span class="n">map</span><span class="p">[</span><span class="s2">&#34;key&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="n">value</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="懒值lazy">懒值(Lazy)</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">p</span><span class="p">:</span> <span class="n">String</span> <span class="k">by</span> <span class="n">lazy</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// compute the string
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">p</span><span class="p">:</span> <span class="n">String</span> <span class="k">by</span> <span class="n">lazy</span> <span class="p">{</span>
+    <span class="c1">// compute the string
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>这段代码在定义的时候是不会执行变量的值的，只有在使用这个变量的时候才会求值</p>
 <h2 id="扩展">扩展</h2>
 <p>这是Kotlin一个非常强大的功能，可以对原来已经存在的类添加一系列的新方法，扩展别人的包非常方便</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">String</span><span class="p">.</span><span class="n">spaceToCamelCase</span><span class="p">()</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;Convert this to camelcase&#34;</span><span class="p">.</span><span class="n">spaceToCamelCase</span><span class="p">()</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">fun</span> <span class="nf">String</span><span class="p">.</span><span class="n">spaceToCamelCase</span><span class="p">()</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>
+
+<span class="s2">&#34;Convert this to camelcase&#34;</span><span class="p">.</span><span class="n">spaceToCamelCase</span><span class="p">()</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="单例">单例</h2>
 <p>做Java是不是会经常被问单例模式是怎么实现的，Kotlin直接使用object来定义，直白得不要不要的，这和Scala也是一样的</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">object</span> <span class="nc">Resource</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">name</span> <span class="p">=</span> <span class="s2">&#34;Name&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">object</span> <span class="nc">Resource</span> <span class="p">{</span>
+    <span class="k">val</span> <span class="py">name</span> <span class="p">=</span> <span class="s2">&#34;Name&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="null值检查">null值检查</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">files</span> <span class="p">=</span> <span class="n">File</span><span class="p">(</span><span class="s2">&#34;Test&#34;</span><span class="p">).</span><span class="n">listFiles</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="p">(</span><span class="n">files</span><span class="o">?.</span><span class="n">size</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="p">(</span><span class="n">files</span><span class="o">?.</span><span class="n">size</span> <span class="o">?:</span> <span class="s2">&#34;empty&#34;</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">files</span> <span class="p">=</span> <span class="n">File</span><span class="p">(</span><span class="s2">&#34;Test&#34;</span><span class="p">).</span><span class="n">listFiles</span><span class="p">()</span>
+<span class="n">println</span><span class="p">(</span><span class="n">files</span><span class="o">?.</span><span class="n">size</span><span class="p">)</span>
+<span class="n">println</span><span class="p">(</span><span class="n">files</span><span class="o">?.</span><span class="n">size</span> <span class="o">?:</span> <span class="s2">&#34;empty&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>相比Java的<code>if (files != null)</code>优雅太多了。files如果是空值，新手写代码如果不做Null检查，就会碰到最常见的NullException。Kotlin使用问号来检查，并且null值会一值传递到最后。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">data</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">email</span> <span class="p">=</span> <span class="k">data</span><span class="p">[</span><span class="s2">&#34;email&#34;</span><span class="p">]</span> <span class="o">?:</span> <span class="k">throw</span> <span class="n">IllegalStateException</span><span class="p">(</span><span class="s2">&#34;Email is missing!&#34;</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">data</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span>
+<span class="k">val</span> <span class="py">email</span> <span class="p">=</span> <span class="k">data</span><span class="p">[</span><span class="s2">&#34;email&#34;</span><span class="p">]</span> <span class="o">?:</span> <span class="k">throw</span> <span class="n">IllegalStateException</span><span class="p">(</span><span class="s2">&#34;Email is missing!&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>Kotlin使用<code>?:</code>也是非常的简洁，如果<code>data[&quot;email&quot;]</code>有值，直接使用，如果没有就抛出异常。如果想只有在有值的情况下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">data</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">data</span><span class="o">?.</span><span class="n">let</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="o">..</span><span class="p">.</span> <span class="c1">// execute this block if not null
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">data</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span>
+
+<span class="k">data</span><span class="o">?.</span><span class="n">let</span> <span class="p">{</span>
+    <span class="o">..</span><span class="p">.</span> <span class="c1">// execute this block if not null
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>映射空值检查</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">data</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">mapped</span> <span class="p">=</span> <span class="k">data</span><span class="o">?.</span><span class="n">let</span> <span class="p">{</span> <span class="n">transformData</span><span class="p">(</span><span class="k">it</span><span class="p">)</span> <span class="p">}</span> <span class="o">?:</span> <span class="n">defaultValueIfDataIsNull</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">data</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span>
+
+<span class="k">val</span> <span class="py">mapped</span> <span class="p">=</span> <span class="k">data</span><span class="o">?.</span><span class="n">let</span> <span class="p">{</span> <span class="n">transformData</span><span class="p">(</span><span class="k">it</span><span class="p">)</span> <span class="p">}</span> <span class="o">?:</span> <span class="n">defaultValueIfDataIsNull</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="when表达式作为返回值">when表达式作为返回值</h2>
 <p>Kotlin是基于表达式，而不是基于语句的。也就是说任何的语言结构都是有返回值的，这也是和Scala是一样的。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -400,22 +410,22 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">transform</span><span class="p">(</span><span class="n">color</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">Int</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">when</span> <span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Red&#34;</span> <span class="o">-&gt;</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Green&#34;</span> <span class="o">-&gt;</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Blue&#34;</span> <span class="o">-&gt;</span> <span class="m">2</span>
-</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="o">-&gt;</span> <span class="k">throw</span> <span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s2">&#34;Invalid color param value&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">fun</span> <span class="nf">transform</span><span class="p">(</span><span class="n">color</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">Int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">when</span> <span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="p">{</span>
+        <span class="s2">&#34;Red&#34;</span> <span class="o">-&gt;</span> <span class="m">0</span>
+        <span class="s2">&#34;Green&#34;</span> <span class="o">-&gt;</span> <span class="m">1</span>
+        <span class="s2">&#34;Blue&#34;</span> <span class="o">-&gt;</span> <span class="m">2</span>
+        <span class="k">else</span> <span class="o">-&gt;</span> <span class="k">throw</span> <span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s2">&#34;Invalid color param value&#34;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>这里<code>when</code>是一个表达式，表达式是有值的，如果color是Green，那么这个<code>when</code>的值就是2</p>
 <h2 id="trycatch">try/catch</h2>
 <p>同样try/catch也是有值的</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -426,22 +436,22 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">result</span> <span class="p">=</span> <span class="k">try</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">count</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">:</span> <span class="n">ArithmeticException</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="n">IllegalStateException</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1">// Working with result
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">fun</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">val</span> <span class="py">result</span> <span class="p">=</span> <span class="k">try</span> <span class="p">{</span>
+        <span class="n">count</span><span class="p">()</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">:</span> <span class="n">ArithmeticException</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="n">IllegalStateException</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Working with result
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="if">if</h2>
 <p>if也是表达式，也是有值的</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -452,23 +462,23 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">foo</span><span class="p">(</span><span class="k">param</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">result</span> <span class="p">=</span> <span class="k">if</span> <span class="p">(</span><span class="k">param</span> <span class="o">==</span> <span class="m">1</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;one&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">param</span> <span class="o">==</span> <span class="m">2</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;two&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;three&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">fun</span> <span class="nf">foo</span><span class="p">(</span><span class="k">param</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">val</span> <span class="py">result</span> <span class="p">=</span> <span class="k">if</span> <span class="p">(</span><span class="k">param</span> <span class="o">==</span> <span class="m">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="s2">&#34;one&#34;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">param</span> <span class="o">==</span> <span class="m">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="s2">&#34;two&#34;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="s2">&#34;three&#34;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>如果上面最后那个else没有写的话，编译是通不过的，如果<code>if</code>作为一个表达式，那么必须覆盖所有的情况。</p>
 <h2 id="使用with调用多个方法">使用with调用多个方法</h2>
 <p>这个特性也比较酷，结构跟python的差不多：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -486,57 +496,57 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Turtle</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">penDown</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">penUp</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">turn</span><span class="p">(</span><span class="n">degrees</span><span class="p">:</span> <span class="n">Double</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">forward</span><span class="p">(</span><span class="n">pixels</span><span class="p">:</span> <span class="n">Double</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">myTurtle</span> <span class="p">=</span> <span class="n">Turtle</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="n">with</span><span class="p">(</span><span class="n">myTurtle</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//draw a 100 pix square
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">penDown</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">4</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">forward</span><span class="p">(</span><span class="m">100.0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="n">turn</span><span class="p">(</span><span class="m">90.0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="n">penUp</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">class</span> <span class="nc">Turtle</span> <span class="p">{</span>
+    <span class="k">fun</span> <span class="nf">penDown</span><span class="p">()</span>
+    <span class="k">fun</span> <span class="nf">penUp</span><span class="p">()</span>
+    <span class="k">fun</span> <span class="nf">turn</span><span class="p">(</span><span class="n">degrees</span><span class="p">:</span> <span class="n">Double</span><span class="p">)</span>
+    <span class="k">fun</span> <span class="nf">forward</span><span class="p">(</span><span class="n">pixels</span><span class="p">:</span> <span class="n">Double</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">val</span> <span class="py">myTurtle</span> <span class="p">=</span> <span class="n">Turtle</span><span class="p">()</span>
+<span class="n">with</span><span class="p">(</span><span class="n">myTurtle</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//draw a 100 pix square
+</span><span class="c1"></span>    <span class="n">penDown</span><span class="p">()</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">forward</span><span class="p">(</span><span class="m">100.0</span><span class="p">)</span>
+        <span class="n">turn</span><span class="p">(</span><span class="m">90.0</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="n">penUp</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="java-7的try-with-resources语句">Java 7的try-with-resources语句</h2>
 <p>在Java 7的写法如下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="k">try</span> <span class="o">(</span><span class="n">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="n">path</span><span class="o">)))</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Java" data-lang="Java"><span class="k">try</span> <span class="o">(</span><span class="n">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="n">path</span><span class="o">)))</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>在Kotlin写法更加直观</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">stream</span> <span class="p">=</span> <span class="n">Files</span><span class="p">.</span><span class="n">newInputStream</span><span class="p">(</span><span class="n">Paths</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s2">&#34;/some/file.txt&#34;</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="n">stream</span><span class="p">.</span><span class="n">buffered</span><span class="p">().</span><span class="n">reader</span><span class="p">().</span><span class="n">use</span> <span class="p">{</span> <span class="n">reader</span> <span class="o">-&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">println</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">readText</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">stream</span> <span class="p">=</span> <span class="n">Files</span><span class="p">.</span><span class="n">newInputStream</span><span class="p">(</span><span class="n">Paths</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s2">&#34;/some/file.txt&#34;</span><span class="p">))</span>
+<span class="n">stream</span><span class="p">.</span><span class="n">buffered</span><span class="p">().</span><span class="n">reader</span><span class="p">().</span><span class="n">use</span> <span class="p">{</span> <span class="n">reader</span> <span class="o">-&gt;</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">readText</span><span class="p">())</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="泛型">泛型</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -544,18 +554,18 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="c1">//  public final class Gson {
-</span></span></span><span class="line"><span class="cl"><span class="c1">//     ...
-</span></span></span><span class="line"><span class="cl"><span class="c1">//     public &lt;T&gt; T fromJson(JsonElement json, Class&lt;T&gt; classOfT) throws JsonSyntaxException {
-</span></span></span><span class="line"><span class="cl"><span class="c1">//     ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="k">inline</span> <span class="k">fun</span> <span class="p">&lt;</span><span class="k">reified</span> <span class="nc">T</span><span class="p">:</span> <span class="nc">Any</span><span class="p">&gt;</span> <span class="nf">Gson</span><span class="p">.</span><span class="n">fromJson</span><span class="p">(</span><span class="n">json</span><span class="p">):</span> <span class="n">T</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">fromJson</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="n">T</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="c1">//  public final class Gson {
+</span><span class="c1">//     ...
+</span><span class="c1">//     public &lt;T&gt; T fromJson(JsonElement json, Class&lt;T&gt; classOfT) throws JsonSyntaxException {
+</span><span class="c1">//     ...
+</span><span class="c1"></span>
+<span class="k">inline</span> <span class="k">fun</span> <span class="p">&lt;</span><span class="k">reified</span> <span class="nc">T</span><span class="p">:</span> <span class="nc">Any</span><span class="p">&gt;</span> <span class="nf">Gson</span><span class="p">.</span><span class="n">fromJson</span><span class="p">(</span><span class="n">json</span><span class="p">):</span> <span class="n">T</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">fromJson</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="n">T</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="可空布尔类型使用">可空布尔类型使用</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -563,13 +573,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">b</span><span class="p">:</span> <span class="n">Boolean</span><span class="p">?</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="k">true</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="o">..</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// `b` is false or null
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">b</span><span class="p">:</span> <span class="n">Boolean</span><span class="p">?</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="k">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">..</span><span class="p">.</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// `b` is false or null
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -658,13 +668,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -678,7 +685,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

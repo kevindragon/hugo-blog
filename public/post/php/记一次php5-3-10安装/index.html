@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/php/%E8%AE%B0%E4%B8%80%E6%AC%A1php5-3-10%E5%AE%89%E8%A3%85/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -149,57 +159,57 @@
       <h2 id="安装环境">安装环境</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">CentOS 6.6 x64
-</span></span><span class="line"><span class="cl">php 5.3.10
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-txt" data-lang="txt">CentOS 6.6 x64
+php 5.3.10
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="安装编译工具">安装编译工具</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y gcc gcc-c++
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">yum install -y gcc gcc-c++
+</code></pre></td></tr></table>
 </div>
 </div><!-- raw HTML omitted -->
 <h2 id="安装mysql">安装mysql</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y mysql mysql-devel
-</span></span><span class="line"><span class="cl"><span class="c1">#如果是64位系统，执行</span>
-</span></span><span class="line"><span class="cl">ln -s /usr/lib64/mysql/* /usr/lib/
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">yum install -y mysql mysql-devel
+<span class="c1">#如果是64位系统，执行</span>
+ln -s /usr/lib64/mysql/* /usr/lib/
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="安装依赖">安装依赖</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y libxml2-devel openssl-devel libcurl-devel libjpeg-turbo-devel libpng-devel freetype-devel openldap-devel cyrus-sasl-ldap libtool libtool-ltdl-devel
-</span></span><span class="line"><span class="cl"><span class="c1">#如果是64位系统，执行</span>
-</span></span><span class="line"><span class="cl">ln -s /usr/lib64/libldap* /usr/lib/
-</span></span><span class="line"><span class="cl">ln -s /usr/lib64/mysql/* /usr/lib/
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">yum install -y libxml2-devel openssl-devel libcurl-devel libjpeg-turbo-devel libpng-devel freetype-devel openldap-devel cyrus-sasl-ldap libtool libtool-ltdl-devel
+<span class="c1">#如果是64位系统，执行</span>
+ln -s /usr/lib64/libldap* /usr/lib/
+ln -s /usr/lib64/mysql/* /usr/lib/
+</code></pre></td></tr></table>
 </div>
 </div><p>openldap-devel 这个在我工作的项目当中使用到了，如果不需要这个可以不要安装这个</p>
 <h2 id="安装php">安装php</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -208,21 +218,21 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -o php-5.3.10.tar.gz <span class="s1">&#39;http://museum.php.net/php5/php-5.3.10.tar.gz&#39;</span>
-</span></span><span class="line"><span class="cl">tar xzvf php-5.3.10.tar.gz
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> php-5.3.10
-</span></span><span class="line"><span class="cl">./configure  --prefix<span class="o">=</span>/usr/local/php-5.3.10 --with-config-file-path<span class="o">=</span>/usr/local/php-5.3.10/etc --with-mysql --with-mysqli<span class="o">=</span>mysqlnd --with-pdo-mysql --with-iconv-dir<span class="o">=</span>/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir --enable-xml --enable-safe-mode --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fpm --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-ldap --with-ldap-sasl --with-xmlrpc --enable-zip --enable-soap
-</span></span><span class="line"><span class="cl">make
-</span></span><span class="line"><span class="cl">make install
-</span></span><span class="line"><span class="cl">ln -s /usr/local/php-5.3.10 /usr/local/php
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">curl -o php-5.3.10.tar.gz <span class="s1">&#39;http://museum.php.net/php5/php-5.3.10.tar.gz&#39;</span>
+tar xzvf php-5.3.10.tar.gz
+<span class="nb">cd</span> php-5.3.10
+./configure  --prefix<span class="o">=</span>/usr/local/php-5.3.10 --with-config-file-path<span class="o">=</span>/usr/local/php-5.3.10/etc --with-mysql --with-mysqli<span class="o">=</span>mysqlnd --with-pdo-mysql --with-iconv-dir<span class="o">=</span>/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir --enable-xml --enable-safe-mode --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fpm --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-ldap --with-ldap-sasl --with-xmlrpc --enable-zip --enable-soap
+make
+make install
+ln -s /usr/local/php-5.3.10 /usr/local/php
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="启动脚本">启动脚本</h2>
 <p>使用下面的脚本需要修改<code>php-fpm.conf</code>，把pid那行的注释去掉</p>
 <p>创建文件<code>/etc/init.d/php-fpm</code>，并且设置为可执行<code>chmod +x /etc/init.d/php-fpm</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+<pre class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -362,145 +372,145 @@
 </span><span class="lnt">138
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#! /bin/sh
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="c1">### BEGIN INIT INFO</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Provides:          php-fpm</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Required-Start:    $remote_fs $network</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Required-Stop:     $remote_fs $network</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Default-Start:     2 3 4 5</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Default-Stop:      0 1 6</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Short-Description: starts php-fpm</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Description:       starts the PHP FastCGI Process Manager daemon</span>
-</span></span><span class="line"><span class="cl"><span class="c1">### END INIT INFO</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">prefix</span><span class="o">=</span>/usr/local/php
-</span></span><span class="line"><span class="cl"><span class="nv">exec_prefix</span><span class="o">=</span><span class="si">${</span><span class="nv">prefix</span><span class="si">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">php_fpm_BIN</span><span class="o">=</span><span class="si">${</span><span class="nv">exec_prefix</span><span class="si">}</span>/sbin/php-fpm
-</span></span><span class="line"><span class="cl"><span class="nv">php_fpm_CONF</span><span class="o">=</span><span class="si">${</span><span class="nv">prefix</span><span class="si">}</span>/etc/php-fpm.conf
-</span></span><span class="line"><span class="cl"><span class="nv">php_fpm_PID</span><span class="o">=</span><span class="si">${</span><span class="nv">prefix</span><span class="si">}</span>/var/run/php-fpm.pid
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">php_opts</span><span class="o">=</span><span class="s2">&#34;--fpm-config </span><span class="nv">$php_fpm_CONF</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">wait_for_pid <span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nv">try</span><span class="o">=</span><span class="m">0</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="nb">test</span> <span class="nv">$try</span> -lt <span class="m">35</span> <span class="p">;</span> <span class="k">do</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> in
-</span></span><span class="line"><span class="cl">			<span class="s1">&#39;created&#39;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="o">[</span> -f <span class="s2">&#34;</span><span class="nv">$2</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">				<span class="nv">try</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">				<span class="nb">break</span>
-</span></span><span class="line"><span class="cl">			<span class="k">fi</span>
-</span></span><span class="line"><span class="cl">			<span class="p">;;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">			<span class="s1">&#39;removed&#39;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="o">[</span> ! -f <span class="s2">&#34;</span><span class="nv">$2</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">				<span class="nv">try</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">				<span class="nb">break</span>
-</span></span><span class="line"><span class="cl">			<span class="k">fi</span>
-</span></span><span class="line"><span class="cl">			<span class="p">;;</span>
-</span></span><span class="line"><span class="cl">		<span class="k">esac</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="nb">echo</span> -n .
-</span></span><span class="line"><span class="cl">		<span class="nv">try</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$try</span> + 1<span class="sb">`</span>
-</span></span><span class="line"><span class="cl">		sleep <span class="m">1</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">done</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> in
-</span></span><span class="line"><span class="cl">	start<span class="o">)</span>
-</span></span><span class="line"><span class="cl">		<span class="nb">echo</span> -n <span class="s2">&#34;Starting php-fpm &#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="nv">$php_fpm_BIN</span> <span class="nv">$php_opts</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$?</span><span class="s2">&#34;</span> !<span class="o">=</span> <span class="m">0</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">echo</span> <span class="s2">&#34; failed&#34;</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">exit</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">		<span class="k">fi</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		wait_for_pid created <span class="nv">$php_fpm_PID</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$try</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">echo</span> <span class="s2">&#34; failed&#34;</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">exit</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">		<span class="k">else</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">echo</span> <span class="s2">&#34; done&#34;</span>
-</span></span><span class="line"><span class="cl">		<span class="k">fi</span>
-</span></span><span class="line"><span class="cl">	<span class="p">;;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	stop<span class="o">)</span>
-</span></span><span class="line"><span class="cl">		<span class="nb">echo</span> -n <span class="s2">&#34;Gracefully shutting down php-fpm &#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="o">[</span> ! -r <span class="nv">$php_fpm_PID</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">echo</span> <span class="s2">&#34;warning, no pid file found - php-fpm is not running ?&#34;</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">exit</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">		<span class="k">fi</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="nb">kill</span> -QUIT <span class="sb">`</span>cat <span class="nv">$php_fpm_PID</span><span class="sb">`</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		wait_for_pid removed <span class="nv">$php_fpm_PID</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$try</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">echo</span> <span class="s2">&#34; failed. Use force-quit&#34;</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">exit</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">		<span class="k">else</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">echo</span> <span class="s2">&#34; done&#34;</span>
-</span></span><span class="line"><span class="cl">		<span class="k">fi</span>
-</span></span><span class="line"><span class="cl">	<span class="p">;;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	force-quit<span class="o">)</span>
-</span></span><span class="line"><span class="cl">		<span class="nb">echo</span> -n <span class="s2">&#34;Terminating php-fpm &#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="o">[</span> ! -r <span class="nv">$php_fpm_PID</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">echo</span> <span class="s2">&#34;warning, no pid file found - php-fpm is not running ?&#34;</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">exit</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">		<span class="k">fi</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="nb">kill</span> -TERM <span class="sb">`</span>cat <span class="nv">$php_fpm_PID</span><span class="sb">`</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		wait_for_pid removed <span class="nv">$php_fpm_PID</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$try</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">echo</span> <span class="s2">&#34; failed&#34;</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">exit</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">		<span class="k">else</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">echo</span> <span class="s2">&#34; done&#34;</span>
-</span></span><span class="line"><span class="cl">		<span class="k">fi</span>
-</span></span><span class="line"><span class="cl">	<span class="p">;;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	restart<span class="o">)</span>
-</span></span><span class="line"><span class="cl">		<span class="nv">$0</span> stop
-</span></span><span class="line"><span class="cl">		<span class="nv">$0</span> start
-</span></span><span class="line"><span class="cl">	<span class="p">;;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	reload<span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="nb">echo</span> -n <span class="s2">&#34;Reload service php-fpm &#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="o">[</span> ! -r <span class="nv">$php_fpm_PID</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">echo</span> <span class="s2">&#34;warning, no pid file found - php-fpm is not running ?&#34;</span>
-</span></span><span class="line"><span class="cl">			<span class="nb">exit</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">		<span class="k">fi</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="nb">kill</span> -USR2 <span class="sb">`</span>cat <span class="nv">$php_fpm_PID</span><span class="sb">`</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="nb">echo</span> <span class="s2">&#34; done&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">;;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	*<span class="o">)</span>
-</span></span><span class="line"><span class="cl">		<span class="nb">echo</span> <span class="s2">&#34;Usage: </span><span class="nv">$0</span><span class="s2"> {start|stop|force-quit|restart|reload}&#34;</span>
-</span></span><span class="line"><span class="cl">		<span class="nb">exit</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">	<span class="p">;;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">esac</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#! /bin/sh
+</span><span class="cp"></span>
+<span class="c1">### BEGIN INIT INFO</span>
+<span class="c1"># Provides:          php-fpm</span>
+<span class="c1"># Required-Start:    $remote_fs $network</span>
+<span class="c1"># Required-Stop:     $remote_fs $network</span>
+<span class="c1"># Default-Start:     2 3 4 5</span>
+<span class="c1"># Default-Stop:      0 1 6</span>
+<span class="c1"># Short-Description: starts php-fpm</span>
+<span class="c1"># Description:       starts the PHP FastCGI Process Manager daemon</span>
+<span class="c1">### END INIT INFO</span>
+
+<span class="nv">prefix</span><span class="o">=</span>/usr/local/php
+<span class="nv">exec_prefix</span><span class="o">=</span><span class="si">${</span><span class="nv">prefix</span><span class="si">}</span>
+
+<span class="nv">php_fpm_BIN</span><span class="o">=</span><span class="si">${</span><span class="nv">exec_prefix</span><span class="si">}</span>/sbin/php-fpm
+<span class="nv">php_fpm_CONF</span><span class="o">=</span><span class="si">${</span><span class="nv">prefix</span><span class="si">}</span>/etc/php-fpm.conf
+<span class="nv">php_fpm_PID</span><span class="o">=</span><span class="si">${</span><span class="nv">prefix</span><span class="si">}</span>/var/run/php-fpm.pid
+
+
+<span class="nv">php_opts</span><span class="o">=</span><span class="s2">&#34;--fpm-config </span><span class="nv">$php_fpm_CONF</span><span class="s2">&#34;</span>
+
+
+wait_for_pid <span class="o">()</span> <span class="o">{</span>
+	<span class="nv">try</span><span class="o">=</span><span class="m">0</span>
+
+	<span class="k">while</span> <span class="nb">test</span> <span class="nv">$try</span> -lt <span class="m">35</span> <span class="p">;</span> <span class="k">do</span>
+
+		<span class="k">case</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> in
+			<span class="s1">&#39;created&#39;</span><span class="o">)</span>
+			<span class="k">if</span> <span class="o">[</span> -f <span class="s2">&#34;</span><span class="nv">$2</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+				<span class="nv">try</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+				<span class="nb">break</span>
+			<span class="k">fi</span>
+			<span class="p">;;</span>
+
+			<span class="s1">&#39;removed&#39;</span><span class="o">)</span>
+			<span class="k">if</span> <span class="o">[</span> ! -f <span class="s2">&#34;</span><span class="nv">$2</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+				<span class="nv">try</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+				<span class="nb">break</span>
+			<span class="k">fi</span>
+			<span class="p">;;</span>
+		<span class="k">esac</span>
+
+		<span class="nb">echo</span> -n .
+		<span class="nv">try</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$try</span> + 1<span class="sb">`</span>
+		sleep <span class="m">1</span>
+
+	<span class="k">done</span>
+
+<span class="o">}</span>
+
+<span class="k">case</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> in
+	start<span class="o">)</span>
+		<span class="nb">echo</span> -n <span class="s2">&#34;Starting php-fpm &#34;</span>
+
+		<span class="nv">$php_fpm_BIN</span> <span class="nv">$php_opts</span>
+
+		<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$?</span><span class="s2">&#34;</span> !<span class="o">=</span> <span class="m">0</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+			<span class="nb">echo</span> <span class="s2">&#34; failed&#34;</span>
+			<span class="nb">exit</span> <span class="m">1</span>
+		<span class="k">fi</span>
+
+		wait_for_pid created <span class="nv">$php_fpm_PID</span>
+
+		<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$try</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+			<span class="nb">echo</span> <span class="s2">&#34; failed&#34;</span>
+			<span class="nb">exit</span> <span class="m">1</span>
+		<span class="k">else</span>
+			<span class="nb">echo</span> <span class="s2">&#34; done&#34;</span>
+		<span class="k">fi</span>
+	<span class="p">;;</span>
+
+	stop<span class="o">)</span>
+		<span class="nb">echo</span> -n <span class="s2">&#34;Gracefully shutting down php-fpm &#34;</span>
+
+		<span class="k">if</span> <span class="o">[</span> ! -r <span class="nv">$php_fpm_PID</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+			<span class="nb">echo</span> <span class="s2">&#34;warning, no pid file found - php-fpm is not running ?&#34;</span>
+			<span class="nb">exit</span> <span class="m">1</span>
+		<span class="k">fi</span>
+
+		<span class="nb">kill</span> -QUIT <span class="sb">`</span>cat <span class="nv">$php_fpm_PID</span><span class="sb">`</span>
+
+		wait_for_pid removed <span class="nv">$php_fpm_PID</span>
+
+		<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$try</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+			<span class="nb">echo</span> <span class="s2">&#34; failed. Use force-quit&#34;</span>
+			<span class="nb">exit</span> <span class="m">1</span>
+		<span class="k">else</span>
+			<span class="nb">echo</span> <span class="s2">&#34; done&#34;</span>
+		<span class="k">fi</span>
+	<span class="p">;;</span>
+
+	force-quit<span class="o">)</span>
+		<span class="nb">echo</span> -n <span class="s2">&#34;Terminating php-fpm &#34;</span>
+
+		<span class="k">if</span> <span class="o">[</span> ! -r <span class="nv">$php_fpm_PID</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+			<span class="nb">echo</span> <span class="s2">&#34;warning, no pid file found - php-fpm is not running ?&#34;</span>
+			<span class="nb">exit</span> <span class="m">1</span>
+		<span class="k">fi</span>
+
+		<span class="nb">kill</span> -TERM <span class="sb">`</span>cat <span class="nv">$php_fpm_PID</span><span class="sb">`</span>
+
+		wait_for_pid removed <span class="nv">$php_fpm_PID</span>
+
+		<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$try</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+			<span class="nb">echo</span> <span class="s2">&#34; failed&#34;</span>
+			<span class="nb">exit</span> <span class="m">1</span>
+		<span class="k">else</span>
+			<span class="nb">echo</span> <span class="s2">&#34; done&#34;</span>
+		<span class="k">fi</span>
+	<span class="p">;;</span>
+
+	restart<span class="o">)</span>
+		<span class="nv">$0</span> stop
+		<span class="nv">$0</span> start
+	<span class="p">;;</span>
+
+	reload<span class="o">)</span>
+
+		<span class="nb">echo</span> -n <span class="s2">&#34;Reload service php-fpm &#34;</span>
+
+		<span class="k">if</span> <span class="o">[</span> ! -r <span class="nv">$php_fpm_PID</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+			<span class="nb">echo</span> <span class="s2">&#34;warning, no pid file found - php-fpm is not running ?&#34;</span>
+			<span class="nb">exit</span> <span class="m">1</span>
+		<span class="k">fi</span>
+
+		<span class="nb">kill</span> -USR2 <span class="sb">`</span>cat <span class="nv">$php_fpm_PID</span><span class="sb">`</span>
+
+		<span class="nb">echo</span> <span class="s2">&#34; done&#34;</span>
+	<span class="p">;;</span>
+
+	*<span class="o">)</span>
+		<span class="nb">echo</span> <span class="s2">&#34;Usage: </span><span class="nv">$0</span><span class="s2"> {start|stop|force-quit|restart|reload}&#34;</span>
+		<span class="nb">exit</span> <span class="m">1</span>
+	<span class="p">;;</span>
+
+<span class="k">esac</span>
+</code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -589,13 +599,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -609,7 +616,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

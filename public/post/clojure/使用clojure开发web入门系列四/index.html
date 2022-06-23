@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/clojure/%E4%BD%BF%E7%94%A8clojure%E5%BC%80%E5%8F%91web%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E5%9B%9B/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -152,22 +162,22 @@
 <p>首先在<code>resources</code>目录下添加<code>home.html</code>，内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Home<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Home<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>在<code>resources</code>目录添加是因为selmer默认会去classpath指定的路径里面找对应的模板文件。</p>
 <p>修改<code>core.clj</code>，在<code>:require</code>后面添加selmer：<code>[selmer.parser :refer [render-file]]</code></p>
 <p>修改<code>defroutes app</code>，在添加一条路由规则:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">GET</span> <span class="s">&#34;/home&#34;</span> <span class="p">[]</span> <span class="p">(</span><span class="nf">render-file</span> <span class="s">&#34;home.html&#34;</span> <span class="p">{}))</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">GET</span> <span class="s">&#34;/home&#34;</span> <span class="p">[]</span> <span class="p">(</span><span class="nf">render-file</span> <span class="s">&#34;home.html&#34;</span> <span class="p">{}))</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>访问<code>http://localhost:3000/home</code>，可以看到html模板里面的内容已经显示出来了。如果没有运行程序请执行：<code>lein run</code></p>
 <!-- raw HTML omitted -->
@@ -175,7 +185,7 @@
 <p>现在来修改表单页面，使用<code>resources/index.html</code>作为模板文件，内容如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -194,33 +204,33 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hello form<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;/message&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;name&#34;</span><span class="p">&gt;</span>名字:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;name&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="p">/&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;message&#34;</span><span class="p">&gt;</span>消息:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">cols</span><span class="o">=</span><span class="s">&#34;80&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;message&#34;</span> <span class="na">rows</span><span class="o">=</span><span class="s">&#34;5&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;提交&#34;</span> <span class="p">/&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hello form<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;/message&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;name&#34;</span><span class="p">&gt;</span>名字:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;name&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;message&#34;</span><span class="p">&gt;</span>消息:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">cols</span><span class="o">=</span><span class="s">&#34;80&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;message&#34;</span> <span class="na">rows</span><span class="o">=</span><span class="s">&#34;5&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;提交&#34;</span> <span class="p">/&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>修改<code>defroutes app</code>里面<code>&quot;/&quot;</code>的定义为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">GET</span> <span class="s">&#34;/&#34;</span> <span class="p">[]</span> <span class="p">(</span><span class="nf">render-file</span> <span class="s">&#34;index.html&#34;</span> <span class="p">{}))</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">GET</span> <span class="s">&#34;/&#34;</span> <span class="p">[]</span> <span class="p">(</span><span class="nf">render-file</span> <span class="s">&#34;index.html&#34;</span> <span class="p">{}))</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>访问<code>http://localhost:3000</code>，表单出来了。</p>
 <h2 id="message">message</h2>
@@ -228,7 +238,7 @@
 <p>先在建立消息模板文件<code>resources/message.html</code>，内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -237,28 +247,28 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>{{ name }}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{ message }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>{{ name }}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{ message }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
 </div>
 </div><p><code>{{ name }}</code>和<code>{{ message }}</code>是占位符，selmer把render-file的第二个map参数解析到模板文件里面，<code>{{ name }}</code>对应的是<code>:name</code>的值。</p>
 <p>接着修改<code>core.clj</code>的<code>show-message</code>函数：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="kd">defn </span><span class="nv">show-message</span> <span class="p">[</span><span class="nv">params</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="k">let </span><span class="p">[{</span><span class="nb">name </span><span class="s">&#34;name&#34;</span> <span class="nv">message</span> <span class="s">&#34;message&#34;</span><span class="p">}</span> <span class="nv">params</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nf">render-file</span> <span class="s">&#34;message.html&#34;</span> <span class="p">{</span><span class="ss">:name</span> <span class="nb">name </span><span class="ss">:message</span> <span class="nv">message</span><span class="p">})))</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">show-message</span> <span class="p">[</span><span class="nv">params</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[{</span><span class="nb">name </span><span class="s">&#34;name&#34;</span> <span class="nv">message</span> <span class="s">&#34;message&#34;</span><span class="p">}</span> <span class="nv">params</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf">render-file</span> <span class="s">&#34;message.html&#34;</span> <span class="p">{</span><span class="ss">:name</span> <span class="nb">name </span><span class="ss">:message</span> <span class="nv">message</span><span class="p">})))</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>访问<a href="http://localhost:3000"><code>http://localhost:3000</code></a>`，填写表单，提交消息后就可以看到跟原来一样的效果了。现在clj文件的代码更加简短，模板文件也被分离出来了，这样更便于前端和后端的协作。</p>
 <p>这其实是一个相对比较传统前后端分离的方案，后面介绍了ClojureScript后，还有比较时尚的玩法。</p>
@@ -275,30 +285,30 @@
 <p>首先在<code>:require</code>引入<code>[selmer.filters :refer [add-filter!]]</code>，然后调用<code>add-filter!</code>添加自定义filter。例如要实现自己的大写filter：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">add-filter!</span> <span class="ss">:embiginate</span> <span class="nv">clojure.string/upper-case</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">add-filter!</span> <span class="ss">:embiginate</span> <span class="nv">clojure.string/upper-case</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>使用方法与内置的filter一样，在模板的变量后面加竖线和filter钟宇：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{{shout|embiginate}}
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{{shout|embiginate}}
+</code></pre></td></tr></table>
 </div>
 </div><h1 id="tag">tag</h1>
 <p>假设你想在模板输出变量内容的时候，如果变量保存的是一段html内容，你并不想把标签显示在页面上，而是解析html的内容，显示相应html的样式，这个可以使用selmer的tag来实现。selmer默认会把变量的输出进行html转义，以保证表单或者其他地方来的数据的安全性，防止跨站脚本攻击（XSS）。例如要实现消息内容html格式输出，在<code>{{ message }}</code>的外面加上<code>safe</code>和<code>endsafe</code>这个tag：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{% safe %}{{ message }}{% endsafe %}
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{% safe %}{{ message }}{% endsafe %}
+</code></pre></td></tr></table>
 </div>
 </div><p>selmer的tag分两种，一个是单一出现的，像上面layout介绍的<code>extends</code>；另外一种是成对出现的，像<code>safe</code>和<code>endsafe</code>。</p>
 <p>selmer内置了很多的tag来解决模板当中常见的一些问题。像条件判断<code>if else</code>、<code>for</code>、<code>now</code>、<code>script</code>、<code>style</code>等等很实用的tag。</p>
@@ -307,66 +317,66 @@
 <p>先来看单一出来的tag的定义：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">add-tag!</span> <span class="ss">:foo</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">args</span> <span class="nv">context-map</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nb">str </span><span class="s">&#34;foo &#34;</span> <span class="p">(</span><span class="nb">first </span><span class="nv">args</span><span class="p">))))</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">add-tag!</span> <span class="ss">:foo</span>
+  <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">args</span> <span class="nv">context-map</span><span class="p">]</span>
+    <span class="p">(</span><span class="nb">str </span><span class="s">&#34;foo &#34;</span> <span class="p">(</span><span class="nb">first </span><span class="nv">args</span><span class="p">))))</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>先来看一下在模板里面如何调用：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">render</span> <span class="s">&#34;{% foo quux %}&#34;</span> <span class="p">{})</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">render</span> <span class="s">&#34;{% foo quux %}&#34;</span> <span class="p">{})</span>
+</code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">=&gt;&#34;foo quux&#34;
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">=&gt;&#34;foo quux&#34;
+</code></pre></td></tr></table>
 </div>
 </div><p>foo是tag的名字，第二个参数是一个函数，这个函数接受两个参数，第一个参数<code>args</code>是模板里面写的tag后面的数据，上面的例子里面的quux；还有一个<code>context-map</code>是一个上下文map，里面包含有这个tag执行时的相关信息。</p>
 <p>再看一下成对出来的tag的定义：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">add-tag!</span> <span class="ss">:uppercase</span>
-</span></span><span class="line"><span class="cl">          <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">args</span> <span class="nv">context-map</span> <span class="nv">content</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nf">.toUpperCase</span> <span class="p">(</span><span class="nf">get-in</span> <span class="nv">content</span> <span class="p">[</span><span class="ss">:uppercase</span> <span class="ss">:content</span><span class="p">])))</span>
-</span></span><span class="line"><span class="cl">          <span class="ss">:enduppercase</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">add-tag!</span> <span class="ss">:uppercase</span>
+          <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">args</span> <span class="nv">context-map</span> <span class="nv">content</span><span class="p">]</span>
+            <span class="p">(</span><span class="nf">.toUpperCase</span> <span class="p">(</span><span class="nf">get-in</span> <span class="nv">content</span> <span class="p">[</span><span class="ss">:uppercase</span> <span class="ss">:content</span><span class="p">])))</span>
+          <span class="ss">:enduppercase</span><span class="p">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>调用方式如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">render</span> <span class="s">&#34;{% uppercase %}foo {{bar}} baz{% enduppercase %}&#34;</span> <span class="p">{</span><span class="ss">:bar</span> <span class="s">&#34;injected&#34;</span><span class="p">})</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">render</span> <span class="s">&#34;{% uppercase %}foo {{bar}} baz{% enduppercase %}&#34;</span> <span class="p">{</span><span class="ss">:bar</span> <span class="s">&#34;injected&#34;</span><span class="p">})</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>输出：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">=&gt;&#34;FOO INJECTED BAZ&#34;
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">=&gt;&#34;FOO INJECTED BAZ&#34;
+</code></pre></td></tr></table>
 </div>
 </div><p>这个自定义的tag把包裹起来的内容全部转换成大写。定义的时候需要写上成对出现的tag名字，中间也是一个处理函数，这个函数接受三个参数了，<code>args</code>、<code>context-map</code>和上面是一样的，多了一个<code>content</code>参数，<code>[:uppercase :content]</code>存的是tag包裹的内容。</p>
 <p>完整<a href="https://github.com/kevindragon/learn-clojure-web">代码</a>请：<code>git checkout 1.4</code>。</p>
@@ -457,13 +467,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -477,7 +484,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

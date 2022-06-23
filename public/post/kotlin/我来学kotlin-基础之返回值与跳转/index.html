@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/kotlin/%E6%88%91%E6%9D%A5%E5%AD%A6kotlin-%E5%9F%BA%E7%A1%80%E4%B9%8B%E8%BF%94%E5%9B%9E%E5%80%BC%E4%B8%8E%E8%B7%B3%E8%BD%AC/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -154,18 +164,18 @@
 <p>所有这些表达式都可以用作更大的表达式的一部分:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">s</span> <span class="p">=</span> <span class="n">person</span><span class="p">.</span><span class="n">name</span> <span class="o">?:</span> <span class="k">return</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">val</span> <span class="py">s</span> <span class="p">=</span> <span class="n">person</span><span class="p">.</span><span class="n">name</span> <span class="o">?:</span> <span class="k">return</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>这个表达式的类型是<code>Nothing</code>类型</p>
 <h2 id="break和continue标签">break和continue标签</h2>
 <p>在Kotlin里所有的表达式都可以用一个标签（<code>label</code>）来标记。标签由一个合法的标识符跟上一个<code>@</code>符号缓存，例如：abc@, fooBar@都是合法的标签。要标记一个表达式，只需要把标签放在表达式前面即可：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -173,35 +183,35 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="n">loop</span><span class="err">@</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="p">&gt;</span> <span class="m">5</span><span class="p">)</span> <span class="k">break</span><span class="nd">@loop</span>
-</span></span><span class="line"><span class="cl">        <span class="n">println</span><span class="p">(</span><span class="s2">&#34;i, j = </span><span class="si">$i</span><span class="s2">, </span><span class="si">$j</span><span class="s2">&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="n">loop</span><span class="err">@</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="p">&gt;</span> <span class="m">5</span><span class="p">)</span> <span class="k">break</span><span class="nd">@loop</span>
+        <span class="n">println</span><span class="p">(</span><span class="s2">&#34;i, j = </span><span class="si">$i</span><span class="s2">, </span><span class="si">$j</span><span class="s2">&#34;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>上面这段代码的输出如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">i, j = 1, 1
-</span></span><span class="line"><span class="cl">i, j = 1, 2
-</span></span><span class="line"><span class="cl">i, j = 1, 3
-</span></span><span class="line"><span class="cl">i, j = 1, 4
-</span></span><span class="line"><span class="cl">i, j = 1, 5
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">i, j = 1, 1
+i, j = 1, 2
+i, j = 1, 3
+i, j = 1, 4
+i, j = 1, 5
+</code></pre></td></tr></table>
 </div>
 </div><p>如果没有<code>loop</code>标签，那么break的行为是跳出里面一层的循环，输出结果还会有<code>i, j = 2, 1</code>等等，加了标签后直接跳出到最外层的循环。而<code>continue</code>是返回到标签处继续下一次的循环，下面的代码中带标签的<code>continue</code>和不带标签的<code>break</code>作用是一样的：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -215,38 +225,38 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="n">abc</span><span class="err">@</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">4</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">4</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="p">&gt;</span> <span class="m">2</span><span class="p">)</span> <span class="k">continue</span><span class="nd">@abc</span>
-</span></span><span class="line"><span class="cl">        <span class="n">println</span><span class="p">(</span><span class="s2">&#34;i, j = </span><span class="si">$i</span><span class="s2">, </span><span class="si">$j</span><span class="s2">&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">4</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">4</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="p">&gt;</span> <span class="m">2</span><span class="p">)</span> <span class="k">break</span>
-</span></span><span class="line"><span class="cl">        <span class="n">println</span><span class="p">(</span><span class="s2">&#34;i, j = </span><span class="si">$i</span><span class="s2">, </span><span class="si">$j</span><span class="s2">&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="n">abc</span><span class="err">@</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">4</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="p">&gt;</span> <span class="m">2</span><span class="p">)</span> <span class="k">continue</span><span class="nd">@abc</span>
+        <span class="n">println</span><span class="p">(</span><span class="s2">&#34;i, j = </span><span class="si">$i</span><span class="s2">, </span><span class="si">$j</span><span class="s2">&#34;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">4</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="p">&gt;</span> <span class="m">2</span><span class="p">)</span> <span class="k">break</span>
+        <span class="n">println</span><span class="p">(</span><span class="s2">&#34;i, j = </span><span class="si">$i</span><span class="s2">, </span><span class="si">$j</span><span class="s2">&#34;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="return">return</h2>
 <p>关键字<code>return</code>跟Java的差不多，但是功能要复杂一些，个人认为没有Scala的函数式那么纯粹。<code>return</code>是用在函数里面来返回一个值给调用者。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">foo</span><span class="p">():</span> <span class="n">Int</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="m">3</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">fun</span> <span class="nf">foo</span><span class="p">():</span> <span class="n">Int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="m">3</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>当执行到<code>return</code>时候，函数立即返回，仅仅只是最接近<code>return</code>的那个函数返回，看下面两个例子：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -261,27 +271,27 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">baz</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="n">forEach</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="m">2</span><span class="p">)</span> <span class="k">return</span>
-</span></span><span class="line"><span class="cl">        <span class="n">println</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">})</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">jaz</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="n">forEach</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="k">it</span> <span class="o">==</span> <span class="m">2</span><span class="p">)</span> <span class="k">return</span>
-</span></span><span class="line"><span class="cl">        <span class="n">println</span><span class="p">(</span><span class="k">it</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">fun</span> <span class="nf">baz</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">(</span><span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="n">forEach</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="m">2</span><span class="p">)</span> <span class="k">return</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="k">fun</span> <span class="nf">jaz</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">(</span><span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="n">forEach</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">it</span> <span class="o">==</span> <span class="m">2</span><span class="p">)</span> <span class="k">return</span>
+        <span class="n">println</span><span class="p">(</span><span class="k">it</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>baz函数会打印1, 3, 4, 5, 6, 7, 8, 9, 10，而没有2，因为在循环到2的时候匿名函数直接返回了，但是forEach还在继续执行。
 而jaz函数仅仅打印1，这里使用的是lambda来代替显示的fun定义。</p>
 <p>来看下下面两个函数<code>foo</code>和<code>bar</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -300,24 +310,24 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="n">map</span> <span class="n">lit</span><span class="err">@</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="k">it</span> <span class="o">==</span> <span class="m">2</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="nd">@lit</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="n">println</span><span class="p">(</span><span class="k">it</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">bar</span><span class="p">():</span> <span class="n">Unit</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="n">map</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="k">it</span> <span class="o">==</span> <span class="m">2</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">return</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="n">println</span><span class="p">(</span><span class="k">it</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-Kotlin" data-lang="Kotlin"><span class="k">fun</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">(</span><span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="n">map</span> <span class="n">lit</span><span class="err">@</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">it</span> <span class="o">==</span> <span class="m">2</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span><span class="nd">@lit</span>
+        <span class="p">}</span>
+        <span class="n">println</span><span class="p">(</span><span class="k">it</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fun</span> <span class="nf">bar</span><span class="p">():</span> <span class="n">Unit</span> <span class="p">{</span>
+    <span class="p">(</span><span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="n">map</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">it</span> <span class="o">==</span> <span class="m">2</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span>
+        <span class="p">}</span>
+        <span class="n">println</span><span class="p">(</span><span class="k">it</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>这两个函数与上面的baz, jaz是一样的，使用了标签的return，就像是使用匿名的fun定义一样，不会阻止循环的执行。</p>
 <p>在使用forEach迭代的时候，默认有一个forEach@标签，可以直接使用<code>return@forEach</code>。另外使用了标签的return后面是可以带上一个值的，例如：<code>return@abc 123</code></p>
@@ -408,13 +418,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -428,7 +435,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

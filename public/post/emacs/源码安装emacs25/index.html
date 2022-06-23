@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/emacs/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85emacs25/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -154,55 +164,55 @@
 <h2 id="下载源码包">下载源码包</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget <span class="s1">&#39;http://mirrors.ustc.edu.cn/gnu/emacs/emacs-25.2.tar.gz&#39;</span>
-</span></span><span class="line"><span class="cl">tar -xzvf emacs-25.2.tar.gz
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">wget <span class="s1">&#39;http://mirrors.ustc.edu.cn/gnu/emacs/emacs-25.2.tar.gz&#39;</span>
+tar -xzvf emacs-25.2.tar.gz
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="安装编译环境依赖">安装编译环境，依赖</h2>
 <p>首先需要把安装源码的选项打开。找到<code>Software &amp; Updates</code>，把<code>Source code</code>勾上。另外一个办法是直接修改配置文件<code>/etc/apt/sources.list</code>，把前面两个<code>deb-src</code>前面的注释打开，然后运行一下<code>sudo apt update</code>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install build-essential
-</span></span><span class="line"><span class="cl">sudo apt build-dep emacs24  <span class="c1"># 25版本和24版本的依赖是一样的</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">sudo apt install build-essential
+sudo apt build-dep emacs24  <span class="c1"># 25版本和24版本的依赖是一样的</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="安装emacs">安装Emacs</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> emacs-25.2
-</span></span><span class="line"><span class="cl">./configure
-</span></span><span class="line"><span class="cl">make
-</span></span><span class="line"><span class="cl">sudo make install
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> emacs-25.2
+./configure
+make
+sudo make install
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="中文输入法">中文输入法</h2>
 <p>修改<code>/etc/environment</code>，后面添加一行<code>LC_CTYPE=&quot;zh_CN.utf8&quot;</code></p>
 <p>用<code>which emacs</code>找到<code>emacs</code>程序的位置，备份<code>sudo cp emacs emacs.bak</code>，然后新建一个<code>emacs</code>可执行shell脚本，记得<code>chmod +x emacs</code>，内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="nv">LC_CTYPE</span><span class="o">=</span><span class="s2">&#34;zh_CN.utf8&#34;</span> emacs-25.2
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+</span><span class="cp"></span>
+<span class="nv">LC_CTYPE</span><span class="o">=</span><span class="s2">&#34;zh_CN.utf8&#34;</span> emacs-25.2
+</code></pre></td></tr></table>
 </div>
 </div><p><strong>重启一下系统</strong></p>
 <p>现在使用Alt+F2，输入emacs，把输入法换成中文就可以输入中文了</p>
@@ -210,37 +220,37 @@
 <h2 id="下载源码包-1">下载源码包</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget <span class="s1">&#39;http://mirrors.ustc.edu.cn/gnu/emacs/emacs-25.3.tar.gz&#39;</span>
-</span></span><span class="line"><span class="cl">tar -xzvf emacs-25.3.tar.gz
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">wget <span class="s1">&#39;http://mirrors.ustc.edu.cn/gnu/emacs/emacs-25.3.tar.gz&#39;</span>
+tar -xzvf emacs-25.3.tar.gz
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="安装编译环境依赖-1">安装编译环境，依赖</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y ncurses-devel
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">yum install -y ncurses-devel
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="安装emacs-1">安装Emacs</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> emacs-25.3
-</span></span><span class="line"><span class="cl">./configure
-</span></span><span class="line"><span class="cl">make
-</span></span><span class="line"><span class="cl">sudo make install
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> emacs-25.3
+./configure
+make
+sudo make install
+</code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -330,13 +340,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -350,7 +357,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

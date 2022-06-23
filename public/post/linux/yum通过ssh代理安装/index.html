@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/linux/yum%E9%80%9A%E8%BF%87ssh%E4%BB%A3%E7%90%86%E5%AE%89%E8%A3%85/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -150,36 +160,36 @@
 <p>用Xshell（或者其他ssh客户端）登录B机器，使用下面的命令登录到A机器：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh -D <span class="m">1080</span> root@192.168.1.100
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">ssh -D <span class="m">1080</span> root@192.168.1.100
+</code></pre></td></tr></table>
 </div>
 </div><p>输入A机器的密码，这时候ssh会开一个1080监听端口，所有发往这个端口的请求被转发到ssh所连接的机器，然后通过所连接的机器转发请求，这样就实现了ssh代理。ssh现在支持的协议是socks4和socks5。</p>
 <p>然后在另外一个终端登录B机器，修改<code>/etc/yum.conf</code>文件，在文件最后添加下面一行：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">proxy</span><span class="o">=</span>socks5h://localhost:1080
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">proxy</span><span class="o">=</span>socks5h://localhost:1080
+</code></pre></td></tr></table>
 </div>
 </div><p>保存退出，这时候你再运行<code>yum</code>命令，完全不障碍。</p>
 <p>其实都已经开了1080端口了，其他任何支持代理设置的程序都可以使用此<code>socks5h://localhost:1080</code>进行代理，比如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -x socks5h://localhost:1080 http://www.baidu.com
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">curl -x socks5h://localhost:1080 http://www.baidu.com
+</code></pre></td></tr></table>
 </div>
 </div><p>如果其他的方式，比如ftp之类的，也需要使用代码的话，可以把下面的内容保存到一个文件<code>proxy.sh</code>，然后使用<code>source proxy.sh</code>加载一下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -194,20 +204,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="c1"># add follows to the end (set proxy settings to the environment variables)</span>
-</span></span><span class="line"><span class="cl"><span class="nv">MY_PROXY_URL</span><span class="o">=</span><span class="s2">&#34;socks5h://localhost:1080&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">HTTP_PROXY</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
-</span></span><span class="line"><span class="cl"><span class="nv">HTTPS_PROXY</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
-</span></span><span class="line"><span class="cl"><span class="nv">FTP_PROXY</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
-</span></span><span class="line"><span class="cl"><span class="nv">http_proxy</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
-</span></span><span class="line"><span class="cl"><span class="nv">https_proxy</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
-</span></span><span class="line"><span class="cl"><span class="nv">ftp_proxy</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> HTTP_PROXY HTTPS_PROXY FTP_PROXY http_proxy https_proxy ftp_proxy
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/sh
+</span><span class="cp"></span>
+<span class="c1"># add follows to the end (set proxy settings to the environment variables)</span>
+<span class="nv">MY_PROXY_URL</span><span class="o">=</span><span class="s2">&#34;socks5h://localhost:1080&#34;</span>
+
+<span class="nv">HTTP_PROXY</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
+<span class="nv">HTTPS_PROXY</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
+<span class="nv">FTP_PROXY</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
+<span class="nv">http_proxy</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
+<span class="nv">https_proxy</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
+<span class="nv">ftp_proxy</span><span class="o">=</span><span class="nv">$MY_PROXY_URL</span>
+
+<span class="nb">export</span> HTTP_PROXY HTTPS_PROXY FTP_PROXY http_proxy https_proxy ftp_proxy
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="例子">例子</h2>
 <h3 id="pip">pip</h3>
@@ -301,13 +311,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -321,7 +328,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

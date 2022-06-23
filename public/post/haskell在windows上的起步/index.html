@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
 
 
 <link rel="canonical" href="http://kevinjiang.info/post/haskell%E5%9C%A8windows%E4%B8%8A%E7%9A%84%E8%B5%B7%E6%AD%A5/" />
@@ -89,12 +89,21 @@
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">(Power up)</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -111,6 +120,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -142,24 +152,24 @@
 <p>安装的时候最好指定安装在<code>c:\Hs</code>目录，因为路径短。然后确保下面三个配置在cabal的配置里面是正确的路径。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">extra-prog-path: C:\Hs\msys\usr\bin
-</span></span><span class="line"><span class="cl">extra-lib-dirs: C:\Hs\mingw\lib
-</span></span><span class="line"><span class="cl">extra-include-dirs: C:\Hs\mingw\include
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">extra-prog-path: C:\Hs\msys\usr\bin
+extra-lib-dirs: C:\Hs\mingw\lib
+extra-include-dirs: C:\Hs\mingw\include
+</code></pre></td></tr></table>
 </div>
 </div><p>这种方式安装的Haskell可以顺序安装stack，但是stack不会使用全局的ghc，如果有库使用到了同一个版本的ghc，stack还是傻傻的再去下载一个ghc到自己的目录里面（不应该这么傻，有可能什么都想自己控制吧）。这个情况通过下面的命令设置使用全局的ghc</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">stack config <span class="nb">set</span> system-ghc --global <span class="nb">true</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-shell" data-lang="shell">stack config <span class="nb">set</span> system-ghc --global <span class="nb">true</span>
+</code></pre></td></tr></table>
 </div>
 </div><h1 id="安装haskell-ide-engine">安装Haskell IDE engine</h1>
 <p>这个玩意在windows安装是不成功的，可能是路径过长的问题（Windows最长是260个字符），可以把stack的根路径设置到C盘的根目录，设置环境变量<code>STACK_ROOT</code>为<code>C:\stack</code>。</p>
@@ -250,13 +260,10 @@
   <span class="copyright-year">
     &copy; 
     2015 - 
-    2022
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Kevin Jiang</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -270,7 +277,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.30dad356188cdaba5047112eaa8bf5e85cb14ae7e803337403591fce94a531a0.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];
