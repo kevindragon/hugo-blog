@@ -11,14 +11,14 @@ tags: [Docker, 时区]
 在系统命令行使用
 
 ```shell
-echo “Asia/Shanghai” > /etc/timezone
+echo "Asia/Shanghai" > /etc/timezone
 cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 ```
 
 在Dockerfile使用
 
 ```Dockerfile
-RUN echo “Asia/Shanghai” > /etc/timezone && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN echo "Asia/Shanghai" > /etc/timezone && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 ```
 
 # Ubuntu 20.04
