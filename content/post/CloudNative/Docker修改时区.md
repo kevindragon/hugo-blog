@@ -43,3 +43,20 @@ RUN apk --update add tzdata && \
     apk del tzdata && \
     rm -rf /var/cache/apk/*
 ```
+
+# CentOS
+
+在系统命令行使用
+
+```shell
+echo "Asia/Shanghai" > /etc/timezone
+cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+```
+
+在Dockerfile使用
+
+```Dockerfile
+RUN echo "Asia/Shanghai" > /etc/timezone && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+```
+
+> 其实跟Debian系统的配置一样的
