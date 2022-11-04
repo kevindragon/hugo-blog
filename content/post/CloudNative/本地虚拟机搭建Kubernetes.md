@@ -22,7 +22,7 @@ sudo add-apt-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/l
 sudo apt -y install docker-ce docker-ce-cli containerd.io
 ```
 
-修改 Docker 的 Cgroup Driver，编辑 ~/etc/docker/daemon.json~ (没有该文件就新建一个），添加如下参数
+修改 Docker 的 Cgroup Driver，编辑`/etc/docker/daemon.json`(没有该文件就新建一个），添加如下参数
 
 ```json
 {
@@ -204,7 +204,7 @@ curl https://docs.projectcalico.org/manifests/calico.yaml -O
 kubectl apply -f calico.yaml
 ```
 
-参考Calico官方文档 [[https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#install-calico-with-kubernetes-api-datastore-50-nodes-or-less][Install Calico networking and network policy for on-premises deployments]]
+参考Calico官方文档 [Install Calico networking and network policy for on-premises deployments](https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#install-calico-with-kubernetes-api-datastore-50-nodes-or-less)
 
 在安装的过程当中很有可能摘取镜像失败导致calico启动失败：
 
