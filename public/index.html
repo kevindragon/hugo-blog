@@ -126,6 +126,27 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/cloudnative/docker%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/">Docker修改时区</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2022-07-08 </span>
+      
+        <span class="more-meta"> 约 302 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      修改各Linux发行版本时区为上海 Debian系统 在系统命令行使用 1 2 echo &#34;Asia/Shanghai&#34; &gt; /etc/timezone cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 在Dockerfile使用 1 RUN echo &#34;Asia/Shanghai&#34; &gt; /etc/timezone &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 在Dock
+    </div>
+    <div class="read-more">
+      <a href="/post/cloudnative/docker%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/java/java%E7%9A%84exception%E4%BD%93%E7%B3%BB/">Java的Exception体系</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2022-03-21 </span>
@@ -151,7 +172,7 @@
     <div class="post-meta">
       <span class="post-time"> 2021-12-02 </span>
       
-        <span class="more-meta"> 约 1556 字 </span>
+        <span class="more-meta"> 约 1578 字 </span>
         <span class="more-meta"> 预计阅读 4 分钟 </span>
     </div>
   </header>
@@ -208,27 +229,6 @@
   </div>
 </article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/haskell%E5%9C%A8windows%E4%B8%8A%E7%9A%84%E8%B5%B7%E6%AD%A5/">Haskell在Windows上的起步</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-08-17 </span>
-      
-        <span class="more-meta"> 约 474 字 </span>
-        <span class="more-meta"> 预计阅读 1 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      学习Haskel痛苦又快乐的经历 使用Haskell Platform安装的Haskell 安装的时候最好指定安装在c:\Hs目录，因为路径短。然
-    </div>
-    <div class="read-more">
-      <a href="/post/haskell%E5%9C%A8windows%E4%B8%8A%E7%9A%84%E8%B5%B7%E6%AD%A5/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
     </section>
   
   <nav class="pagination">
@@ -258,16 +258,17 @@
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    主题 - 
+    主题 -
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
   
 
   <span class="copyright-year">
-    &copy; 
-    2015 - 
+    &copy;
+    2015 -
     2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
   </span>
 </div>
 

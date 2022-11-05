@@ -21,6 +21,12 @@ cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN echo "Asia/Shanghai" > /etc/timezone && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 ```
 
+在Docker compose的配置文件里面进行配置，添加一个环境变量
+
+```shell
+TZ=Asia/Shanghai
+```
+
 # Ubuntu 20.04
 
 在Dockerfile使用

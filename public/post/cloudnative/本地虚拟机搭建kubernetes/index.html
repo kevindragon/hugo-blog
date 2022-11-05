@@ -49,7 +49,7 @@
 <meta itemprop="name" content="本地虚拟机搭建Kubernetes">
 <meta itemprop="description" content="以下内容都是在Ubuntu20.04.3系统上完成。 安装Docker-ce 1 2 3 4 5 6 7 8 9 10 11 # step 1: 安装必要的一些系统工具 sudo apt-get update sudo apt-get -y install apt-transport-https"><meta itemprop="datePublished" content="2021-12-02T12:45:39+08:00" />
 <meta itemprop="dateModified" content="2021-12-02T12:45:39+08:00" />
-<meta itemprop="wordCount" content="1556">
+<meta itemprop="wordCount" content="1578">
 <meta itemprop="keywords" content="Kubernetes," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="本地虚拟机搭建Kubernetes"/>
 <meta name="twitter:description" content="以下内容都是在Ubuntu20.04.3系统上完成。 安装Docker-ce 1 2 3 4 5 6 7 8 9 10 11 # step 1: 安装必要的一些系统工具 sudo apt-get update sudo apt-get -y install apt-transport-https"/>
@@ -134,7 +134,7 @@
       <div class="post-meta">
         <span class="post-time"> 2021-12-02 </span>
         
-          <span class="more-meta"> 约 1556 字 </span>
+          <span class="more-meta"> 约 1578 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
         
       </div>
@@ -191,7 +191,7 @@ sudo add-apt-repository <span class="s2">&#34;deb [arch=amd64] https://mirrors.a
 sudo apt -y install docker-ce docker-ce-cli containerd.io
 </code></pre></td></tr></table>
 </div>
-</div><p>修改 Docker 的 Cgroup Driver，编辑 ~/etc/docker/daemon.json~ (没有该文件就新建一个），添加如下参数</p>
+</div><p>修改 Docker 的 Cgroup Driver，编辑<code>/etc/docker/daemon.json</code>(没有该文件就新建一个），添加如下参数</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -491,7 +491,7 @@ kubeadm join 192.168.0.115:6443 --token qdz06o.hwsj4fqbecad870p \
 kubectl apply -f calico.yaml
 </code></pre></td></tr></table>
 </div>
-</div><p>参考Calico官方文档 [[https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#install-calico-with-kubernetes-api-datastore-50-nodes-or-less][Install Calico networking and network policy for on-premises deployments]]</p>
+</div><p>参考Calico官方文档 <a href="https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#install-calico-with-kubernetes-api-datastore-50-nodes-or-less">Install Calico networking and network policy for on-premises deployments</a></p>
 <p>在安装的过程当中很有可能摘取镜像失败导致calico启动失败：</p>
 <p>STATUS可能会是： ~Init:ImagePullBackOff~ ~ErrImagePull~</p>
 <p>这时得想办法手动下载对应版本的 <code>calico/cni</code> 镜像</p>
@@ -603,16 +603,17 @@ dragon-node2    NotReady   &lt;none&gt;                 17s   v1.22.3
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    主题 - 
+    主题 -
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
   
 
   <span class="copyright-year">
-    &copy; 
-    2015 - 
+    &copy;
+    2015 -
     2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
   </span>
 </div>
 

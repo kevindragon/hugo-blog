@@ -6,7 +6,16 @@
     <description>Recent content on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 21 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://kevinjiang.info/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Jul 2022 10:34:39 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker修改时区</title>
+      <link>http://kevinjiang.info/post/cloudnative/docker%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/</link>
+      <pubDate>Fri, 08 Jul 2022 10:34:39 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/cloudnative/docker%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/</guid>
+      <description>修改各Linux发行版本时区为上海 Debian系统 在系统命令行使用 1 2 echo &amp;#34;Asia/Shanghai&amp;#34; &amp;gt; /etc/timezone cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 在Dockerfile使用 1 RUN echo &amp;#34;Asia/Shanghai&amp;#34; &amp;gt; /etc/timezone &amp;amp;&amp;amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 在Dock</description>
+    </item>
+    
     <item>
       <title>Java的Exception体系</title>
       <link>http://kevinjiang.info/post/java/java%E7%9A%84exception%E4%BD%93%E7%B3%BB/</link>
