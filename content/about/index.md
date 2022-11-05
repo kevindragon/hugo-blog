@@ -16,11 +16,15 @@ date: 2017-06-13 10:53:25
 
 # 个人简介
 
-10年工作经验，其中3年团队管理经验，3年大数据/机器学习研发。开朗，乐于分享，喜欢钻研技术。
+12年世界500强工作经验，其中3年团队管理经验，3年大数据/机器学习研发。开朗、乐观、分享，钻研。
 
-# 目前的工作
+# 工作
 
-## 顾问，搜索算法研发工程师 2016/4-至今
+曾在世界500强励讯集团(RELX)工作，担任旗下信息分析公司爱思唯尔的技术经理及研发高级顾问。
+
+励讯集团是世界领先的信息与数据分析提供商，服务于不同行业领域的专业及商业客户。励讯集团帮助科学家作出新的科学发现，帮助律师打赢官司，帮助医生拯救生命，帮助保险公司向顾客提供更低的价格。励讯集团防范欺诈，为纳税人和消费者节省开支。励讯集团帮助公司管理人员与客户建立商业关系。简言之，励讯集团帮助客户做出更好的决策，获得更好的收益，变得更加高效。
+
+## 高级顾问 2016/04-2022/03
 
 公司：励德爱思唯尔信息技术（北京）有限公司
 
@@ -28,17 +32,27 @@ date: 2017-06-13 10:53:25
 带领团队研发法律搜索引擎，使用机器学习优化搜索排序，用户意图识别；
 研发Spark大数据平台，取得巨大的性能提升。
 
-### 项目
+### 主导/参与的项目
+
+#### Query Understanding
+
+使用自然语言处理技术，对专利自然语言查询进行实体识别，结合用户交互设计为专利研究人员提高查询效率，减少查询复杂度。
+角色：Senior Consultant
+职责：参与算法研究，设计整体实施方案
+开发语言/平台：Python，Java，Linux，AWS，Angular
 
 #### Semantic Parsing
 
 使用机器学习方法识别query当中的短语，并通过距离算法提升搜索排序，取得了DCG 2.7%的增长。
-角色：Consultant，开发语言/平台：Python, Java, MarkLogic, Linux, AWS
+角色：Senior Consultant
+职责：参与算法研究
+开发语言/平台：Python, Java, MarkLogic, Linux, AWS
 
 #### Query Augmentation
 
 使用机器学习方法，对大规模语料进行同义词挖掘，对Query进行扩展。
-角色：Consultant，开发语言/平台：Python, MarkLogic, Linux, AWS
+角色：Senior Consultant
+开发语言/平台：Python, MarkLogic, Linux, AWS
 
 #### Dive in Solr
 
@@ -57,17 +71,19 @@ date: 2017-06-13 10:53:25
 
 # 技能
 
-    后端：Python/PHP/Java/Clojure
-    前端：JavaScript/ClojureScript
-    数据库：MySQL
-    搜索引擎：Solr/ElasticSearch/HP IDOL/Sphinx
-    大数据处理：Spark
-    缓存：Memcached
-    编辑器：Emacs/Idea/Vim/Eclipse
-    操作系统：CentOS/Ubuntu/Windows
-    版本管理：Git/CVS
-    机器学习：gensim/word2vec
-    正在学习：深度学习/Solr源码/团队管理/OKR
+```text
+后端：Python/PHP/Java/Clojure
+前端：JavaScript/ClojureScript
+数据库：MySQL
+搜索引擎：Solr/ElasticSearch/HP IDOL/Sphinx
+大数据处理：Spark
+缓存：Memcached
+编辑器：Emacs/Idea/Vim/Eclipse
+操作系统：CentOS/Ubuntu/Windows
+版本管理：Git/CVS
+机器学习：gensim/word2vec
+正在学习：深度学习/Solr源码/团队管理/OKR
+```
 
 # 以往工作经验
 
@@ -119,8 +135,10 @@ date: 2017-06-13 10:53:25
 
 # 在校情况
 
+## 获奖
+
 2008/9	优秀团干
-2005/4	奖学金（三等）
+2008/4	奖学金（三等）
 
 ## 校内职务
 
