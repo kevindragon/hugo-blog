@@ -3,7 +3,35 @@
   
   <url>
     <loc>http://kevinjiang.info/</loc>
-    <lastmod>2022-07-08T10:34:39+08:00</lastmod>
+    <lastmod>2022-11-13T18:13:19+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/post/</loc>
+    <lastmod>2022-11-13T18:13:19+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/python/</loc>
+    <lastmod>2022-11-13T18:13:19+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/post/python/python%E5%8F%98%E9%87%8F%E5%8F%AF%E5%8F%98%E6%80%A7/</loc>
+    <lastmod>2022-11-13T18:13:19+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/</loc>
+    <lastmod>2022-11-13T18:13:19+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -17,20 +45,6 @@
   
   <url>
     <loc>http://kevinjiang.info/post/cloudnative/docker%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/</loc>
-    <lastmod>2022-07-08T10:34:39+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/post/</loc>
-    <lastmod>2022-07-08T10:34:39+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/tags/</loc>
     <lastmod>2022-07-08T10:34:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -102,13 +116,6 @@
   <url>
     <loc>http://kevinjiang.info/post/haskell%E5%9C%A8windows%E4%B8%8A%E7%9A%84%E8%B5%B7%E6%AD%A5/</loc>
     <lastmod>2019-08-17T21:48:21+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/tags/python/</loc>
-    <lastmod>2019-06-26T19:00:10+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

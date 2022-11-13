@@ -6,7 +6,16 @@
     <description>Recent content on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 08 Jul 2022 10:34:39 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 13 Nov 2022 18:13:19 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python变量可变性</title>
+      <link>http://kevinjiang.info/post/python/python%E5%8F%98%E9%87%8F%E5%8F%AF%E5%8F%98%E6%80%A7/</link>
+      <pubDate>Sun, 13 Nov 2022 18:13:19 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/python/python%E5%8F%98%E9%87%8F%E5%8F%AF%E5%8F%98%E6%80%A7/</guid>
+      <description>Python变量的可变与不可变 Mutable and Immutable 可变是一种奇特的说法，即对象的内部状态已更改/突变。 所以，最简单的定义是：内部状态可以改变的对象是可变的</description>
+    </item>
+    
     <item>
       <title>Docker修改时区</title>
       <link>http://kevinjiang.info/post/cloudnative/docker%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/</link>
