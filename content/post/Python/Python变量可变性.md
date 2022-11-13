@@ -10,15 +10,15 @@ Python变量的可变与不可变
 
 可变是一种奇特的说法，即对象的内部状态已更改/突变。 所以，最简单的定义是：内部状态可以改变的对象是可变的。 另一方面，不可变对象一旦创建就不允许对其进行任何更改。这两种状态都是 Python 数据结构的组成部分。
 
-**可变定义**
+# 可变定义
 
 可变是指某些东西是可变的或有能力改变的。 在 Python 中“可变”是对象改变其值的能力。这些通常是存储数据集合的对象。
 
-**不可变定义**
+# 不可变定义
 
 不可变是指随着时间的推移不可能发生变化。 在 Python 中，如果一个对象的值不能随时间改变，那么它就是不可变的。一旦创建，这些对象的值是永久固定的，直到被回收。
 
-**可变和不可变对象列表**
+# 可变和不可变对象列表
 
 内置可变类型：
 
@@ -37,7 +37,7 @@ Python变量的可变与不可变
 
 对象可变性是使 Python 成为动态类型语言的特征之一。尽管 Python 中的 Mutable 和 Immutable 是一个非常基本的概念，但由于不变性的不传递性，它有时会让人有些困惑。
 
-**Python 中的对象**
+# Python 中的对象
 
 在 Python 中，一切都被视为对象。 每个对象都具有以下三个属性：
 
@@ -46,7 +46,7 @@ Type — 这是指创建的对象的类型。 例如：整数、列表、字符�
 Value — 这是指对象存储的值。 例如：List=[1,2,3] 将保存数字 1,2 和 3
 虽然 ID 和 Type 一经创建就无法更改，但 Mutable 对象的值可以更改。
 
-**Python中的可变对象**
+## Python中的可变对象
 
 与其深入研究 Python 中可变和不可变的理论方面，不如用简单的代码来描述它在 Python 中的含义。
 
@@ -89,7 +89,7 @@ print(hex(id(cities)))
 
 现在让我们讨论 Immutable一词。考虑到我们理解 mutable 的含义，很明显 immutable 的定义将包含“不”。这是不可变的最简单定义 —— 内部状态不能改变的对象是不可变的。
 
-**Python中的不可变对象**
+## Python中的不可变对象
 
 同样的，一个简单的代码将是描述不可变代表什么的最佳方式。 因此，让我们逐步讨论以下代码：
 
@@ -216,9 +216,3 @@ print(hex(id(list1)), hex(id(list1[0])), hex(id(list1[1])))
 **元组的不变性**
 
 元组是不可变的，因此一旦在 Python 中创建，它们就不能有任何更改。 这是因为它们支持与字符串相同的序列操作。 我们都知道字符串是不可变的。 索引运算符将从元组中选择一个元素，就像在字符串中一样。 因此，它们是不可变的。
-
-# 参考
-
-[Understanding Mutable and Immutable in Python](https://www.mygreatlearning.com/blog/understanding-mutable-and-immutable-in-python/)
-
-[Mutable vs Immutable Objects in Python](https://medium.com/@meghamohan/mutable-and-immutable-side-of-python-c2145cf72747)
