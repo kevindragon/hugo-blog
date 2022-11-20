@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Python函数式编程之自定义函数get_in - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="Python函数式编程之 get_in 编程语言支持通过以下几种方式来解构具体问题： 大多数的编程语言都是 过程式 的，所谓程序就是一连串告诉计算机怎样处理程序" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师, Java, Spring Boot, Clojure, Scala" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
+
+
+<link rel="canonical" href="http://kevinjiang.info/post/python/python%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0get_in/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Python函数式编程之自定义函数get_in" />
+<meta property="og:description" content="Python函数式编程之 get_in 编程语言支持通过以下几种方式来解构具体问题： 大多数的编程语言都是 过程式 的，所谓程序就是一连串告诉计算机怎样处理程序" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://kevinjiang.info/post/python/python%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0get_in/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-11-19T14:52:25+08:00" />
+<meta property="article:modified_time" content="2022-11-19T14:52:25+08:00" />
+
+<meta itemprop="name" content="Python函数式编程之自定义函数get_in">
+<meta itemprop="description" content="Python函数式编程之 get_in 编程语言支持通过以下几种方式来解构具体问题： 大多数的编程语言都是 过程式 的，所谓程序就是一连串告诉计算机怎样处理程序"><meta itemprop="datePublished" content="2022-11-19T14:52:25+08:00" />
+<meta itemprop="dateModified" content="2022-11-19T14:52:25+08:00" />
+<meta itemprop="wordCount" content="2250">
+<meta itemprop="keywords" content="Python,函数式编程,get in," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python函数式编程之自定义函数get_in"/>
+<meta name="twitter:description" content="Python函数式编程之 get_in 编程语言支持通过以下几种方式来解构具体问题： 大多数的编程语言都是 过程式 的，所谓程序就是一连串告诉计算机怎样处理程序"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Python函数式编程之自定义函数get_in</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-11-19 </span>
+        <div class="post-category">
+            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"> 编程语言 </a>
+            </div>
+          <span class="more-meta"> 约 2250 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#python函数式编程之-get_in">Python函数式编程之 get_in</a></li>
+    <li><a href="#真实案例">真实案例</a>
+      <ul>
+        <li><a href="#get_in函数">get_in函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#结论">结论</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="python函数式编程之-get_in">Python函数式编程之 get_in</h2>
+<p>编程语言支持通过以下几种方式来解构具体问题：</p>
+<ul>
+<li>
+<p>大多数的编程语言都是 <strong>过程式</strong> 的，所谓程序就是一连串告诉计算机怎样处理程序输入的指令。C、Pascal 甚至 Unix shells 都是过程式语言。</p>
+</li>
+<li>
+<p>在 <strong>声明式</strong> 语言中，你编写一个用来描述待解决问题的说明，并且这个语言的具体实现会指明怎样高效的进行计算。 SQL 可能是你最熟悉的声明式语言了。 一个 SQL 查询语句描述了你想要检索的数据集，并且 SQL 引擎会决定是扫描整张表还是使用索引，应该先执行哪些子句等等。</p>
+</li>
+<li>
+<p><strong>面向对象</strong> 程序会操作一组对象。 对象拥有内部状态，并能够以某种方式支持请求和修改这个内部状态的方法。Smalltalk 和 Java 都是面向对象的语言。 C++ 和 Python 支持面向对象编程，但并不强制使用面向对象特性。</p>
+</li>
+<li>
+<p><strong>函数式</strong> 编程则将一个问题分解成一系列函数。 理想情况下，函数只接受输入并输出结果，对一个给定的输入也不会有影响输出的内部状态。 著名的函数式语言有 ML 家族（Standard ML，Ocaml 以及其他变种）和 Haskell。</p>
+<pre><code>  一些语言的设计者选择强调一种特定的编程方式。 这通常会让以不同的方式来编写程序变得困难。其他多范式语言则支持几种不同的编程方式。Lisp，C++ 和 Python 都是多范式语言；使用这些语言，你可以编写主要为过程式，面向对象或者函数式的程序和函数库。在大型程序中，不同的部分可能会采用不同的方式编写；比如 GUI 可能是面向对象的而处理逻辑则是过程式或者函数式。
+  在函数式程序里，输入会流经一系列函数。每个函数接受输入并输出结果。函数式风格反对使用带有副作用的函数，这些副作用会修改内部状态，或者引起一些无法体现在函数的返回值中的变化。完全不产生副作用的函数被称作“纯函数”。消除副作用意味着不能使用随程序运行而更新的数据结构；每个函数的输出必须只依赖于输入。
+</code></pre>
+</li>
+</ul>
+<hr>
+<h2 id="真实案例">真实案例</h2>
+<p>上面是一些基本的理论，在实际的工作当中，经常会看到从一个多层嵌套的字典当中取一个值，会使用连续的下标，但是如果中间某个值并非一个字典，就会导致程序的运行时错误。而这种错误经常得等到代码上线之后才会被发现，开发的时候经常都是测试的正常数据。</p>
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 查询Elasticsearch，获得检索结果</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">es_request</span><span class="p">(</span><span class="s2">&#34;_search&#34;</span><span class="p">,</span> <span class="n">dsl</span><span class="p">)</span>
+<span class="c1"># 从检索结果当中取出结果总数</span>
+<span class="n">total</span> <span class="o">=</span> <span class="n">resp</span><span class="p">[</span><span class="s2">&#34;hits&#34;</span><span class="p">][</span><span class="s2">&#34;total&#34;</span><span class="p">][</span><span class="s2">&#34;value&#34;</span><span class="p">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上面的代码通常不会有问题，因为Elasticsearch的检索结果总是会包含 hits/total/value 这个值，如果没有结果，这个值就为0。但是，看看下面的动态取值：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">value</span> <span class="o">=</span> <span class="n">resp</span><span class="p">[</span><span class="s2">&#34;data&#34;</span><span class="p">][</span><span class="s2">&#34;aggs&#34;</span><span class="p">][</span><span class="n">aggs_key</span><span class="p">][</span><span class="s2">&#34;value&#34;</span><span class="p">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这是在封装了Elasticsearch查询之后的结果，假设是一个叫search_service的微服务，如果aggs下的值为空，那么再取动态的 aggs_key 的值就会报 Key Error 的错误。</p>
+<p>这是在我们产品当中真实发现的情况。下面介绍一个我自己写的，对字典、列表、嵌套字典与列表的取值的通用方法 <code>get_in</code> ，名字来源于 <code>Clojure</code> 的一个内置方法 <code>[get-in](https://clojuredocs.org/clojure.core/get-in)</code> 。</p>
+<p>如果是取一个字典的值，同时又不想得到Key Error的错误，Python提供的一个便捷的方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 定义一个字典对象</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="c1"># 从字典当中取出键为 a 的值，如果键 a 不存在，返回 default value</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;default value&#39;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>字典对象在Python当中有一个get方法，还可以传一个默认值，这样就不会报错了。来看看这个方法的定义与文档</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">[,</span> <span class="n">default</span><span class="p">])</span>
+<span class="n">Return</span> <span class="n">the</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">dictionary</span><span class="p">,</span> <span class="k">else</span> <span class="n">default</span><span class="o">.</span> <span class="n">If</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">given</span><span class="p">,</span> <span class="n">it</span> <span class="n">defaults</span> <span class="n">to</span> <span class="kc">None</span><span class="p">,</span> <span class="n">so</span> <span class="n">that</span> <span class="n">this</span> <span class="n">method</span> <span class="n">never</span> <span class="n">raises</span> <span class="n">a</span> <span class="ne">KeyError</span><span class="o">.</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="get_in函数">get_in函数</h3>
+<p>下面正式介绍我们的get_in函数，看来看函数定义：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="k">def</span> <span class="nf">get_in</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">],</span> <span class="n">ks</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="s2">&#34;&#34;&#34;根据ks指定的键或者索引从字典或者列表当中取值.
+</span><span class="s2">
+</span><span class="s2">    Args:
+</span><span class="s2">        data (dict|list): 字典或者数组，或者两者的嵌套
+</span><span class="s2">        ks (list): 取值路径
+</span><span class="s2">        default (Any): 当没有ks对应的路径是的默认值
+</span><span class="s2">
+</span><span class="s2">    Examples:
+</span><span class="s2">        &gt;&gt;&gt; get_in({&#39;a&#39;: 1}, [&#39;a&#39;])
+</span><span class="s2">        1
+</span><span class="s2">
+</span><span class="s2">        &gt;&gt;&gt; get_in({&#39;a&#39;: {&#39;b&#39;: 2}}, [&#39;a&#39;, &#39;b&#39;])
+</span><span class="s2">        2
+</span><span class="s2">
+</span><span class="s2">        &gt;&gt;&gt; get_in({&#39;a&#39;: [1, 2, 3]}, [&#39;a&#39;, 1])
+</span><span class="s2">        2
+</span><span class="s2">
+</span><span class="s2">        &gt;&gt;&gt; get_in({&#39;a&#39;: {&#39;b&#39;: 2}}, [&#39;a&#39;, &#39;c&#39;], default=9)
+</span><span class="s2">        9
+</span><span class="s2">
+</span><span class="s2">    Returns:
+</span><span class="s2">        Any: 数组或者字典的值
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">data</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ks</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">default</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">cursor</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">default</span>
+        <span class="k">if</span> <span class="n">cursor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">default</span>
+    <span class="k">return</span> <span class="n">cursor</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>咱们对这个函数做一个解释</p>
+<p>第一行的导入语句，从 <code>typing</code> 模块导入类型定义。</p>
+<blockquote>
+<p>虽然Python是强类型的动态语言，但是Python的类型系统是隐式的，在Python 3.7及之后的版本，对类型系统有了比较完善的支持。在定义变量，形式参数的时候都是可以指定变量和参数的类型，这对理解代码是非常有帮助的。</p>
+</blockquote>
+<p>函数定义 <code>get_in(data: Union[Dict, List], ks: List, default={})</code> ，通过形式参数的类型定义可以知道，第一个参数是一个字典或者列表类型的数据，就是我们希望从中获得数据的对象；第二个参数是一个列表，希望传入一个层级的键的一个列表；第三个参数是默认值，如果data当中取不到层级的ks对应的值，则返回default默认值</p>
+<p>通过几个例子来熟悉 <code>get_in</code> 函数的用法</p>
+<p>例一</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">ks</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">get_in</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ks</span><span class="p">,</span> <span class="n">default</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这个比较简单，对一个简单的字典取值，默认返回-1</p>
+<p>例二</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">ks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">get_in</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ks</span><span class="p">,</span> <span class="n">default</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>对一个列表取下标为 <code>1</code> 的值，默认返回-1</p>
+<p>例三</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">}}</span>
+<span class="n">ks</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">get_in</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ks</span><span class="p">,</span> <span class="n">default</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这个数据稍微复杂一点了，字典data的健a对应的是一个列表了。ks表示取键a对应的值下面列表的下标为 <code>1</code> 的值，默认返回-1。最后 <code>v</code> 的结果是 <code>2</code></p>
+<p>例四</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">}}}</span>
+<span class="n">ks</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">get_in</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ks</span><span class="p">,</span> <span class="n">default</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这样就可以取到 9 这个值了</p>
+<p>再看一下取不到值的情况</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">}}}</span>
+<span class="n">ks</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">get_in</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ks</span><span class="p">,</span> <span class="n">default</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>v</code> 的值为 <code>-1</code> ，同时还不会有 Key Error的错误</p>
+<p><code>get_in</code> 函数还可以处理非常复杂，嵌套得非常深的字典与列表的数据。还可以对里面的判断做一个修改，添加自定义类型的支持，对这个函数进行扩展。</p>
+<h2 id="结论">结论</h2>
+<p>Python是一门多范式的编程语言，通过灵活的语言特性可以得到非常灵活、优雅、健壮的代码。看似一下简单的函数，可以通用得处理非常复杂的数据结构。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-11-19
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/python/">Python</a>
+          <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">函数式编程</a>
+          <a href="/tags/get-in/">get in</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/python/python%E5%8F%98%E9%87%8F%E5%8F%AF%E5%8F%98%E6%80%A7/">
+            <span class="next-text nav-default">Python变量可变性</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://kevinjiang.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2015 -
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?b73ff6d4afc4af9e582d8a5dc068bab9";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>
