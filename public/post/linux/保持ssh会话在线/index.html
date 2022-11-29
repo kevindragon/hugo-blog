@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>保持SSH会话在线 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="保持SSH会话在线 1. 概览 有多少次，我们想要保持SSH会话一直处于连接状态，以保持应用程序运行，或者只是避免在返回我们使用的SSH窗口时感到沮" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师, Java, Spring Boot, Clojure, Scala" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
+
+
+<link rel="canonical" href="http://kevinjiang.info/post/linux/%E4%BF%9D%E6%8C%81ssh%E4%BC%9A%E8%AF%9D%E5%9C%A8%E7%BA%BF/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="保持SSH会话在线" />
+<meta property="og:description" content="保持SSH会话在线 1. 概览 有多少次，我们想要保持SSH会话一直处于连接状态，以保持应用程序运行，或者只是避免在返回我们使用的SSH窗口时感到沮" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://kevinjiang.info/post/linux/%E4%BF%9D%E6%8C%81ssh%E4%BC%9A%E8%AF%9D%E5%9C%A8%E7%BA%BF/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-11-29T20:53:42+08:00" />
+<meta property="article:modified_time" content="2022-11-29T20:53:42+08:00" />
+
+<meta itemprop="name" content="保持SSH会话在线">
+<meta itemprop="description" content="保持SSH会话在线 1. 概览 有多少次，我们想要保持SSH会话一直处于连接状态，以保持应用程序运行，或者只是避免在返回我们使用的SSH窗口时感到沮"><meta itemprop="datePublished" content="2022-11-29T20:53:42+08:00" />
+<meta itemprop="dateModified" content="2022-11-29T20:53:42+08:00" />
+<meta itemprop="wordCount" content="1766">
+<meta itemprop="keywords" content="SSH,SSH会话,SSH客户端," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="保持SSH会话在线"/>
+<meta name="twitter:description" content="保持SSH会话在线 1. 概览 有多少次，我们想要保持SSH会话一直处于连接状态，以保持应用程序运行，或者只是避免在返回我们使用的SSH窗口时感到沮"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">保持SSH会话在线</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-11-29 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            </div>
+          <span class="more-meta"> 约 1766 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-概览">1. 概览</a></li>
+    <li><a href="#2-为什么ssh会关闭连接">2. 为什么SSH会关闭连接？</a></li>
+    <li><a href="#3-设置配置文件">3. 设置配置文件</a>
+      <ul>
+        <li><a href="#31-客户端配置">3.1 客户端配置</a></li>
+        <li><a href="#32-服务端配置文件">3.2. 服务端配置文件</a></li>
+        <li><a href="#33-为什么不设置为从不断开连接">3.3. 为什么不设置为从不断开连接？</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-结论">4. 结论</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="保持ssh会话在线">保持SSH会话在线</h1>
+<h2 id="1-概览">1. 概览</h2>
+<p>有多少次，我们想要保持SSH会话一直处于连接状态，以保持应用程序运行，或者只是避免在返回我们使用的SSH窗口时感到沮丧。
+在本教程中，你将获得如何通过防止SSH会话超时，直到你关闭终端窗口。</p>
+<h2 id="2-为什么ssh会关闭连接">2. 为什么SSH会关闭连接？</h2>
+<p>我们为了使用SSH登录到服务器上，目的服务器上的守护进程（sshd）一定是保持运行状态。如果SSH客户端一段时间没有发送到目的服务器，服务器会在超过一段时间后关闭连接。</p>
+<p>为了防止关闭SSH连接，我们可以在客户端或者服务端进行配置。</p>
+<!-- raw HTML omitted -->
+<h2 id="3-设置配置文件">3. 设置配置文件</h2>
+<p>有几个配置文件可以修改，以保持SSH会话的连接，避免超时。要看是从客户端配置还是服务端配置。</p>
+<h3 id="31-客户端配置">3.1 客户端配置</h3>
+<p>客户端文件位置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$HOME/.ssh/config
+</code></pre></td></tr></table>
+</div>
+</div><p>如果我们使用使用 <code>cat $HOME/.ssh/config</code> ，可能会得到一个错误信息 “no file found”。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ cat <span class="nv">$HOME</span>/.ssh/config
+cat: /.ssh/config: No such file or directory
+</code></pre></td></tr></table>
+</div>
+</div><p>如果我们看到这个错误消息，意味着我们需要手动创建这个配置文件。如果 <code>.ssh</code> 目录不存在，首先创建 <code>.ssh</code> 目录，使用命令 <code>mkdir $HOME/.ssh</code> 来创建目录，如果提示目录已经存在，我们将会看到一个消息 “File exists”，请忽略即可；如果目录创建成功，我们不会看到任何输出信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir <span class="nv">$HOME</span>/.ssh
+</code></pre></td></tr></table>
+</div>
+</div><p>然后创建配置文件 <code>touch $HOME/.ssh/config</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ touch <span class="nv">$HOME</span>/.ssh/config
+</code></pre></td></tr></table>
+</div>
+</div><p>一旦我们创建好配置文件，我们还需要使用 <code>chmod</code> 修改配置文件的权限，不能让所有人都可以编辑这个配置文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ chmod <span class="m">600</span> <span class="nv">$HOME</span>/.ssh/config
+</code></pre></td></tr></table>
+</div>
+</div><p>现在我们可以任何编辑器来编辑这个配置文件了，比如 <code>nano</code> 或者 <code>vim</code> ，在终端使用 <code>vim $HOME/.ssh/config</code> 打开配置文件。</p>
+<p>现在让我们来添加一些配置信息到配置文件里面。在 <code>vim</code> 按 <code>i</code> 进入编辑模式，然后输入下面的内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Host example
+    Hostname example.com
+    ServerAliveInterval 240
+</code></pre></td></tr></table>
+</div>
+</div><p>上面的配置信息，仅在SSH会议连接到<strong>example</strong>这个域的时候才会生效。</p>
+<p><em>ServerAliveInterval</em> 设置了客户端在发送保持连接信号之前的等待时间。</p>
+<p>然后按 <code>ESC</code> 键，进入vim的命令模式，连续输入 <code>:wq</code> 保存退出vim编辑器。</p>
+<p>另外可以把 <code>example</code> 换成 <code>*</code> 来指定所有的域的配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Host *
+    ServerAliveInterval 240
+</code></pre></td></tr></table>
+</div>
+</div><p>我们可以使用上面同样的步骤来编辑和保存配置文件。</p>
+<h3 id="32-服务端配置文件">3.2. 服务端配置文件</h3>
+<p>在某些情况下，我们可能可以访问服务器上的配置文件。如果是这种情况，我们可以配置何时希望服务器关闭SSH连接。</p>
+<p>在服务器上编辑配置文件的过程与客户端配置文件类似，但有一些不同。</p>
+<p>首先，服务器端配置文件的文件位置是 <code>/etc/ssh/sshd_config</code> ；</p>
+<p>现在我们使用 vim 把 <em><code>ClientAliveInterval</code></em> 添加到配置文件，注意，这里是 <code>&quot;Client&quot;</code> 而不是 <code>&quot;Server&quot;</code> ，跟上面客户端的配置是不一样的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">ClientAliveInterval <span class="m">60</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>ClientAliveInterval</code> 是以秒为单位指定的超时间隔。如果服务器从客户端接收数据的时间超过了超时间隔，则服务器将向客户端发送请求响应的消息。</p>
+<h3 id="33-为什么不设置为从不断开连接">3.3. 为什么不设置为从不断开连接？</h3>
+<p>虽然将SSH会话设置为永不断开可能很诱人，但在某些情况下，我们更明智的做法是为SSH设置超时。</p>
+<p>如果我们连接的服务器是我们自己维护的服务器，那么设置超时可能没有充分的理由。然而，如果我们在AWS E3这样的平台上托管我们的服务器，如果我们不设置超时，代价可能会很高。许多云托管平台使用服务器时每分钟收费，即使我们不积极使用SSH会话，保持SSH会话持续运行也会增加成本。</p>
+<p>要在 <code>客户端</code> 上配置超时，我们可以在与上面相同的配置文件中使用ServerAliveCountMax配置项来设置尝试的次数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Host *
+    ServerAliveInterval <span class="m">240</span>
+    ServerAliveCountMax <span class="m">2</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>客户端继续每240秒发送一次信号，客户端现在还将侦听来自服务器的信号。如果它两次执行ServerAliveInterval而没有收到信号，它将关闭SSH会话。</p>
+<p>同样的，我们可以在服务器上做同样的配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ClientAliveInterval 60
+ClientAliveCountMax 2
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>注意，服务器上的配置没有 <code>Host *</code> 的配置项</p>
+</blockquote>
+<p>这将每60秒从服务器向客户端发送一次信号。如果它经过两次 <code>ClientAliveInterval</code> 而没有从客户端收到信号，则服务器将关闭SSH会话。</p>
+<p>SSH会话超时，这通常是由于客户端和服务器之间的网络断开。</p>
+<p>在大多数情况下，客户端配置需要设置为低于服务器默认超时的值。默认情况下，服务器上禁用连接终止，因此如果不想更改此行为，我们不需要调整服务器配置。</p>
+<p>如果没有为ServerAliveCountMax或ClientAliveCountMax提供值，则默认值3将应用于两者。</p>
+<h2 id="4-结论">4. 结论</h2>
+<p>在本文中，我们学习了如何在客户端和服务器端计算机上创建SSH设置的配置文件。然后，我们研究了哪些配置可以防止SSH会话超时。最后，总结一下我们不应该将SSH会话设置为永不断开的一些原因。</p>
+<p>有关配置文件的其他选项的更多信息，请查看 <a href="https://man.openbsd.org/ssh_config">client-side man file</a> 或 <a href="https://man.openbsd.org/sshd_config">server-side man file</a>。</p>
+<p>For more information on additional options for the config files take a look at the <a href="https://man.openbsd.org/ssh_config">client-side man file</a> or the <a href="https://man.openbsd.org/sshd_config">server-side man file</a>.</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-11-29
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ssh/">SSH</a>
+          <a href="/tags/ssh%E4%BC%9A%E8%AF%9D/">SSH会话</a>
+          <a href="/tags/ssh%E5%AE%A2%E6%88%B7%E7%AB%AF/">SSH客户端</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/python/python%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0get_in/">
+            <span class="next-text nav-default">Python函数式编程之自定义函数get_in</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://kevinjiang.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2015 -
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?b73ff6d4afc4af9e582d8a5dc068bab9";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

@@ -6,7 +6,16 @@
     <description>Recent content on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 19 Nov 2022 14:52:25 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 29 Nov 2022 20:53:42 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>保持SSH会话在线</title>
+      <link>http://kevinjiang.info/post/linux/%E4%BF%9D%E6%8C%81ssh%E4%BC%9A%E8%AF%9D%E5%9C%A8%E7%BA%BF/</link>
+      <pubDate>Tue, 29 Nov 2022 20:53:42 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/linux/%E4%BF%9D%E6%8C%81ssh%E4%BC%9A%E8%AF%9D%E5%9C%A8%E7%BA%BF/</guid>
+      <description>保持SSH会话在线 1. 概览 有多少次，我们想要保持SSH会话一直处于连接状态，以保持应用程序运行，或者只是避免在返回我们使用的SSH窗口时感到沮</description>
+    </item>
+    
     <item>
       <title>Python函数式编程之自定义函数get_in</title>
       <link>http://kevinjiang.info/post/python/python%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0get_in/</link>

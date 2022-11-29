@@ -3,27 +3,69 @@
   
   <url>
     <loc>http://kevinjiang.info/</loc>
-    <lastmod>2022-11-19T14:52:25+08:00</lastmod>
+    <lastmod>2022-11-29T20:53:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://kevinjiang.info/categories/</loc>
-    <lastmod>2022-11-19T14:52:25+08:00</lastmod>
+    <lastmod>2022-11-29T20:53:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://kevinjiang.info/tags/get-in/</loc>
-    <lastmod>2022-11-19T14:52:25+08:00</lastmod>
+    <loc>http://kevinjiang.info/categories/linux/</loc>
+    <lastmod>2022-11-29T20:53:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://kevinjiang.info/post/</loc>
+    <lastmod>2022-11-29T20:53:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/ssh/</loc>
+    <lastmod>2022-11-29T20:53:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/ssh%E4%BC%9A%E8%AF%9D/</loc>
+    <lastmod>2022-11-29T20:53:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/ssh%E5%AE%A2%E6%88%B7%E7%AB%AF/</loc>
+    <lastmod>2022-11-29T20:53:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/</loc>
+    <lastmod>2022-11-29T20:53:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/post/linux/%E4%BF%9D%E6%8C%81ssh%E4%BC%9A%E8%AF%9D%E5%9C%A8%E7%BA%BF/</loc>
+    <lastmod>2022-11-29T20:53:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/get-in/</loc>
     <lastmod>2022-11-19T14:52:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -38,13 +80,6 @@
   
   <url>
     <loc>http://kevinjiang.info/post/python/python%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0get_in/</loc>
-    <lastmod>2022-11-19T14:52:25+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/tags/</loc>
     <lastmod>2022-11-19T14:52:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -262,13 +297,6 @@
   
   <url>
     <loc>http://kevinjiang.info/tags/proxy/</loc>
-    <lastmod>2018-07-07T18:48:55+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/tags/ssh/</loc>
     <lastmod>2018-07-07T18:48:55+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

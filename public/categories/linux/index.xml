@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on (power up)</title>
+    <link>http://kevinjiang.info/categories/linux/</link>
+    <description>Recent content in Linux on (power up)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 29 Nov 2022 20:53:42 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>保持SSH会话在线</title>
+      <link>http://kevinjiang.info/post/linux/%E4%BF%9D%E6%8C%81ssh%E4%BC%9A%E8%AF%9D%E5%9C%A8%E7%BA%BF/</link>
+      <pubDate>Tue, 29 Nov 2022 20:53:42 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/linux/%E4%BF%9D%E6%8C%81ssh%E4%BC%9A%E8%AF%9D%E5%9C%A8%E7%BA%BF/</guid>
+      <description>保持SSH会话在线 1. 概览 有多少次，我们想要保持SSH会话一直处于连接状态，以保持应用程序运行，或者只是避免在返回我们使用的SSH窗口时感到沮</description>
+    </item>
+    
+  </channel>
+</rss>
