@@ -3,7 +3,56 @@
   
   <url>
     <loc>http://kevinjiang.info/</loc>
-    <lastmod>2022-12-01T12:44:21+08:00</lastmod>
+    <lastmod>2022-12-01T15:46:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/categories/</loc>
+    <lastmod>2022-12-01T15:46:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/mysql/</loc>
+    <lastmod>2022-12-01T15:46:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/post/mysql/mysql%E5%AF%BC%E5%85%A5csv%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2022-12-01T15:46:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/post/</loc>
+    <lastmod>2022-12-01T15:46:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/</loc>
+    <lastmod>2022-12-01T15:46:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2022-12-01T15:46:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2022-12-01T15:46:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -18,27 +67,6 @@
   <url>
     <loc>http://kevinjiang.info/post/cloudnative/docker%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8F%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E5%A7%BF%E5%8A%BF/</loc>
     <lastmod>2022-12-01T12:44:21+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/post/</loc>
-    <lastmod>2022-12-01T12:44:21+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/tags/</loc>
-    <lastmod>2022-12-01T12:44:21+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/categories/</loc>
-    <lastmod>2022-11-29T20:53:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
