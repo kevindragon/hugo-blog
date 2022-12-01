@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Docker删除镜像的另外一种姿势 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="Docker删除镜像的另外一种姿势 我们来看一下官方 docker image rm 的文档 是的，你没有看错，就是这么简单，没有非常详细的解释。当你碰到下面的情况的时候，" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师, Java, Spring Boot, Clojure, Scala" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
+
+
+<link rel="canonical" href="http://kevinjiang.info/post/cloudnative/docker%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8F%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E5%A7%BF%E5%8A%BF/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Docker删除镜像的另外一种姿势" />
+<meta property="og:description" content="Docker删除镜像的另外一种姿势 我们来看一下官方 docker image rm 的文档 是的，你没有看错，就是这么简单，没有非常详细的解释。当你碰到下面的情况的时候，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://kevinjiang.info/post/cloudnative/docker%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8F%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E5%A7%BF%E5%8A%BF/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-12-01T12:44:21+08:00" />
+<meta property="article:modified_time" content="2022-12-01T12:44:21+08:00" />
+
+<meta itemprop="name" content="Docker删除镜像的另外一种姿势">
+<meta itemprop="description" content="Docker删除镜像的另外一种姿势 我们来看一下官方 docker image rm 的文档 是的，你没有看错，就是这么简单，没有非常详细的解释。当你碰到下面的情况的时候，"><meta itemprop="datePublished" content="2022-12-01T12:44:21+08:00" />
+<meta itemprop="dateModified" content="2022-12-01T12:44:21+08:00" />
+<meta itemprop="wordCount" content="376">
+<meta itemprop="keywords" content="Docker," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker删除镜像的另外一种姿势"/>
+<meta name="twitter:description" content="Docker删除镜像的另外一种姿势 我们来看一下官方 docker image rm 的文档 是的，你没有看错，就是这么简单，没有非常详细的解释。当你碰到下面的情况的时候，"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Docker删除镜像的另外一种姿势</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-12-01 </span>
+        
+          <span class="more-meta"> 约 376 字 </span>
+          <span class="more-meta"> 预计阅读 1 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#none-none"><code>&lt;none&gt; &lt;none&gt;</code></a></li>
+    <li><a href="#使用符号">使用@符号</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="docker删除镜像的另外一种姿势">Docker删除镜像的另外一种姿势</h1>
+<p>我们来看一下官方 <code>docker image rm</code> 的文档</p>
+<p><img src="/img/CloudNative/Docker/docker-image-rm.png" alt="docker image rm"></p>
+<p>是的，你没有看错，就是这么简单，没有非常详细的解释。当你碰到下面的情况的时候，很有可能就不知道所措了。</p>
+<h2 id="none-none"><code>&lt;none&gt; &lt;none&gt;</code></h2>
+<p>当你使用使用 <code>docker images</code> 查看镜像列表的时候，很有可能你会看到下面这样的一些镜像列表</p>
+<p><img src="/img/CloudNative/Docker/docker-none-none.png" alt="docker none none"></p>
+<p>还有可能多个tag对象到同一个镜像，像下面这样</p>
+<p><img src="/img/CloudNative/Docker/docker-same-image-sha256.png" alt="docker same image sha256"></p>
+<p>这时候直接通过 <code>IMAGE ID</code> 删除镜像，会得到如下的提示内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker image rm 3635ffe4971c
+Error response from daemon: conflict: unable to delete 3635ffe4971c <span class="o">(</span>must be forced<span class="o">)</span> - image is referenced in multiple repositories
+</code></pre></td></tr></table>
+</div>
+</div><p>提示不能删除这个镜像，因为有多个 <code>repositories</code> 使用了这个镜像</p>
+<p>上面第一种情况比较好处理，直接使用命令 <code>docker image rm IMAGE_ID</code> 即可删除，可是第二种情况就不行了。</p>
+<h2 id="使用符号">使用@符号</h2>
+<p>这时我们使用另外一种方式，使用 <code>@</code> 符号把 <code>REPOSITORY</code> 和 <code>sha256</code> 连接起来进行删除。</p>
+<p>首先得找到 <code>sha256</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker images --digests
+
+vision/front                snapshot             sha256:5e6012aa7c3c0143833c5fede8238aea09b3981d6b8f16c3fc638017f5d2adbc   3635ffe4971c   <span class="m">3</span> months ago        81.5MB
+lookout/front               &lt;none&gt;               sha256:5e6012aa7c3c0143833c5fede8238aea09b3981d6b8f16c3fc638017f5d2adbc   3635ffe4971c   <span class="m">3</span> months ago        81.5MB
+</code></pre></td></tr></table>
+</div>
+</div><p>得到 <code>sha256</code> 哈希码之后</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker image rm lookout/front@sha256:5e6012aa7c3c0143833c5fede8238aea09b3981d6b8f16c3fc638017f5d2adbc
+
+Untagged: lookout/front@sha256:5e6012aa7c3c0143833c5fede8238aea09b3981d6b8f16c3fc638017f5d2adbc
+</code></pre></td></tr></table>
+</div>
+</div><p>命令执行完成后，就会把这个tag删除。然后把剩余的一个 <code>repository</code> 删除即可。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-12-01
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/docker/">Docker</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/linux/%E4%BF%9D%E6%8C%81ssh%E4%BC%9A%E8%AF%9D%E5%9C%A8%E7%BA%BF/">
+            <span class="next-text nav-default">保持SSH会话在线</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://kevinjiang.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2015 -
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?b73ff6d4afc4af9e582d8a5dc068bab9";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>
