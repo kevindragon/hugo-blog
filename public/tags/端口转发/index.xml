@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>端口转发 on (power up)</title>
+    <link>http://kevinjiang.info/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/</link>
+    <description>Recent content in 端口转发 on (power up)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 24 Feb 2023 10:53:42 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用MobaXterm做端口转发</title>
+      <link>http://kevinjiang.info/post/linux/%E4%BD%BF%E7%94%A8mobaxterm%E5%81%9A%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/</link>
+      <pubDate>Fri, 24 Feb 2023 10:53:42 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/linux/%E4%BD%BF%E7%94%A8mobaxterm%E5%81%9A%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/</guid>
+      <description>SSH端口转发的作用 SSH端口转发是一种网络技术，它允许用户通过SSH连接到远程主机并在两个计算机之间安全地传输数据。SSH端口转发将本地端</description>
+    </item>
+    
+  </channel>
+</rss>

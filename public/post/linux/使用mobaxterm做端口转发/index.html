@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用MobaXterm做端口转发 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="SSH端口转发的作用 SSH端口转发是一种网络技术，它允许用户通过SSH连接到远程主机并在两个计算机之间安全地传输数据。SSH端口转发将本地端" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师, Java, Spring Boot, Clojure, Scala" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
+
+
+<link rel="canonical" href="http://kevinjiang.info/post/linux/%E4%BD%BF%E7%94%A8mobaxterm%E5%81%9A%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用MobaXterm做端口转发" />
+<meta property="og:description" content="SSH端口转发的作用 SSH端口转发是一种网络技术，它允许用户通过SSH连接到远程主机并在两个计算机之间安全地传输数据。SSH端口转发将本地端" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://kevinjiang.info/post/linux/%E4%BD%BF%E7%94%A8mobaxterm%E5%81%9A%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-02-24T10:53:42+08:00" />
+<meta property="article:modified_time" content="2023-02-24T10:53:42+08:00" />
+
+<meta itemprop="name" content="使用MobaXterm做端口转发">
+<meta itemprop="description" content="SSH端口转发的作用 SSH端口转发是一种网络技术，它允许用户通过SSH连接到远程主机并在两个计算机之间安全地传输数据。SSH端口转发将本地端"><meta itemprop="datePublished" content="2023-02-24T10:53:42+08:00" />
+<meta itemprop="dateModified" content="2023-02-24T10:53:42+08:00" />
+<meta itemprop="wordCount" content="1555">
+<meta itemprop="keywords" content="SSH,MobaXterm,SSH端口转发,端口转发," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用MobaXterm做端口转发"/>
+<meta name="twitter:description" content="SSH端口转发的作用 SSH端口转发是一种网络技术，它允许用户通过SSH连接到远程主机并在两个计算机之间安全地传输数据。SSH端口转发将本地端"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用MobaXterm做端口转发</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-02-24 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            <a href="/categories/ssh/"> SSH </a>
+            </div>
+          <span class="more-meta"> 约 1555 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ssh端口转发的作用">SSH端口转发的作用</a></li>
+    <li><a href="#ssh端口转发的应用场景">SSH端口转发的应用场景</a></li>
+    <li><a href="#mobaxterm软件">MobaXterm软件</a>
+      <ul>
+        <li><a href="#配置mobaxterm端口转发访问服务器内网的数据库案例">配置MobaXterm端口转发访问服务器内网的数据库案例</a></li>
+        <li><a href="#socks协议">Socks协议</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="ssh端口转发的作用">SSH端口转发的作用</h2>
+<p>SSH端口转发是一种网络技术，它允许用户通过SSH连接到远程主机并在两个计算机之间安全地传输数据。SSH端口转发将本地端口绑定到远程主机上的一个端口，从而允许用户在本地主机上运行服务并让远程主机访问该服务。</p>
+<p>SSH端口转发可以用于以下几种情况：</p>
+<ol>
+<li><strong>安全访问远程服务</strong>：在某些情况下，用户需要访问远程主机上的服务，但是这些服务可能不安全或未加密。使用SSH端口转发，用户可以通过SSH隧道连接到远程主机，并将本地端口绑定到远程主机上的服务端口，从而安全地访问远程服务。</li>
+<li><strong>绕过防火墙限制</strong>：某些网络环境下，防火墙可能会限制对某些端口的访问。使用SSH端口转发，用户可以将本地端口绑定到远程主机上的允许端口，并通过SSH隧道访问被限制的服务。</li>
+<li><strong>远程调试应用程序</strong>：使用SSH端口转发，开发人员可以在本地主机上运行调试器，并将本地端口绑定到远程主机上的应用程序端口，从而可以在本地主机上调试远程应用程序。</li>
+</ol>
+<p>SSH端口转发是一种强大的网络技术，可以帮助用户安全地访问远程服务，绕过防火墙限制以及进行远程调试应用程序等操作。</p>
+<h2 id="ssh端口转发的应用场景">SSH端口转发的应用场景</h2>
+<p>SSH端口转发可以用于以下场景：</p>
+<ol>
+<li><strong>访问本地服务</strong>：在某些情况下，用户需要访问本地主机上的服务，但是该主机无法公开访问。使用SSH端口转发，用户可以将本地服务端口绑定到远程主机上的端口，从而在远程主机上访问本地服务。</li>
+<li><strong>跳板机访问内网服务</strong>：在企业内部网络中，某些服务可能只能在内网中访问。使用SSH端口转发，用户可以通过跳板机访问内网服务，而无需直接暴露内网服务。</li>
+<li><strong>安全文件传输</strong>：使用SSH端口转发，用户可以在两台主机之间安全地传输文件，而无需将文件暴露在公共网络中。</li>
+</ol>
+<p>SSH端口转发是一种非常有用的网络技术，可以帮助用户在各种场景下安全地访问服务和传输数据。</p>
+<h2 id="mobaxterm软件">MobaXterm软件</h2>
+<p>MobaXterm是一款功能强大的终端软件，不仅支持SSH连接，还支持端口转发功能。在MobaXterm中进行端口转发非常简单，只需要在SSH会话中配置端口转发规则即可。用户可以通过MobaXterm实现安全访问远程服务、绕过防火墙限制、访问本地服务、跳板机访问内网服务以及安全文件传输等操作。</p>
+<h3 id="配置mobaxterm端口转发访问服务器内网的数据库案例">配置MobaXterm端口转发访问服务器内网的数据库案例</h3>
+<p>假设用户需要从本地主机访问远程服务器内网中的数据库，可以使用MobaXterm进行端口转发。首先，在MobaXterm中创建一个SSH会话到远程服务器，然后在“端口转发”选项卡中添加一个新的端口转发规则。用户需要将本地主机上任意一个端口绑定到远程服务器上的数据库端口（通常是3306），并选择“本地端口绑定到远程端口”选项。然后，用户可以在本地主机上使用数据库客户端连接到绑定的本地端口，从而访问远程服务器内网中的数据库。</p>
+<ol>
+<li>
+<p>首先找到工具栏上的 <code>Tunneling</code> 按钮，如图1</p>
+<p><img src="/img/Linux/SSH/MobaXterm/Tunneling.png" alt="图1"></p>
+<p>图1</p>
+</li>
+<li>
+<p>在弹出的 <code>MobaSSHTunnel</code> 窗口的左下角点击 <code>New SSH tunnel</code> 按钮，如图2</p>
+<p><img src="/img/Linux/SSH/MobaXterm/New-SSH-tunnel.png" alt="图2"></p>
+<p>图2</p>
+</li>
+<li>
+<p>在弹出的配置窗口，填写本地监听的端口 <code>Forwarded port</code> ， <code>SSH server</code> <code>SSH login</code> <code>SSH port</code> ，然后是目标服务器的IP地址和端口 <code>Remote server</code> <code>Remote port</code></p>
+<p><img src="/img/Linux/SSH/MobaXterm/SSH-Tunnel-configuration.png" alt="图3"></p>
+<p>图3</p>
+<p><code>SSH login</code> 指得是登录跳板机的用户名</p>
+<p>可以把登录的服务器当中跳板机，把本地的端口转发到内网的其他机器</p>
+</li>
+</ol>
+<p>当然，还有更简单的一行命令就可以搞定的方式 😁</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">ssh -L local_port:remote_server:remote_port ssh_login@ssh_host_or_ip
+</code></pre></td></tr></table>
+</div>
+</div><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>local_port</td>
+<td>本地监听端口</td>
+</tr>
+<tr>
+<td>remote_server</td>
+<td>目标服务器内网IP</td>
+</tr>
+<tr>
+<td>remote_port</td>
+<td>目标服务器端口</td>
+</tr>
+<tr>
+<td>ssh_login</td>
+<td>跳板机使用用户名</td>
+</tr>
+<tr>
+<td>ssh_host_or_ip</td>
+<td>跳板机的host或者ip</td>
+</tr>
+</tbody>
+</table>
+<h3 id="socks协议">Socks协议</h3>
+<p>偷偷的告诉你，还可以使用这种方式来进行socks协议的转发，这个办法可以用来科学上网哟 😀上</p>
+<h2 id="总结">总结</h2>
+<p>SSH端口转发是一种非常有用的网络技术，可以在各种场景下帮助用户安全地访问服务和传输数据。MobaXterm是一款功能强大的终端软件，支持SSH连接和端口转发功能。在MobaXterm中进行端口转发非常简单，用户可以通过MobaXterm实现访问内网服务、安全文件传输、安全访问远程服务等操作。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-02-24
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ssh/">SSH</a>
+          <a href="/tags/mobaxterm/">MobaXterm</a>
+          <a href="/tags/ssh%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/">SSH端口转发</a>
+          <a href="/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/">端口转发</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/%E6%98%AF%E4%BB%80%E4%B9%88%E9%80%A0%E5%B0%B1%E4%BA%86%E9%AB%98%E7%BA%A7%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%BC%96%E5%86%99%E8%BD%AF%E4%BB%B6%E8%BF%98%E6%98%AF%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/">
+            <span class="next-text nav-default">是什么造就了高级工程师？编写软件还是构建系统</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://kevinjiang.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2015 -
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?b73ff6d4afc4af9e582d8a5dc068bab9";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>
