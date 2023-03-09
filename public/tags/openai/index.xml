@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OpenAI on (power up)</title>
+    <link>http://kevinjiang.info/tags/openai/</link>
+    <description>Recent content in OpenAI on (power up)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 09 Mar 2023 21:55:02 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/openai/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>10行代码调用ChatGPT</title>
+      <link>http://kevinjiang.info/post/ai/openai/10%E8%A1%8C%E4%BB%A3%E7%A0%81%E8%B0%83%E7%94%A8chatgpt/</link>
+      <pubDate>Thu, 09 Mar 2023 21:55:02 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/ai/openai/10%E8%A1%8C%E4%BB%A3%E7%A0%81%E8%B0%83%E7%94%A8chatgpt/</guid>
+      <description>OpenAI无疑是人工智能应用领域的领先者之一。该组织致力于研究人工智能的前沿技术，以及探索如何将这些技术应用于实际问题。它的研究和开发项目</description>
+    </item>
+    
+  </channel>
+</rss>

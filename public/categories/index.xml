@@ -6,7 +6,16 @@
     <description>Recent content in Categories on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 09 Mar 2023 20:53:42 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Mar 2023 21:55:02 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>OpenAI</title>
+      <link>http://kevinjiang.info/categories/openai/</link>
+      <pubDate>Thu, 09 Mar 2023 21:55:02 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/categories/openai/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>TypeScript</title>
       <link>http://kevinjiang.info/categories/typescript/</link>
