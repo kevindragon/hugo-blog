@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>如何编写一个TypeScript库 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="编写模块化的代码是一个非常不错的想法，没有比编写一个库更加模块化了。那要如何编写一个TypeScript库呢？这就是本文的意图，本文的代码可" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师, Java, Spring Boot, Clojure, Scala" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
+
+
+<link rel="canonical" href="http://kevinjiang.info/post/typescript/%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAtypescript%E5%BA%93/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="如何编写一个TypeScript库" />
+<meta property="og:description" content="编写模块化的代码是一个非常不错的想法，没有比编写一个库更加模块化了。那要如何编写一个TypeScript库呢？这就是本文的意图，本文的代码可" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://kevinjiang.info/post/typescript/%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAtypescript%E5%BA%93/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-03-09T20:53:42+08:00" />
+<meta property="article:modified_time" content="2023-03-09T20:53:42+08:00" />
+
+<meta itemprop="name" content="如何编写一个TypeScript库">
+<meta itemprop="description" content="编写模块化的代码是一个非常不错的想法，没有比编写一个库更加模块化了。那要如何编写一个TypeScript库呢？这就是本文的意图，本文的代码可"><meta itemprop="datePublished" content="2023-03-09T20:53:42+08:00" />
+<meta itemprop="dateModified" content="2023-03-09T20:53:42+08:00" />
+<meta itemprop="wordCount" content="1540">
+<meta itemprop="keywords" content="TypeScript," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="如何编写一个TypeScript库"/>
+<meta name="twitter:description" content="编写模块化的代码是一个非常不错的想法，没有比编写一个库更加模块化了。那要如何编写一个TypeScript库呢？这就是本文的意图，本文的代码可"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/resume/">
+        <li class="mobile-menu-item">简历</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resume/">简历</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">如何编写一个TypeScript库</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-03-09 </span>
+        <div class="post-category">
+            <a href="/categories/typescript/"> TypeScript </a>
+            </div>
+          <span class="more-meta"> 约 1540 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#第一步设置tsconfigjson">第一步∶设置tsconfig.json</a></li>
+    <li><a href="#第二步实现你的库">第二步：实现你的库</a></li>
+    <li><a href="#第三步创建一个-indexts-文件">第三步：创建一个 index.ts 文件</a></li>
+    <li><a href="#第四步配置-packagejson">第四步：配置 package.json</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>编写模块化的代码是一个非常不错的想法，没有比编写一个库更加模块化了。那要如何编写一个TypeScript库呢？这就是本文的意图，本文的代码可以运行在<strong>TypeScript 2.x 3.x和4.x</strong>上。</p>
+<!-- raw HTML omitted -->
+<h2 id="第一步设置tsconfigjson">第一步∶设置tsconfig.json</h2>
+<p>创建一个项目目录，本文目录名称为 <code>typescript-library</code> ，然后在这个目录下面添加配置文件 <code>tsconfig.json</code> 文件内容类似于下面这样：</p>
+<p>typescript-library/tsconfig.json</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;compilerOptions&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;module&#34;</span><span class="p">:</span> <span class="s2">&#34;commonjs&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;target&#34;</span><span class="p">:</span> <span class="s2">&#34;es2015&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;declaration&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&#34;outDir&#34;</span><span class="p">:</span> <span class="s2">&#34;./dist&#34;</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;include&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&#34;src/**/*&#34;</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这跟平常配置一个一般的项目差不多，唯一需要强调的一点就是，需要添加 <code>&quot;declaration&quot;: true</code> 字段。有了这个配置，编译后的代码会生成以 <code>.d.ts</code> 结尾的文件，这些文件里面会包含代码里面的类型。如果别人在使用你写的代码，他们就会从TypeScript的类型系统中获得自动补全的好处，类型安全的好处。</p>
+<p>关于其他选项，让我们快速浏览一下：如果你想让你的代码与大多数当前的node.js应用程序无缝运行，那么<code>&quot;module&quot;: &quot;commonjs&quot;</code>模块编译器选项是必需的。如果你正在构建一个面向浏览器的库，那么请将其替换为<code>&quot;module&quot;: &quot;esnext&quot;</code>。<code>&quot;target&quot;: &quot;es2015&quot;</code>指定你的代码将被转译成哪个版本的JavaScript。这需要与你想要支持的最旧的node.js版本（或最旧的浏览器）保持一致。将编译目标选择为<code>es2015</code>可以使你的库与node.js版本8及以上版本兼容。<code>&quot;outDir&quot;: &quot;./dist&quot;</code>将把你编译后的文件写入到dist文件夹中，<code>&quot;include&quot;</code>选项指定你的源代码存放位置。</p>
+<h2 id="第二步实现你的库">第二步：实现你的库</h2>
+<p>就像你不写库代码，同样的方式。创建一个src文件夹，把你的所有库源代码（程序逻辑，数据，资产）都放在这个目录。</p>
+<p>For this demo, we&rsquo;ll setup a silly <code>hello-world.ts</code> file, that looks like so:</p>
+<p>为了这个demo，我们将写一个不太实用的<code>hello-world.ts</code>文件，看起来像这样：</p>
+<p>typescript-library/src/hello-world.ts</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-TypeScript" data-lang="TypeScript"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">sayHello() {</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;hi&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">sayGoodbye() {</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;goodbye&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="第三步创建一个-indexts-文件">第三步：创建一个 index.ts 文件</h2>
+<p>在您的<code>src</code>文件夹中添加一个<code>index.ts</code>文件。它的目的是导出您希望供消费者使用的库的所有部分。在我们的例子中，它只是：</p>
+<p>typescript-library/src/index.ts</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-TypeScript" data-lang="TypeScript"><span class="kr">export</span> <span class="p">{</span><span class="nx">sayHello</span><span class="p">,</span> <span class="nx">sayGoodbye</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;./hello-world&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>消费者以后可以像这样使用库：</p>
+<p>someotherproject/src/somefile.ts</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-TypeScript" data-lang="TypeScript"><span class="kr">import</span> <span class="p">{</span><span class="nx">sayHello</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;hwrld&#39;</span>
+<span class="nx">sayHello</span><span class="p">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>You see that we have a new name here, &ldquo;hwrld&rdquo;, we haven&rsquo;t seen anywhere yet. What is this name? It&rsquo;s the name of the library you&rsquo;re gonna publish to npm also known as the package name!</p>
+<p>你看到我们有一个新的名字叫做“hwrld”，我们还没有在任何地方见过。这是什么名字呢？这是你要发布到npm的库的名字，也叫做包名！</p>
+<h2 id="第四步配置-packagejson">第四步：配置 package.json</h2>
+<p>包名是消费者以后用来从您的库中导入功能的。 对于此demo，我选择了<code>hwrld</code>，因为它仍然可以在npm上使用。 包名通常位于<code>package.json</code>的顶部。 整个<code>package.json</code>看起来如下：</p>
+<p>typescript-library/package.json</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;hwrld&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;1.0.0&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;Can log \&#34;hello world\&#34; and \&#34;goodbye world\&#34; to the console!&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;main&#34;</span><span class="p">:</span> <span class="s2">&#34;dist/index.js&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;types&#34;</span><span class="p">:</span> <span class="s2">&#34;dist/index.d.ts&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;files&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&#34;/dist&#34;</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>如果你还没有一个包，你可以使用<code>npm init</code>来创建一个，它会指导你完成整个过程。记住，你选择的包名将被人们用于他们的imports，所以要明智地选择！</p>
+<p>在 <code>package.json</code> 中还有一项非常重要的标志：您必须声明在哪里找到类型声明！ 这是通过 <code>&quot;types&quot;: &quot;dist/index.d.ts&quot;</code> 来完成的，否则消费者将无法找到您的模块！</p>
+<p>最后一个属性<code>files</code>可以帮助您包含想要发布到npm的文件。 这通常比使用 <code>.npmignore</code>文件更容易更安全。因为具体指定了这个库会发布的文件及目录列表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tsc
+npm publish
+</code></pre></td></tr></table>
+</div>
+</div><p>现在您已经准备就绪！ 通过运行可以在任何地方消费您的库：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">npm install --save hwrld
+</code></pre></td></tr></table>
+</div>
+</div><p>下面是如何调用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-TypeScript" data-lang="TypeScript"><span class="kr">import</span> <span class="p">{</span><span class="nx">sayHello</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;hwrld&#39;</span>
+<span class="nx">sayHello</span><span class="p">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>对于后续发布，请使用semvar原则。当您对库进行补丁/错误修复时，可以运行<code>npm version patch</code>，对新功能运行<code>npm version minor</code>，对api的重大更改运行<code>npm version major</code>。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-03-09
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/typescript/">TypeScript</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/linux/%E4%BD%BF%E7%94%A8mobaxterm%E5%81%9A%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/">
+            <span class="next-text nav-default">使用MobaXterm做端口转发</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://kevinjiang.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2015 -
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?b73ff6d4afc4af9e582d8a5dc068bab9";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

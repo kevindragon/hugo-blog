@@ -6,7 +6,16 @@
     <description>Recent content in Tags on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 24 Feb 2023 10:53:42 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Mar 2023 20:53:42 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TypeScript</title>
+      <link>http://kevinjiang.info/tags/typescript/</link>
+      <pubDate>Thu, 09 Mar 2023 20:53:42 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/tags/typescript/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>MobaXterm</title>
       <link>http://kevinjiang.info/tags/mobaxterm/</link>

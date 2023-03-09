@@ -6,7 +6,16 @@
     <description>Recent content in Posts on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 24 Feb 2023 10:53:42 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Mar 2023 20:53:42 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何编写一个TypeScript库</title>
+      <link>http://kevinjiang.info/post/typescript/%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAtypescript%E5%BA%93/</link>
+      <pubDate>Thu, 09 Mar 2023 20:53:42 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/typescript/%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAtypescript%E5%BA%93/</guid>
+      <description>编写模块化的代码是一个非常不错的想法，没有比编写一个库更加模块化了。那要如何编写一个TypeScript库呢？这就是本文的意图，本文的代码可</description>
+    </item>
+    
     <item>
       <title>使用MobaXterm做端口转发</title>
       <link>http://kevinjiang.info/post/linux/%E4%BD%BF%E7%94%A8mobaxterm%E5%81%9A%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/</link>
