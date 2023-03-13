@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rsync on (power up)</title>
+    <link>http://kevinjiang.info/tags/rsync/</link>
+    <description>Recent content in rsync on (power up)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 13 Mar 2023 09:14:42 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/rsync/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rsync的强大之处-不全面指南</title>
+      <link>http://kevinjiang.info/post/linux/rsync%E7%9A%84%E5%BC%BA%E5%A4%A7%E4%B9%8B%E5%A4%84-%E4%B8%8D%E5%85%A8%E9%9D%A2%E6%8C%87%E5%8D%97/</link>
+      <pubDate>Mon, 13 Mar 2023 09:14:42 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/linux/rsync%E7%9A%84%E5%BC%BA%E5%A4%A7%E4%B9%8B%E5%A4%84-%E4%B8%8D%E5%85%A8%E9%9D%A2%E6%8C%87%E5%8D%97/</guid>
+      <description>介绍 rsync是一个强大的工具，已经存在了相当长的时间。它代表远程同步，用于在两个不同的系统之间同步文件和目录。它是一个流行的命令行实用程序</description>
+    </item>
+    
+  </channel>
+</rss>

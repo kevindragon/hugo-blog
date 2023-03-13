@@ -6,11 +6,20 @@
     <description>Recent content in Linux on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 30 Jun 2017 16:14:20 +0000</lastBuildDate><atom:link href="http://kevinjiang.info/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Mar 2023 09:14:42 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rsync的强大之处-不全面指南</title>
+      <link>http://kevinjiang.info/post/linux/rsync%E7%9A%84%E5%BC%BA%E5%A4%A7%E4%B9%8B%E5%A4%84-%E4%B8%8D%E5%85%A8%E9%9D%A2%E6%8C%87%E5%8D%97/</link>
+      <pubDate>Mon, 13 Mar 2023 09:14:42 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/linux/rsync%E7%9A%84%E5%BC%BA%E5%A4%A7%E4%B9%8B%E5%A4%84-%E4%B8%8D%E5%85%A8%E9%9D%A2%E6%8C%87%E5%8D%97/</guid>
+      <description>介绍 rsync是一个强大的工具，已经存在了相当长的时间。它代表远程同步，用于在两个不同的系统之间同步文件和目录。它是一个流行的命令行实用程序</description>
+    </item>
+    
     <item>
       <title>nfs安装配置</title>
       <link>http://kevinjiang.info/post/linux/nfs%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</link>
-      <pubDate>Fri, 30 Jun 2017 16:14:20 +0000</pubDate>
+      <pubDate>Fri, 30 Jun 2017 16:14:20 +0800</pubDate>
       
       <guid>http://kevinjiang.info/post/linux/nfs%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</guid>
       <description>记录一下nfs的安装配置以备忘 环境 server CentOS Linux release 7.3.1611 client CentOS Linux release 7.2.1511 Server 安装 1 yum install -y nfs-utils rpcbind 修改配置文件/etc/expots 1 /opt/tmp *(rw,sync) 启动nfs server端 1 2</description>
