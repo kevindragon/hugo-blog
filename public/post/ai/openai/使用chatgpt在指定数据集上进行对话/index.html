@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用ChatGPT在指定数据集上进行对话 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="ChatGPT不全面简介 ChatGPT是一种基于预训练的自然语言生成模型，是GPT系列模型的一种。ChatGPT的论文并没有公开发表，最相关" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师, Java, Spring Boot, Clojure, Scala" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
+
+
+<link rel="canonical" href="http://kevinjiang.info/post/ai/openai/%E4%BD%BF%E7%94%A8chatgpt%E5%9C%A8%E6%8C%87%E5%AE%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%AF%B9%E8%AF%9D/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用ChatGPT在指定数据集上进行对话" />
+<meta property="og:description" content="ChatGPT不全面简介 ChatGPT是一种基于预训练的自然语言生成模型，是GPT系列模型的一种。ChatGPT的论文并没有公开发表，最相关" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://kevinjiang.info/post/ai/openai/%E4%BD%BF%E7%94%A8chatgpt%E5%9C%A8%E6%8C%87%E5%AE%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%AF%B9%E8%AF%9D/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-03-14T21:47:12+08:00" />
+<meta property="article:modified_time" content="2023-03-14T21:47:12+08:00" />
+
+<meta itemprop="name" content="使用ChatGPT在指定数据集上进行对话">
+<meta itemprop="description" content="ChatGPT不全面简介 ChatGPT是一种基于预训练的自然语言生成模型，是GPT系列模型的一种。ChatGPT的论文并没有公开发表，最相关"><meta itemprop="datePublished" content="2023-03-14T21:47:12+08:00" />
+<meta itemprop="dateModified" content="2023-03-14T21:47:12+08:00" />
+<meta itemprop="wordCount" content="2327">
+<meta itemprop="keywords" content="ChatGPT,In-Context Learning," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用ChatGPT在指定数据集上进行对话"/>
+<meta name="twitter:description" content="ChatGPT不全面简介 ChatGPT是一种基于预训练的自然语言生成模型，是GPT系列模型的一种。ChatGPT的论文并没有公开发表，最相关"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/resume/">
+        <li class="mobile-menu-item">简历</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resume/">简历</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用ChatGPT在指定数据集上进行对话</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-03-14 </span>
+        
+          <span class="more-meta"> 约 2327 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#在指定数据集上进行对话">在指定数据集上进行对话</a></li>
+    <li><a href="#流程图">流程图</a></li>
+    <li><a href="#分步骤实现">分步骤实现</a></li>
+    <li><a href="#见证奇迹的时刻">见证奇迹的时刻</a></li>
+    <li><a href="#结论">结论</a></li>
+    <li><a href="#服务">服务</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="chatgpt不全面简介">ChatGPT不全面简介</h1>
+<p>ChatGPT是一种基于预训练的自然语言生成模型，是GPT系列模型的一种。ChatGPT的论文并没有公开发表，最相关的一篇工作就是<a href="https://arxiv.org/abs/2203.02155">InstructGPT（Training language models to follow instructions with human feedback）</a>了，发表时间是2022年3月4日。</p>
+<!-- raw HTML omitted -->
+<p><img src="/img/AI/OpenAI/%E4%BD%BF%E7%94%A8ChatGPT%E5%9C%A8%E6%8C%87%E5%AE%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%AF%B9%E8%AF%9D/InstructGPT.png" alt="InstructGPT"></p>
+<p>InstructGPT基于GPT-3.5来训练的，但是GPT-3.5官方并没有释放出来。InstructGPT是结合了RLHF（reinforcement learning from human feedback）（Christiano et al., 2017; Stiennon et al., 2020）—基于人工反馈的强化学习方法 — 训练出来的文本生成模型。</p>
+<p>上面的图展示了InstractGPT训练的三个过程：</p>
+<ol>
+<li>从prompt数据库当中采样prompt列表，通过人工标注，用于对GPT-3进行微调；</li>
+<li>训练强化学习的奖励模型，采用的方法是输入prompt到多个模型，人工标注生成的内容的相关性；通过标注的相关性数据训练奖励模型；</li>
+<li>使用奖励模型来优化InstructGPT models (PPO-ptx)。</li>
+</ol>
+<h2 id="在指定数据集上进行对话">在指定数据集上进行对话</h2>
+<p>什么意思呢？举个栗子，给定你一个文本文件，让ChatGPT根据给定的文本内容来回答你提出的问题。下面看一个具体的例子，我在阅读InstructGPT的论文的时候，英文不太好，摘要不想，就让ChatGPT告诉我摘要在讲什么，还得中文回答我：</p>
+<p><img src="/img/AI/OpenAI/%E4%BD%BF%E7%94%A8ChatGPT%E5%9C%A8%E6%8C%87%E5%AE%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%AF%B9%E8%AF%9D/Chat1.png" alt="Chat1"></p>
+<p>看这个回答还是太长了，我得让他再精简一点，要求50个字讲清楚：</p>
+<p><img src="/img/AI/OpenAI/%E4%BD%BF%E7%94%A8ChatGPT%E5%9C%A8%E6%8C%87%E5%AE%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%AF%B9%E8%AF%9D/Chat2.png" alt="Chat2"></p>
+<p>虽然对字段的精确理解还差了一些，但确实短了不少😄。</p>
+<p>现在来讲一下大概的原理。GPT模型本身就是一个<a href="https://arxiv.org/pdf/2301.00234.pdf">In-context learning</a>的过程，可以根据给定的上下文，生成与上下文非常相关的内容。</p>
+<p>有了这个原理，我们就有思路了，如果是一个给定的数据集，而不是一段文本呢？另外，还有一个信息非常重要，我们是使用OpenAI的官方API（gpt-3.5-turbo模型）来实现这个demo，OpenAI的API的token数量是有限制的，所以上下文的内容长度是有限制的。那么很明显了，需要把问题和问题相关的文本块要像上面那样去组织，然后丢给OpenAI的API来回答即可。</p>
+<h2 id="流程图">流程图</h2>
+<p>我们来画个流程图</p>
+<p><img src="/img/AI/OpenAI/%E4%BD%BF%E7%94%A8ChatGPT%E5%9C%A8%E6%8C%87%E5%AE%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%AF%B9%E8%AF%9D/Flowchat.png" alt="Flowchat"></p>
+<h2 id="分步骤实现">分步骤实现</h2>
+<p>首先把准备的语料切分成文本块，官方给的例子是按句子进行切分，然后合并相邻的两个句子，如果合并后的长度在500个token以内就保留合并的内容，如果超过这个阈值就不合并。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">split_into_many</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">500</span><span class="p">):</span>
+    <span class="n">sentences</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;. &#39;</span><span class="p">)</span>
+    <span class="n">n_tokens</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34; &#34;</span> <span class="o">+</span> <span class="n">sentence</span><span class="p">))</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">]</span>
+    <span class="n">chunks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tokens_so_far</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">chunk</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">sentence</span><span class="p">,</span> <span class="n">token</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sentences</span><span class="p">,</span> <span class="n">n_tokens</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">tokens_so_far</span> <span class="o">+</span> <span class="n">token</span> <span class="o">&gt;</span> <span class="n">max_tokens</span><span class="p">:</span>
+            <span class="n">chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&#34;. &#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;.&#34;</span><span class="p">)</span>
+            <span class="n">chunk</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">tokens_so_far</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">token</span> <span class="o">&gt;</span> <span class="n">max_tokens</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">chunk</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+        <span class="n">tokens_so_far</span> <span class="o">+=</span> <span class="n">token</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">chunks</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这个<code>split_into_many</code>函数就是对一大段文本进行切分用的，按照<code>.</code> 分割文本，分割后以max_tokens为阈值进行合并。最后返回文本块数组。</p>
+<p>有了文本块数组之后，调用OpenAI的API接口，把每个文本块变成一个向量。</p>
+<p>先来看embedding函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">embedding</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">Embedding</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&#34;text-embedding-ada-002&#34;</span><span class="p">)</span>
+    <span class="n">embeddings</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;embedding&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">embeddings</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>embedding函数非常简单，调用openai.Embedding.create函数就能得到一个文本的向量表示了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">tiktoken</span>
+
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">tiktoken</span><span class="o">.</span><span class="n">get_encoding</span><span class="p">(</span><span class="s2">&#34;cl100k_base&#34;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">convert_embeddings</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]]:</span>
+    <span class="n">token_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+    <span class="n">texts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">token_size</span> <span class="o">&gt;</span> <span class="n">max_tokens</span><span class="p">:</span>
+        <span class="n">texts</span> <span class="o">=</span> <span class="n">split_into_many</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">max_tokens</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">n_tokens</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">text</span><span class="p">))</span> <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">]</span>
+    <span class="n">embeddings</span> <span class="o">=</span> <span class="p">[</span><span class="n">embedding</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">text</span><span class="p">,</span> <span class="n">n_token</span><span class="p">,</span> <span class="n">embedding</span><span class="p">)</span> <span class="k">for</span> <span class="n">text</span><span class="p">,</span> <span class="n">n_token</span><span class="p">,</span> <span class="n">embedding</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="n">n_tokens</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里需要一个tiktoken包，来对文本进行token的切分（注意这里的token不是分词，而是<a href="https://huggingface.co/course/chapter6/6?fw=pt#wordpiece-tokenization">WordPiece tokenization</a>）。convert_embeddings接收一个文本，然后返回一个文本列表、每个文本token数量，以及文本的向量表示。</p>
+<p>接下来就是把问题表示成向量，组织context了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">openai.embeddings_utils</span> <span class="kn">import</span> <span class="n">distances_from_embeddings</span>
+
+<span class="k">def</span> <span class="nf">create_context</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">max_len</span><span class="o">=</span><span class="mi">1800</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">&#34;ada&#34;</span><span class="p">):</span>
+    <span class="n">q_embeddings</span> <span class="o">=</span> <span class="n">embedding</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;texts&#34;</span><span class="p">,</span> <span class="s2">&#34;n_tokens&#34;</span><span class="p">,</span> <span class="s2">&#34;embeddings&#34;</span><span class="p">])</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;distances&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">distances_from_embeddings</span><span class="p">(</span><span class="n">q_embeddings</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;embeddings&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">distance_metric</span><span class="o">=</span><span class="s1">&#39;cosine&#39;</span><span class="p">)</span>
+    <span class="n">returns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cur_len</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;distances&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">cur_len</span> <span class="o">+=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;n_tokens&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">4</span>
+        <span class="k">if</span> <span class="n">cur_len</span> <span class="o">&gt;</span> <span class="n">max_len</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">returns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&#34;texts&#34;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="s2">&#34;</span><span class="se">\n\n</span><span class="s2">###</span><span class="se">\n\n</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">returns</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这是首先调用OpenAI的API把问题文本变成向量。把上一步生成的语料向量变成pandas的DataFrame（便于计算），调用distances_from_embeddings计算问题向量和语料向量里面每个文本向量的余弦相似度，按照相似度降序列表候选答案，使用换行以及###合并多个候选答案文本。</p>
+<p>最后一步，很关键的一步，调用OpenAI接口在候选答案中生成回答内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">context</span> <span class="o">=</span> <span class="n">create_context</span><span class="p">(</span>
+    <span class="n">question</span><span class="p">,</span>
+    <span class="n">rows</span><span class="p">,</span>
+    <span class="n">max_len</span><span class="o">=</span><span class="n">max_len</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">Completion</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">prompt</span><span class="o">=</span><span class="p">(</span><span class="s2">&#34;Answer the question based on the context below, &#34;</span>
+            <span class="s2">&#34;and if the question can&#39;t be answered based on the context, say </span><span class="se">\&#34;</span><span class="s2">I don&#39;t know</span><span class="se">\&#34;\n\n</span><span class="s2">&#34;</span>
+            <span class="sa">f</span><span class="s2">&#34;Context: </span><span class="si">{</span><span class="n">context</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">---</span><span class="se">\n\n</span><span class="s2">Question: </span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="se">\n</span><span class="s2">Answer:&#34;</span><span class="p">),</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">max_tokens</span><span class="o">=</span><span class="n">max_tokens</span><span class="p">,</span>
+    <span class="n">top_p</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">frequency_penalty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">presence_penalty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">stop</span><span class="o">=</span><span class="n">stop_sequence</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">openai_gpt_config</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里很重要的一点就是prompt的设计。<code>Answer the question based on the context below</code>这一句首先在限定答案来源，<code>if the question can't be answered based on the context, say &quot;I don't know&quot;</code>这一句提示模型在不能回答的时候输出<code>i don’t know</code>，接着把Context和question付在后面。</p>
+<h2 id="见证奇迹的时刻">见证奇迹的时刻</h2>
+<p>后面就是见证奇迹的时刻了，我做了一个demo，可以上传pdf，然后可以问任何关于pdf内容的问题</p>
+<p><img src="/img/AI/OpenAI/%E4%BD%BF%E7%94%A8ChatGPT%E5%9C%A8%E6%8C%87%E5%AE%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%AF%B9%E8%AF%9D/Demo.png" alt="Demo"></p>
+<h2 id="结论">结论</h2>
+<p>大模型时代的到来，人工智能离我们越来越近，各种应用肯定会如雨后春笋般涌现。OpenAI开放了更多更强的API也给了我们更多的瞎想和可能性。OpenAI开发的ChatGPT可以实现</p>
+<ol>
+<li>相应用户输入并生成类似人类的文本；</li>
+<li>可生成多种格式和样式的文本，例如段落、列表和要点；</li>
+<li>帮助程序员调试代码或给出建议；</li>
+<li>提供时事、历史、科学等各种主题信息。</li>
+</ol>
+<p>ChatGPT是一种基于预训练的自然语言生成模型，属于GPT系列模型之一，具有广泛的落地场景和发展潜力。未来，它可以与图形模态的AIGC相结合，打造从文字描述到图片生成的AI辅助工具。ChatGPT的上线推动了文本类AI在文本生产、智能批阅等应用领域的发展，并且对训练模型的改进具有广泛的意义。</p>
+<h2 id="服务">服务</h2>
+<p>如果您有集成AI服务的需求，请联系我，对我还不了解？没有关系，请阅读我的<a href="/resume/">简历</a>，希望可以与您合作 ^_^</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-03-14
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/chatgpt/">ChatGPT</a>
+          <a href="/tags/in-context-learning/">In-Context Learning</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/linux/rsync%E7%9A%84%E5%BC%BA%E5%A4%A7%E4%B9%8B%E5%A4%84-%E4%B8%8D%E5%85%A8%E9%9D%A2%E6%8C%87%E5%8D%97/">
+            <span class="next-text nav-default">rsync的强大之处-不全面指南</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://kevinjiang.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2015 -
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?b73ff6d4afc4af9e582d8a5dc068bab9";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

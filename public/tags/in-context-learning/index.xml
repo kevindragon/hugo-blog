@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>ChatGPT on (power up)</title>
-    <link>http://kevinjiang.info/tags/chatgpt/</link>
-    <description>Recent content in ChatGPT on (power up)</description>
+    <title>In-Context Learning on (power up)</title>
+    <link>http://kevinjiang.info/tags/in-context-learning/</link>
+    <description>Recent content in In-Context Learning on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 14 Mar 2023 21:47:12 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/chatgpt/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 14 Mar 2023 21:47:12 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/in-context-learning/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用ChatGPT在指定数据集上进行对话</title>
       <link>http://kevinjiang.info/post/ai/openai/%E4%BD%BF%E7%94%A8chatgpt%E5%9C%A8%E6%8C%87%E5%AE%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%AF%B9%E8%AF%9D/</link>
@@ -14,15 +14,6 @@
       
       <guid>http://kevinjiang.info/post/ai/openai/%E4%BD%BF%E7%94%A8chatgpt%E5%9C%A8%E6%8C%87%E5%AE%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%AF%B9%E8%AF%9D/</guid>
       <description>ChatGPT不全面简介 ChatGPT是一种基于预训练的自然语言生成模型，是GPT系列模型的一种。ChatGPT的论文并没有公开发表，最相关</description>
-    </item>
-    
-    <item>
-      <title>10行代码调用ChatGPT</title>
-      <link>http://kevinjiang.info/post/ai/openai/10%E8%A1%8C%E4%BB%A3%E7%A0%81%E8%B0%83%E7%94%A8chatgpt/</link>
-      <pubDate>Thu, 09 Mar 2023 21:55:02 +0800</pubDate>
-      
-      <guid>http://kevinjiang.info/post/ai/openai/10%E8%A1%8C%E4%BB%A3%E7%A0%81%E8%B0%83%E7%94%A8chatgpt/</guid>
-      <description>OpenAI无疑是人工智能应用领域的领先者之一。该组织致力于研究人工智能的前沿技术，以及探索如何将这些技术应用于实际问题。它的研究和开发项目</description>
     </item>
     
   </channel>
