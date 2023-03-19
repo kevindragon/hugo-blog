@@ -211,14 +211,14 @@ Caused by: java.net.ConnectException: Connection refused
 <td class="lntd">
 <pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">LettuceConnectionConfiguration</span> <span class="kd">extends</span> <span class="n">RedisConnectionConfiguration</span> <span class="o">{</span>
   <span class="kd">private</span> <span class="n">LettuceConnectionFactory</span> <span class="nf">createLettuceConnectionFactory</span><span class="o">(</span><span class="n">LettuceClientConfiguration</span> <span class="n">clientConfiguration</span><span class="o">)</span> <span class="o">{</span>
-		<span class="k">if</span> <span class="o">(</span><span class="n">getSentinelConfig</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-			<span class="k">return</span> <span class="k">new</span> <span class="n">LettuceConnectionFactory</span><span class="o">(</span><span class="n">getSentinelConfig</span><span class="o">(),</span> <span class="n">clientConfiguration</span><span class="o">);</span>
-		<span class="o">}</span>
-		<span class="k">if</span> <span class="o">(</span><span class="n">getClusterConfiguration</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-			<span class="k">return</span> <span class="k">new</span> <span class="n">LettuceConnectionFactory</span><span class="o">(</span><span class="n">getClusterConfiguration</span><span class="o">(),</span> <span class="n">clientConfiguration</span><span class="o">);</span>
-		<span class="o">}</span>
-		<span class="k">return</span> <span class="k">new</span> <span class="n">LettuceConnectionFactory</span><span class="o">(</span><span class="n">getStandaloneConfig</span><span class="o">(),</span> <span class="n">clientConfiguration</span><span class="o">);</span>
-	<span class="o">}</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">getSentinelConfig</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="n">LettuceConnectionFactory</span><span class="o">(</span><span class="n">getSentinelConfig</span><span class="o">(),</span> <span class="n">clientConfiguration</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">getClusterConfiguration</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="n">LettuceConnectionFactory</span><span class="o">(</span><span class="n">getClusterConfiguration</span><span class="o">(),</span> <span class="n">clientConfiguration</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">LettuceConnectionFactory</span><span class="o">(</span><span class="n">getStandaloneConfig</span><span class="o">(),</span> <span class="n">clientConfiguration</span><span class="o">);</span>
+  <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -248,27 +248,27 @@ Caused by: java.net.ConnectException: Connection refused
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">protected</span> <span class="kd">final</span> <span class="n">RedisStandaloneConfiguration</span> <span class="nf">getStandaloneConfig</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">standaloneConfiguration</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-			<span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">standaloneConfiguration</span><span class="o">;</span>
-		<span class="o">}</span>
-		<span class="n">RedisStandaloneConfiguration</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RedisStandaloneConfiguration</span><span class="o">();</span>
-		<span class="k">if</span> <span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">hasText</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getUrl</span><span class="o">()))</span> <span class="o">{</span>
-			<span class="n">ConnectionInfo</span> <span class="n">connectionInfo</span> <span class="o">=</span> <span class="n">parseUrl</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getUrl</span><span class="o">());</span>
-			<span class="n">config</span><span class="o">.</span><span class="na">setHostName</span><span class="o">(</span><span class="n">connectionInfo</span><span class="o">.</span><span class="na">getHostName</span><span class="o">());</span>
-			<span class="n">config</span><span class="o">.</span><span class="na">setPort</span><span class="o">(</span><span class="n">connectionInfo</span><span class="o">.</span><span class="na">getPort</span><span class="o">());</span>
-			<span class="n">config</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="n">connectionInfo</span><span class="o">.</span><span class="na">getUsername</span><span class="o">());</span>
-			<span class="n">config</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="n">RedisPassword</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">connectionInfo</span><span class="o">.</span><span class="na">getPassword</span><span class="o">()));</span>
-		<span class="o">}</span>
-		<span class="k">else</span> <span class="o">{</span>
-			<span class="n">config</span><span class="o">.</span><span class="na">setHostName</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getHost</span><span class="o">());</span>
-			<span class="n">config</span><span class="o">.</span><span class="na">setPort</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getPort</span><span class="o">());</span>
-			<span class="n">config</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getUsername</span><span class="o">());</span>
-			<span class="n">config</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="n">RedisPassword</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getPassword</span><span class="o">()));</span>
-		<span class="o">}</span>
-		<span class="n">config</span><span class="o">.</span><span class="na">setDatabase</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getDatabase</span><span class="o">());</span>
-		<span class="k">return</span> <span class="n">config</span><span class="o">;</span>
-	<span class="o">}</span>
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kd">final</span> <span class="n">RedisStandaloneConfiguration</span> <span class="nf">getStandaloneConfig</span><span class="o">()</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">standaloneConfiguration</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">standaloneConfiguration</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="n">RedisStandaloneConfiguration</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RedisStandaloneConfiguration</span><span class="o">();</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">hasText</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getUrl</span><span class="o">()))</span> <span class="o">{</span>
+    <span class="n">ConnectionInfo</span> <span class="n">connectionInfo</span> <span class="o">=</span> <span class="n">parseUrl</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getUrl</span><span class="o">());</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">setHostName</span><span class="o">(</span><span class="n">connectionInfo</span><span class="o">.</span><span class="na">getHostName</span><span class="o">());</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">setPort</span><span class="o">(</span><span class="n">connectionInfo</span><span class="o">.</span><span class="na">getPort</span><span class="o">());</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="n">connectionInfo</span><span class="o">.</span><span class="na">getUsername</span><span class="o">());</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="n">RedisPassword</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">connectionInfo</span><span class="o">.</span><span class="na">getPassword</span><span class="o">()));</span>
+  <span class="o">}</span>
+  <span class="k">else</span> <span class="o">{</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">setHostName</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getHost</span><span class="o">());</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">setPort</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getPort</span><span class="o">());</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getUsername</span><span class="o">());</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="n">RedisPassword</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getPassword</span><span class="o">()));</span>
+  <span class="o">}</span>
+  <span class="n">config</span><span class="o">.</span><span class="na">setDatabase</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getDatabase</span><span class="o">());</span>
+  <span class="k">return</span> <span class="n">config</span><span class="o">;</span>
+<span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>在 <code>RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();</code> 这一行创建了一个默认的配置。</p>
@@ -282,11 +282,11 @@ Caused by: java.net.ConnectException: Connection refused
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DEFAULT_HOST</span> <span class="o">=</span> <span class="s">&#34;localhost&#34;</span><span class="o">;</span>
-	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">DEFAULT_PORT</span> <span class="o">=</span> <span class="n">6379</span><span class="o">;</span>
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DEFAULT_HOST</span> <span class="o">=</span> <span class="s">&#34;localhost&#34;</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">DEFAULT_PORT</span> <span class="o">=</span> <span class="n">6379</span><span class="o">;</span>
 
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">hostName</span> <span class="o">=</span> <span class="n">DEFAULT_HOST</span><span class="o">;</span>
-	<span class="kd">private</span> <span class="kt">int</span> <span class="n">port</span> <span class="o">=</span> <span class="n">DEFAULT_PORT</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">hostName</span> <span class="o">=</span> <span class="n">DEFAULT_HOST</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kt">int</span> <span class="n">port</span> <span class="o">=</span> <span class="n">DEFAULT_PORT</span><span class="o">;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>You see! 这里默认配置的是 <code>localhost</code> 在spring.redis.host里面的配置根本没有生效。</p>
@@ -306,16 +306,16 @@ Caused by: java.net.ConnectException: Connection refused
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java">  <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${spring.redis.host}&#34;</span><span class="o">)</span>
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">redisHost</span><span class="o">;</span>
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${spring.redis.host}&#34;</span><span class="o">)</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">redisHost</span><span class="o">;</span>
 
-	<span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${spring.redis.port}&#34;</span><span class="o">)</span>
-	<span class="kd">private</span> <span class="n">Integer</span> <span class="n">redisPort</span><span class="o">;</span>
+<span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${spring.redis.port}&#34;</span><span class="o">)</span>
+<span class="kd">private</span> <span class="n">Integer</span> <span class="n">redisPort</span><span class="o">;</span>
 
-  <span class="nd">@Bean</span>
-	<span class="kd">public</span> <span class="n">LettuceConnectionFactory</span> <span class="nf">redisConnectionFactory</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">return</span> <span class="k">new</span> <span class="n">LettuceConnectionFactory</span><span class="o">(</span><span class="k">new</span> <span class="n">RedisStandaloneConfiguration</span><span class="o">(</span><span class="n">redisHost</span><span class="o">,</span> <span class="n">redisPort</span><span class="o">));</span>
-	<span class="o">}</span>
+<span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="n">LettuceConnectionFactory</span> <span class="nf">redisConnectionFactory</span><span class="o">()</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="n">LettuceConnectionFactory</span><span class="o">(</span><span class="k">new</span> <span class="n">RedisStandaloneConfiguration</span><span class="o">(</span><span class="n">redisHost</span><span class="o">,</span> <span class="n">redisPort</span><span class="o">));</span>
+<span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
 </div>

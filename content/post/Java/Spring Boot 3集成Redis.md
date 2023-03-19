@@ -44,41 +44,41 @@ spring:
 ```java
 class LettuceConnectionConfiguration extends RedisConnectionConfiguration {
   private LettuceConnectionFactory createLettuceConnectionFactory(LettuceClientConfiguration clientConfiguration) {
-		if (getSentinelConfig() != null) {
-			return new LettuceConnectionFactory(getSentinelConfig(), clientConfiguration);
-		}
-		if (getClusterConfiguration() != null) {
-			return new LettuceConnectionFactory(getClusterConfiguration(), clientConfiguration);
-		}
-		return new LettuceConnectionFactory(getStandaloneConfig(), clientConfiguration);
-	}
+    if (getSentinelConfig() != null) {
+      return new LettuceConnectionFactory(getSentinelConfig(), clientConfiguration);
+    }
+    if (getClusterConfiguration() != null) {
+      return new LettuceConnectionFactory(getClusterConfiguration(), clientConfiguration);
+    }
+    return new LettuceConnectionFactory(getStandaloneConfig(), clientConfiguration);
+  }
 }
 ```
 
 由于没有cluster配置，运行到了`return new LettuceConnectionFactory(getStandaloneConfig(), clientConfiguration);`这一行。
 
 ```java
-  protected final RedisStandaloneConfiguration getStandaloneConfig() {
-		if (this.standaloneConfiguration != null) {
-			return this.standaloneConfiguration;
-		}
-		RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
-		if (StringUtils.hasText(this.properties.getUrl())) {
-			ConnectionInfo connectionInfo = parseUrl(this.properties.getUrl());
-			config.setHostName(connectionInfo.getHostName());
-			config.setPort(connectionInfo.getPort());
-			config.setUsername(connectionInfo.getUsername());
-			config.setPassword(RedisPassword.of(connectionInfo.getPassword()));
-		}
-		else {
-			config.setHostName(this.properties.getHost());
-			config.setPort(this.properties.getPort());
-			config.setUsername(this.properties.getUsername());
-			config.setPassword(RedisPassword.of(this.properties.getPassword()));
-		}
-		config.setDatabase(this.properties.getDatabase());
-		return config;
-	}
+protected final RedisStandaloneConfiguration getStandaloneConfig() {
+  if (this.standaloneConfiguration != null) {
+    return this.standaloneConfiguration;
+  }
+  RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
+  if (StringUtils.hasText(this.properties.getUrl())) {
+    ConnectionInfo connectionInfo = parseUrl(this.properties.getUrl());
+    config.setHostName(connectionInfo.getHostName());
+    config.setPort(connectionInfo.getPort());
+    config.setUsername(connectionInfo.getUsername());
+    config.setPassword(RedisPassword.of(connectionInfo.getPassword()));
+  }
+  else {
+    config.setHostName(this.properties.getHost());
+    config.setPort(this.properties.getPort());
+    config.setUsername(this.properties.getUsername());
+    config.setPassword(RedisPassword.of(this.properties.getPassword()));
+  }
+  config.setDatabase(this.properties.getDatabase());
+  return config;
+}
 ```
 
 在 `RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();` 这一行创建了一个默认的配置。
@@ -86,11 +86,11 @@ class LettuceConnectionConfiguration extends RedisConnectionConfiguration {
 我们继续进行类`RedisStandaloneConfiguration`进行查看，上面调用得是一个无参的构造方法，属性都是使用的默认值，找到属性查看
 
 ```java
-  private static final String DEFAULT_HOST = "localhost";
-	private static final int DEFAULT_PORT = 6379;
+private static final String DEFAULT_HOST = "localhost";
+private static final int DEFAULT_PORT = 6379;
 
-	private String hostName = DEFAULT_HOST;
-	private int port = DEFAULT_PORT;
+private String hostName = DEFAULT_HOST;
+private int port = DEFAULT_PORT;
 ```
 
 You see! 这里默认配置的是 `localhost` 在spring.redis.host里面的配置根本没有生效。
@@ -100,14 +100,14 @@ You see! 这里默认配置的是 `localhost` 在spring.redis.host里面的配�
 我们需要创建一个自己的`LettuceConnectionFactory` ，正确读取 `spring.redis.host` 里面的配置值。
 
 ```java
-  @Value("${spring.redis.host}")
-	private String redisHost;
+@Value("${spring.redis.host}")
+private String redisHost;
 
-	@Value("${spring.redis.port}")
-	private Integer redisPort;
+@Value("${spring.redis.port}")
+private Integer redisPort;
 
-  @Bean
-	public LettuceConnectionFactory redisConnectionFactory() {
-		return new LettuceConnectionFactory(new RedisStandaloneConfiguration(redisHost, redisPort));
-	}
+@Bean
+public LettuceConnectionFactory redisConnectionFactory() {
+  return new LettuceConnectionFactory(new RedisStandaloneConfiguration(redisHost, redisPort));
+}
 ```
