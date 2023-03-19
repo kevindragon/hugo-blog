@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Spring Boot 3集成Redis - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="Spring Boot 3真的很香，最大的改变可能就是GraalVM的支持了，直接可以打包成可以运行程序，把jre直接省掉了，性能得到了很好的提升。 但是升级完成" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师, Java, Spring Boot, Clojure, Scala" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
+
+
+<link rel="canonical" href="http://kevinjiang.info/post/java/spring-boot-3%E9%9B%86%E6%88%90redis/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Spring Boot 3集成Redis" />
+<meta property="og:description" content="Spring Boot 3真的很香，最大的改变可能就是GraalVM的支持了，直接可以打包成可以运行程序，把jre直接省掉了，性能得到了很好的提升。 但是升级完成" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://kevinjiang.info/post/java/spring-boot-3%E9%9B%86%E6%88%90redis/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-03-19T21:36:18+08:00" />
+<meta property="article:modified_time" content="2023-03-19T21:36:18+08:00" />
+
+<meta itemprop="name" content="Spring Boot 3集成Redis">
+<meta itemprop="description" content="Spring Boot 3真的很香，最大的改变可能就是GraalVM的支持了，直接可以打包成可以运行程序，把jre直接省掉了，性能得到了很好的提升。 但是升级完成"><meta itemprop="datePublished" content="2023-03-19T21:36:18+08:00" />
+<meta itemprop="dateModified" content="2023-03-19T21:36:18+08:00" />
+<meta itemprop="wordCount" content="979">
+<meta itemprop="keywords" content="Spring Boot 3,Redis," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring Boot 3集成Redis"/>
+<meta name="twitter:description" content="Spring Boot 3真的很香，最大的改变可能就是GraalVM的支持了，直接可以打包成可以运行程序，把jre直接省掉了，性能得到了很好的提升。 但是升级完成"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/resume/">
+        <li class="mobile-menu-item">简历</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resume/">简历</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Spring Boot 3集成Redis</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-03-19 </span>
+        
+          <span class="more-meta"> 约 979 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#推测">推测</a></li>
+    <li><a href="#调试">调试</a></li>
+    <li><a href="#结论">结论</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Spring Boot 3真的很香，最大的改变可能就是GraalVM的支持了，直接可以打包成可以运行程序，把jre直接省掉了，性能得到了很好的提升。</p>
+<p>但是升级完成后，集成Redis的时候直接傻眼了，一直报错，我们来看一下堆栈信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis
+Caused by: io.lettuce.core.RedisConnectionException: Unable to connect to localhost/&lt;unresolved&gt;:6379
+Caused by: io.netty.channel.AbstractChannel<span class="nv">$AnnotatedConnectException</span>: Connection refused: localhost/127.0.0.1:6379
+Caused by: java.net.ConnectException: Connection refused
+</code></pre></td></tr></table>
+</div>
+</div><!-- raw HTML omitted -->
+<p>再来看一下配置文件 <code>application.yml</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">spring:
+  redis:
+    host: redis
+    port: <span class="m">6379</span>
+    password:
+</code></pre></td></tr></table>
+</div>
+</div><p>这里解释一下 host 设置为 redis 的原因，我是在 docker-compose.yml 配置的service和redis服务，在本地使用的 127.0.0.1 好好的，心想到线上改成docker compose容器的hostname就可以了。结果死活报连接出错。</p>
+<h2 id="推测">推测</h2>
+<p>首先，推测是不是redis.conf没有配置允许所有外部机器连接。把redis.conf配置好之后，依然报错。</p>
+<p>然后，推测是不是配置文件没有正确的映射到docker容器里面，进入到容器进行检查，配置没有问题。</p>
+<p>最后，推测是不是spring data redis的默认<code>LettuceConnectionFactory</code> 连接没有读取到配置文件的内容，然后进行一番调试，发现如果不创建一个新的<code>LettuceConnectionFactory</code> 那么默认就会连接到 <code>localhost:6379</code> 上去。</p>
+<h2 id="调试">调试</h2>
+<p>先找到类<code>LettuceConnectionFactory</code> 在所有的构造函数里面打上断点，调试一次后，发现还有一个<code>LettuceConnectionConfiguration</code>在前面进行配置的创建，方法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">LettuceConnectionConfiguration</span> <span class="kd">extends</span> <span class="n">RedisConnectionConfiguration</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="n">LettuceConnectionFactory</span> <span class="nf">createLettuceConnectionFactory</span><span class="o">(</span><span class="n">LettuceClientConfiguration</span> <span class="n">clientConfiguration</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">getSentinelConfig</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">return</span> <span class="k">new</span> <span class="n">LettuceConnectionFactory</span><span class="o">(</span><span class="n">getSentinelConfig</span><span class="o">(),</span> <span class="n">clientConfiguration</span><span class="o">);</span>
+		<span class="o">}</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">getClusterConfiguration</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">return</span> <span class="k">new</span> <span class="n">LettuceConnectionFactory</span><span class="o">(</span><span class="n">getClusterConfiguration</span><span class="o">(),</span> <span class="n">clientConfiguration</span><span class="o">);</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="k">new</span> <span class="n">LettuceConnectionFactory</span><span class="o">(</span><span class="n">getStandaloneConfig</span><span class="o">(),</span> <span class="n">clientConfiguration</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>由于没有cluster配置，运行到了<code>return new LettuceConnectionFactory(getStandaloneConfig(), clientConfiguration);</code>这一行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">protected</span> <span class="kd">final</span> <span class="n">RedisStandaloneConfiguration</span> <span class="nf">getStandaloneConfig</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">standaloneConfiguration</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">standaloneConfiguration</span><span class="o">;</span>
+		<span class="o">}</span>
+		<span class="n">RedisStandaloneConfiguration</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RedisStandaloneConfiguration</span><span class="o">();</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">hasText</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getUrl</span><span class="o">()))</span> <span class="o">{</span>
+			<span class="n">ConnectionInfo</span> <span class="n">connectionInfo</span> <span class="o">=</span> <span class="n">parseUrl</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getUrl</span><span class="o">());</span>
+			<span class="n">config</span><span class="o">.</span><span class="na">setHostName</span><span class="o">(</span><span class="n">connectionInfo</span><span class="o">.</span><span class="na">getHostName</span><span class="o">());</span>
+			<span class="n">config</span><span class="o">.</span><span class="na">setPort</span><span class="o">(</span><span class="n">connectionInfo</span><span class="o">.</span><span class="na">getPort</span><span class="o">());</span>
+			<span class="n">config</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="n">connectionInfo</span><span class="o">.</span><span class="na">getUsername</span><span class="o">());</span>
+			<span class="n">config</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="n">RedisPassword</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">connectionInfo</span><span class="o">.</span><span class="na">getPassword</span><span class="o">()));</span>
+		<span class="o">}</span>
+		<span class="k">else</span> <span class="o">{</span>
+			<span class="n">config</span><span class="o">.</span><span class="na">setHostName</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getHost</span><span class="o">());</span>
+			<span class="n">config</span><span class="o">.</span><span class="na">setPort</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getPort</span><span class="o">());</span>
+			<span class="n">config</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getUsername</span><span class="o">());</span>
+			<span class="n">config</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="n">RedisPassword</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getPassword</span><span class="o">()));</span>
+		<span class="o">}</span>
+		<span class="n">config</span><span class="o">.</span><span class="na">setDatabase</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">getDatabase</span><span class="o">());</span>
+		<span class="k">return</span> <span class="n">config</span><span class="o">;</span>
+	<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在 <code>RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();</code> 这一行创建了一个默认的配置。</p>
+<p>我们继续进行类<code>RedisStandaloneConfiguration</code>进行查看，上面调用得是一个无参的构造方法，属性都是使用的默认值，找到属性查看</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DEFAULT_HOST</span> <span class="o">=</span> <span class="s">&#34;localhost&#34;</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">DEFAULT_PORT</span> <span class="o">=</span> <span class="n">6379</span><span class="o">;</span>
+
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">hostName</span> <span class="o">=</span> <span class="n">DEFAULT_HOST</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">port</span> <span class="o">=</span> <span class="n">DEFAULT_PORT</span><span class="o">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>You see! 这里默认配置的是 <code>localhost</code> 在spring.redis.host里面的配置根本没有生效。</p>
+<h2 id="结论">结论</h2>
+<p>我们需要创建一个自己的<code>LettuceConnectionFactory</code> ，正确读取 <code>spring.redis.host</code> 里面的配置值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java">  <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${spring.redis.host}&#34;</span><span class="o">)</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">redisHost</span><span class="o">;</span>
+
+	<span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${spring.redis.port}&#34;</span><span class="o">)</span>
+	<span class="kd">private</span> <span class="n">Integer</span> <span class="n">redisPort</span><span class="o">;</span>
+
+  <span class="nd">@Bean</span>
+	<span class="kd">public</span> <span class="n">LettuceConnectionFactory</span> <span class="nf">redisConnectionFactory</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="k">new</span> <span class="n">LettuceConnectionFactory</span><span class="o">(</span><span class="k">new</span> <span class="n">RedisStandaloneConfiguration</span><span class="o">(</span><span class="n">redisHost</span><span class="o">,</span> <span class="n">redisPort</span><span class="o">));</span>
+	<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-03-19
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/spring-boot-3/">Spring Boot 3</a>
+          <a href="/tags/redis/">Redis</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/ai/openai/%E4%BD%BF%E7%94%A8chatgpt%E5%9C%A8%E6%8C%87%E5%AE%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%AF%B9%E8%AF%9D/">
+            <span class="next-text nav-default">使用ChatGPT在指定数据集上进行对话</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://kevinjiang.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2015 -
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?b73ff6d4afc4af9e582d8a5dc068bab9";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

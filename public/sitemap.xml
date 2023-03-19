@@ -3,7 +3,42 @@
   
   <url>
     <loc>http://kevinjiang.info/</loc>
-    <lastmod>2023-03-14T21:47:12+08:00</lastmod>
+    <lastmod>2023-03-19T21:36:18+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/post/</loc>
+    <lastmod>2023-03-19T21:36:18+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/redis/</loc>
+    <lastmod>2023-03-19T21:36:18+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/spring-boot-3/</loc>
+    <lastmod>2023-03-19T21:36:18+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/post/java/spring-boot-3%E9%9B%86%E6%88%90redis/</loc>
+    <lastmod>2023-03-19T21:36:18+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/</loc>
+    <lastmod>2023-03-19T21:36:18+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -17,20 +52,6 @@
   
   <url>
     <loc>http://kevinjiang.info/tags/in-context-learning/</loc>
-    <lastmod>2023-03-14T21:47:12+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/post/</loc>
-    <lastmod>2023-03-14T21:47:12+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/tags/</loc>
     <lastmod>2023-03-14T21:47:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
