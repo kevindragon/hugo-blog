@@ -49,7 +49,7 @@
 <meta itemprop="name" content="如何编写一个TypeScript库">
 <meta itemprop="description" content="编写模块化的代码是一个非常不错的想法，没有比编写一个库更加模块化了。那要如何编写一个TypeScript库呢？这就是本文的意图，本文的代码可"><meta itemprop="datePublished" content="2023-03-09T20:53:42+08:00" />
 <meta itemprop="dateModified" content="2023-03-09T20:53:42+08:00" />
-<meta itemprop="wordCount" content="1540">
+<meta itemprop="wordCount" content="1491">
 <meta itemprop="keywords" content="TypeScript," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="如何编写一个TypeScript库"/>
 <meta name="twitter:description" content="编写模块化的代码是一个非常不错的想法，没有比编写一个库更加模块化了。那要如何编写一个TypeScript库呢？这就是本文的意图，本文的代码可"/>
@@ -136,8 +136,8 @@
         <div class="post-category">
             <a href="/categories/typescript/"> TypeScript </a>
             </div>
-          <span class="more-meta"> 约 1540 字 </span>
-          <span class="more-meta"> 预计阅读 4 分钟 </span>
+          <span class="more-meta"> 约 1491 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
         
       </div>
     </header>
@@ -193,7 +193,6 @@
 <p>关于其他选项，让我们快速浏览一下：如果你想让你的代码与大多数当前的node.js应用程序无缝运行，那么<code>&quot;module&quot;: &quot;commonjs&quot;</code>模块编译器选项是必需的。如果你正在构建一个面向浏览器的库，那么请将其替换为<code>&quot;module&quot;: &quot;esnext&quot;</code>。<code>&quot;target&quot;: &quot;es2015&quot;</code>指定你的代码将被转译成哪个版本的JavaScript。这需要与你想要支持的最旧的node.js版本（或最旧的浏览器）保持一致。将编译目标选择为<code>es2015</code>可以使你的库与node.js版本8及以上版本兼容。<code>&quot;outDir&quot;: &quot;./dist&quot;</code>将把你编译后的文件写入到dist文件夹中，<code>&quot;include&quot;</code>选项指定你的源代码存放位置。</p>
 <h2 id="第二步实现你的库">第二步：实现你的库</h2>
 <p>就像你不写库代码，同样的方式。创建一个src文件夹，把你的所有库源代码（程序逻辑，数据，资产）都放在这个目录。</p>
-<p>For this demo, we&rsquo;ll setup a silly <code>hello-world.ts</code> file, that looks like so:</p>
 <p>为了这个demo，我们将写一个不太实用的<code>hello-world.ts</code>文件，看起来像这样：</p>
 <p>typescript-library/src/hello-world.ts</p>
 <div class="highlight"><div class="chroma">
@@ -239,8 +238,7 @@
 <span class="nx">sayHello</span><span class="p">();</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>You see that we have a new name here, &ldquo;hwrld&rdquo;, we haven&rsquo;t seen anywhere yet. What is this name? It&rsquo;s the name of the library you&rsquo;re gonna publish to npm also known as the package name!</p>
-<p>你看到我们有一个新的名字叫做“hwrld”，我们还没有在任何地方见过。这是什么名字呢？这是你要发布到npm的库的名字，也叫做包名！</p>
+</div><p>你看到我们有一个新的名字叫做“hwrld”，我们还没有在任何地方见过。这是什么名字呢？这是你要发布到npm的库的名字，也叫做包名！</p>
 <h2 id="第四步配置-packagejson">第四步：配置 package.json</h2>
 <p>包名是消费者以后用来从您的库中导入功能的。 对于此demo，我选择了<code>hwrld</code>，因为它仍然可以在npm上使用。 包名通常位于<code>package.json</code>的顶部。 整个<code>package.json</code>看起来如下：</p>
 <p>typescript-library/package.json</p>

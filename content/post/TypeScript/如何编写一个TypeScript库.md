@@ -37,8 +37,6 @@ typescript-library/tsconfig.json
 
 就像你不写库代码，同样的方式。创建一个src文件夹，把你的所有库源代码（程序逻辑，数据，资产）都放在这个目录。
 
-For this demo, we'll setup a silly `hello-world.ts` file, that looks like so:
-
 为了这个demo，我们将写一个不太实用的`hello-world.ts`文件，看起来像这样：
 
 typescript-library/src/hello-world.ts
@@ -71,8 +69,6 @@ someotherproject/src/somefile.ts
 import {sayHello} from 'hwrld'
 sayHello();
 ```
-
-You see that we have a new name here, "hwrld", we haven't seen anywhere yet. What is this name? It's the name of the library you're gonna publish to npm also known as the package name!
 
 你看到我们有一个新的名字叫做“hwrld”，我们还没有在任何地方见过。这是什么名字呢？这是你要发布到npm的库的名字，也叫做包名！
 
