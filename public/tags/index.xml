@@ -6,7 +6,25 @@
     <description>Recent content in Tags on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 19 Mar 2023 21:36:18 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 Apr 2023 15:31:24 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ChatGPT</title>
+      <link>http://kevinjiang.info/tags/chatgpt/</link>
+      <pubDate>Sun, 02 Apr 2023 15:31:24 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/tags/chatgpt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>http://kevinjiang.info/tags/python/</link>
+      <pubDate>Sun, 02 Apr 2023 15:31:24 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/tags/python/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Redis</title>
       <link>http://kevinjiang.info/tags/redis/</link>
@@ -22,15 +40,6 @@
       <pubDate>Sun, 19 Mar 2023 21:36:18 +0800</pubDate>
       
       <guid>http://kevinjiang.info/tags/spring-boot-3/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ChatGPT</title>
-      <link>http://kevinjiang.info/tags/chatgpt/</link>
-      <pubDate>Tue, 14 Mar 2023 21:47:12 +0800</pubDate>
-      
-      <guid>http://kevinjiang.info/tags/chatgpt/</guid>
       <description></description>
     </item>
     
@@ -184,15 +193,6 @@
       <pubDate>Sat, 19 Nov 2022 14:52:25 +0800</pubDate>
       
       <guid>http://kevinjiang.info/tags/get-in/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
-      <link>http://kevinjiang.info/tags/python/</link>
-      <pubDate>Sat, 19 Nov 2022 14:52:25 +0800</pubDate>
-      
-      <guid>http://kevinjiang.info/tags/python/</guid>
       <description></description>
     </item>
     

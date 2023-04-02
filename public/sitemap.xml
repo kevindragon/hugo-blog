@@ -3,14 +3,42 @@
   
   <url>
     <loc>http://kevinjiang.info/</loc>
-    <lastmod>2023-03-19T21:36:18+08:00</lastmod>
+    <lastmod>2023-04-02T15:31:24+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/chatgpt/</loc>
+    <lastmod>2023-04-02T15:31:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://kevinjiang.info/post/</loc>
-    <lastmod>2023-03-19T21:36:18+08:00</lastmod>
+    <lastmod>2023-04-02T15:31:24+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/python/</loc>
+    <lastmod>2023-04-02T15:31:24+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/</loc>
+    <lastmod>2023-04-02T15:31:24+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/post/ai/openai/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8python%E8%B0%83%E7%94%A8gpt-3.5-turbo%E5%A4%8D%E7%8E%B0chatgpt/</loc>
+    <lastmod>2023-04-02T15:31:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -32,20 +60,6 @@
   <url>
     <loc>http://kevinjiang.info/post/java/spring-boot-3%E9%9B%86%E6%88%90redis/</loc>
     <lastmod>2023-03-19T21:36:18+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/tags/</loc>
-    <lastmod>2023-03-19T21:36:18+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/tags/chatgpt/</loc>
-    <lastmod>2023-03-14T21:47:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -269,13 +283,6 @@
   
   <url>
     <loc>http://kevinjiang.info/tags/get-in/</loc>
-    <lastmod>2022-11-19T14:52:25+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/tags/python/</loc>
     <lastmod>2022-11-19T14:52:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

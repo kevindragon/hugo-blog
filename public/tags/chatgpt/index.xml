@@ -6,7 +6,16 @@
     <description>Recent content in ChatGPT on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 14 Mar 2023 21:47:12 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/chatgpt/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 Apr 2023 15:31:24 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/chatgpt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>手把手教你用Python调用gpt-3.5-turbo复现ChatGPT</title>
+      <link>http://kevinjiang.info/post/ai/openai/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8python%E8%B0%83%E7%94%A8gpt-3.5-turbo%E5%A4%8D%E7%8E%B0chatgpt/</link>
+      <pubDate>Sun, 02 Apr 2023 15:31:24 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/ai/openai/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8python%E8%B0%83%E7%94%A8gpt-3.5-turbo%E5%A4%8D%E7%8E%B0chatgpt/</guid>
+      <description>大家好，我是凯文。今天为大家介绍如何使用Python复刻ChatGPT的思路，以及核心代码。 预备知识 首先，Python的版本推荐是3.9。我</description>
+    </item>
+    
     <item>
       <title>使用ChatGPT在指定数据集上进行对话</title>
       <link>http://kevinjiang.info/post/ai/openai/%E4%BD%BF%E7%94%A8chatgpt%E5%9C%A8%E6%8C%87%E5%AE%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%AF%B9%E8%AF%9D/</link>

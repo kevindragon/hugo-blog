@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>手把手教你用Python调用gpt-3.5-turbo复现ChatGPT - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="大家好，我是凯文。今天为大家介绍如何使用Python复刻ChatGPT的思路，以及核心代码。 预备知识 首先，Python的版本推荐是3.9。我" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师, Java, Spring Boot, Clojure, Scala" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
+
+
+<link rel="canonical" href="http://kevinjiang.info/post/ai/openai/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8python%E8%B0%83%E7%94%A8gpt-3.5-turbo%E5%A4%8D%E7%8E%B0chatgpt/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="手把手教你用Python调用gpt-3.5-turbo复现ChatGPT" />
+<meta property="og:description" content="大家好，我是凯文。今天为大家介绍如何使用Python复刻ChatGPT的思路，以及核心代码。 预备知识 首先，Python的版本推荐是3.9。我" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://kevinjiang.info/post/ai/openai/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8python%E8%B0%83%E7%94%A8gpt-3.5-turbo%E5%A4%8D%E7%8E%B0chatgpt/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-04-02T15:31:24+08:00" />
+<meta property="article:modified_time" content="2023-04-02T15:31:24+08:00" />
+
+<meta itemprop="name" content="手把手教你用Python调用gpt-3.5-turbo复现ChatGPT">
+<meta itemprop="description" content="大家好，我是凯文。今天为大家介绍如何使用Python复刻ChatGPT的思路，以及核心代码。 预备知识 首先，Python的版本推荐是3.9。我"><meta itemprop="datePublished" content="2023-04-02T15:31:24+08:00" />
+<meta itemprop="dateModified" content="2023-04-02T15:31:24+08:00" />
+<meta itemprop="wordCount" content="1849">
+<meta itemprop="keywords" content="ChatGPT,Python," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="手把手教你用Python调用gpt-3.5-turbo复现ChatGPT"/>
+<meta name="twitter:description" content="大家好，我是凯文。今天为大家介绍如何使用Python复刻ChatGPT的思路，以及核心代码。 预备知识 首先，Python的版本推荐是3.9。我"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/resume/">
+        <li class="mobile-menu-item">简历</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resume/">简历</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">手把手教你用Python调用gpt-3.5-turbo复现ChatGPT</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-04-02 </span>
+        
+          <span class="more-meta"> 约 1849 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#预备知识"><strong>预备知识</strong></a></li>
+    <li><a href="#流程图">流程图</a></li>
+    <li><a href="#代码">代码</a></li>
+    <li><a href="#session">Session</a></li>
+    <li><a href="#main方法">main方法</a></li>
+    <li><a href="#结论">结论</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>大家好，我是凯文。今天为大家介绍如何使用Python复刻ChatGPT的思路，以及核心代码。</p>
+<p><img src="/img/AI/OpenAI/Python_CommandList_ChatGPT.png" alt="Command Line"></p>
+<h2 id="预备知识"><strong>预备知识</strong></h2>
+<p>首先，Python的版本推荐是3.9。我们需要安装OpenAI的API，这可以通过使用<code>pip install openai</code>命令进行完成。接下来，我们需要在OpenAI的网站上注册并申请API密钥，这样我们才能开始使用它们的API（关于如何申请API密钥请另行搜索，或者联系我）</p>
+<p>一旦我们有了API密钥，我们就可以从Python中使用OpenAI的API。具体来说，我们需要使用<code>openai.ChatCompletion.create</code>函数来生成对话响应。我们还需要使用<code>GPT-3.5</code>模型，这可以通过设置model参数为“<code>gpt-3.5-turbo</code>”来完成。</p>
+<p>下面我们以一个命令行程序来演示整个核心逻辑。我们先来看流程图</p>
+<h2 id="流程图">流程图</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">flowchart LR
+  CommandLine(接收命令行输入) --&gt; ConstructMessages(组装消息)
+  ConstructMessages --&gt; CallOpenAIAPI(调用OpenAI的API接口)
+  CallOpenAIAPI --&gt; 输出对话内容
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="代码">代码</h2>
+<p>我们先从如何调用OpenAI的API接口开始，使用自底向上的方法来开发我们的ChatGPT。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">openai</span>
+
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s2">&#34;gpt-3.5-turbo&#34;</span>
+<span class="n">TEMPERATURE</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="n">openai</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s2">&#34;YOUR API KEY&#34;</span>
+<span class="n">openai</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="s2">&#34;socks5h://127.0.0.1:1080&#34;</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Prior</span><span class="p">:</span>
+    <span class="n">question</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">answer</span><span class="p">:</span> <span class="nb">str</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上面的代码首先引入三个模块，然后定义模型名称MODEL以及回答内容的创意性Temperature（说人话就是随机性，值的范围是0到2，值越大随机性越大）.</p>
+<p>接下来就是设置API Key了，如果你运行程序的电脑不能直接连接到openai的服务器，请设置proxy。</p>
+<p>然后定义一下dataclass Prior，这个相当于保存历史记录用的，记录问题及答案文本内容。</p>
+<p>下面来看chat函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">chat</span><span class="p">(</span><span class="n">priors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Prior</span><span class="p">],</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">messages</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">prior</span> <span class="ow">in</span> <span class="n">priors</span><span class="p">:</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;user&#34;</span><span class="p">,</span> <span class="s2">&#34;content&#34;</span><span class="p">:</span> <span class="n">prior</span><span class="o">.</span><span class="n">question</span><span class="p">})</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;assistant&#34;</span><span class="p">,</span> <span class="s2">&#34;content&#34;</span><span class="p">:</span> <span class="n">prior</span><span class="o">.</span><span class="n">answer</span><span class="p">})</span>
+    <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;user&#34;</span><span class="p">,</span> <span class="s2">&#34;content&#34;</span><span class="p">:</span> <span class="n">question</span><span class="p">})</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">ChatCompletion</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
+        <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="o">=</span><span class="n">TEMPERATURE</span><span class="p">,</span>
+        <span class="n">stream</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">resp</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>接收一个priors列表，以及一个提问的文本question。函数前半部分组装messages参数，根据历史记录组装一个类似下面列表的列表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">[</span>
+  <span class="p">{</span><span class="err">role:</span> <span class="err">system,</span> <span class="nt">&#34;content&#34;</span><span class="p">:</span> <span class="s2">&#34;You are a helpful assistant.&#34;</span><span class="p">},</span>
+  <span class="p">{</span><span class="err">role:</span> <span class="err">user,</span> <span class="err">content:</span> <span class="err">question1</span><span class="p">},</span>    <span class="err">#</span> <span class="err">历史问题</span><span class="mi">1</span>
+  <span class="p">{</span><span class="err">role:</span> <span class="err">assistant,</span> <span class="err">content:</span> <span class="err">answer1</span><span class="p">},</span> <span class="err">#</span> <span class="err">历史回答</span><span class="mi">1</span>
+  <span class="p">{</span><span class="err">role:</span> <span class="err">user,</span> <span class="err">content:</span> <span class="err">question2</span><span class="p">},</span>    <span class="err">#</span> <span class="err">历史问题</span><span class="mi">2</span>
+  <span class="p">{</span><span class="err">role:</span> <span class="err">assistant,</span> <span class="err">content:</span> <span class="err">answer2</span><span class="p">},</span> <span class="err">#</span> <span class="err">历史回答</span><span class="mi">2</span>
+  <span class="p">{</span><span class="err">role:</span> <span class="err">user,</span> <span class="err">content:</span> <span class="err">question</span><span class="p">}</span>      <span class="err">#</span> <span class="err">当前问题</span>
+<span class="p">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>系统消息有助于设置助手的行为。在上面的例子中，助手被指示为“一位乐于助人的助手”，我们暂时就不做设置了，使用默认的即可。</p>
+<p>最后一行是当前的问题，然后调用openai.ChatCompletion.create函数，其中stream参数需要注意，stream设置为True就可以像ChatGPT那样有一个打字的效果，可以看到是连续的输出。stream设置为True后，chat函数返回的是一个生成器。下面会看到如何使用。</p>
+<h2 id="session">Session</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Session</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">priors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Prior</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">add_chat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">answer</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">priors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Prior</span><span class="p">(</span><span class="n">question</span><span class="o">=</span><span class="n">question</span><span class="p">,</span> <span class="n">answer</span><span class="o">=</span><span class="n">answer</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">take_last_priors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">priors</span><span class="p">[</span><span class="o">-</span><span class="n">n</span><span class="p">:]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>现在让我们定义一个Session类，用户管理历史的对话信息，take_last_priors方法可以指定拿最后n次的对话内容。</p>
+<h2 id="main方法">main方法</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">question</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&#34;问：&#34;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">question</span> <span class="o">==</span> <span class="s2">&#34;QUIT&#34;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Bye!&#34;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">exit</span><span class="p">()</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">take_last_priors</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">question</span><span class="p">)</span>
+        <span class="n">answer</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;答：&#34;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">resp</span><span class="p">:</span>
+            <span class="n">chunk_message</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;choices&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">chunk_message</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">answer</span> <span class="o">+=</span> <span class="n">content</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="o">+</span><span class="s2">&#34;-&#34;</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">add_chat</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">answer</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>最后一个主函数。首先创建一个session对象，用于管理会话内容。在一个无限循环代码块当中，接收用户的输入，当输入为<code>QUIT</code>的时候退出程序。接收到用户的输入后，取最后的2条历史，调用我们上面定义的chat函数。</p>
+<p>获得stream的回答之后，通过for循环取出stream迭代器的内容，进行输出。这里有一个需要注意的地方是<code>print</code>函数的<code>flush</code>的参数，一定要设置为True，才会在接收到部分响应之后立即输出出来。</p>
+<p>最后把当前轮的对话信息存入到session对象。如果你希望支持多于2轮的对话，把<code>take_last_priors</code>的参数n设置大一点即可（注意OpenAI的API接口的4096个token的限制）。</p>
+<h2 id="结论">结论</h2>
+<p>本文主要介绍了如何使用Python和OpenAI的API复现ChatGPT，并提供了相关的代码和流程图。主要步骤包括设置API密钥、调用OpenAI的API接口、创建Session类管理历史对话信息以及构建主函数。通过本文的指导，读者可以了解到如何使用Python和OpenAI的API来构建自己的ChatGPT。</p>
+<p>代码请参考我的Github：<a href="https://github.com/kevindragon/ReplicateChatGPT">https://github.com/kevindragon/ReplicateChatGPT</a>
+视频演示：<a href="https://www.bilibili.com/video/BV1284y1M79S/?vd_source=b98760e34db42044d3b7234182634c2d">Bilibili</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-04-02
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/chatgpt/">ChatGPT</a>
+          <a href="/tags/python/">Python</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/java/spring-boot-3%E9%9B%86%E6%88%90redis/">
+            <span class="next-text nav-default">Spring Boot 3集成Redis</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://kevinjiang.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2015 -
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?b73ff6d4afc4af9e582d8a5dc068bab9";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>
