@@ -6,7 +6,16 @@
     <description>Recent content in ChatGPT on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 02 Apr 2023 15:31:24 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/chatgpt/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 Apr 2023 21:36:12 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/chatgpt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>聊聊ChatGPT消息流回复原理</title>
+      <link>http://kevinjiang.info/post/web/%E8%81%8A%E8%81%8Achatgpt%E6%B6%88%E6%81%AF%E6%B5%81%E5%9B%9E%E5%A4%8D%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Sat, 08 Apr 2023 21:36:12 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/web/%E8%81%8A%E8%81%8Achatgpt%E6%B6%88%E6%81%AF%E6%B5%81%E5%9B%9E%E5%A4%8D%E5%8E%9F%E7%90%86/</guid>
+      <description>去年底以来ChatGPT已经火出天际，似乎奇点已经到来。前不久GPT-4发布的新闻更是把这人工智能推向了一个新的高潮。我们注意到，ChatG</description>
+    </item>
+    
     <item>
       <title>手把手教你用Python调用gpt-3.5-turbo复现ChatGPT</title>
       <link>http://kevinjiang.info/post/ai/openai/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8python%E8%B0%83%E7%94%A8gpt-3.5-turbo%E5%A4%8D%E7%8E%B0chatgpt/</link>

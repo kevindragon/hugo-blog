@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>聊聊ChatGPT消息流回复原理 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="去年底以来ChatGPT已经火出天际，似乎奇点已经到来。前不久GPT-4发布的新闻更是把这人工智能推向了一个新的高潮。我们注意到，ChatG" /><meta name="keywords" content="KevinJiang, 博客, 全栈工程师, Java, Spring Boot, Clojure, Scala" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
+
+
+<link rel="canonical" href="http://kevinjiang.info/post/web/%E8%81%8A%E8%81%8Achatgpt%E6%B6%88%E6%81%AF%E6%B5%81%E5%9B%9E%E5%A4%8D%E5%8E%9F%E7%90%86/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="聊聊ChatGPT消息流回复原理" />
+<meta property="og:description" content="去年底以来ChatGPT已经火出天际，似乎奇点已经到来。前不久GPT-4发布的新闻更是把这人工智能推向了一个新的高潮。我们注意到，ChatG" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://kevinjiang.info/post/web/%E8%81%8A%E8%81%8Achatgpt%E6%B6%88%E6%81%AF%E6%B5%81%E5%9B%9E%E5%A4%8D%E5%8E%9F%E7%90%86/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-04-08T21:36:12+08:00" />
+<meta property="article:modified_time" content="2023-04-08T21:36:12+08:00" />
+
+<meta itemprop="name" content="聊聊ChatGPT消息流回复原理">
+<meta itemprop="description" content="去年底以来ChatGPT已经火出天际，似乎奇点已经到来。前不久GPT-4发布的新闻更是把这人工智能推向了一个新的高潮。我们注意到，ChatG"><meta itemprop="datePublished" content="2023-04-08T21:36:12+08:00" />
+<meta itemprop="dateModified" content="2023-04-08T21:36:12+08:00" />
+<meta itemprop="wordCount" content="2319">
+<meta itemprop="keywords" content="Server-sent events,ChatGPT," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="聊聊ChatGPT消息流回复原理"/>
+<meta name="twitter:description" content="去年底以来ChatGPT已经火出天际，似乎奇点已经到来。前不久GPT-4发布的新闻更是把这人工智能推向了一个新的高潮。我们注意到，ChatG"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/resume/">
+        <li class="mobile-menu-item">简历</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resume/">简历</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">聊聊ChatGPT消息流回复原理</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-04-08 </span>
+        
+          <span class="more-meta"> 约 2319 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是sse">什么是<strong>SSE</strong></a></li>
+    <li><a href="#举个栗子">举个栗子</a>
+      <ul>
+        <li><a href="#服务端代码">服务端代码</a></li>
+        <li><a href="#前端代码">前端代码</a></li>
+      </ul>
+    </li>
+    <li><a href="#nginx配置">Nginx配置</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>去年底以来ChatGPT已经火出天际，似乎奇点已经到来。前不久GPT-4发布的新闻更是把这人工智能推向了一个新的高潮。我们注意到，ChatGPT的回复是具有打字的效果，时不时还停顿一下，看起来你就像在跟一个具有智慧的人在聊天，时不时思索一下。</p>
+<p>那么ChatGPT的回复效果是如何实现的呢，今天就来聊一聊其中的一种实现方式：Server-sent events。这是一种服务器向客户端主动推送消息的技术。</p>
+<!-- raw HTML omitted -->
+<p>服务器向浏览器推送信息，最先想到的就是WebSocket了。除了 WebSocket，还有一种方法：Server-Sent Events（以下简称 SSE）。本文介绍它的用法以及一个可以运行的示例。</p>
+<p>除了SSE和WebSocket以外，还有一种经常使用到的方法是轮询，客户端不断的向服务器端发起查询请求以获得实时数据信息。</p>
+<p>下面是 WebSocket、轮询和 SSE 的功能对比：</p>
+<ol>
+<li>SSE 和轮询使用 HTTP 协议，现有的服务器软件都支持。WebSocket 是一个独立协议</li>
+<li>SSE 相比 WebSocket 更加轻量，使用简单；WebSocket 使用相对复杂；轮询使用简单</li>
+<li>SSE 默认支持断线重连，WebSocket 需要自己实现断线重连</li>
+<li>SSE 一般只用来传送文本，二进制数据需要编码后传送，WebSocket 默认支持传送二进制数据</li>
+<li>SSE 支持自定义发送的消息类型</li>
+<li>WebSocket 支持双向推送消息，SSE 是单向的</li>
+<li>轮询性能开销大、轮询时间久导致客户端及时更新数据</li>
+</ol>
+<h2 id="什么是sse">什么是<strong>SSE</strong></h2>
+<p>SSE是HTML 5规范的一个组成部分，是一种服务器推送技术，使客户端可以通过HTTP连接从服务器自动接收更新。使用server-sent events，服务器可以在任何时刻向我们的Web页面推送数据和信息。这些被推送进来的信息可以在这个页面上作为Events + data的形式来处理。</p>
+<p>严格地说，HTTP 协议无法做到服务器主动推送信息，但是，服务器会向客户端发送响应的内容里面会声明，接下来会发送流信息（streaming），然后服务端就会不断的向客户发送数据流，直到结束。客户端在收到响应后会保持连接，持续的接收服务器发送过来的数据。</p>
+<p>SSE 就是利用这种机制，使用流信息向浏览器推送信息。它基于 HTTP 协议，目前除了 IE，其他浏览器都支持。</p>
+<p>各种浏览器支持情况可以查看<a href="https://caniuse.com/?search=Server-sent%20events">Can I Use</a></p>
+<p><img src="/img/Web/Server-sent_events/can-i-use-server-sent-event.png" alt="Can I Use Server-sent events"></p>
+<h2 id="举个栗子">举个栗子</h2>
+<p>下面我们使用Python及FastAPI框架，编写服务端代码。</p>
+<h3 id="服务端代码">服务端代码</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="kr">import</span> <span class="nx">time</span>
+<span class="kr">import</span> <span class="nx">random</span>
+<span class="nx">from</span> <span class="nx">fastapi</span> <span class="kr">import</span> <span class="nx">FastAPI</span><span class="p">,</span> <span class="nx">Response</span>
+<span class="nx">from</span> <span class="nx">fastapi</span><span class="p">.</span><span class="nx">responses</span> <span class="kr">import</span> <span class="nx">StreamingResponse</span>
+
+<span class="nx">app</span> <span class="o">=</span> <span class="nx">FastAPI</span><span class="p">()</span>
+
+<span class="kr">async</span> <span class="nx">def</span> <span class="nx">fake_number_streamer</span><span class="p">()</span><span class="o">:</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">range</span><span class="p">(</span><span class="nx">random</span><span class="p">.</span><span class="nx">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span><span class="o">:</span>
+        <span class="k">yield</span> <span class="s2">&#34;{}&#34;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nx">time</span><span class="p">.</span><span class="nx">sleep</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">*</span> <span class="nx">random</span><span class="p">.</span><span class="nx">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="err">@</span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
+<span class="kr">async</span> <span class="nx">def</span> <span class="nx">index</span><span class="p">()</span><span class="o">:</span>
+    <span class="err">#</span> <span class="nx">读取html内容输出给客户端</span>
+    <span class="k">return</span> <span class="nx">Response</span><span class="p">(</span><span class="nx">open</span><span class="p">(</span><span class="s2">&#34;index.html&#34;</span><span class="p">,</span> <span class="nx">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">).</span><span class="nx">read</span><span class="p">())</span>
+
+<span class="err">@</span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/sse&#34;</span><span class="p">)</span>
+<span class="kr">async</span> <span class="nx">def</span> <span class="nx">sse</span><span class="p">()</span><span class="o">:</span>
+    <span class="k">return</span> <span class="nx">StreamingResponse</span><span class="p">(</span><span class="nx">fake_number_streamer</span><span class="p">(),</span> <span class="nx">media_type</span><span class="o">=</span><span class="s2">&#34;text/event-stream&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>服务端代码比较简单，首先需要安装<code>fastapi</code> （<code>pip install fastapi</code>）。然后需要定义一下生成器函数，用来模拟持续输出信息的逻辑，这里直接用一个随机数，输出从1开始，到10，20之间的随机数列。</p>
+<p>index函数是首页加载的html内容，在下面会看到具体的内容。</p>
+<p>然后最重要的部分就是<code>StreamingResponse</code> 响应对象，fastapi框架会自动处理响应内容，<code>fake_number_streamer()</code> 函数是一个生成器函数，在StreamingResponse内部的处理逻辑如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="kr">async</span> <span class="nx">def</span> <span class="nx">stream_response</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">send</span><span class="o">:</span> <span class="nx">Send</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">None</span><span class="o">:</span>
+    <span class="kr">await</span> <span class="nx">send</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&#34;type&#34;</span><span class="o">:</span> <span class="s2">&#34;http.response.start&#34;</span><span class="p">,</span>
+            <span class="s2">&#34;status&#34;</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">status_code</span><span class="p">,</span>
+            <span class="s2">&#34;headers&#34;</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">raw_headers</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="kr">async</span> <span class="k">for</span> <span class="nx">chunk</span> <span class="k">in</span> <span class="nx">self</span><span class="p">.</span><span class="nx">body_iterator</span><span class="o">:</span>
+        <span class="k">if</span> <span class="nx">not</span> <span class="nx">isinstance</span><span class="p">(</span><span class="nx">chunk</span><span class="p">,</span> <span class="nx">bytes</span><span class="p">)</span><span class="o">:</span>
+            <span class="nx">chunk</span> <span class="o">=</span> <span class="nx">chunk</span><span class="p">.</span><span class="nx">encode</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">charset</span><span class="p">)</span>
+        <span class="kr">await</span> <span class="nx">send</span><span class="p">({</span><span class="s2">&#34;type&#34;</span><span class="o">:</span> <span class="s2">&#34;http.response.body&#34;</span><span class="p">,</span> <span class="s2">&#34;body&#34;</span><span class="o">:</span> <span class="nx">chunk</span><span class="p">,</span> <span class="s2">&#34;more_body&#34;</span><span class="o">:</span> <span class="nx">True</span><span class="p">})</span>
+    <span class="kr">await</span> <span class="nx">send</span><span class="p">({</span><span class="s2">&#34;type&#34;</span><span class="o">:</span> <span class="s2">&#34;http.response.body&#34;</span><span class="p">,</span> <span class="s2">&#34;body&#34;</span><span class="o">:</span> <span class="nx">b</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="s2">&#34;more_body&#34;</span><span class="o">:</span> <span class="nx">False</span><span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>首先调用<code>send</code>函数，服务器向浏览器发送的 SSE 数据，必须是 UTF-8 编码的文本，HTTP 头信息必要的参数如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Content-Type: text/event-stream
+Cache-Control: no-cache
+Connection: keep-alive
+</code></pre></td></tr></table>
+</div>
+</div><p>在上面我们调用<code>StreamingResponse(fake_number_streamer(), media_type=&quot;text/event-stream&quot;)</code> 时，需要设置<code>media_type</code> 。</p>
+<p>然后是一个循环 <code>async for chunk in self.body_iterator</code> 这里的self.body_iterator就是 <code>fake_number_streamer()</code> 返回的生成器。</p>
+<h3 id="前端代码">前端代码</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">getData</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;message&#34;</span><span class="p">)</span>
+  <span class="kr">const</span> <span class="nx">resp</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">&#34;/sse&#34;</span><span class="p">)</span>
+  <span class="kr">const</span> <span class="nx">reader</span> <span class="o">=</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">getReader</span><span class="p">();</span>
+  <span class="kd">let</span> <span class="nx">text</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="p">{</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">done</span> <span class="p">}</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">reader</span><span class="p">.</span><span class="nx">read</span><span class="p">()</span>
+    <span class="kr">const</span> <span class="nx">chars</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TextDecoder</span><span class="p">().</span><span class="nx">decode</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+    <span class="nx">text</span> <span class="o">+=</span> <span class="s2">&#34; &#34;</span> <span class="o">+</span> <span class="nx">chars</span><span class="p">;</span>
+    <span class="nx">el</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">text</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>前端代码的核心就是上面的函数，使用得是 <code>fetch</code> 函数，主流浏览器基本都是支持的。</p>
+<p><img src="/img/Web/Server-sent_events/can-i-use-fetch.png" alt="Can I Use Fetch"></p>
+<p>fetch函数的返回值是一个Promise。SSE在前端响应是用一个<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/ReadableStream">ReadableStream</a>对象来表示的，然后就使用getReader函数，获取一个reader对象，接着在一个循环里面不停的读取服务器发送过来的内容，使用reader.read函数进行读取，返回一个对象，包含一个value，还有一个done，如果服务器还没有响应完成，那么done就是false，响应完成就是true。</p>
+<p>最后，在接收到更新数据后就展示在html元素当中，就可以看到文章最开始提到的效果了。</p>
+<h4 id="eventsource">EventSource</h4>
+<p>另外，在前端还有一种实现方式，那就是EventSource，这里不展示演示了，可以参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/EventSource">MDN的文档</a>。</p>
+<h2 id="nginx配置">Nginx配置</h2>
+<p>如果你的服务端是通过nginx或者apache等web服务器来进行代理的，那么这里有一个非常重要的设置，如果配置不正确，那么你就看不到streaming方式的效果了。</p>
+<p>这一点就量nginx等web服务器的缓存，因为nginx默认的proxy_buffering是on，所以在Python代码持续输出的时候，nginx会做一个缓存，当缓存大小超过默认的大小的时候才会输出。</p>
+<p>对于nginx最重要的几个配置如下，否则streaming就不生效了，一定要注意：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">proxy_set_header Connection &#39;&#39;;
+proxy_http_version 1.1;
+chunked_transfer_encoding off;
+proxy_buffering off;
+proxy_cache off;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="总结">总结</h2>
+<p>本文介绍了ChatGPT回复消息的实现方式之一：Server-sent events。通过这种技术，服务器可以向客户端主动推送消息，实现了类似于聊天的效果。文章介绍了SSE的用法和示例，以及与WebSocket和轮询的比较。同时，还提供了Python及FastAPI框架的服务端代码和前端代码示例，以及Nginx的配置方法。文章最后给出了参考链接。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-04-08
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/server-sent-events/">Server-sent events</a>
+          <a href="/tags/chatgpt/">ChatGPT</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/ai/openai/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8python%E8%B0%83%E7%94%A8gpt-3.5-turbo%E5%A4%8D%E7%8E%B0chatgpt/">
+            <span class="next-text nav-default">手把手教你用Python调用gpt-3.5-turbo复现ChatGPT</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://kevinjiang.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2015 -
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?b73ff6d4afc4af9e582d8a5dc068bab9";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

@@ -3,34 +3,48 @@
   
   <url>
     <loc>http://kevinjiang.info/</loc>
-    <lastmod>2023-04-02T15:31:24+08:00</lastmod>
+    <lastmod>2023-04-08T21:36:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://kevinjiang.info/tags/chatgpt/</loc>
-    <lastmod>2023-04-02T15:31:24+08:00</lastmod>
+    <lastmod>2023-04-08T21:36:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://kevinjiang.info/post/</loc>
-    <lastmod>2023-04-02T15:31:24+08:00</lastmod>
+    <lastmod>2023-04-08T21:36:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://kevinjiang.info/tags/python/</loc>
-    <lastmod>2023-04-02T15:31:24+08:00</lastmod>
+    <loc>http://kevinjiang.info/tags/server-sent-events/</loc>
+    <lastmod>2023-04-08T21:36:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://kevinjiang.info/tags/</loc>
+    <lastmod>2023-04-08T21:36:12+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/post/web/%E8%81%8A%E8%81%8Achatgpt%E6%B6%88%E6%81%AF%E6%B5%81%E5%9B%9E%E5%A4%8D%E5%8E%9F%E7%90%86/</loc>
+    <lastmod>2023-04-08T21:36:12+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/python/</loc>
     <lastmod>2023-04-02T15:31:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
