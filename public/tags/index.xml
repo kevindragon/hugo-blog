@@ -6,7 +6,34 @@
     <description>Recent content in Tags on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 08 Apr 2023 21:36:12 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 Apr 2023 06:36:02 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Apache POI</title>
+      <link>http://kevinjiang.info/tags/apache-poi/</link>
+      <pubDate>Mon, 24 Apr 2023 06:36:02 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/tags/apache-poi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>http://kevinjiang.info/tags/java/</link>
+      <pubDate>Mon, 24 Apr 2023 06:36:02 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>参考文献</title>
+      <link>http://kevinjiang.info/tags/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/</link>
+      <pubDate>Mon, 24 Apr 2023 06:36:02 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/tags/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>ChatGPT</title>
       <link>http://kevinjiang.info/tags/chatgpt/</link>
@@ -373,15 +400,6 @@
       <pubDate>Tue, 20 Mar 2018 13:56:32 +0000</pubDate>
       
       <guid>http://kevinjiang.info/tags/emacs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Java</title>
-      <link>http://kevinjiang.info/tags/java/</link>
-      <pubDate>Mon, 12 Mar 2018 08:34:36 +0000</pubDate>
-      
-      <guid>http://kevinjiang.info/tags/java/</guid>
       <description></description>
     </item>
     

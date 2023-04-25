@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>如何通过Apache POI在Word当中添加引用（尾注、参考文献） - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="简介 Apache POI是一个用于读写Microsoft Office格式文件（如Word文档、Excel电子表格和PowerPoint演示文稿）的Java API。它是Apache软件基金会的一个开源项目，旨在提供一个易于使用的接口来处理Office文件。Apache POI支持各种Office文件格式，包括早期的二进制文件格式和新的XML文件格式。它提供了许多类和方法来读取、写入和操作Office文件，使得开发人员可以轻松地创建、修改和读取各种Office文件。Apache POI是Java开发人员的一个强大工具，可以帮助他们在Java应用程序中集成Office文件的处理功能。
+" /><meta name="keywords" content="KevinJiang, AI大模型, AI落地, 全栈工程师, Java, Spring Boot" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
+
+
+<link rel="canonical" href="http://kevinjiang.info/post/java/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87apache-poi%E5%9C%A8word%E5%BD%93%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%BC%95%E7%94%A8%E5%B0%BE%E6%B3%A8%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="如何通过Apache POI在Word当中添加引用（尾注、参考文献）" />
+<meta property="og:description" content="简介
+Apache POI是一个用于读写Microsoft Office格式文件（如Word文档、Excel电子表格和PowerPoint演示文稿）的Java API。它是Apache软件基金会的一个开源项目，旨在提供一个易于使用的接口来处理Office文件。Apache POI支持各种Office文件格式，包括早期的二进制文件格式和新的XML文件格式。它提供了许多类和方法来读取、写入和操作Office文件，使得开发人员可以轻松地创建、修改和读取各种Office文件。Apache POI是Java开发人员的一个强大工具，可以帮助他们在Java应用程序中集成Office文件的处理功能。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://kevinjiang.info/post/java/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87apache-poi%E5%9C%A8word%E5%BD%93%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%BC%95%E7%94%A8%E5%B0%BE%E6%B3%A8%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-04-24T06:36:02+08:00" />
+<meta property="article:modified_time" content="2023-04-24T06:36:02+08:00" />
+
+<meta itemprop="name" content="如何通过Apache POI在Word当中添加引用（尾注、参考文献）">
+<meta itemprop="description" content="简介
+Apache POI是一个用于读写Microsoft Office格式文件（如Word文档、Excel电子表格和PowerPoint演示文稿）的Java API。它是Apache软件基金会的一个开源项目，旨在提供一个易于使用的接口来处理Office文件。Apache POI支持各种Office文件格式，包括早期的二进制文件格式和新的XML文件格式。它提供了许多类和方法来读取、写入和操作Office文件，使得开发人员可以轻松地创建、修改和读取各种Office文件。Apache POI是Java开发人员的一个强大工具，可以帮助他们在Java应用程序中集成Office文件的处理功能。"><meta itemprop="datePublished" content="2023-04-24T06:36:02+08:00" />
+<meta itemprop="dateModified" content="2023-04-24T06:36:02+08:00" />
+<meta itemprop="wordCount" content="2687">
+<meta itemprop="keywords" content="Apache POI,Java,参考文献," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="如何通过Apache POI在Word当中添加引用（尾注、参考文献）"/>
+<meta name="twitter:description" content="简介
+Apache POI是一个用于读写Microsoft Office格式文件（如Word文档、Excel电子表格和PowerPoint演示文稿）的Java API。它是Apache软件基金会的一个开源项目，旨在提供一个易于使用的接口来处理Office文件。Apache POI支持各种Office文件格式，包括早期的二进制文件格式和新的XML文件格式。它提供了许多类和方法来读取、写入和操作Office文件，使得开发人员可以轻松地创建、修改和读取各种Office文件。Apache POI是Java开发人员的一个强大工具，可以帮助他们在Java应用程序中集成Office文件的处理功能。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/resume/">
+        <li class="mobile-menu-item">简历</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resume/">简历</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">如何通过Apache POI在Word当中添加引用（尾注、参考文献）</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-04-24 </span>
+        
+          <span class="more-meta"> 约 2687 字 </span>
+          <span class="more-meta"> 预计阅读 6 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#组件">组件</a></li>
+    <li><a href="#使用xwpf组件写一个带有引用的文档">使用XWPF组件写一个带有引用的文档</a>
+      <ul>
+        <li><a href="#创建文档">创建文档</a></li>
+        <li><a href="#追加段落">追加段落</a></li>
+        <li><a href="#追加run">追加Run</a></li>
+        <li><a href="#写入文本内容">写入文本内容</a></li>
+        <li><a href="#保存文档">保存文档</a></li>
+        <li><a href="#输出的结果">输出的结果</a></li>
+      </ul>
+    </li>
+    <li><a href="#插入引用">插入引用</a>
+      <ul>
+        <li><a href="#创建新的run">创建新的Run</a></li>
+        <li><a href="#创建一个尾注">创建一个尾注</a></li>
+        <li><a href="#关联引用和尾注">关联引用和尾注</a></li>
+      </ul>
+    </li>
+    <li><a href="#docx其实就是一个包含一系列xml的压缩包">docx其实就是一个包含一系列xml的压缩包</a>
+      <ul>
+        <li><a href="#worddocumentxml">word/document.xml</a></li>
+        <li><a href="#wordendnotesxml">word/endnotes.xml</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#关注我">关注我</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="简介">简介</h2>
+<p>Apache POI是一个用于读写Microsoft Office格式文件（如Word文档、Excel电子表格和PowerPoint演示文稿）的Java API。它是Apache软件基金会的一个开源项目，旨在提供一个易于使用的接口来处理Office文件。Apache POI支持各种Office文件格式，包括早期的二进制文件格式和新的XML文件格式。它提供了许多类和方法来读取、写入和操作Office文件，使得开发人员可以轻松地创建、修改和读取各种Office文件。Apache POI是Java开发人员的一个强大工具，可以帮助他们在Java应用程序中集成Office文件的处理功能。</p>
+<h2 id="组件">组件</h2>
+<p>Apache POI有非常多的组件，分别用于读写不同格式的文档：</p>
+<p>POIFS - 读写OLE 2文档，这是一种二进制格式的Microsoft文档格式的组件</p>
+<p>HSSF and XSSF - 读写Microsoft Excel XLS格式档案的组件</p>
+<p>HWPF and XWPF - 读书Microsoft Word格式文档的组件，HWPF读写97到2003格式，XWPF读写最新的2007+格式</p>
+<p>HSLF and XSLF - 读写Microsoft PowerPoint文档的组件</p>
+<p>HPSF - 读写OLE 2文档属性的组件</p>
+<p>HDGF and XDGF - 读Microsoft Visio文档的组件</p>
+<p>HPBF - 读取Publisher文档的组件</p>
+<p>HMEF for TNEF (winmail.dat) - 读取Outlook附件的组件</p>
+<p>HSMF - 读取Outlook信息的组件</p>
+<h2 id="使用xwpf组件写一个带有引用的文档">使用XWPF组件写一个带有引用的文档</h2>
+<h3 id="创建文档">创建文档</h3>
+<p>使用下面的语句创建一个空文档。类<code>XWPFDocument</code>还支持传入一个<code>InputStream</code>对象，读取一个已经存在的文档，还可以继续写入内容到这个文档当中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">XWPFDocument</span> <span class="n">document</span> <span class="o">=</span> <span class="k">new</span> <span class="n">XWPFDocument</span><span class="o">();</span>
+
+<span class="c1">// 读取一个存在的文档
+</span><span class="c1">// XWPFDocument document = new XWPFDocument(new FileInputStream(new File(&#34;input.docx&#34;);
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="追加段落">追加段落</h3>
+<p>使用document对象创建一个段落对象，在<code>paragraph</code>对象上可以设置样式、缩进、对齐等段落属性。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">XWPFParagraph</span> <span class="n">paragraph</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="na">createParagraph</span><span class="o">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="追加run">追加Run</h3>
+<p>这个Run是写入具体内容的对象，可以写入文档、图片等资源。Run对象是通过paragraph对象来创建的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">XWPFRun</span> <span class="n">run</span> <span class="o">=</span> <span class="n">paragraph</span><span class="o">.</span><span class="na">createRun</span><span class="o">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="写入文本内容">写入文本内容</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">run</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&#34;这是一个引用，引用的内容是Apache POI&#34;</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="保存文档">保存文档</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">document</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">&#34;example.docx&#34;</span><span class="o">));</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="输出的结果">输出的结果</h3>
+<p>下面是保存后的效果</p>
+<p><img src="/img/Java/ApachePOIWordReference/simple.png" alt="simple"></p>
+<p>从上面的过程来看，代码非常简单，几乎都是这么一个过程。</p>
+<h2 id="插入引用">插入引用</h2>
+<p><img src="/img/Java/ApachePOIWordReference/word_add_reference.png" alt="Word add reference"></p>
+<p>如果使用Word文档插入一个尾注，需要找到“引用”菜单，然后使用工具栏上面的“插入尾注”就可以创建一个尾注了。</p>
+<p><img src="/img/Java/ApachePOIWordReference/word_added_a_reference.png" alt="Word added a reference"></p>
+<p>尾注默认使用罗马数字来编号的，如果要改变编号格式，找到引用菜单的插入尾注工具栏组右下角的“脚注和尾注”，点击后会弹出脚注和尾注对话框，在格式一栏可以设置编号格式</p>
+<p><img src="/img/Java/ApachePOIWordReference/format_of_reference_number.png" alt="Format of reference number"></p>
+<p>找到格式一栏，选择相应的编号格式</p>
+<p><img src="/img/Java/ApachePOIWordReference/reference_number_selection.png" alt="Reference number selection"></p>
+<p>好了，上面是演示了如何使用Microsoft Word软件插入尾注，那么使用Apache POI软件包该如何做呢？</p>
+<p>这里有一个事情需要先了解，在Apache POI的XWPF设置引用的编号格式非常的困难，我们使用变通的办法。先利用上面的方法创建一个阿拉伯数字编号的引用格式，然后把所有的内容都删除，保存为一个空的文档，用这个空的文档当作模板，在创建 <code>XWPFDocument</code> 对象的时候，传入这个空文档，那么在代码里面插入尾注的时候就会以阿拉伯数字编号了。</p>
+<h3 id="创建新的run">创建新的Run</h3>
+<p>使用paragraph对象创建一个新的<code>Run</code>对象，在这个新的<code>Run</code>对象上利用代码 <code>refRun.setSubscript(VerticalAlign.SUPERSCRIPT)</code> 设置引用编号为上标。然后使用refRun对象创建一个尾注的引用，但是这是尾注还没有创建，所以尾注的ID暂时还没有设置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">XWPFDocument</span> <span class="n">document</span> <span class="o">=</span> <span class="k">new</span> <span class="n">XWPFDocument</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;template.docx&#34;</span><span class="o">)));</span>
+<span class="n">XWPFEndnotes</span> <span class="n">endnotes</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="na">createEndnotes</span><span class="o">();</span>
+<span class="c1">// ......
+</span><span class="c1"></span><span class="n">run</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&#34;这是一个引用，引用的内容是Apache POI&#34;</span><span class="o">);</span>
+<span class="c1">// ......
+</span><span class="c1"></span><span class="n">XWPFRun</span> <span class="n">refRun</span> <span class="o">=</span> <span class="n">paragraph</span><span class="o">.</span><span class="na">createRun</span><span class="o">();</span>
+<span class="n">refRun</span><span class="o">.</span><span class="na">setSubscript</span><span class="o">(</span><span class="n">VerticalAlign</span><span class="o">.</span><span class="na">SUPERSCRIPT</span><span class="o">);</span>
+<span class="n">CTFtnEdnRef</span> <span class="n">ctFtnEdnRef</span> <span class="o">=</span> <span class="n">refRun</span><span class="o">.</span><span class="na">getCTR</span><span class="o">().</span><span class="na">addNewEndnoteReference</span><span class="o">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="创建一个尾注">创建一个尾注</h3>
+<p>上面的代码当中我们在<code>document</code>对象上创建了一个用于管理尾注的对象endnotes，就是利用这个对象来创建单个的尾注对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">XWPFEndnote</span> <span class="n">endnote</span> <span class="o">=</span> <span class="n">endnotes</span><span class="o">.</span><span class="na">createEndnote</span><span class="o">();</span>
+<span class="n">XWPFParagraph</span> <span class="n">endnoteParagraph</span> <span class="o">=</span> <span class="n">endnote</span><span class="o">.</span><span class="na">createParagraph</span><span class="o">();</span>
+<span class="n">XWPFRun</span> <span class="n">endnoteRun</span> <span class="o">=</span> <span class="n">endnoteParagraph</span><span class="o">.</span><span class="na">createRun</span><span class="o">();</span>
+<span class="n">endnoteRun</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&#34;  Apache POI - the Java API for Microsoft Documents, https://poi.apache.org&#34;</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>一个尾注对象也可以像<code>document</code>对象一样，创建一个<code>paragraph</code>对象后，再创建一个<code>run</code>对象，然后使用<code>run</code>对象写入文本内容。</p>
+<h3 id="关联引用和尾注">关联引用和尾注</h3>
+<p>把尾注的编号与内容当中的引用进行关联，关联的方式就是使用尾注的ID来达成的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">ctFtnEdnRef</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">endnote</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>最后来看看输出的结果</p>
+<p><img src="/img/Java/ApachePOIWordReference/result.png" alt="Untitled"></p>
+<h2 id="docx其实就是一个包含一系列xml的压缩包">docx其实就是一个包含一系列xml的压缩包</h2>
+<p><img src="/img/Java/ApachePOIWordReference/file_tree_of_docx.png" alt="Untitled"></p>
+<p>使用解压工具，对example.docx进行解压后，可以看到在example目录所有的xml文件，Apache POI的XWPF组件其实就是对这些xml的读取与写入操作。比如docProps目录下面的就是对整个文档的属性的设置，word目录下面是对内容的一些配置与数据，document.xml就是内容，endnotes.xml就是尾注的内容了。</p>
+<p>根据上面的内容，我们看两个最先要的xml文件，word/document.xml和word/endnotes.xml</p>
+<h3 id="worddocumentxml">word/document.xml</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="nt">&lt;w:document</span> <span class="na">mc:Ignorable=</span><span class="s">&#34;w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14&#34;</span>
+    <span class="err">...</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;w:body&gt;</span>
+        <span class="nt">&lt;w:p</span> <span class="na">w14:paraId=</span><span class="s">&#34;73499B62&#34;</span> <span class="na">w14:textId=</span><span class="s">&#34;47C51F1E&#34;</span> <span class="na">w:rsidR=</span><span class="s">&#34;000E1D70&#34;</span>
+            <span class="na">w:rsidRDefault=</span><span class="s">&#34;000E1D70&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;w:pPr&gt;</span>
+                <span class="nt">&lt;w:rPr&gt;</span>
+                    <span class="nt">&lt;w:rFonts</span> <span class="na">w:hint=</span><span class="s">&#34;eastAsia&#34;</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/w:rPr&gt;</span>
+            <span class="nt">&lt;/w:pPr&gt;</span>
+        <span class="nt">&lt;/w:p&gt;</span>
+        <span class="nt">&lt;w:p&gt;</span>
+            <span class="nt">&lt;w:r&gt;</span>
+                <span class="nt">&lt;w:t&gt;</span>这是一个引用，引用的内容是Apache POI<span class="nt">&lt;/w:t&gt;</span>
+            <span class="nt">&lt;/w:r&gt;</span>
+            <span class="nt">&lt;w:r&gt;</span>
+                <span class="nt">&lt;w:rPr&gt;</span>
+                    <span class="nt">&lt;w:vertAlign</span> <span class="na">w:val=</span><span class="s">&#34;superscript&#34;</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/w:rPr&gt;</span>
+                <span class="nt">&lt;w:endnoteReference</span> <span class="na">w:id=</span><span class="s">&#34;5&#34;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/w:r&gt;</span>
+        <span class="nt">&lt;/w:p&gt;</span>
+        <span class="nt">&lt;w:sectPr</span> <span class="na">w:rsidR=</span><span class="s">&#34;000E1D70&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;w:endnotePr&gt;</span>
+                <span class="nt">&lt;w:numFmt</span> <span class="na">w:val=</span><span class="s">&#34;decimal&#34;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/w:endnotePr&gt;</span>
+            <span class="nt">&lt;w:pgSz</span> <span class="na">w:w=</span><span class="s">&#34;11906&#34;</span> <span class="na">w:h=</span><span class="s">&#34;16838&#34;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;w:pgMar</span> <span class="na">w:top=</span><span class="s">&#34;1440&#34;</span> <span class="na">w:right=</span><span class="s">&#34;1800&#34;</span> <span class="na">w:bottom=</span><span class="s">&#34;1440&#34;</span> <span class="na">w:left=</span><span class="s">&#34;1800&#34;</span> <span class="na">w:header=</span><span class="s">&#34;851&#34;</span>
+                <span class="na">w:footer=</span><span class="s">&#34;992&#34;</span> <span class="na">w:gutter=</span><span class="s">&#34;0&#34;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;w:cols</span> <span class="na">w:space=</span><span class="s">&#34;425&#34;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;w:docGrid</span> <span class="na">w:type=</span><span class="s">&#34;lines&#34;</span> <span class="na">w:linePitch=</span><span class="s">&#34;312&#34;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/w:sectPr&gt;</span>
+    <span class="nt">&lt;/w:body&gt;</span>
+<span class="nt">&lt;/w:document&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>有一个三级的标签是 <code>&lt;w:p&gt;&lt;w:r&gt;&lt;w:t&gt;</code>，这是跟代码里面的 <code>paragraph→run→text</code> 这个层级是对应的。<code>&lt;w:endnoteReference w:id=”5”&gt;</code> 这个跟代码里面的<code>ctFtnEdnRef.setId</code>是对应的，设置引用与尾注的关联。<code>&lt;w:endnotePr&gt;&lt;w:numFmt&gt;</code> 标签设置了引用编号的格式，<code>decimal</code>表示阿拉伯数字。</p>
+<h3 id="wordendnotesxml">word/endnotes.xml</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="nt">&lt;w:endnotes</span> <span class="na">mc:Ignorable=</span><span class="s">&#34;w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14&#34;</span>
+    <span class="err">...</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;w:endnote</span> <span class="na">w:type=</span><span class="s">&#34;separator&#34;</span> <span class="na">w:id=</span><span class="s">&#34;-1&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;w:p</span> <span class="na">w14:paraId=</span><span class="s">&#34;26DFFEF0&#34;</span> <span class="na">w14:textId=</span><span class="s">&#34;77777777&#34;</span> <span class="na">w:rsidR=</span><span class="s">&#34;00A603FE&#34;</span>
+            <span class="na">w:rsidRDefault=</span><span class="s">&#34;00A603FE&#34;</span> <span class="na">w:rsidP=</span><span class="s">&#34;004947E6&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;w:r&gt;</span>
+                <span class="nt">&lt;w:separator</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/w:r&gt;</span>
+        <span class="nt">&lt;/w:p&gt;</span>
+    <span class="nt">&lt;/w:endnote&gt;</span>
+    <span class="nt">&lt;w:endnote</span> <span class="na">w:type=</span><span class="s">&#34;continuationSeparator&#34;</span> <span class="na">w:id=</span><span class="s">&#34;0&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;w:p</span> <span class="na">w14:paraId=</span><span class="s">&#34;1C9C8E1D&#34;</span> <span class="na">w14:textId=</span><span class="s">&#34;77777777&#34;</span> <span class="na">w:rsidR=</span><span class="s">&#34;00A603FE&#34;</span>
+            <span class="na">w:rsidRDefault=</span><span class="s">&#34;00A603FE&#34;</span> <span class="na">w:rsidP=</span><span class="s">&#34;004947E6&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;w:r&gt;</span>
+                <span class="nt">&lt;w:continuationSeparator</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/w:r&gt;</span>
+        <span class="nt">&lt;/w:p&gt;</span>
+    <span class="nt">&lt;/w:endnote&gt;</span>
+    <span class="nt">&lt;w:endnote</span> <span class="na">w:type=</span><span class="s">&#34;normal&#34;</span> <span class="na">w:id=</span><span class="s">&#34;5&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;w:p&gt;</span>
+            <span class="nt">&lt;w:r&gt;</span>
+                <span class="nt">&lt;w:rPr&gt;</span>
+                    <span class="nt">&lt;w:rStyle</span> <span class="na">w:val=</span><span class="s">&#34;FootnoteReference&#34;</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/w:rPr&gt;</span>
+                <span class="nt">&lt;w:endnoteRef</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/w:r&gt;</span>
+            <span class="nt">&lt;w:r&gt;</span>
+                <span class="nt">&lt;w:t</span> <span class="na">xml:space=</span><span class="s">&#34;preserve&#34;</span><span class="nt">&gt;</span>  Apache POI - the Java API for Microsoft Documents, https://poi.apache.org<span class="nt">&lt;/w:t&gt;</span>
+            <span class="nt">&lt;/w:r&gt;</span>
+        <span class="nt">&lt;/w:p&gt;</span>
+    <span class="nt">&lt;/w:endnote&gt;</span>
+<span class="nt">&lt;/w:endnotes&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这个xml文件里面我们看到了 <code>&lt;w:endnote … w:id=”5”&gt;</code> 这么一个标签，与document.xml里面的<code>w:id</code>就对应起来了，里面还是 <code>&lt;w:p&gt;&lt;w:r&gt;&lt;w:t&gt;</code> 这样的层级结构。</p>
+<h2 id="总结">总结</h2>
+<p>好了，使用Apache POI插入尾注就介绍到这里。我们介绍了如何使用Apache POI的XWPF组件快速创建与写入内容到docx文档当中，主要介绍了如何使用编程的方式设置引用和尾注，修改编号格式。欢迎关注我的公众号，会不定期更新编程与AI相关技术与实践。</p>
+<h2 id="关注我">关注我</h2>
+<p>关注我的公众号，请把你关心的问题发送给我，我会深入研究并为你解答。
+关注公众号及时获取编程、软件工程、Linux知识、AI理论与落地技术实践信息。</p>
+<p><img src="/img/qrcode_for_gh_d49b3390adad_258.jpg" alt="QRcode"></p>
+<p>如果博客内容对您有帮助，也可以请我喝杯咖啡，你的支持是我不停的创作源泉。</p>
+<p><img src="/img/wechat_pay_w200.jpg" alt="WeChat_Pay"></p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-04-24
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/apache-poi/">Apache POI</a>
+          <a href="/tags/java/">Java</a>
+          <a href="/tags/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/">参考文献</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/web/%E8%81%8A%E8%81%8Achatgpt%E6%B6%88%E6%81%AF%E6%B5%81%E5%9B%9E%E5%A4%8D%E5%8E%9F%E7%90%86/">
+            <span class="next-text nav-default">聊聊ChatGPT消息流回复原理</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://kevinjiang.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2015 -
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script type="text/javascript" async src="/lib/mathjax/es5/tex-mml-chtml.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?b73ff6d4afc4af9e582d8a5dc068bab9";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

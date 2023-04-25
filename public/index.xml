@@ -6,7 +6,17 @@
     <description>Recent content on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 08 Apr 2023 21:36:12 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 Apr 2023 06:36:02 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何通过Apache POI在Word当中添加引用（尾注、参考文献）</title>
+      <link>http://kevinjiang.info/post/java/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87apache-poi%E5%9C%A8word%E5%BD%93%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%BC%95%E7%94%A8%E5%B0%BE%E6%B3%A8%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/</link>
+      <pubDate>Mon, 24 Apr 2023 06:36:02 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/java/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87apache-poi%E5%9C%A8word%E5%BD%93%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%BC%95%E7%94%A8%E5%B0%BE%E6%B3%A8%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/</guid>
+      <description>&lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
+&lt;p&gt;Apache POI是一个用于读写Microsoft Office格式文件（如Word文档、Excel电子表格和PowerPoint演示文稿）的Java API。它是Apache软件基金会的一个开源项目，旨在提供一个易于使用的接口来处理Office文件。Apache POI支持各种Office文件格式，包括早期的二进制文件格式和新的XML文件格式。它提供了许多类和方法来读取、写入和操作Office文件，使得开发人员可以轻松地创建、修改和读取各种Office文件。Apache POI是Java开发人员的一个强大工具，可以帮助他们在Java应用程序中集成Office文件的处理功能。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>聊聊ChatGPT消息流回复原理</title>
       <link>http://kevinjiang.info/post/web/%E8%81%8A%E8%81%8Achatgpt%E6%B6%88%E6%81%AF%E6%B5%81%E5%9B%9E%E5%A4%8D%E5%8E%9F%E7%90%86/</link>
