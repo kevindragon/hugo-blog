@@ -138,8 +138,6 @@ SSH会话超时，这通常是由于客户端和服务器之间的网络断开�
 
 有关配置文件的其他选项的更多信息，请查看 [client-side man file](https://man.openbsd.org/ssh_config) 或 [server-side man file](https://man.openbsd.org/sshd_config)。
 
-For more information on additional options for the config files take a look at the [client-side man file](https://man.openbsd.org/ssh_config) or the [server-side man file](https://man.openbsd.org/sshd_config).
-
 ## 关注我
 
 关注我的公众号，请把你关心的问题发送给我，我会深入研究并为你解答。
