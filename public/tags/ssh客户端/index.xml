@@ -6,7 +6,16 @@
     <description>Recent content in SSH客户端 on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 29 Nov 2022 20:53:42 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/ssh%E5%AE%A2%E6%88%B7%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 May 2023 20:53:42 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/ssh%E5%AE%A2%E6%88%B7%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python函数式编程之 update_in_fn</title>
+      <link>http://kevinjiang.info/post/python/python%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B9%8Bupdate_in_fn/</link>
+      <pubDate>Fri, 19 May 2023 20:53:42 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/python/python%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B9%8Bupdate_in_fn/</guid>
+      <description>接上一篇内容 Python函数式编程之自定义函数get_in 。这次我们来编写函数式风格的修改字典/列表值的通用函数。 我们先来假设一种情况，你有</description>
+    </item>
+    
     <item>
       <title>保持SSH会话在线</title>
       <link>http://kevinjiang.info/post/linux/%E4%BF%9D%E6%8C%81ssh%E4%BC%9A%E8%AF%9D%E5%9C%A8%E7%BA%BF/</link>

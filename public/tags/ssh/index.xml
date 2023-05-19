@@ -6,7 +6,16 @@
     <description>Recent content in ssh on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 24 Feb 2023 10:53:42 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/ssh/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 May 2023 20:53:42 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/ssh/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python函数式编程之 update_in_fn</title>
+      <link>http://kevinjiang.info/post/python/python%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B9%8Bupdate_in_fn/</link>
+      <pubDate>Fri, 19 May 2023 20:53:42 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/python/python%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B9%8Bupdate_in_fn/</guid>
+      <description>接上一篇内容 Python函数式编程之自定义函数get_in 。这次我们来编写函数式风格的修改字典/列表值的通用函数。 我们先来假设一种情况，你有</description>
+    </item>
+    
     <item>
       <title>使用MobaXterm做端口转发</title>
       <link>http://kevinjiang.info/post/linux/%E4%BD%BF%E7%94%A8mobaxterm%E5%81%9A%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/</link>

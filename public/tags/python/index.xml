@@ -6,7 +6,16 @@
     <description>Recent content in Python on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 02 Apr 2023 15:31:24 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 May 2023 14:52:25 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python函数式编程之自定义函数get_in</title>
+      <link>http://kevinjiang.info/post/python/python%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0get_in/</link>
+      <pubDate>Tue, 02 May 2023 14:52:25 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/python/python%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0get_in/</guid>
+      <description>Python函数式编程之 get_in 编程语言支持通过以下几种方式来解构具体问题： 大多数的编程语言都是 过程式 的，所谓程序就是一连串告诉计算机怎样处理程序</description>
+    </item>
+    
     <item>
       <title>手把手教你用Python调用gpt-3.5-turbo复现ChatGPT</title>
       <link>http://kevinjiang.info/post/ai/openai/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8python%E8%B0%83%E7%94%A8gpt-3.5-turbo%E5%A4%8D%E7%8E%B0chatgpt/</link>
@@ -14,15 +23,6 @@
       
       <guid>http://kevinjiang.info/post/ai/openai/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8python%E8%B0%83%E7%94%A8gpt-3.5-turbo%E5%A4%8D%E7%8E%B0chatgpt/</guid>
       <description>大家好，我是凯文。今天为大家介绍如何使用Python复刻ChatGPT的思路，以及核心代码。 预备知识 首先，Python的版本推荐是3.9。我</description>
-    </item>
-    
-    <item>
-      <title>Python函数式编程之自定义函数get_in</title>
-      <link>http://kevinjiang.info/post/python/python%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0get_in/</link>
-      <pubDate>Sat, 19 Nov 2022 14:52:25 +0800</pubDate>
-      
-      <guid>http://kevinjiang.info/post/python/python%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0get_in/</guid>
-      <description>Python函数式编程之 get_in 编程语言支持通过以下几种方式来解构具体问题： 大多数的编程语言都是 过程式 的，所谓程序就是一连串告诉计算机怎样处理程序</description>
     </item>
     
     <item>
