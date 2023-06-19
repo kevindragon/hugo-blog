@@ -6,10 +6,10 @@ date: 2017-06-13 10:53:25
 # 个人信息
 
 * 蒋文林/男/1988
-* 博客：https://kevinjiang.info
-* Github：https://github.com/kevindragon
+* 博客：[https://kevinjiang.info](https://kevinjiang.info)
+* Github：[https://github.com/kevindragon](https://github.com/kevindragon){:target="_blank"}
 * 微信：kittenll
-* 邮箱：wenlin1988@126.com
+* 邮箱：<a href="mailto:wenlin1988@126.com">wenlin1988@126.com</a>
 
 # 个人简介
 
@@ -25,6 +25,8 @@ date: 2017-06-13 10:53:25
 我在湖南赤道银河科技有限公司担任CTO一职，带领团队攻坚克难，持续的技术创新，培养了一批青春有活力的工程师。参与制定公司的战略规划和业务拓展方向。密切关注市场和客户需求，了解行业发展趋势，制定相应的战略规划，以帮助公司把握市场机遇，实现可持续发展。制定公司的人才战略和组织文化建设，招募和留住优秀的人才，为公司的未来发展打下坚实的基础。
 
 在此期间我们承接了多个重点高校的研发项目，参与了长沙市重大专项计划，申请了湖南省2023重大研发计划。
+
+公司主打的产品是SciRadar，网址：https://sciradar.com
 
 ## 励德爱思唯尔信息技术(北京)有限公司
 
@@ -216,6 +218,6 @@ date: 2017-06-13 10:53:25
 
 # 小程序
 
-### 编程语言排行榜
+## 编程语言排行榜
 
-<img src="/img/programming_rank.jpg" width="200" />
+![编程语言排行榜](/img/programming_rank.jpg)
