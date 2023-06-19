@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>FastAPI on (power up)</title>
+    <link>http://kevinjiang.info/tags/fastapi/</link>
+    <description>Recent content in FastAPI on (power up)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 06 Jun 2023 19:32:18 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/fastapi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python Docker FastAPI快速开发部署RESTful API</title>
+      <link>http://kevinjiang.info/post/python/python&#43;docker&#43;fastapi%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E9%83%A8%E7%BD%B2restful-api/</link>
+      <pubDate>Tue, 06 Jun 2023 19:32:18 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/python/python&#43;docker&#43;fastapi%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E9%83%A8%E7%BD%B2restful-api/</guid>
+      <description>本文介绍如何快速使用Python, Docker, FastAPI快速开发RESTful API，以及如何编译为Docker镜像，使用Docker容器运行程序</description>
+    </item>
+    
+  </channel>
+</rss>

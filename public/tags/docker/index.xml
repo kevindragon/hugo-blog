@@ -6,7 +6,16 @@
     <description>Recent content in Docker on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 01 Dec 2022 12:44:21 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 06 Jun 2023 19:32:18 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python Docker FastAPI快速开发部署RESTful API</title>
+      <link>http://kevinjiang.info/post/python/python&#43;docker&#43;fastapi%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E9%83%A8%E7%BD%B2restful-api/</link>
+      <pubDate>Tue, 06 Jun 2023 19:32:18 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/python/python&#43;docker&#43;fastapi%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E9%83%A8%E7%BD%B2restful-api/</guid>
+      <description>本文介绍如何快速使用Python, Docker, FastAPI快速开发RESTful API，以及如何编译为Docker镜像，使用Docker容器运行程序</description>
+    </item>
+    
     <item>
       <title>Docker删除镜像的另外一种姿势</title>
       <link>http://kevinjiang.info/post/cloudnative/docker%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8F%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E5%A7%BF%E5%8A%BF/</link>

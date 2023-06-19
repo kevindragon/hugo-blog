@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Spacemacs on (power up)</title>
+    <link>http://kevinjiang.info/tags/spacemacs/</link>
+    <description>Recent content in Spacemacs on (power up)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 19 Jun 2023 22:15:08 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/spacemacs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在Spacemacs中使用conda环境启用lsp-pyright</title>
+      <link>http://kevinjiang.info/post/emacs/%E5%9C%A8spacemacs%E4%B8%AD%E4%BD%BF%E7%94%A8conda%E7%8E%AF%E5%A2%83%E5%90%AF%E7%94%A8lsp-pyright/</link>
+      <pubDate>Mon, 19 Jun 2023 22:15:08 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/emacs/%E5%9C%A8spacemacs%E4%B8%AD%E4%BD%BF%E7%94%A8conda%E7%8E%AF%E5%A2%83%E5%90%AF%E7%94%A8lsp-pyright/</guid>
+      <description>如果你是Emacs的用户，那么肯定听说过Spacemacs，以开箱即用而出名，界面也非常的漂亮。放弃了一段时间的Emacs，之前都是自己写的</description>
+    </item>
+    
+  </channel>
+</rss>

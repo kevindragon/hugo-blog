@@ -6,7 +6,52 @@
     <description>Recent content in Tags on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 19 May 2023 20:53:42 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Jun 2023 22:15:08 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Emacs</title>
+      <link>http://kevinjiang.info/tags/emacs/</link>
+      <pubDate>Mon, 19 Jun 2023 22:15:08 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/tags/emacs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>http://kevinjiang.info/tags/python/</link>
+      <pubDate>Mon, 19 Jun 2023 22:15:08 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spacemacs</title>
+      <link>http://kevinjiang.info/tags/spacemacs/</link>
+      <pubDate>Mon, 19 Jun 2023 22:15:08 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/tags/spacemacs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>http://kevinjiang.info/tags/docker/</link>
+      <pubDate>Tue, 06 Jun 2023 19:32:18 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>FastAPI</title>
+      <link>http://kevinjiang.info/tags/fastapi/</link>
+      <pubDate>Tue, 06 Jun 2023 19:32:18 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/tags/fastapi/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>ssh</title>
       <link>http://kevinjiang.info/tags/ssh/</link>
@@ -40,15 +85,6 @@
       <pubDate>Tue, 02 May 2023 14:52:25 +0800</pubDate>
       
       <guid>http://kevinjiang.info/tags/get-in/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
-      <link>http://kevinjiang.info/tags/python/</link>
-      <pubDate>Tue, 02 May 2023 14:52:25 +0800</pubDate>
-      
-      <guid>http://kevinjiang.info/tags/python/</guid>
       <description></description>
     </item>
     
@@ -233,15 +269,6 @@
     </item>
     
     <item>
-      <title>Docker</title>
-      <link>http://kevinjiang.info/tags/docker/</link>
-      <pubDate>Thu, 01 Dec 2022 12:44:21 +0800</pubDate>
-      
-      <guid>http://kevinjiang.info/tags/docker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>时区</title>
       <link>http://kevinjiang.info/tags/%E6%97%B6%E5%8C%BA/</link>
       <pubDate>Fri, 08 Jul 2022 10:34:39 +0800</pubDate>
@@ -391,15 +418,6 @@
       <pubDate>Sun, 01 Jul 2018 21:32:08 +0000</pubDate>
       
       <guid>http://kevinjiang.info/tags/web/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Emacs</title>
-      <link>http://kevinjiang.info/tags/emacs/</link>
-      <pubDate>Tue, 20 Mar 2018 13:56:32 +0000</pubDate>
-      
-      <guid>http://kevinjiang.info/tags/emacs/</guid>
       <description></description>
     </item>
     
