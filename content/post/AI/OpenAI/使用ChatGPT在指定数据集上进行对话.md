@@ -2,6 +2,7 @@
 title: "使用ChatGPT在指定数据集上进行对话"
 date: 2023-03-14T21:47:12+08:00
 tags: [ChatGPT, In-Context Learning]
+keywords: ["ChatGPT", "chatgpt给定范围资料匹配", "ChatGPT与知识库对话"]
 ---
 
 # ChatGPT不全面简介
