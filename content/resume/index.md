@@ -218,6 +218,10 @@ date: 2017-06-13 10:53:25
 
 # 小程序
 
+## 公众号
+
+![木木小小孩](/img/qrcode_for_gh.jpg)
+
 ## 编程语言排行榜
 
 ![编程语言排行榜](/img/programming_rank.jpg)

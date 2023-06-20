@@ -187,7 +187,7 @@ posts = "/:year/:month/:day/:slug"
     pagePV = true
 
   [params.reward]                                         # 文章打赏
-    enable = false
+    enable = true
     wechat = "/img/wechat_pay_1242x1242.jpg"              # 微信二维码
     alipay = "/img/alipay_600x600.jpg"                    # 支付宝二维码
 
