@@ -2,6 +2,7 @@
 title: "手把手教你用Python调用gpt-3.5-turbo复现ChatGPT"
 date: 2023-04-02T15:31:24+08:00
 tags: [ChatGPT, Python]
+keywords: [ChatGPT, ChatGPT的打字机效果, gpt-3.5-turbo]
 ---
 
 大家好，我是凯文。今天为大家介绍如何使用Python复刻ChatGPT的思路，以及核心代码。
