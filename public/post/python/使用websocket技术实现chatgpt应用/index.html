@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用WebSocket技术实现ChatGPT应用 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="在之前的文章当中介绍了利用Server-sent events技术实现了ChatGPT消息流回复，也就是ChatGPT在回复的时候的打字效果。" /><meta name="keywords" content="Python, WebSocket, ChatGPT, Python实现ChatGPT打字效果" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
+
+
+<link rel="canonical" href="http://kevinjiang.info/post/python/%E4%BD%BF%E7%94%A8websocket%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0chatgpt%E5%BA%94%E7%94%A8/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用WebSocket技术实现ChatGPT应用" />
+<meta property="og:description" content="在之前的文章当中介绍了利用Server-sent events技术实现了ChatGPT消息流回复，也就是ChatGPT在回复的时候的打字效果。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://kevinjiang.info/post/python/%E4%BD%BF%E7%94%A8websocket%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0chatgpt%E5%BA%94%E7%94%A8/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-06-25T12:34:25+08:00" />
+<meta property="article:modified_time" content="2023-06-25T12:34:25+08:00" />
+
+<meta itemprop="name" content="使用WebSocket技术实现ChatGPT应用">
+<meta itemprop="description" content="在之前的文章当中介绍了利用Server-sent events技术实现了ChatGPT消息流回复，也就是ChatGPT在回复的时候的打字效果。"><meta itemprop="datePublished" content="2023-06-25T12:34:25+08:00" />
+<meta itemprop="dateModified" content="2023-06-25T12:34:25+08:00" />
+<meta itemprop="wordCount" content="5570">
+<meta itemprop="keywords" content="Python,ChatGPT,WebSocket," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用WebSocket技术实现ChatGPT应用"/>
+<meta name="twitter:description" content="在之前的文章当中介绍了利用Server-sent events技术实现了ChatGPT消息流回复，也就是ChatGPT在回复的时候的打字效果。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/resume/">
+        <li class="mobile-menu-item">简历</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resume/">简历</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用WebSocket技术实现ChatGPT应用</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-06-25 </span>
+        <div class="post-category">
+            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"> 编程语言 </a>
+            </div>
+          <span class="more-meta"> 约 5570 字 </span>
+          <span class="more-meta"> 预计阅读 12 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#websocket简介">WebSocket简介</a>
+      <ul>
+        <li><a href="#什么是socket">什么是Socket</a></li>
+        <li><a href="#什么websocket">什么WebSocket</a></li>
+      </ul>
+    </li>
+    <li><a href="#初始化项目">初始化项目</a></li>
+    <li><a href="#服务端fastapi">服务端FastAPI</a></li>
+    <li><a href="#html与javascript客户端">HTML与JavaScript客户端</a></li>
+    <li><a href="#demo动画">Demo动画</a></li>
+    <li><a href="#nginx设置">Nginx设置</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#公众号">公众号</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>在<a href="http://kevinjiang.info/post/web/%E8%81%8A%E8%81%8Achatgpt%E6%B6%88%E6%81%AF%E6%B5%81%E5%9B%9E%E5%A4%8D%E5%8E%9F%E7%90%86/">之前的文章</a>当中介绍了利用Server-sent events技术实现了ChatGPT消息流回复，也就是ChatGPT在回复的时候的打字效果。本文介绍如何使用WebSocket技术来实现类似的效果，同时还实现在实时聊天的过程当中可以停止生成的功能。</p>
+<h2 id="websocket简介">WebSocket简介</h2>
+<p>WebSocket是一种网络通信协议，通常在web应用当中作用他。看这名字就知道他跟Socket有一些相似之处，但又没有太多的联系。</p>
+<h3 id="什么是socket">什么是Socket</h3>
+<p>Socket翻译为套接字，就是对网络中不同主机上的应用进程之间进行双向通信的端点的抽象。一个套接字就是网络上进程通信的一端，提供了应用层进程利用网络协议交换数据的机制。从所处的地位来讲，套接字上联应用进程，下联网络协议栈，是应用程序通过网络协议进行通信的接口，是应用程序与网络协议栈进行交互的接口。</p>
+<p><strong>Socket 通信示例</strong></p>
+<p><img src="/img/Python/Socket_connection_example.png" alt="Socket Connection Example"></p>
+<p>主机 A 的应用程序必须通过 Socket 建立连接才能与主机B的应用程序通信，而建立 Socket 连接需要底层 TCP/IP 协议来建立 TCP 连接。而建立 TCP 连接需要底层 IP 协议来寻址网络中的主机。</p>
+<p><img src="/img/Python/tcp_ip-programming-model.png" alt="TCP/IP编程模型"></p>
+<p>上图直接画出来了编程模型，如果用C语言或者Java语言编写过Socket应用，对上面的一些函数调用就非常的熟悉了。后面介绍的WebSocket编程模型与上面的有非常相似的地方，熟悉Socket编程模型对实现WebSocket是非常有帮助的。</p>
+<h3 id="什么websocket">什么WebSocket</h3>
+<p>WebSocket是一种与<a href="https://zh.wikipedia.org/wiki/%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE">HTTP</a>不同的协议。两者都位于<a href="https://zh.wikipedia.org/wiki/OSI%E6%A8%A1%E5%9E%8B">OSI模型</a>的<a href="https://zh.wikipedia.org/wiki/%E5%BA%94%E7%94%A8%E5%B1%82">应用层</a>，并且都依赖于<a href="https://zh.wikipedia.org/wiki/%E4%BC%A0%E8%BE%93%E5%B1%82">传输层</a>的TCP协议。 虽然它们不同，但是RFC 6455中规定：<code>it is designed to work over HTTP ports 80 and 443 as well as to support HTTP proxies and intermediaries</code>（WebSocket通过HTTP端口80和443进行工作，并支持HTTP代理和中介），从而使其与HTTP协议兼容。 为了实现兼容性，WebSocket握手使用HTTP Upgrade头从HTTP协议更改为WebSocket协议。</p>
+<p>WebSocket协议支持Web浏览器（或其他客户端应用程序）与Web服务器之间的交互，具有较低的开销，便于实现客户端与服务器的实时数据传输。 服务器可以通过标准化的方式来实现，而无需客户端首先请求内容，并允许消息在保持连接打开的同时来回传递。通过这种方式，可以在客户端和服务器之间进行双向持续对话。 通信通过TCP端口80或443完成，这在防火墙阻止非Web网络连接的环境下是有益的。另外，<a href="https://zh.wikipedia.org/wiki/Comet_(web%E6%8A%80%E6%9C%AF)">Comet</a>之类的技术以非标准化的方式实现了类似的双向通信。</p>
+<p>大多数浏览器都支持该协议，包括Google Chrome、Firefox、Safari、Microsoft Edge、Internet Explorer和Opera。</p>
+<p>与HTTP不同，WebSocket提供全双工通信。此外，WebSocket还可以在TCP之上实现消息流。TCP单独处理字节流，没有固有的消息概念。 在WebSocket之前，使用Comet可以实现全双工通信。但是Comet存在TCP握手和HTTP头的开销，因此对于小消息来说效率很低。WebSocket协议旨在解决这些问题。</p>
+<p>早期，很多网站为了实现<a href="https://zh.wikipedia.org/wiki/%E6%8E%A8%E9%80%81%E6%8A%80%E6%9C%AF">推送技术</a>，所用的技术都是<a href="https://zh.wikipedia.org/wiki/%E8%BC%AA%E8%A9%A2">轮询</a>。轮询是指由浏览器每隔一段时间（如每秒）向服务器发出HTTP请求，然后服务器返回最新的数据给客户端。这种传统的模式带来很明显的缺点，即浏览器需要不断的向服务器发出请求，然而HTTP请求与回复可能会包含较长的<a href="https://zh.wikipedia.org/wiki/HTTP%E5%A4%B4%E5%AD%97%E6%AE%B5">头部</a>，其中真正有效的数据可能只是很小的一部分，所以这样会消耗很多带宽资源。</p>
+<p>比较新的轮询技术是<a href="https://zh.wikipedia.org/wiki/Comet_(web%E6%8A%80%E6%9C%AF)">Comet</a>。这种技术虽然可以实现双向通信，但仍然需要反复发出请求。而且在Comet中普遍采用的<a href="https://zh.wikipedia.org/wiki/HTTP%E6%8C%81%E4%B9%85%E9%93%BE%E6%8E%A5">HTTP长连接</a>也会消耗服务器资源。</p>
+<p>在这种情况下，<a href="https://zh.wikipedia.org/wiki/HTML5">HTML5</a>定义了WebSocket协议，能更好的节省服务器资源和带宽，并且能够更实时地进行通讯。</p>
+<p>Websocket使用<code>ws</code>或<code>wss</code>的<a href="https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6">统一资源标志符</a>（URI）。其中<code>wss</code>表示使用了<a href="https://zh.wikipedia.org/wiki/TLS">TLS</a>的Websocket。如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ws://example.com/wsapi
+wss://secure.example.com/wsapi
+</code></pre></td></tr></table>
+</div>
+</div><p>Websocket与HTTP和HTTPS使用相同的TCP端口，可以绕过大多数防火墙的限制。默认情况下，Websocket协议使用80端口；运行在TLS之上时，默认使用443端口。</p>
+<h4 id="优点">优点</h4>
+<ul>
+<li>较少的控制开销。在连接创建后，服务器和客户端之间交换数据时，用于协议控制的数据包头部相对较小。在不包含扩展的情况下，对于服务器到客户端的内容，此头部大小只有2至10字节（和数据包长度有关）；对于客户端到服务器的内容，此头部还需要加上额外的4字节的<a href="https://zh.wikipedia.org/wiki/%E6%8E%A9%E7%A0%81">掩码</a>。相对于HTTP请求每次都要携带完整的头部，此项开销显著减少了。</li>
+<li>更强的实时性。由于协议是全双工的，所以服务器可以随时主动给客户端下发数据。相对于HTTP请求需要等待客户端发起请求服务端才能响应，延迟明显更少；即使是和Comet等类似的<a href="https://zh.wikipedia.org/w/index.php?title=%E9%95%BF%E8%BD%AE%E8%AF%A2&amp;action=edit&amp;redlink=1">长轮询</a>比较，其也能在短时间内更多次地传递数据。</li>
+<li>保持连接状态。与HTTP不同的是，Websocket需要先创建连接，这就使得其成为一种有状态的协议，之后通信时可以省略部分状态信息。而HTTP请求可能需要在每个请求都携带状态信息（如身份认证等）。</li>
+<li>更好的二进制支持。Websocket定义了二进制帧，相对HTTP，可以更轻松地处理二进制内容。</li>
+<li>可以支持扩展。Websocket定义了扩展，用户可以扩展协议、实现部分自定义的子协议。如部分浏览器支持压缩等。</li>
+<li>更好的压缩效果。相对于<a href="https://zh.wikipedia.org/wiki/HTTP%E5%8E%8B%E7%BC%A9">HTTP压缩</a>，Websocket在适当的扩展支持下，可以沿用之前内容的上下文，在传递类似的数据时，可以显著地提高压缩率。</li>
+</ul>
+<p><a href="https://www.ruanyifeng.com/blog/2017/05/websocket.html">WebSocket的基本教程</a>推荐阮一峰的博客<a href="https://www.ruanyifeng.com/blog/2017/05/websocket.html">https://www.ruanyifeng.com/blog/2017/05/websocket.html</a></p>
+<h2 id="初始化项目">初始化项目</h2>
+<p>项目需要一个服务端Python程序和一个客户端JavaScript程序，项目目录结构如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">|-- index.html
+|-- main.py
+`-- requirements.txt
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="服务端fastapi">服务端FastAPI</h2>
+<p>本文在服务端选择FastAPI框架来开发，FastAPI对WebSocket支持已经非常的完善了。</p>
+<p>项目的依赖模块如下，本文使用一个<code>for i in range</code>表达式来代码ChatGPT调用，如果你想了解如何调用ChatGPT的API，请参考我之前写的文章。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">fastapi==0.92.0
+websockets==10.4
+uvicorn[standard]==0.20.0
+</code></pre></td></tr></table>
+</div>
+</div><p>websockets模块需要单独安装，fastapi才会支持WebSocket连接。</p>
+<p>下面我们来写服务端代码，只需要少量的代码即可实现WebSocket服务端。</p>
+<p>首先引入必要的模块</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">WebSocket</span><span class="p">,</span> <span class="n">Response</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里引入的<code>time</code>模块我们来模拟生成过程的停顿。</p>
+<p>然后创建FastAPI的app对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>添加html静态页面的输出，我们的服务会在<code>8001</code>端口启动，当访问<a href="http://localhost:8001">http://localhost:8001</a>会加载index.html静态页面内容，静态页面内容包含了JavaScript代码，在后面将会看到。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="c1"># 读取html内容输出给客户端</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&#34;index.html&#34;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>后来到WebSocket服务端核心代码了。请注意，我们的服务器可以接收非常多的用户进行连接与使用，而且WebSocket都是长连接，所以需要一个连接管理器来管理这些连接，我们创建一个类来实现连接管理的目的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">ConnectionManager</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_connections</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">WebSocket</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">websocket</span><span class="p">:</span> <span class="n">WebSocket</span><span class="p">):</span>
+        <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_connections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">websocket</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">websocket</span><span class="p">:</span> <span class="n">WebSocket</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_connections</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">websocket</span><span class="p">)</span>
+
+<span class="c1">## 创建一个连接管理器</span>
+<span class="n">wsConnManager</span> <span class="o">=</span> <span class="n">ConnectionManager</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我们使用 <code>ConnectionManager</code> 来管理连接，包含了两个方法，<code>connect</code>和<code>disconnect</code> 方法，用于连接和断开WebSocket。最后创建一个实例对象在后面的代码当中调用。</p>
+<p>最核心的代码来了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="nd">@app</span><span class="o">.</span><span class="n">websocket</span><span class="p">(</span><span class="s2">&#34;/ws&#34;</span><span class="p">)</span>  <span class="c1"># 1</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">chat_websocket</span><span class="p">(</span><span class="n">websocket</span><span class="p">:</span> <span class="n">WebSocket</span><span class="p">):</span>
+    <span class="c1"># 与客户端建立连接</span>
+    <span class="k">await</span> <span class="n">wsConnManager</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">websocket</span><span class="p">)</span>  <span class="c1"># 2</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>  <span class="c1"># 3</span>
+            <span class="c1"># 接收客户端请求</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">receive_text</span><span class="p">()</span>  <span class="c1"># 4</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>  <span class="c1"># 5</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>    <span class="c1"># 5</span>
+                <span class="c1"># 向客户端发送数据</span>
+                <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send_text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>  <span class="c1"># 6</span>
+                <span class="c1"># 等待客户端确认并接收客户端回传数据</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">receive_text</span><span class="p">()</span>  <span class="c1"># 7</span>
+                <span class="c1"># 如果客户端发送了stop信号，则退出生成</span>
+                <span class="k">if</span> <span class="n">text</span> <span class="o">==</span> <span class="s1">&#39;stop&#39;</span><span class="p">:</span>  <span class="c1"># 8</span>
+                    <span class="k">break</span>
+            <span class="c1"># 向客户端发送生成完成的信号</span>
+            <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send_text</span><span class="p">(</span><span class="s2">&#34;_end_&#34;</span><span class="p">)</span>  <span class="c1"># 9</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">wsConnManager</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">websocket</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>下面我们来详细解释每个步骤的作用：</p>
+<ul>
+<li>注释1：在app对象上使用websocket协议监听一个endpoint <code>/ws</code> ，客户端请求的时候使用 <code>ws://localhost:8001/ws</code> 这样的url进行连接。</li>
+<li>注释2：当客户端发起请求的时候，服务器主动进行连接，并把连接信息记录到连接管理器的<code>active_connections</code>对象当中，连接后就用占用系统资源。后续客户断开连接的时候，服务器可以释放连接，同时释放系统资源。</li>
+<li>注释3：一个无限循环，一直监听用户的请求，一轮响应结束后，继续下一轮的监听</li>
+<li>注释4：用户与程序的连接会在这里挂起，服务端线程一直等待客户端的请求，只要有数据发送到服务端，程序就会往下执行</li>
+<li>注释5：这两行代码使用range和sleep模拟生成的内容，向客户端一个字符一个字符的发送数据，每发一个数据等待一会</li>
+<li>注释6：向客户端发送字符</li>
+<li>注释7：发送完字符后，等待客户端给一个反馈信号</li>
+<li>注释8：当接收到客户端发送了stop信息后，中断信息的生成与发送</li>
+<li>注释9：发送一个完成信号给到客户端，客户端可以做一些逻辑与交互的操作</li>
+</ul>
+<p>服务端写完后使用命令 <code>uvicorn main:app --port 8001 --reload</code> 启动程序。咱们的html页面还没有写，暂时还访问不了，下面来写html代码。</p>
+<h2 id="html与javascript客户端">HTML与JavaScript客户端</h2>
+<p>现在我们来创建一个 <code>index.html</code> 文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&#34;X-UA-Compatible&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;IE=edge&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;viewport&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;width=device-width, initial-scale=1.0&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Document<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="c1">// TODO
+</span><span class="c1"></span>  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+  <span class="p">#</span><span class="nn">message</span> <span class="p">{</span>
+      <span class="k">font-size</span><span class="p">:</span> <span class="mi">24</span><span class="kt">px</span><span class="p">;</span>
+      <span class="k">font-weight</span><span class="p">:</span> <span class="kc">bold</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="p">.</span><span class="nc">cursor</span> <span class="p">{</span>
+      <span class="k">margin-left</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+      <span class="k">width</span><span class="p">:</span> <span class="mi">2</span><span class="kt">px</span><span class="p">;</span>
+      <span class="k">background-color</span><span class="p">:</span> <span class="kc">gray</span><span class="p">;</span>
+      <span class="k">height</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+      <span class="k">display</span><span class="p">:</span> <span class="kc">inline-block</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span> <span class="na">onload</span><span class="o">=</span><span class="s">&#34;onReady()&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;sendData(&#39;客户端消息&#39;)&#34;</span><span class="p">&gt;</span>WebSocket生成<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span><span class="ni">&amp;nbsp;</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;stop()&#34;</span><span class="p">&gt;</span>停止 WebSocket<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;message&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;cursor&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我们有两个按钮 <code>WebSocket生成</code> 以及 <code>停止WebSocket</code> 按钮，两个按钮上分别绑定了<code>sendData</code>和<code>stop</code>监听函数。这是html框架内容，CSS的内容就略过解释了，每个项目都会有自己的look&amp;feel，下面直接来写JavaScript代码。</p>
+<p>先来初始化四个变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx">  <span class="kd">let</span> <span class="nx">chars</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">client</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">el</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">stopped</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>chars</code>用来存放服务器发送过来的字符，然后用于渲染到html的div#message元素当中；<code>client</code>变量存放WebSocket的实例对象；<code>el</code>是<code>div#message</code>元素的引用对象，用于渲染；<code>stopped</code>变量标识是否停止了一轮数据交互。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx">  <span class="kd">function</span> <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">chars</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">reset</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">chars</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+      <span class="nx">stopped</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="nx">render</span><span class="p">();</span>
+  <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>render</code>函数用于把接收到的字符串信息渲染到<code>div#message</code>当中，<code>reset</code>函数用于重置数据和页面显示内容。</p>
+<p>上面的html代码当中在body元素上有一个<code>onReady</code>的函数调用，当html加载完成后就会调用<code>onReady</code>函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx">  <span class="kd">function</span> <span class="nx">onReady</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;message&#34;</span><span class="p">);</span>
+      <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="s2">&#34;ws://localhost:8001/ws&#34;</span><span class="p">);</span>
+      <span class="nx">client</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="nx">onMessage</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>初始化<code>el</code>对象，找到用于显示数据的div元素，如何WebSocket对象，存放到<code>client</code>变量，设置当WebSocket接收到消息的处理函数 <code>onMessage</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx">  <span class="kd">function</span> <span class="nx">onMessage</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">data</span> <span class="o">==</span> <span class="s1">&#39;_end_&#39;</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">chars</span> <span class="o">+=</span> <span class="s2">&#34;  已完成&#34;</span><span class="p">;</span>
+          <span class="nx">stopped</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+          <span class="nx">render</span><span class="p">();</span>
+          <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">stopped</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">chars</span> <span class="o">+=</span> <span class="s2">&#34; &#34;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">;</span>
+          <span class="nx">render</span><span class="p">();</span>
+          <span class="nx">client</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>  <span class="c1">// 注释1
+</span><span class="c1"></span>      <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>event.data就是服务端发送过来的字符，判断是否停止或者完成一轮数据会话，使用<code>_end_</code>作为标识。如果没有停止，把接收到数据添加到chars对象，然后渲染出来。</p>
+<p>重点来了，上面我们服务端发送一个字符就会等客户端回送一个消息，上面的注释1处就是回复服务端一个空消息，这相当于是一个数据协议，服务端会继续后面的生成内容，并不断的发送到客户端。这个机制是为了客户端可以主动停止生成。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx">  <span class="kd">function</span> <span class="nx">sendData</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">reset</span><span class="p">();</span>
+      <span class="nx">client</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">stop</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">client</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;stop&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>sendData</code>函数是<code>WebSocket生成按钮</code>的调用函数，相当于开启了一轮会话，开启之前先调用 reset 函数重置数据与状态。然后发送一个消息给服务端，如果是后端调用得是ChatGPT的API的话，那么就会把前端的message发送到ChatGPT，ChatGPT会以流的形式不断的把消息返回到服务端，然后服务端不断的把消息发往客户端。</p>
+<p>最后一个函数<code>stop</code>，当点击<code>停止WebSocket按钮</code>，就会中止这一轮的会话。</p>
+<p>完整的前端代码如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http</span><span class="err">-</span><span class="na">equiv</span><span class="o">=</span><span class="s">&#34;X-UA-Compatible&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;IE=edge&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;viewport&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;width=device-width, initial-scale=1.0&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span><span class="nx">Document</span><span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">chars</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">client</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">el</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">stopped</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+  <span class="kd">function</span> <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">chars</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">reset</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">chars</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+      <span class="nx">stopped</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="nx">render</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">onMessage</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">data</span> <span class="o">==</span> <span class="s1">&#39;_end_&#39;</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">chars</span> <span class="o">+=</span> <span class="s2">&#34;  已完成&#34;</span><span class="p">;</span>
+          <span class="nx">stopped</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+          <span class="nx">render</span><span class="p">();</span>
+          <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">stopped</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">chars</span> <span class="o">+=</span> <span class="s2">&#34; &#34;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">;</span>
+          <span class="nx">render</span><span class="p">();</span>
+          <span class="nx">client</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">onReady</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;message&#34;</span><span class="p">);</span>
+      <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="s2">&#34;ws://localhost:8001/ws&#34;</span><span class="p">);</span>
+      <span class="nx">client</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="nx">onMessage</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">sendData</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">reset</span><span class="p">();</span>
+      <span class="nx">client</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">stop</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">client</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;stop&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+  <span class="err">#</span><span class="nx">message</span> <span class="p">{</span>
+      <span class="nx">font</span><span class="o">-</span><span class="nx">size</span><span class="o">:</span> <span class="mi">24</span><span class="nx">px</span><span class="p">;</span>
+      <span class="nx">font</span><span class="o">-</span><span class="nx">weight</span><span class="o">:</span> <span class="nx">bold</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="p">.</span><span class="nx">cursor</span> <span class="p">{</span>
+      <span class="nx">margin</span><span class="o">-</span><span class="nx">left</span><span class="o">:</span> <span class="mi">5</span><span class="nx">px</span><span class="p">;</span>
+      <span class="nx">width</span><span class="o">:</span> <span class="mi">2</span><span class="nx">px</span><span class="p">;</span>
+      <span class="nx">background</span><span class="o">-</span><span class="nx">color</span><span class="o">:</span> <span class="nx">gray</span><span class="p">;</span>
+      <span class="nx">height</span><span class="o">:</span> <span class="mi">20</span><span class="nx">px</span><span class="p">;</span>
+      <span class="nx">display</span><span class="o">:</span> <span class="nx">inline</span><span class="o">-</span><span class="nx">block</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span> <span class="na">onload</span><span class="o">=</span><span class="s">&#34;onReady()&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;sendData(&#39;客户端消息&#39;)&#34;</span><span class="p">&gt;</span><span class="nx">WebSocket生成</span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;stop()&#34;</span><span class="p">&gt;</span><span class="nx">停止</span> <span class="nx">WebSocket</span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;message&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;cursor&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="demo动画">Demo动画</h2>
+<p>我们来看一下Demo，服务器会固定生成0到11的数字</p>
+
+
+
+
+
+<div><iframe id="biliplayer" src="//player.bilibili.com/player.html?bvid=BV1Cu41187qj&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy" > </iframe></div>
+
+
+<style>
+
+#bilibili {
+  width: 100%;
+  height: 550px;
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  #bilibili {
+    width: 100%;
+    height: 250px;
+  }
+}
+</style>
+
+<h2 id="nginx设置">Nginx设置</h2>
+<p>如果你使用了Nginx作了反向代码，一定要记得开启WebSocket支持，添加如下代码到<code>nginx.conf</code>主配置文件当中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">map $http_upgrade $connection_upgrade {
+    default upgrade;
+    &#39;&#39;      close;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>然后在对应的url开启</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">location /ws
+{
+    ......
+    # 下面这两行是关键
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $connection_upgrade;
+}
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="总结">总结</h2>
+<p>本文介绍了什么是WebSocket，跟Socket的关系与异同，以及WebSocket的标准与技术原理。然后我们使用了Python的FastAPI框架和JavaScript，使用WebSocket技术实现了类似ChatGPT的消息回复效果（打字效果），同时还支持了中止当中会话输出的功能。</p>
+<h2 id="公众号">公众号</h2>
+<p>欢迎关注我的公众号，同步更新</p>
+<p><img src="/img/qrcode_for_gh.jpg" alt="木木小小孩"></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-06-25
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/python/">Python</a>
+          <a href="/tags/chatgpt/">ChatGPT</a>
+          <a href="/tags/websocket/">WebSocket</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/emacs/%E5%9C%A8spacemacs%E4%B8%AD%E4%BD%BF%E7%94%A8conda%E7%8E%AF%E5%A2%83%E5%90%AF%E7%94%A8lsp-pyright/">
+            <span class="next-text nav-default">在Spacemacs中使用conda环境启用lsp-pyright</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://kevinjiang.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2015 -
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script type="text/javascript" async src="/lib/mathjax/es5/tex-mml-chtml.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?b73ff6d4afc4af9e582d8a5dc068bab9";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

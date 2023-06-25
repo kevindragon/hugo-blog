@@ -6,7 +6,16 @@
     <description>Recent content in 编程语言 on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 19 Jun 2023 22:15:08 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Jun 2023 12:34:25 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用WebSocket技术实现ChatGPT应用</title>
+      <link>http://kevinjiang.info/post/python/%E4%BD%BF%E7%94%A8websocket%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0chatgpt%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sun, 25 Jun 2023 12:34:25 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/python/%E4%BD%BF%E7%94%A8websocket%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0chatgpt%E5%BA%94%E7%94%A8/</guid>
+      <description>在之前的文章当中介绍了利用Server-sent events技术实现了ChatGPT消息流回复，也就是ChatGPT在回复的时候的打字效果。</description>
+    </item>
+    
     <item>
       <title>在Spacemacs中使用conda环境启用lsp-pyright</title>
       <link>http://kevinjiang.info/post/emacs/%E5%9C%A8spacemacs%E4%B8%AD%E4%BD%BF%E7%94%A8conda%E7%8E%AF%E5%A2%83%E5%90%AF%E7%94%A8lsp-pyright/</link>

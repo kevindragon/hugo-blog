@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>WebSocket on (power up)</title>
+    <link>http://kevinjiang.info/tags/websocket/</link>
+    <description>Recent content in WebSocket on (power up)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 25 Jun 2023 12:34:25 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/websocket/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用WebSocket技术实现ChatGPT应用</title>
+      <link>http://kevinjiang.info/post/python/%E4%BD%BF%E7%94%A8websocket%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0chatgpt%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sun, 25 Jun 2023 12:34:25 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/python/%E4%BD%BF%E7%94%A8websocket%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0chatgpt%E5%BA%94%E7%94%A8/</guid>
+      <description>在之前的文章当中介绍了利用Server-sent events技术实现了ChatGPT消息流回复，也就是ChatGPT在回复的时候的打字效果。</description>
+    </item>
+    
+  </channel>
+</rss>

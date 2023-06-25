@@ -6,22 +6,40 @@
     <description>Recent content in Tags on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 19 Jun 2023 22:15:08 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Jun 2023 12:34:25 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Emacs</title>
-      <link>http://kevinjiang.info/tags/emacs/</link>
-      <pubDate>Mon, 19 Jun 2023 22:15:08 +0800</pubDate>
+      <title>ChatGPT</title>
+      <link>http://kevinjiang.info/tags/chatgpt/</link>
+      <pubDate>Sun, 25 Jun 2023 12:34:25 +0800</pubDate>
       
-      <guid>http://kevinjiang.info/tags/emacs/</guid>
+      <guid>http://kevinjiang.info/tags/chatgpt/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Python</title>
       <link>http://kevinjiang.info/tags/python/</link>
-      <pubDate>Mon, 19 Jun 2023 22:15:08 +0800</pubDate>
+      <pubDate>Sun, 25 Jun 2023 12:34:25 +0800</pubDate>
       
       <guid>http://kevinjiang.info/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>WebSocket</title>
+      <link>http://kevinjiang.info/tags/websocket/</link>
+      <pubDate>Sun, 25 Jun 2023 12:34:25 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/tags/websocket/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Emacs</title>
+      <link>http://kevinjiang.info/tags/emacs/</link>
+      <pubDate>Mon, 19 Jun 2023 22:15:08 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/tags/emacs/</guid>
       <description></description>
     </item>
     
@@ -121,15 +139,6 @@
       <pubDate>Mon, 24 Apr 2023 06:36:02 +0800</pubDate>
       
       <guid>http://kevinjiang.info/tags/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ChatGPT</title>
-      <link>http://kevinjiang.info/tags/chatgpt/</link>
-      <pubDate>Sat, 08 Apr 2023 21:36:12 +0800</pubDate>
-      
-      <guid>http://kevinjiang.info/tags/chatgpt/</guid>
       <description></description>
     </item>
     

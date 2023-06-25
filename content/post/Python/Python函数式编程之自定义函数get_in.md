@@ -3,6 +3,7 @@ title: "Python函数式编程之自定义函数get_in"
 date: 2023-05-02T14:52:25+08:00
 tags: ["Python", "函数式编程", "get in"]
 categories: [编程语言]
+keywords: ["Python", "函数式编程"]
 ---
 
 ## Python函数式编程之 get_in

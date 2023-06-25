@@ -3,34 +3,69 @@
   
   <url>
     <loc>http://kevinjiang.info/</loc>
-    <lastmod>2023-06-19T22:15:08+08:00</lastmod>
+    <lastmod>2023-06-25T12:34:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://kevinjiang.info/categories/</loc>
-    <lastmod>2023-06-19T22:15:08+08:00</lastmod>
+    <lastmod>2023-06-25T12:34:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://kevinjiang.info/tags/emacs/</loc>
-    <lastmod>2023-06-19T22:15:08+08:00</lastmod>
+    <loc>http://kevinjiang.info/tags/chatgpt/</loc>
+    <lastmod>2023-06-25T12:34:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://kevinjiang.info/post/</loc>
-    <lastmod>2023-06-19T22:15:08+08:00</lastmod>
+    <lastmod>2023-06-25T12:34:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://kevinjiang.info/tags/python/</loc>
+    <lastmod>2023-06-25T12:34:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/</loc>
+    <lastmod>2023-06-25T12:34:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/websocket/</loc>
+    <lastmod>2023-06-25T12:34:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/post/python/%E4%BD%BF%E7%94%A8websocket%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0chatgpt%E5%BA%94%E7%94%A8/</loc>
+    <lastmod>2023-06-25T12:34:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/</loc>
+    <lastmod>2023-06-25T12:34:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/emacs/</loc>
     <lastmod>2023-06-19T22:15:08+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -44,21 +79,7 @@
   </url>
   
   <url>
-    <loc>http://kevinjiang.info/tags/</loc>
-    <lastmod>2023-06-19T22:15:08+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>http://kevinjiang.info/post/emacs/%E5%9C%A8spacemacs%E4%B8%AD%E4%BD%BF%E7%94%A8conda%E7%8E%AF%E5%A2%83%E5%90%AF%E7%94%A8lsp-pyright/</loc>
-    <lastmod>2023-06-19T22:15:08+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/</loc>
     <lastmod>2023-06-19T22:15:08+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -172,13 +193,6 @@
   <url>
     <loc>http://kevinjiang.info/post/java/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87apache-poi%E5%9C%A8word%E5%BD%93%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%BC%95%E7%94%A8%E5%B0%BE%E6%B3%A8%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/</loc>
     <lastmod>2023-04-24T06:36:02+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/tags/chatgpt/</loc>
-    <lastmod>2023-04-08T21:36:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
