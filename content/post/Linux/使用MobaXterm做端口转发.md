@@ -3,6 +3,7 @@ title: "使用MobaXterm做端口转发"
 date: 2023-02-24T10:53:42+08:00
 tags: [SSH, MobaXterm, SSH端口转发, 端口转发]
 categories: [Linux, SSH]
+keywords: [SSH端口转发, 通过MobaXterm做跳板机, MobaXterm端口映射]
 ---
 
 ## SSH端口转发的作用
@@ -78,3 +79,9 @@ ssh -L local_port:remote_server:remote_port ssh_login@ssh_host_or_ip
 ## 总结
 
 SSH端口转发是一种非常有用的网络技术，可以在各种场景下帮助用户安全地访问服务和传输数据。MobaXterm是一款功能强大的终端软件，支持SSH连接和端口转发功能。在MobaXterm中进行端口转发非常简单，用户可以通过MobaXterm实现访问内网服务、安全文件传输、安全访问远程服务等操作。
+
+## 我的公众号
+
+欢迎关注我的公众号，同步更新
+
+![木木小小孩](/img/qrcode_for_gh.jpg)
