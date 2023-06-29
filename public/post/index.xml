@@ -144,12 +144,12 @@
     </item>
     
     <item>
-      <title>MySQL导入csv数据</title>
+      <title>快速上手！如何使用MySQL导入CSV格式数据</title>
       <link>http://kevinjiang.info/post/mysql/mysql%E5%AF%BC%E5%85%A5csv%E6%95%B0%E6%8D%AE/</link>
       <pubDate>Thu, 01 Dec 2022 15:46:07 +0800</pubDate>
       
       <guid>http://kevinjiang.info/post/mysql/mysql%E5%AF%BC%E5%85%A5csv%E6%95%B0%E6%8D%AE/</guid>
-      <description>MySQL导入csv数据 在大数据时代，我们每天面临着大量的数据需要处理。表格型数据是最常见的一种，特别是财务从业者。如何快速的把CSV类型的</description>
+      <description>在大数据时代，我们每天面临着大量的数据需要处理。表格型数据是最常见的一种，特别是财务从业者。如何快速的把CSV类型的数据导入到数据库进行快速</description>
     </item>
     
     <item>

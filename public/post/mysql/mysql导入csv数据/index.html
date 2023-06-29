@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>MySQL导入csv数据 - (power up)</title>
+  <title>快速上手！如何使用MySQL导入CSV格式数据 - (power up)</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Kevin Jiang" /><meta name="description" content="MySQL导入csv数据 在大数据时代，我们每天面临着大量的数据需要处理。表格型数据是最常见的一种，特别是财务从业者。如何快速的把CSV类型的" /><meta name="keywords" content="KevinJiang, AI大模型, AI落地, 全栈工程师, Java, Spring Boot" />
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="在大数据时代，我们每天面临着大量的数据需要处理。表格型数据是最常见的一种，特别是财务从业者。如何快速的把CSV类型的数据导入到数据库进行快速" /><meta name="keywords" content="MySQL, MySQL快速导入CSV格式数据" />
 
 
 
@@ -39,20 +39,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="MySQL导入csv数据" />
-<meta property="og:description" content="MySQL导入csv数据 在大数据时代，我们每天面临着大量的数据需要处理。表格型数据是最常见的一种，特别是财务从业者。如何快速的把CSV类型的" />
+<meta property="og:title" content="快速上手！如何使用MySQL导入CSV格式数据" />
+<meta property="og:description" content="在大数据时代，我们每天面临着大量的数据需要处理。表格型数据是最常见的一种，特别是财务从业者。如何快速的把CSV类型的数据导入到数据库进行快速" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://kevinjiang.info/post/mysql/mysql%E5%AF%BC%E5%85%A5csv%E6%95%B0%E6%8D%AE/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-12-01T15:46:07+08:00" />
 <meta property="article:modified_time" content="2022-12-01T15:46:07+08:00" />
 
-<meta itemprop="name" content="MySQL导入csv数据">
-<meta itemprop="description" content="MySQL导入csv数据 在大数据时代，我们每天面临着大量的数据需要处理。表格型数据是最常见的一种，特别是财务从业者。如何快速的把CSV类型的"><meta itemprop="datePublished" content="2022-12-01T15:46:07+08:00" />
+<meta itemprop="name" content="快速上手！如何使用MySQL导入CSV格式数据">
+<meta itemprop="description" content="在大数据时代，我们每天面临着大量的数据需要处理。表格型数据是最常见的一种，特别是财务从业者。如何快速的把CSV类型的数据导入到数据库进行快速"><meta itemprop="datePublished" content="2022-12-01T15:46:07+08:00" />
 <meta itemprop="dateModified" content="2022-12-01T15:46:07+08:00" />
-<meta itemprop="wordCount" content="2036">
+<meta itemprop="wordCount" content="2125">
 <meta itemprop="keywords" content="MySQL,数据库," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="MySQL导入csv数据"/>
-<meta name="twitter:description" content="MySQL导入csv数据 在大数据时代，我们每天面临着大量的数据需要处理。表格型数据是最常见的一种，特别是财务从业者。如何快速的把CSV类型的"/>
+<meta name="twitter:title" content="快速上手！如何使用MySQL导入CSV格式数据"/>
+<meta name="twitter:description" content="在大数据时代，我们每天面临着大量的数据需要处理。表格型数据是最常见的一种，特别是财务从业者。如何快速的把CSV类型的数据导入到数据库进行快速"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -129,14 +129,14 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">MySQL导入csv数据</h1>
+      <h1 class="post-title">快速上手！如何使用MySQL导入CSV格式数据</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2022-12-01 </span>
         <div class="post-category">
             <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"> 数据库 </a>
             </div>
-          <span class="more-meta"> 约 2036 字 </span>
+          <span class="more-meta"> 约 2125 字 </span>
           <span class="more-meta"> 预计阅读 5 分钟 </span>
         
       </div>
@@ -160,13 +160,14 @@
       </ul>
     </li>
     <li><a href="#配置">配置</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#公众号">公众号</a></li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <h1 id="mysql导入csv数据">MySQL导入csv数据</h1>
-<p>在大数据时代，我们每天面临着大量的数据需要处理。表格型数据是最常见的一种，特别是财务从业者。如何快速的把CSV类型的数据导入到数据库进行快速处理呢？今天我们就来介绍其中一种。</p>
+      <p>在大数据时代，我们每天面临着大量的数据需要处理。表格型数据是最常见的一种，特别是财务从业者。如何快速的把CSV类型的数据导入到数据库进行快速处理呢？今天我们就来介绍其中一种。</p>
 <!-- raw HTML omitted -->
 <h2 id="load-data语句定义">LOAD DATA语句定义</h2>
 <p>我们先来看看MySQL的 <code>LOAD DATA</code> 语句的定义</p>
@@ -483,6 +484,11 @@ Records: 407  Deleted: 0  Skipped: 0  Warnings: 0
 </code></pre></td></tr></table>
 </div>
 </div><p>值留为空，表示不做任何限制。</p>
+<h2 id="总结">总结</h2>
+<p>本文介绍了如何使用mysql的sql语句导入csv格式的文件到某个表当中，涉及到了导入时的细节以及mysql的配置，这些都是笔者亲身踩过的坑，分享给大家避免再踩坑。</p>
+<h2 id="公众号">公众号</h2>
+<p>欢迎关注我的公众号，同步更新</p>
+<p><img src="/img/qrcode_for_gh.jpg" alt="木木小小孩"></p>
 
     </div>
 

@@ -546,7 +546,7 @@ uvicorn[standard]==0.20.0
   <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>event.data就是服务端发送过来的字符，判断是否停止或者完成一轮数据会话，使用<code>_end_</code>作为标识。如果没有停止，把接收到数据添加到chars对象，然后渲染出来。</p>
+</div><p><code>event.data</code>就是服务端发送过来的字符，判断是否停止或者完成一轮数据会话，使用<code>_end_</code>作为标识。如果没有停止，把接收到数据添加到chars对象，然后渲染出来。</p>
 <p>重点来了，上面我们服务端发送一个字符就会等客户端回送一个消息，上面的注释1处就是回复服务端一个空消息，这相当于是一个数据协议，服务端会继续后面的生成内容，并不断的发送到客户端。这个机制是为了客户端可以主动停止生成。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
