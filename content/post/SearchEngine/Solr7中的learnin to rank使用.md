@@ -6,6 +6,8 @@ tags: [Solr]
 
 什么是learning to rank在此往篇文章不做介绍，这里只介绍如何使用。主要针对cloud模式启动的solr。使用的版本是solr-7.1.0，本文以外的请参考[官方文档](http://lucene.apache.org/solr/guide/7_1/learning-to-rank.html#installation-of-ltr)
 
+<!-- more -->
+
 # 安装
 
 `solr-ltr-7.1.0.jar`已经自带在solr的发行包里面，只需要在`solrconfig.xml`配置即可，把下面的内容添加到`solrconfig.xml`
