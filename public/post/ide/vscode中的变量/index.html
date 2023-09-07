@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>VSCode中的变量 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="Visual Studio Code 支持调试和任务配置文件中的变量替换以及某些选择设置。 launch.json 和tasks.json 文件中的某些键和值字符串支持使用${variableNam" /><meta name="keywords" content="KevinJiang, AI大模型, AI落地, 全栈工程师, Java, Spring Boot" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
+
+
+<link rel="canonical" href="http://kevinjiang.info/post/ide/vscode%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="VSCode中的变量" />
+<meta property="og:description" content="Visual Studio Code 支持调试和任务配置文件中的变量替换以及某些选择设置。 launch.json 和tasks.json 文件中的某些键和值字符串支持使用${variableNam" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://kevinjiang.info/post/ide/vscode%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-09-07T13:08:18+08:00" />
+<meta property="article:modified_time" content="2023-09-07T13:08:18+08:00" />
+
+<meta itemprop="name" content="VSCode中的变量">
+<meta itemprop="description" content="Visual Studio Code 支持调试和任务配置文件中的变量替换以及某些选择设置。 launch.json 和tasks.json 文件中的某些键和值字符串支持使用${variableNam"><meta itemprop="datePublished" content="2023-09-07T13:08:18+08:00" />
+<meta itemprop="dateModified" content="2023-09-07T13:08:18+08:00" />
+<meta itemprop="wordCount" content="2747">
+<meta itemprop="keywords" content="VSCode,Visual Studio Code," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="VSCode中的变量"/>
+<meta name="twitter:description" content="Visual Studio Code 支持调试和任务配置文件中的变量替换以及某些选择设置。 launch.json 和tasks.json 文件中的某些键和值字符串支持使用${variableNam"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/resume/">
+        <li class="mobile-menu-item">简历</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resume/">简历</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">VSCode中的变量</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-09-07 </span>
+        <div class="post-category">
+            <a href="/categories/%E7%BC%96%E8%BE%91%E5%99%A8/"> 编辑器 </a>
+            </div>
+          <span class="more-meta"> 约 2747 字 </span>
+          <span class="more-meta"> 预计阅读 6 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#预定义变量"><strong>预定义变量</strong></a>
+      <ul>
+        <li><a href="#支持以下预定义变量"><strong>支持以下预定义变量</strong></a></li>
+        <li><a href="#每个工作目录的变量作用范围">每个工作目录的变量作用范围</a></li>
+      </ul>
+    </li>
+    <li><a href="#环境变量">环境变量</a></li>
+    <li><a href="#配置变量">配置变量</a></li>
+    <li><a href="#命令变量">命令变量</a></li>
+    <li><a href="#输入变量">输入变量</a></li>
+    <li><a href="#常见问题">常见问题</a>
+      <ul>
+        <li><a href="#调试配置或任务中变量替换的详细信息">调试配置或任务中变量替换的详细信息</a></li>
+        <li><a href="#用户和工作区设置中是否支持变量替换">用户和工作区设置中是否支持变量替换？</a></li>
+        <li><a href="#为什么-workspaceroot-没有文档">为什么 ${workspaceRoot} 没有文档</a></li>
+        <li><a href="#为什么-tasksjson-中的变量没有被解析">为什么 tasks.json 中的变量没有被解析？</a></li>
+        <li><a href="#我如何知道一个变量的实际值">我如何知道一个变量的实际值？</a></li>
+      </ul>
+    </li>
+    <li><a href="#公众号">公众号</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Visual Studio Code 支持调试和任务配置文件中的变量替换以及某些选择设置。 launch.json 和tasks.json 文件中的某些键和值字符串支持使用${variableName} 语法进行变量替换。</p>
+<h2 id="预定义变量"><strong>预定义变量</strong></h2>
+<h3 id="支持以下预定义变量"><strong>支持以下预定义变量</strong></h3>
+<p><strong>${userHome}</strong> - 用户主文件夹的路径</p>
+<p><strong>${workspaceFolder}</strong> - 在 VS Code 中打开的文件夹的路径</p>
+<p><strong>${workspaceFolderBasename}</strong> - 在 VS Code 中打开的文件夹的名称，不带任何斜杠 (/)</p>
+<p><strong>${file}</strong> - 当前打开的文件</p>
+<p><strong>${fileWorkspaceFolder}</strong> - 当前打开文件的工作区文件夹</p>
+<p><strong>${relativeFile}</strong> - 相对于workspaceFolder当前打开的文件</p>
+<p><strong>${relativeFileDirname}</strong> - 当前打开的文件相对于workspaceFolder的目录名</p>
+<p><strong>${fileBasename}</strong> - 当前打开的文件的基本名称</p>
+<p><strong>${fileBasenameNoExtension}</strong> - 当前打开的文件的基本名称，没有文件扩展名</p>
+<p><strong>${fileExtname}</strong> - 当前打开的文件的扩展名</p>
+<p><strong>${fileDirname}</strong> - 当前打开文件的文件夹路径</p>
+<p><strong>${fileDirnameBasename}</strong> - 当前打开文件的文件夹名称</p>
+<p><strong>${cwd}</strong> - VS Code 启动时任务运行器的当前工作目录</p>
+<p><strong>${lineNumber}</strong> - 活动文件中当前选定的行号</p>
+<p><strong>${selectedText}</strong> - 活动文件中当前选定的文本</p>
+<p><strong>${execPath}</strong> - 正在运行的 VS Code 可执行文件的路径</p>
+<p><strong>${defaultBuildTask}</strong> - 默认构建任务的名称</p>
+<p><strong>${pathSeparator}</strong> - 操作系统用于分隔文件路径中组件的字符</p>
+<h4 id="预定义变量示例"><strong>预定义变量示例</strong></h4>
+<p>假设您有以下需求：</p>
+<ol>
+<li>位于 <code>/home/your-username/your-project/folder/file.ext</code> 的文件在编辑器中打开；</li>
+<li>目录 <code>/home/your-username/your-project</code> 作为根工作区打开。</li>
+</ol>
+<p><strong>因此，每个变量将具有以下值：</strong></p>
+<p><strong>${userHome}</strong> - /home/your-username</p>
+<p><strong>${workspaceFolder}</strong> - /home/your-username/your-project</p>
+<p><strong>${workspaceFolderBasename}</strong> - your-project</p>
+<p><strong>${file}</strong> - /home/your-username/your-project/folder/file.ext</p>
+<p><strong>${fileWorkspaceFolder}</strong> - /home/your-username/your-project</p>
+<p><strong>${relativeFile}</strong> - folder/file.ext</p>
+<p><strong>${relativeFileDirname}</strong> - folder</p>
+<p><strong>${fileBasename}</strong> - file.ext</p>
+<p><strong>${fileBasenameNoExtension}</strong> - file</p>
+<p><strong>${fileDirname}</strong> - /home/your-username/your-project/folder</p>
+<p><strong>${fileExtname}</strong> - .ext</p>
+<p><strong>${lineNumber}</strong> - 光标所在的行号</p>
+<p><strong>${selectedText}</strong> - 在代码编辑器中选择的文本</p>
+<p><strong>${execPath}</strong> - Code.exe 的位置</p>
+<p><strong>${pathSeparator}</strong> - 在 macOS 或 Linux 上是 <code>/</code> ，在 Windows 上是 <code>\</code></p>
+<blockquote>
+<p>提示：在 <code>task.json</code> 和 <code>launch.json</code> 中可以使用IntelliSense来获得所有预定义的变量</p>
+</blockquote>
+<h3 id="每个工作目录的变量作用范围">每个工作目录的变量作用范围</h3>
+<p>通过将根文件夹的名称附加到变量（用冒号分隔），可以访问工作区的同级根文件夹。如果没有根文件夹名称，则变量的作域为使用它的同一文件夹。</p>
+<p>例如，在一个包含多个项目的 <code>[multi root workspace](https://code.visualstudio.com/docs/editor/multi-root-workspaces)</code> 的工作区中（包含了<code>Server</code>和<code>Client</code>项目），<code>${workspaceFolder:Client}</code>指的是Client根目录的路径。</p>
+<h2 id="环境变量">环境变量</h2>
+<p>可以通过 <code>${env:Name}</code> 语法使用环境变量，例如： <code>${env:USERNAME}</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;node&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;request&#34;</span><span class="p">:</span> <span class="s2">&#34;launch&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Launch Program&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;program&#34;</span><span class="p">:</span> <span class="s2">&#34;${workspaceFolder}/app.js&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;cwd&#34;</span><span class="p">:</span> <span class="s2">&#34;${workspaceFolder}&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;${env:USERNAME}&#34;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="配置变量">配置变量</h2>
+<p>通过 <code>${config:Name}</code> 语法使用VSCode的配置变量（settings），例如访问字体大小 <code>${config:editor.fontSize}</code></p>
+<h2 id="命令变量">命令变量</h2>
+<p>通过<code>${command:commandID}</code>语法引用一个命令</p>
+<p>一个命令变量所在位置，会被指定的变量运行的结果给替换掉，结果需要是string类型。结果可以从一个简单的非UI计算的命令来实现，一些复杂的功能可以基于扩展的API来实现。如果命令的结果不是字符串类型，可能会发生一些意想不到的结果，结果必须是字符串格式。</p>
+<p>这个功能的一个例子是Node.js的调试扩展，此扩展提供了一个交互式的命令<code>extension.pickNodeProcess</code> ，来用从运行的Node.js进程不选择一个进程。这个命令返回一个所选的进程ID。这个命令可以在 <code>Attach by Process Id</code> 启动配置当中使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;configurations&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;node&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;request&#34;</span><span class="p">:</span> <span class="s2">&#34;attach&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Attach by Process ID&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;processId&#34;</span><span class="p">:</span> <span class="s2">&#34;${command:extension.pickNodeProcess}&#34;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在 <code>launch.json</code> 配置中使用命令变量时，当前的配置对象参数会以对象的形式传递给命令。这样的话，命令就可以知道运行的上下文参数了。</p>
+<h2 id="输入变量">输入变量</h2>
+<p>命令变量已经很强大了，但它们缺乏为特定用例配置正在运行的命令的机制。例如，不可能将提示消息或默认值传递给通用的“用户输入提示”。这种情况就可以通过输入变量来解决了，语法是 <code>${input:variableId}</code> 。 <code>variableID</code> 指向<code>launch.json</code>和<code>tasks.json</code>当中的对象，其中指定了额外的配置属性，输入变量不支持嵌套定义。</p>
+<p>以下示例展示了使用输入变量的<code>tasks.json</code>的结构：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;2.0.0&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;tasks&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;label&#34;</span><span class="p">:</span> <span class="s2">&#34;task name&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;${input:variableID}&#34;</span>
+      <span class="err">//</span> <span class="err">...</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;inputs&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;variableID&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;type of input variable&#34;</span>
+      <span class="err">//</span> <span class="err">type</span> <span class="err">specific</span> <span class="err">configuration</span> <span class="err">attributes</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>目前VS Code支持三种类型的输入变量：</p>
+<ul>
+<li><strong>promptString</strong>: 显示一个输入框以从用户处获取字符串类型的内容。</li>
+<li><strong>pickString</strong>: 显示一个快速选择下拉列表，让用户从多个选项中选择。</li>
+<li><strong>command</strong>: 执行任意命令。</li>
+</ul>
+<p>每种类型都需要额外的配置属性：</p>
+<p><code>promptString</code>:</p>
+<ul>
+<li><strong>description</strong>: 在快速输入中显示，为输入提供上下文。</li>
+<li><strong>default</strong>: 如果用户没有输入其他内容，将使用的默认值。</li>
+<li><strong>password</strong>: 设置为 true 以在密码提示下输入，不会显示输入的值。</li>
+</ul>
+<p><code>pickString</code>:</p>
+<ul>
+<li><strong>description</strong>: 在快速选择中显示，为输入提供上下文。</li>
+<li><strong>options</strong>: 用户可选择的一系列选项。</li>
+<li><strong>default</strong>: 如果用户没有输入其他内容，将使用的默认值。它必须是选项值之一。</li>
+</ul>
+<p>选项可以是字符串值，也可以是包含标签和值的对象。下拉列表将显示：<strong>label: value</strong></p>
+<p><code>command</code>:</p>
+<ul>
+<li><strong>command</strong>: 在变量插值上运行的命令。</li>
+<li><strong>args</strong>: 可选的命令参数。</li>
+</ul>
+<p>下面示例的 <code>tasks.json</code> 展示了使用 <code>inputs</code> 来运行Angular CLI：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;2.0.0&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;tasks&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;label&#34;</span><span class="p">:</span> <span class="s2">&#34;ng g&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;shell&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;ng&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;g&#34;</span><span class="p">,</span> <span class="s2">&#34;${input:componentType}&#34;</span><span class="p">,</span> <span class="s2">&#34;${input:componentName}&#34;</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;inputs&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;pickString&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;componentType&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;What type of component do you want to create?&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;options&#34;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&#34;component&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;directive&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;pipe&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;service&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;class&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;guard&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;interface&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;enum&#34;</span>
+      <span class="p">],</span>
+      <span class="nt">&#34;default&#34;</span><span class="p">:</span> <span class="s2">&#34;component&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;promptString&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;componentName&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;Name your component.&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;default&#34;</span><span class="p">:</span> <span class="s2">&#34;my-new-component&#34;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>运行示例：</p>
+<p><img src="/img/IDE/VSCode/run-input-example.gif" alt="run-input-example.gif"></p>
+<p>下面展示了如何在一个调试配置中使用命令类型的用户输入变量，让用户可以在指定目录的所有测试当中选择测试用例。这里假设某个扩展提供了<code>extension.mochaSupport.testPicker</code> 命令，该命令可以通过指定目录找到所有的测试用例，并显示一个选择框让用户可以选择其中一个。命令输入的参数由命令本身定义：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;configurations&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;node&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;request&#34;</span><span class="p">:</span> <span class="s2">&#34;launch&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Run specific test&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;program&#34;</span><span class="p">:</span> <span class="s2">&#34;${workspaceFolder}/${input:pickTest}&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;inputs&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;pickTest&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;command&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;extension.mochaSupport.testPicker&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;testFolder&#34;</span><span class="p">:</span> <span class="s2">&#34;/out/tests&#34;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>命令输入也可以与任务一起使用。在这个例子中，使用了内置的“终止任务”命令。它可以接受一个参数来终止所有任务。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;2.0.0&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;tasks&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;label&#34;</span><span class="p">:</span> <span class="s2">&#34;Terminate All Tasks&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;echo ${input:terminate}&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;shell&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;problemMatcher&#34;</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;inputs&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;terminate&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;command&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;workbench.action.tasks.terminate&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="s2">&#34;terminateAll&#34;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="常见问题">常见问题</h2>
+<h3 id="调试配置或任务中变量替换的详细信息">调试配置或任务中变量替换的详细信息</h3>
+<p>调试配置或任务中的变量替换是一个两阶段的过程：</p>
+<ul>
+<li>在第一阶段，所有变量都会被求值为字符串结果。如果一个变量出现多次，它只会被求值一次。</li>
+<li>在第二次通过中，所有变量都用第一次通过的结果进行替换。</li>
+</ul>
+<p>这导致的一个后果是，对变量（例如，在扩展中实现的基于命令的变量）的求值无法访问调试配置或任务中的其他替换变量。它只能看到原始变量。这意味着变量不能相互依赖（这确保了隔离，使替换对求值顺序具有鲁棒性）。</p>
+<h3 id="用户和工作区设置中是否支持变量替换">用户和工作区设置中是否支持变量替换？</h3>
+<p>在 <code>settings.json</code> 中少数几个预定义的变量是支持替换的，例如： <code>cwd</code>, <code>env</code>, <code>shell</code> and <code>shellArgs</code> 的值。一些配置项如 <code>window.title</code> 有它自己的固定内容：</p>
+<p><code>&quot;window.title&quot;: &quot;${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName}&quot;</code></p>
+<h3 id="为什么-workspaceroot-没有文档">为什么 ${workspaceRoot} 没有文档</h3>
+<p>变量<code>${workspaceRoot}</code> 将会被废弃，推荐使用<code>${workspaceFolder}</code> 共更好的支持多根工作区。</p>
+<h3 id="为什么-tasksjson-中的变量没有被解析">为什么 tasks.json 中的变量没有被解析？</h3>
+<p>不是 <code>tasks.json</code> 中的所有值都支持变量替换。具体来说，只有 <code>command</code>、<code>args</code> 和 <code>options</code> 支持变量替换。输入部分中的<code>inputs</code>不会被解析，因为不支持输入变量的嵌套。</p>
+<h3 id="我如何知道一个变量的实际值">我如何知道一个变量的实际值？</h3>
+<p>检查变量运行时值的一个简单方法是创建一个 VS Code 任务，将变量值输出到控制台。例如，要看到<code>${workspaceFolder}</code>的解析值，您可以在 <code>tasks.json</code> 中创建并运行（<strong>Terminal</strong> &gt; <strong>Run Task</strong>）以下简单的&quot;echo&quot;任务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;2.0.0&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;tasks&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;label&#34;</span><span class="p">:</span> <span class="s2">&#34;echo&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;shell&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;echo ${workspaceFolder}&#34;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="公众号">公众号</h2>
+<p>欢迎关注我的公众号，同步更新</p>
+<p><img src="/img/qrcode_for_gh.jpg" alt="木木小小孩"></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-09-07
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/vscode/">VSCode</a>
+          <a href="/tags/visual-studio-code/">Visual Studio Code</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/python/%E4%BD%BF%E7%94%A8websocket%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0chatgpt%E5%BA%94%E7%94%A8/">
+            <span class="next-text nav-default">使用WebSocket技术实现ChatGPT应用</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://kevinjiang.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2015 -
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script type="text/javascript" async src="/lib/mathjax/es5/tex-mml-chtml.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?b73ff6d4afc4af9e582d8a5dc068bab9";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

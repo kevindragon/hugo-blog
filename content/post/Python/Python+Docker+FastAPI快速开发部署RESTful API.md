@@ -151,8 +151,3 @@ docker run -d --name my_fastapi_container -p 8080:8080 my_fastapi_app
 ## 总结
 
 通过以上步骤，我们成功地将FastAPI应用程序部署到了Docker容器中。这种方式使得我们可以轻松地管理应用程序的依赖关系，并且能够在不同的环境中快速部署应用程序。
-
-
-
-
-
