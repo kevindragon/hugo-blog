@@ -3,28 +3,56 @@
   
   <url>
     <loc>http://kevinjiang.info/</loc>
-    <lastmod>2023-09-07T13:08:18+08:00</lastmod>
+    <lastmod>2023-09-09T12:03:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://kevinjiang.info/categories/</loc>
-    <lastmod>2023-09-07T13:08:18+08:00</lastmod>
+    <lastmod>2023-09-09T12:03:02+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/linux/</loc>
+    <lastmod>2023-09-09T12:03:02+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/categories/linux/</loc>
+    <lastmod>2023-09-09T12:03:02+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/linux-%E4%BC%9A%E8%AF%9D/</loc>
+    <lastmod>2023-09-09T12:03:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://kevinjiang.info/post/</loc>
-    <lastmod>2023-09-07T13:08:18+08:00</lastmod>
+    <lastmod>2023-09-09T12:03:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://kevinjiang.info/tags/</loc>
-    <lastmod>2023-09-07T13:08:18+08:00</lastmod>
+    <lastmod>2023-09-09T12:03:02+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/post/linux/%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%97%A0%E5%93%8D%E5%BA%94%E7%9A%84-linux-%E4%BC%9A%E8%AF%9D/</loc>
+    <lastmod>2023-09-09T12:03:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -130,13 +158,6 @@
   <url>
     <loc>http://kevinjiang.info/post/python/python&#43;docker&#43;fastapi%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E9%83%A8%E7%BD%B2restful-api/</loc>
     <lastmod>2023-06-06T19:32:18+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/categories/linux/</loc>
-    <lastmod>2023-05-19T20:53:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -270,13 +291,6 @@
   <url>
     <loc>http://kevinjiang.info/post/ai/openai/%E4%BD%BF%E7%94%A8chatgpt%E5%9C%A8%E6%8C%87%E5%AE%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8A%E8%BF%9B%E8%A1%8C%E5%AF%B9%E8%AF%9D/</loc>
     <lastmod>2023-03-14T21:47:12+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/tags/linux/</loc>
-    <lastmod>2023-03-13T09:14:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

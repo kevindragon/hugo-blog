@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>如何终止无响应的 Linux 会话 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="使用 Linux 终端时，有时会卡住，失去响应，这时应该如何终止会话？ 对于Linux用户来说，遇到卡住或不想要的用户会话可能是一种令人沮丧的体验。同时，" /><meta name="keywords" content="KevinJiang, AI大模型, AI落地, 全栈工程师, Java, Spring Boot" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
+
+
+<link rel="canonical" href="http://kevinjiang.info/post/linux/%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%97%A0%E5%93%8D%E5%BA%94%E7%9A%84-linux-%E4%BC%9A%E8%AF%9D/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="如何终止无响应的 Linux 会话" />
+<meta property="og:description" content="使用 Linux 终端时，有时会卡住，失去响应，这时应该如何终止会话？ 对于Linux用户来说，遇到卡住或不想要的用户会话可能是一种令人沮丧的体验。同时，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://kevinjiang.info/post/linux/%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%97%A0%E5%93%8D%E5%BA%94%E7%9A%84-linux-%E4%BC%9A%E8%AF%9D/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-09-09T12:03:02+08:00" />
+<meta property="article:modified_time" content="2023-09-09T12:03:02+08:00" />
+
+<meta itemprop="name" content="如何终止无响应的 Linux 会话">
+<meta itemprop="description" content="使用 Linux 终端时，有时会卡住，失去响应，这时应该如何终止会话？ 对于Linux用户来说，遇到卡住或不想要的用户会话可能是一种令人沮丧的体验。同时，"><meta itemprop="datePublished" content="2023-09-09T12:03:02+08:00" />
+<meta itemprop="dateModified" content="2023-09-09T12:03:02+08:00" />
+<meta itemprop="wordCount" content="2095">
+<meta itemprop="keywords" content="Linux,Linux 会话," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="如何终止无响应的 Linux 会话"/>
+<meta name="twitter:description" content="使用 Linux 终端时，有时会卡住，失去响应，这时应该如何终止会话？ 对于Linux用户来说，遇到卡住或不想要的用户会话可能是一种令人沮丧的体验。同时，"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/resume/">
+        <li class="mobile-menu-item">简历</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resume/">简历</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">如何终止无响应的 Linux 会话</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-09-09 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            </div>
+          <span class="more-meta"> 约 2095 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#在linux中什么是-tty-和-pts">在Linux中什么是 TTY 和 PTS？</a>
+      <ul>
+        <li><a href="#tty-teletype"><strong>TTY (Teletype)</strong></a></li>
+        <li><a href="#pts-pseudo-terminal-slave"><strong>PTS (Pseudo-Terminal Slave)</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#如何在linux中终止阻塞不需要的用户会话">如何在Linux中终止阻塞/不需要的用户会话</a>
+      <ul>
+        <li><a href="#通过-tty-终止用户会话">通过 TTY 终止用户会话</a></li>
+        <li><a href="#按进程id终止用户会话">按进程ID终止用户会话</a></li>
+      </ul>
+    </li>
+    <li><a href="#如何终止一个阻塞的前台进程">如何终止一个阻塞的前台进程</a></li>
+    <li><a href="#结论">结论</a></li>
+    <li><a href="#公众号">公众号</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>使用 Linux 终端时，有时会卡住，失去响应，这时应该如何终止会话？</p>
+<p>对于Linux用户来说，遇到卡住或不想要的用户会话可能是一种令人沮丧的体验。同时，这些会话可能会使您的系统面临潜在风险，使其容易受到未经授权的访问或数据泄露的影响。</p>
+<p>无论是由行为不端的应用程序、系统故障还是用户错误引起的，这些延迟的会话都会阻碍生产力，并危及系统的安全性和性能。</p>
+<p>但不要害怕；本文旨在为您提供重新获得控制权和维护平稳运行的Linux系统的知识和工具。通过学习处理这些情况的正确方法，您可以确保一个更安全的计算环境，并保护您的宝贵数据。</p>
+<p>然而，在我们继续之前，我们需要澄清两个术语 TTY 和 PTS 的含义，它们在 Linux 中直接涉及到终止用户会话。</p>
+<h2 id="在linux中什么是-tty-和-pts">在Linux中什么是 TTY 和 PTS？</h2>
+<p>在Linux中，“PTS”和“TTY”都指用于在用户和操作系统之间进行通信的不同终端设备。它们充当输入命令和接收系统输出的接口。</p>
+<h3 id="tty-teletype"><strong>TTY (Teletype)</strong></h3>
+<p>“TTY”最初代表电传打字机（Teletype），这是一种类似打字机的设备，在计算机早期用于输入和输出。</p>
+<p>在现代 Linux 系统中，TTY 代表一个物理或虚拟控制台，用户可以在此处直接与系统互动。</p>
+<h3 id="pts-pseudo-terminal-slave"><strong>PTS (Pseudo-Terminal Slave)</strong></h3>
+<p>PTS代表伪终端从设备。它是一个虚拟终端，模拟硬件终端，但不直接连接到任何物理设备。</p>
+<p>相反，系统创建并管理它，以支持终端多路复用、远程登录和各种交互式应用程序。</p>
+<p>例如，当您使用终端模拟器应用程序（如GNOME的终端或KDE的Konsole）来访问Linux系统时，通常会使用伪终端。</p>
+<p>这些仿真器充当伪终端的“主”端，而shell或在终端中运行的进程充当“从”端。</p>
+<p>当您打开多个终端窗口或选项卡时，每个窗口或选项卡对应一个单独的PTS。例如，如果打开三个终端窗口，它们可能被标识为/dev/pts/0、/dev/pts/1和/dev/pts/2。</p>
+<p>总之，TTY和PTS都是Linux中的终端设备，允许用户与操作系统交互。TTY表示物理或虚拟控制台，而PTS用于终端模拟器，并提供多路复用和远程登录的附加功能。</p>
+<p>有了这样的澄清，我们现在可以继续讨论主要议题。</p>
+<h2 id="如何在linux中终止阻塞不需要的用户会话">如何在Linux中终止阻塞/不需要的用户会话</h2>
+<p>阻塞我们一般俗称“卡住” 😆</p>
+<p>你可以通过两种方式来实现这一点，因此我们将在下面分别进行研究。</p>
+<h3 id="通过-tty-终止用户会话">通过 TTY 终止用户会话</h3>
+<p>我们将使用 <code>w</code> 命令来获取有关我们 Linux 系统上已登录用户的信息。它显示了当前登录用户的信息和他们的活动。</p>
+<p>当你运行 <code>w</code> 命令时，它会为每个用户提供以下细节的摘要：</p>
+<ul>
+<li><strong>USER</strong>: 当前登录用户的用户名</li>
+<li><strong>TTY</strong>:  与用户会话相关联的终端名称或设备（例如/dev/tty1，pts/0）</li>
+<li><strong>FROM</strong>: 用户登录的远程主机或IP地址。如果用户在本地登录，它将显示 TTY’s name 或者 <code>-</code> 符号</li>
+<li><strong>LOGIN@</strong>: 用户登录的日期和时间</li>
+<li><strong>IDLE</strong>: 用户会话处于非活动状态的持续时间。如果用户主动使用终端，它将显示 <code>old</code></li>
+<li><strong>JCPU</strong>: 与用户会话相关联的所有进程使用的CPU总时间</li>
+<li><strong>PCPU</strong>: 用户当前进程使用的CPU时间.</li>
+<li><strong>WHAT</strong>: 用户执行的命令或与终端相关联的进程</li>
+</ul>
+<p>以下是 <code>w</code> 命令的输出示例：</p>
+<p><img src="/img/Linux/terminate_user_session/terminate-user-session-2.jpg" alt="获取在Linux上登录用户的信息"></p>
+<p>获取在Linux上登录用户的信息</p>
+<p>正如您从上面的示例输出中看到的，有三个登录的用户——两个是本地用户，一个是远程用户。</p>
+<p>要终止远程登录用户“linuxiac”的用户会话，我们将在Linux中使用带有选项<code>-KILL</code>的<code>pkill</code>命令，这意味着Linux进程必须立即终止（而不是优雅地）。使用“<code>-t</code>”标志指定TTY的名称。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">pkill -KILL -t pts/1
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="/img/Linux/terminate_user_session/terminate-user-session-7.jpg" alt="在Linux上通过 TTY/PTS 名称终止一个用户会话"></p>
+<p>在Linux上通过 TTY/PTS 名称终止一个用户会话</p>
+<p>仅此而已。从<code>w</code>命令的重新检查可以看出，用户与我们系统的会话立即终止。</p>
+<h3 id="按进程id终止用户会话">按进程ID终止用户会话</h3>
+<p>我们将向您展示的第二种方法使用进程ID终止用户会话。为此，我们再次执行<code>w</code>命令，以获取登录用户的列表及其相关的<code>TTY/PTS</code>。
+然后，一旦我们确定了<code>TTY/PTS</code>会话，就使用带有<code>-ft</code>参数的<code>ps</code>命令来查找其PID：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">ps -ft <span class="o">[</span>TTY/PTS<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>最后，使用带有传递进程ID的<code>-9</code>（强制终止进程）开关的kill命令。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">kill</span> -9 <span class="m">4374</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="/img/Linux/terminate_user_session/terminate-user-session-5.jpg" alt="在Linux上通过进程ID终止用户会话"></p>
+<p>在Linux上通过进程ID终止用户会话</p>
+<p>结果，用户会话立即终止。</p>
+<h2 id="如何终止一个阻塞的前台进程">如何终止一个阻塞的前台进程</h2>
+<p>大部分程序在终端的前台启动后，使用 <code>CTRL-C</code> 是可以退出当前运行的程序的。但有一部分程序由于没有处理输入信号，或者正在请求网络连接阻塞了输入信号的处理，这时候使用 <code>CTRL-C</code> 是不管用的。</p>
+<p>这种情况的处理办法就是，先使用 <code>CTRL-Z</code> 把程序放入后台，然后通过 <code>ps</code> 命令找到程序进程的ID号，最后使用 <code>kill -9 PID</code> 的方式强行把进程杀掉。 😁</p>
+<p>针对这个情况的另外一个办法，就是再开一个登录窗口，把之前的登录用户使用上面提到的两种方式结束用户会话。</p>
+<h2 id="结论">结论</h2>
+<p>在Linux系统管理领域中，知道如何终止阻塞或不需要的用户会话是至关重要的。在本文中，我们探索了两种有效的方法来完成这项任务：TTY/PTS或流程ID。</p>
+<p>TTY/PTS方法提供了一种直接终止用户会话的方法。另一方面，通过进程ID终止会话提供了一种更精确、更直接的方法；使用这两种方法中的哪一种？这个决定完全取决于你。</p>
+<p>请记住，无论您选择TTY/PTS方法还是流程ID方法，谨慎行事都是至关重要的。确保终止正确的用户会话或进程，以防止意外数据丢失或意外后果。查看<code>pkill</code>和<code>kill</code>命令手册页获取更多详细说明。</p>
+<h2 id="公众号">公众号</h2>
+<p>欢迎关注我的公众号，同步更新</p>
+<p><img src="/img/qrcode_for_gh.jpg" alt="木木小小孩"></p>
+<p>参考资料</p>
+<ol>
+<li><a href="https://linuxiac.com/how-to-terminate-user-session-in-linux/">How to Terminate Stuck or Unwanted User Sessions in Linux</a></li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-09-09
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/linux-%E4%BC%9A%E8%AF%9D/">Linux 会话</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/ide/vscode%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/">
+            <span class="next-text nav-default">VSCode中的变量</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://kevinjiang.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2015 -
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script type="text/javascript" async src="/lib/mathjax/es5/tex-mml-chtml.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?b73ff6d4afc4af9e582d8a5dc068bab9";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>
