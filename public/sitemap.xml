@@ -3,14 +3,56 @@
   
   <url>
     <loc>http://kevinjiang.info/</loc>
-    <lastmod>2023-09-09T12:03:02+08:00</lastmod>
+    <lastmod>2023-09-11T23:01:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://kevinjiang.info/categories/</loc>
-    <lastmod>2023-09-09T12:03:02+08:00</lastmod>
+    <lastmod>2023-09-11T23:01:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/post/</loc>
+    <lastmod>2023-09-11T23:01:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/</loc>
+    <lastmod>2023-09-11T23:01:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/vue/</loc>
+    <lastmod>2023-09-11T23:01:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/categories/%E5%89%8D%E7%AB%AF/</loc>
+    <lastmod>2023-09-11T23:01:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/tags/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/</loc>
+    <lastmod>2023-09-11T23:01:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://kevinjiang.info/post/web/%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E7%B1%BB%E4%BC%BCvue%E7%9A%84%E6%9E%81%E7%AE%80%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/</loc>
+    <lastmod>2023-09-11T23:01:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31,20 +73,6 @@
   
   <url>
     <loc>http://kevinjiang.info/tags/linux-%E4%BC%9A%E8%AF%9D/</loc>
-    <lastmod>2023-09-09T12:03:02+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/post/</loc>
-    <lastmod>2023-09-09T12:03:02+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://kevinjiang.info/tags/</loc>
     <lastmod>2023-09-09T12:03:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

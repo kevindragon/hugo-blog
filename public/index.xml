@@ -6,7 +6,16 @@
     <description>Recent content on (power up)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 09 Sep 2023 12:03:02 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 11 Sep 2023 23:01:32 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何构建类似Vue的极简前端框架</title>
+      <link>http://kevinjiang.info/post/web/%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E7%B1%BB%E4%BC%BCvue%E7%9A%84%E6%9E%81%E7%AE%80%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Mon, 11 Sep 2023 23:01:32 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/web/%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E7%B1%BB%E4%BC%BCvue%E7%9A%84%E6%9E%81%E7%AE%80%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/</guid>
+      <description>在开始之前，我们做一些前提设置，这个极简框架的目标是让我们避免去写一些常规的html和JavaScript代码，比如： 1 2 3 4 5 6 &amp;lt;p id=&amp;#34;cool-para&amp;#34;&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;script&amp;gt; const coolPara</description>
+    </item>
+    
     <item>
       <title>如何终止无响应的 Linux 会话</title>
       <link>http://kevinjiang.info/post/linux/%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%97%A0%E5%93%8D%E5%BA%94%E7%9A%84-linux-%E4%BC%9A%E8%AF%9D/</link>

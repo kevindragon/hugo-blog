@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>如何构建类似Vue的极简前端框架 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="在开始之前，我们做一些前提设置，这个极简框架的目标是让我们避免去写一些常规的html和JavaScript代码，比如： 1 2 3 4 5 6 &amp;lt;p id=&amp;#34;cool-para&amp;#34;&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;script&amp;gt; const coolPara" /><meta name="keywords" content="KevinJiang, AI大模型, AI落地, 全栈工程师, Java, Spring Boot" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
+
+
+<link rel="canonical" href="http://kevinjiang.info/post/web/%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E7%B1%BB%E4%BC%BCvue%E7%9A%84%E6%9E%81%E7%AE%80%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="如何构建类似Vue的极简前端框架" />
+<meta property="og:description" content="在开始之前，我们做一些前提设置，这个极简框架的目标是让我们避免去写一些常规的html和JavaScript代码，比如： 1 2 3 4 5 6 &lt;p id=&#34;cool-para&#34;&gt;&lt;/p&gt; &lt;script&gt; const coolPara" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://kevinjiang.info/post/web/%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E7%B1%BB%E4%BC%BCvue%E7%9A%84%E6%9E%81%E7%AE%80%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-09-11T23:01:32+08:00" />
+<meta property="article:modified_time" content="2023-09-11T23:01:32+08:00" />
+
+<meta itemprop="name" content="如何构建类似Vue的极简前端框架">
+<meta itemprop="description" content="在开始之前，我们做一些前提设置，这个极简框架的目标是让我们避免去写一些常规的html和JavaScript代码，比如： 1 2 3 4 5 6 &lt;p id=&#34;cool-para&#34;&gt;&lt;/p&gt; &lt;script&gt; const coolPara"><meta itemprop="datePublished" content="2023-09-11T23:01:32+08:00" />
+<meta itemprop="dateModified" content="2023-09-11T23:01:32+08:00" />
+<meta itemprop="wordCount" content="2711">
+<meta itemprop="keywords" content="前端框架,Vue," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="如何构建类似Vue的极简前端框架"/>
+<meta name="twitter:description" content="在开始之前，我们做一些前提设置，这个极简框架的目标是让我们避免去写一些常规的html和JavaScript代码，比如： 1 2 3 4 5 6 &lt;p id=&#34;cool-para&#34;&gt;&lt;/p&gt; &lt;script&gt; const coolPara"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/resume/">
+        <li class="mobile-menu-item">简历</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resume/">简历</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">如何构建类似Vue的极简前端框架</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-09-11 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%89%8D%E7%AB%AF/"> 前端 </a>
+            </div>
+          <span class="more-meta"> 约 2711 字 </span>
+          <span class="more-meta"> 预计阅读 6 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#响应式reactivity">响应式（Reactivity）</a></li>
+    <li><a href="#代理对象proxy-objects">代理对象（Proxy Objects）</a></li>
+    <li><a href="#更新ui">更新UI</a></li>
+    <li><a href="#组合式composibility">组合式（Composibility）</a>
+      <ul>
+        <li><a href="#使用template和slot定义组件">使用template和slot定义组件</a></li>
+        <li><a href="#注册组件">注册组件</a></li>
+      </ul>
+    </li>
+    <li><a href="#响应式--组合式">响应式 + 组合式</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>在开始之前，我们做一些前提设置，这个极简框架的目标是让我们避免去写一些常规的html和JavaScript代码，比如：</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;cool-para&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kr">const</span> <span class="nx">coolPara</span> <span class="o">=</span> <span class="s1">&#39;Lorem ipsum.&#39;</span><span class="p">;</span>
+  <span class="kr">const</span> <span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;cool-para&#39;</span><span class="p">);</span>
+  <span class="nx">el</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">coolPara</span><span class="p">;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这个极简框架是让我们可以写一些神奇的HTML和JavaScript，就像Vue一样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span><span class="p">&gt;</span>
+  <span class="kr">const</span> <span class="nx">coolPara</span> <span class="o">=</span> <span class="s1">&#39;Lorem ipsum.&#39;</span><span class="p">;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{ coolPara }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>或者像React一样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">Para</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">coolPara</span> <span class="o">=</span> <span class="s1">&#39;Lorem ipsum&#39;</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;{</span> <span class="nx">coolPara</span> <span class="p">}&lt;/</span><span class="nt">p</span><span class="p">&gt;;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这样的一个框架的好处是显而易见的，写代码的时候问题要记住多章节的内置变量和方法是困难的，如document、innerText、getElementById，而且也不利于软件的扩展。</p>
+<p>我们的极简框架有两个特点：响应式和组合式。</p>
+<blockquote>
+<p>响应式</p>
+</blockquote>
+<p>在Vue和React代码中，数据和UI元素的显示内容有一个绑定，只要我们修改了数据，html元素的innerText值就会自动进行更新。这被称作响应式（Reactivity）</p>
+<blockquote>
+<p>组合式</p>
+</blockquote>
+<p>可以定义一个组件并重复使用它，而无需每次使用到它的时候还要再次定义它，这被称为可组合性。普通的HTML + JavaScript并不具备这个特性。因此，下面的代码并没有达到预期效果（仅仅是做了定义而，这有点类似Web Components的做法）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- Defining the component --&gt;</span>
+<span class="p">&lt;</span><span class="nt">component</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;cool-para&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">content</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">component</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- Using the component --&gt;</span>
+<span class="p">&lt;</span><span class="nt">cool-para</span><span class="p">&gt;</span>Lorem ipsum.<span class="p">&lt;/</span><span class="nt">cool-para</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>响应式和组合式是现代前端框架的两个主要特性，例如Vue, React等待。</p>
+<p>要利用这些抽象概念（例如框架和库），我们需要先学习很多特定的概念。当这些东西以某种神奇的方式运作时，我们还要处理它们可能产生的问题。更不用说，我们还要处理一大堆容易出错的依赖关系。</p>
+<p>但事实上，使用现代 Web API 来实现这两件事并不困难。而且，在大多数情况下，我们可能并不需要大而全的框架及其纷繁复杂的特性…</p>
+<h2 id="响应式reactivity">响应式（Reactivity）</h2>
+<p>一个句话解释响应式就是：当数据更新时，自动更新 UI。</p>
+<p>首先，我们需要知道数据何时更新。不幸的是，这不是一个普通对象可以做到的。我们不能简单地附加一个名为 ondataupdate 的监听器来监听数据更新事件。</p>
+<p>幸运的是，JavaScript 有一个可以实现这个功能的东西，它叫做代理（Proxy）。</p>
+<h2 id="代理对象proxy-objects">代理对象（Proxy Objects）</h2>
+<p><code>Proxy</code> 允许我们在常规对象上创建一个代理对象：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="kr">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Lin&#39;</span> <span class="p">};</span>
+<span class="kr">const</span> <span class="nx">proxy</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Proxy</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="p">{});</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这个代理对象可以被用来监听数据的变化。</p>
+<p>在上面的例子当中，我们有了一个代理对象，但是当 <code>name</code> 属性发生变化的时候，不会发生任何额外的事情。</p>
+<p>因此，我们需要一个 <code>handler</code> ，用来告诉代理对象，当数据发生变化的时候需要做些什么。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="c1">// Handler that listens to data assignment operations
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">set</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">property</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">property</span><span class="si">}</span><span class="sb"> is being updated`</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">Reflect</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">property</span><span class="p">);</span>
+  <span class="p">},</span>
+<span class="p">};</span>
+
+<span class="c1">// Creating a proxy with the handler
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Lin&#39;</span> <span class="p">};</span>
+<span class="kr">const</span> <span class="nx">proxy</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Proxy</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="nx">handler</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>现在，任何时候修改 <code>name</code> 的值时，我们都会得到一个 <code>name is being updated.</code> 的消息。</p>
+<p>你可能会想，这有什么的，我可以通过对象的 <code>set</code> 方法来实现这一点，但是我想跟你说：</p>
+<ul>
+<li>代理方法更加通用，handlers方法可以被重用，这意味着……</li>
+<li>你在对象上设置的任何值，都可以被递归的转换为代理，这意味着……</li>
+<li>你将拥有一个神奇的对象，任何嵌套的数据更新，都是会被监听的。</li>
+</ul>
+<p>除了这些，你还可以处理其他一些访问事件，比如当一个属性被读取、更新、删除等。现在我们已经有能力监听操作，我们需要实际响应这些事件了。</p>
+<h2 id="更新ui">更新UI</h2>
+<p>如果你还记得，响应式的第二部分是自动更新UI。为些，我们需要知道被更新的UI元素。在这之前，我们需要首先标记这个UI元素，当数据更新的时候可以找到这个UI元素。为了做到这一点，我们将使用数据属性，这是一个允许我们在元素上设置任意值的特性：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="c">&lt;!-- Mark the h1 as appropriate for when &#34;name&#34; changes --&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">data-mark</span><span class="o">=</span><span class="s">&#34;name&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>数据属性的便利之处在于，我们可以使用以下方法找到所有适当的元素：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;[data-mark=&#34;name&#34;]&#39;</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>现在我们只需设置所有适当元素的 innerText：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="kr">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">set</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">property</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="sb">`[data-mark=&#34;</span><span class="si">${</span><span class="nx">property</span><span class="si">}</span><span class="sb">&#34;]`</span><span class="p">;</span>
+    <span class="kr">const</span> <span class="nx">elements</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="nx">query</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">el</span> <span class="k">of</span> <span class="nx">elements</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">Reflect</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">property</span><span class="p">);</span>
+  <span class="p">},</span>
+<span class="p">};</span>
+
+<span class="c1">// Regular object is omitted cause it&#39;s not needed.
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Proxy</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Lin&#39;</span> <span class="p">},</span> <span class="nx">handler</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>就这些，这就是响应式的核心！</p>
+<p>由于我们的处理程序具有通用性，用户设置的任何属性都会更新所有适当的 UI 元素。</p>
+<p>这就是 JavaScript 代理功能如此强大的原因，不需要任何依赖，只需一些巧妙的方法，它就可以为我们提供这些神奇的反应性对象。</p>
+<p>现在我们来说第二个主要内容…</p>
+<h2 id="组合式composibility">组合式（Composibility）</h2>
+<p>结果发现，浏览器已经为这个功能专门推出了一个叫做 Web Components 的功能，谁能想到！</p>
+<p>很少有人使用它是因为它有点让人头疼（而且也因为大多数人在开始一个项目时，默认选择常用的框架，而不考虑项目的范围）。</p>
+<p>为了实现组件的可组合性，我们首先需要定义组件。</p>
+<h3 id="使用template和slot定义组件">使用template和slot定义组件</h3>
+<p><code>&lt;template&gt;</code> 标签用于包含浏览器不渲染的标记。例如，您可以在 HTML 中添加以下标记：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Will not render!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这个组件暂时不会渲染。你可以认为这是一个不可见的组件容器。</p>
+<p>下一个构建块是 <code>&lt;slot&gt;</code> 元素，它定义了组件内容的放置位置。这使得组件可以重复使用不同的内容，也就是说，它变得可组合。</p>
+<p>举个例子，这是一个红色内容的<code>h1</code>元素：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;color: red&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">slot</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在我们使用组件之前 - 比如上面的红色 h1，我们需要先注册它们。</p>
+<h3 id="注册组件">注册组件</h3>
+<p>在我们注册红色 h1 组件之前，我们需要一个名称来注册它。我们可以使用 name 属性来实现这一点：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">template</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;red-h1&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;color: red&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">slot</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>现在，使用一些JavaScript代码来获取组件及它的名称：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="kr">const</span> <span class="nx">template</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;template&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kr">const</span> <span class="nx">componentName</span> <span class="o">=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后使用 <code>[customElements.define](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define)</code> 来注册：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span>
+  <span class="nx">componentName</span><span class="p">,</span>
+  <span class="kr">class</span> <span class="kr">extends</span> <span class="nx">HTMLElement</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kr">super</span><span class="p">();</span>
+      <span class="kr">const</span> <span class="nx">component</span> <span class="o">=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">cloneNode</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">attachShadow</span><span class="p">({</span> <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;open&#39;</span> <span class="p">}).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">component</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在上面的代码块中发生了很多事情：</p>
+<ul>
+<li>我们正在调用 customElements.define 函数并传入两个参数。</li>
+<li>第一个参数是组件名称（即 &ldquo;red-h1&rdquo;）。</li>
+<li>第二个参数是一个定义我们自定义组件为 HTMLElement 的类。</li>
+</ul>
+<p>在类构造函数中，我们使用 red-h1 模板的副本来设置 shadow DOM 树。</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>调用 <code>customElements.define</code> 将使我们能够像使用普通 HTML 元素一样使用定义好的组件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">red-h1</span><span class="p">&gt;</span>This will render in red!<span class="p">&lt;/</span><span class="nt">red-h1</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>接下来，我们将把这两个概念结合起来！</p>
+<h2 id="响应式--组合式">响应式 + 组合式</h2>
+<p>快速回顾一下，我们做了两件事：</p>
+<ol>
+<li>我们创建了一个响应式数据结构，即代理对象，当设置一个值时，可以更新我们标记为合适的任何元素。</li>
+<li>我们定义了一个自定义组件 red-h1，它将渲染其内容为一个红色 h1。</li>
+</ol>
+<p>现在我们可以把它们放在一起：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">red-h1</span> <span class="na">data-mark</span><span class="o">=</span><span class="s">&#34;name&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">red-h1</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kr">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Proxy</span><span class="p">({},</span> <span class="nx">handler</span><span class="p">);</span>
+  <span class="nx">user</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;Lin&#39;</span><span class="p">;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>让自定义组件渲染我们的数据，并在我们更改数据时更新界面。</p>
+<h2 id="总结">总结</h2>
+<p>当然，常规的前端框架不只做到这一步，它们有专门的语法，如 Vue 中的模板语法和 React 中的 JSX，这些语法使得编写复杂的前端页面相对于其他方式更加简洁。</p>
+<p>由于这种专门的语法不是常规的 JavaScript 或 HTML，浏览器无法解析它们，因此它们都需要专门的工具将它们编译成常规的 JavaScript、HTML 和 CSS，以便浏览器能够理解。因此，现在没有人再写 JavaScript 了。</p>
+<p>即使没有专门的语法，你仍然可以通过使用<code>Proxy</code>和 <code>Web Components</code> 来实现常规前端框架的大部分功能，并且具有类似的简洁性。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-09-11
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/">前端框架</a>
+          <a href="/tags/vue/">Vue</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/linux/%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%97%A0%E5%93%8D%E5%BA%94%E7%9A%84-linux-%E4%BC%9A%E8%AF%9D/">
+            <span class="next-text nav-default">如何终止无响应的 Linux 会话</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://kevinjiang.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2015 -
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script type="text/javascript" async src="/lib/mathjax/es5/tex-mml-chtml.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?b73ff6d4afc4af9e582d8a5dc068bab9";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>
