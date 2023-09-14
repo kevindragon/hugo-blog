@@ -49,7 +49,7 @@
 <meta itemprop="name" content="如何微调一个大语言模型">
 <meta itemprop="description" content="在当今的数字化时代，大语言模型的发展正在以前所未有的速度推动着人工智能领域的进步。大语言模型，也称为大型预训练语言模型，代表了人工智能语言处"><meta itemprop="datePublished" content="2023-09-14T12:15:06+08:00" />
 <meta itemprop="dateModified" content="2023-09-14T12:15:06+08:00" />
-<meta itemprop="wordCount" content="3276">
+<meta itemprop="wordCount" content="3390">
 <meta itemprop="keywords" content="LLM,大语言模型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="如何微调一个大语言模型"/>
 <meta name="twitter:description" content="在当今的数字化时代，大语言模型的发展正在以前所未有的速度推动着人工智能领域的进步。大语言模型，也称为大型预训练语言模型，代表了人工智能语言处"/>
@@ -136,7 +136,7 @@
         <div class="post-category">
             <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"> 人工智能 </a>
             </div>
-          <span class="more-meta"> 约 3276 字 </span>
+          <span class="more-meta"> 约 3390 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
         
       </div>
@@ -148,15 +148,11 @@
     <nav id="TableOfContents">
   <ul>
     <li><a href="#引言">引言</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#预训练">预训练</a>
-      <ul>
-        <li><a href="#导出微调后的模型">导出微调后的模型</a></li>
-      </ul>
-    </li>
-    <li><a href="#指令监督微调"><strong>指令监督微调</strong></a></li>
+    <li><a href="#构建镜像">构建镜像</a></li>
+    <li><a href="#微调">微调</a></li>
+    <li><a href="#预训练">预训练</a></li>
+    <li><a href="#导出微调后的模型">导出微调后的模型</a></li>
+    <li><a href="#指令监督微调">指令监督微调</a></li>
     <li><a href="#多gpu分布式训练">多GPU分布式训练</a></li>
     <li><a href="#模型评测">模型评测</a></li>
     <li><a href="#总结">总结</a></li>
@@ -175,7 +171,7 @@
 <p>下面我们以构建一个可以使用**<a href="https://github.com/hiyouga/LLaMA-Efficient-Tuning/tree/main">LLaMA-Efficient-Tuning</a>**来微调大语言模型的镜像为例来说明。</p>
 <p>如果你服务的企业有足够好的硬件及网络条件，同时在物理机上有安装软件的权限，那么建议你直接在物理机上安装驱动、依赖、下载微调源码，下载模型，然后进行微调。</p>
 <p>下面介绍的流程更多的是在网络条件不允许的情况下，把所有东西都放在Docker里面是十分方便的一种做法，只需要企业内部的服务器支持Docker的运行和安装了nvidia驱动的机器即可。</p>
-<h1 id="构建镜像">构建镜像</h1>
+<h2 id="构建镜像">构建镜像</h2>
 <p>LLaMA-Efficient-Tuning这个开源项目已经集成了非常多的开源模型的微调，比如流行的ChatGLM2，LLaMA-2等待。开箱即用，简直不要太方便。官方还提供了非常多实用的<a href="https://github.com/hiyouga/LLaMA-Efficient-Tuning/blob/main/README_zh.md">数据集</a></p>
 <p>克隆项目源代码 <code>git clone https://github.com/hiyouga/LLaMA-Efficient-Tuning.git</code></p>
 <p>本文只构建训练用的Docker镜像环境，所以只需要<code>requirements.txt</code>的内容即可，把依赖的模块全部安装上，<code>requirements.txt</code>内容如下：</p>
@@ -266,7 +262,8 @@ matplotlib
 </code></pre></td></tr></table>
 </div>
 </div><p>这时我们获得了一个可以运行LLaMA-Efficient-Tuning的Docker镜像了。</p>
-<h1 id="微调">微调</h1>
+<h2 id="微调">微调</h2>
+<p>什么是微调呢？微调语言模型涉及在较小的、特定于任务的数据集上训练模型，以适应特定的任务或领域。预训练的基础模型充当起点，网络的权重将根据特定于任务的数据进一步优化。微调有助于模型更好地理解它正在微调的任务的特定上下文和语言模式。</p>
 <p>本文以微调ChatGLM2-6B为例，介绍如何使用LLaMA-Efficient-Tuning进行预训练、指令监督、奖励模型以及PPO和DPO训练的微调。</p>
 <p>上面我们下面了<code>LLaMA-Efficient-Tuning</code>源码。同时我们还需要下载<code>ChatGLM2-6B</code>的源码，下载后我们放在<code>/LLaMA-Efficient-Tuning/base_models/chatglm2-6b</code>目录。</p>
 <p>下载链接：<a href="https://huggingface.co/THUDM/chatglm2-6b">https://huggingface.co/THUDM/chatglm2-6b</a></p>
@@ -329,7 +326,7 @@ matplotlib
 <p>上图可以看到加载训练数据，模型的参数等信息</p>
 <p><img src="/img/AI/LLM_finetuning/pretrain-output2.png" alt="Pretrain paramters"></p>
 <p>上图可以看到训练完成后的一些metric值，像训练的loss值，运行时间，训练速度，迭代数epoch，checkpoint保存的目录等信息。</p>
-<h3 id="导出微调后的模型">导出微调后的模型</h3>
+<h2 id="导出微调后的模型">导出微调后的模型</h2>
 <p>预训练模型是一个基础模型，后续的微调如果要基于微调后的预训练模型的话，需要把原始的基础模型和微调后的checkpiont进行合并，然后导出为一个完整的模型。</p>
 <p>使用下面的命令可以导出预训练微调后的模型：</p>
 <div class="highlight"><div class="chroma">
@@ -350,7 +347,7 @@ matplotlib
 </span><span class="se"></span>    --output_dir output/chatglm2-6b/pretrain
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="指令监督微调"><strong>指令监督微调</strong></h2>
+</div><h2 id="指令监督微调">指令监督微调</h2>
 <p>指令监督微调是ChatGPT的训练过程当中的SFT阶段（这里请参考InstructGPT那篇论文[2]），通过人工标注的指令集，让大语言模型生成指令相关的回答内容，数据集类似下面这样：</p>
 <p><img src="/img/AI/LLM_finetuning/sft-training-data.png" alt="SFT training data"></p>
 <p>同样，我们新建一个shell脚本<code>/LLaMA-Efficient-Tuning/sft.sh</code>，在官方给的参数上修改几个参数，运行这个脚本进行SFT微调：</p>
