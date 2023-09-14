@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>如何微调一个大语言模型 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="在当今的数字化时代，大语言模型的发展正在以前所未有的速度推动着人工智能领域的进步。大语言模型，也称为大型预训练语言模型，代表了人工智能语言处" /><meta name="keywords" content="KevinJiang, AI大模型, AI落地, 全栈工程师, Java, Spring Boot" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
+
+
+<link rel="canonical" href="http://kevinjiang.info/post/ai/%E5%A6%82%E4%BD%95%E5%BE%AE%E8%B0%83%E4%B8%80%E4%B8%AA%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="如何微调一个大语言模型" />
+<meta property="og:description" content="在当今的数字化时代，大语言模型的发展正在以前所未有的速度推动着人工智能领域的进步。大语言模型，也称为大型预训练语言模型，代表了人工智能语言处" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://kevinjiang.info/post/ai/%E5%A6%82%E4%BD%95%E5%BE%AE%E8%B0%83%E4%B8%80%E4%B8%AA%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-09-14T12:15:06+08:00" />
+<meta property="article:modified_time" content="2023-09-14T12:15:06+08:00" />
+
+<meta itemprop="name" content="如何微调一个大语言模型">
+<meta itemprop="description" content="在当今的数字化时代，大语言模型的发展正在以前所未有的速度推动着人工智能领域的进步。大语言模型，也称为大型预训练语言模型，代表了人工智能语言处"><meta itemprop="datePublished" content="2023-09-14T12:15:06+08:00" />
+<meta itemprop="dateModified" content="2023-09-14T12:15:06+08:00" />
+<meta itemprop="wordCount" content="3276">
+<meta itemprop="keywords" content="LLM,大语言模型," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="如何微调一个大语言模型"/>
+<meta name="twitter:description" content="在当今的数字化时代，大语言模型的发展正在以前所未有的速度推动着人工智能领域的进步。大语言模型，也称为大型预训练语言模型，代表了人工智能语言处"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/resume/">
+        <li class="mobile-menu-item">简历</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resume/">简历</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">如何微调一个大语言模型</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-09-14 </span>
+        <div class="post-category">
+            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"> 人工智能 </a>
+            </div>
+          <span class="more-meta"> 约 3276 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#引言">引言</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#预训练">预训练</a>
+      <ul>
+        <li><a href="#导出微调后的模型">导出微调后的模型</a></li>
+      </ul>
+    </li>
+    <li><a href="#指令监督微调"><strong>指令监督微调</strong></a></li>
+    <li><a href="#多gpu分布式训练">多GPU分布式训练</a></li>
+    <li><a href="#模型评测">模型评测</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#公众号">公众号</a></li>
+    <li><a href="#参考资料">参考资料</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>在当今的数字化时代，大语言模型的发展正在以前所未有的速度推动着人工智能领域的进步。大语言模型，也称为大型预训练语言模型，代表了人工智能语言处理领域的一种突破。国外的有OpenAI的ChatGPT，Google的Bard，Anthropic的Claude；国内的有百度的文心一言，智谱AI的智谱清言，讯飞的星火大模型。这些都是闭源的大模型，提供了一个应用程序供使用。</p>
+<p>现在，许多公司和研究机构都在落地大语言模型。都在尝试把大语言模型部署到企业内部，让企业内部的数据可以更加智能的利用起来。落地的方式有两种：一种是调用各大公司提供的API接口，快速把大模型的能力接入到企业内部；另外一种方式是部署开源大模型。第一种方式适合无企业敏感数据，迫切希望接入大模型的智能；而第二种针对企业的敏感数据，不希望敏感数据流出企业。</p>
+<!-- raw HTML omitted -->
+<h2 id="引言">引言</h2>
+<p>本文针对企业落地大模型的第二种方式，谈一谈如何构建一个可以运行大模型和训练大模型的环境，这是企业落地大模型的第一步。</p>
+<p>下面我们以构建一个可以使用**<a href="https://github.com/hiyouga/LLaMA-Efficient-Tuning/tree/main">LLaMA-Efficient-Tuning</a>**来微调大语言模型的镜像为例来说明。</p>
+<p>如果你服务的企业有足够好的硬件及网络条件，同时在物理机上有安装软件的权限，那么建议你直接在物理机上安装驱动、依赖、下载微调源码，下载模型，然后进行微调。</p>
+<p>下面介绍的流程更多的是在网络条件不允许的情况下，把所有东西都放在Docker里面是十分方便的一种做法，只需要企业内部的服务器支持Docker的运行和安装了nvidia驱动的机器即可。</p>
+<h1 id="构建镜像">构建镜像</h1>
+<p>LLaMA-Efficient-Tuning这个开源项目已经集成了非常多的开源模型的微调，比如流行的ChatGLM2，LLaMA-2等待。开箱即用，简直不要太方便。官方还提供了非常多实用的<a href="https://github.com/hiyouga/LLaMA-Efficient-Tuning/blob/main/README_zh.md">数据集</a></p>
+<p>克隆项目源代码 <code>git clone https://github.com/hiyouga/LLaMA-Efficient-Tuning.git</code></p>
+<p>本文只构建训练用的Docker镜像环境，所以只需要<code>requirements.txt</code>的内容即可，把依赖的模块全部安装上，<code>requirements.txt</code>内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">torch&gt;=1.13.1
+transformers&gt;=4.30.0
+datasets&gt;=2.12.0
+accelerate&gt;=0.21.0
+peft&gt;=0.4.0
+trl&gt;=0.7.1
+scipy
+sentencepiece
+protobuf
+tiktoken
+jieba
+rouge-chinese
+nltk
+gradio&gt;=3.36.0
+uvicorn
+pydantic==1.10.11
+fastapi==0.95.1
+sse-starlette
+matplotlib
+</code></pre></td></tr></table>
+</div>
+</div><p>最好是创建一个目录，把requirements.txt放在创建好的目录下面，从这个目录启动一个docker容器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">docker run -it <span class="se">\
+</span><span class="se"></span>  --gpus<span class="o">=</span>all <span class="se">\
+</span><span class="se"></span>  --name<span class="o">=</span>llm_builder <span class="se">\
+</span><span class="se"></span>  -v <span class="s2">&#34;`pwd`/requirements.txt:/build/requirements.txt&#34;</span> <span class="se">\
+</span><span class="se"></span>  -w <span class="s2">&#34;/build&#34;</span> <span class="se">\
+</span><span class="se"></span>  pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel <span class="se">\
+</span><span class="se"></span>  bash
+</code></pre></td></tr></table>
+</div>
+</div><p>本文以<code>pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel</code> Docker镜像为基础镜像进行构建，运行完上面的命令，你会进入到容器的/build目录，这个目录下面就可以看到<code>requirements.txt</code>文件。这是一定要加上<code>—-gpus=all</code> 参数。同时还要注意，物理机上必须要安装nvidia的驱动，移步<a href="https://www.nvidia.cn/geforce/drivers/">官网</a>下载安装。</p>
+<p><img src="/img/AI/LLM_finetuning/nvidia-driver.png" alt="Nvidia Driver"></p>
+<p>然后使用下面的命令安装依赖</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+</code></pre></td></tr></table>
+</div>
+</div><p>指定了使用清华的镜像源，安装起来会快很多。</p>
+<p>最后，需要把运行的容器保存为镜像：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">docker commit llm_builder cuda-11.7_pytorch-2.0.1_llm-training-runtime:v1.0
+</code></pre></td></tr></table>
+</div>
+</div><p>这时我们获得了一个可以运行LLaMA-Efficient-Tuning的Docker镜像了。</p>
+<h1 id="微调">微调</h1>
+<p>本文以微调ChatGLM2-6B为例，介绍如何使用LLaMA-Efficient-Tuning进行预训练、指令监督、奖励模型以及PPO和DPO训练的微调。</p>
+<p>上面我们下面了<code>LLaMA-Efficient-Tuning</code>源码。同时我们还需要下载<code>ChatGLM2-6B</code>的源码，下载后我们放在<code>/LLaMA-Efficient-Tuning/base_models/chatglm2-6b</code>目录。</p>
+<p>下载链接：<a href="https://huggingface.co/THUDM/chatglm2-6b">https://huggingface.co/THUDM/chatglm2-6b</a></p>
+<h2 id="预训练">预训练</h2>
+<p>预训练微调的过程是一个自监督训练的过程，使用非结构化的文本进行训练，下面是 <code>data/wiki_demo.txt</code> 的训练数据内容：</p>
+<p><img src="/img/AI/LLM_finetuning/wiki-demo-data.png" alt="Wiki demo data"></p>
+<p>然后我们创建一个<code>/LLaMA-Efficient-Tuning/pretrain.sh</code>的脚本文件，来对预训练进行微调，内容使用官方提供的参数，做几个地方的修改：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+</span><span class="cp"></span>
+<span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span><span class="m">0</span> python src/train_bash.py <span class="se">\
+</span><span class="se"></span>    --stage pt <span class="se">\
+</span><span class="se"></span>    --model_name_or_path base_models/chatglm2-6b <span class="se">\
+</span><span class="se"></span>    --do_train <span class="se">\
+</span><span class="se"></span>    --dataset wiki_demo <span class="se">\
+</span><span class="se"></span>    --finetuning_type lora <span class="se">\
+</span><span class="se"></span>    --lora_target query_key_value <span class="se">\
+</span><span class="se"></span>    --output_dir checkpoint/chatglm2-6b/pretrain <span class="se">\
+</span><span class="se"></span>    --overwrite_cache <span class="se">\
+</span><span class="se"></span>    --per_device_train_batch_size <span class="m">4</span> <span class="se">\
+</span><span class="se"></span>    --gradient_accumulation_steps <span class="m">4</span> <span class="se">\
+</span><span class="se"></span>    --lr_scheduler_type cosine <span class="se">\
+</span><span class="se"></span>    --logging_steps <span class="m">10</span> <span class="se">\
+</span><span class="se"></span>    --save_steps <span class="m">1000</span> <span class="se">\
+</span><span class="se"></span>    --learning_rate 5e-5 <span class="se">\
+</span><span class="se"></span>    --num_train_epochs 3.0 <span class="se">\
+</span><span class="se"></span>    --plot_loss <span class="se">\
+</span><span class="se"></span>    --fp16
+</code></pre></td></tr></table>
+</div>
+</div><p>在官方内容基础上修改了<code>model_name_or_path</code>、<code>lora_target</code>以及<code>output_dir</code>三个参数的值。这里使用的训练数据是LLaMA-Efficient-Tuning自带的示例数据<code>data/wiki_demo.txt</code>，如果你有自己的企业私有数据，按照这个格式，把内容放到里面即可。</p>
+<p>所有的数据集在<code>data/dataset_info.json</code>文件里面都有定义，运行的命令里面使用数据集的名称即可。也可以自己添加私有的数据集。</p>
+<p>我们在命令行下可以看到整个训练的过程</p>
+<p><img src="/img/AI/LLM_finetuning/pretrain.png" alt="Pretrain"></p>
+<p>上图可以看到训练的所有超参数信息</p>
+<p><img src="/img/AI/LLM_finetuning/pretrain-output1.png" alt="Pretrain hyper-parameter"></p>
+<p>上图可以看到加载训练数据，模型的参数等信息</p>
+<p><img src="/img/AI/LLM_finetuning/pretrain-output2.png" alt="Pretrain paramters"></p>
+<p>上图可以看到训练完成后的一些metric值，像训练的loss值，运行时间，训练速度，迭代数epoch，checkpoint保存的目录等信息。</p>
+<h3 id="导出微调后的模型">导出微调后的模型</h3>
+<p>预训练模型是一个基础模型，后续的微调如果要基于微调后的预训练模型的话，需要把原始的基础模型和微调后的checkpiont进行合并，然后导出为一个完整的模型。</p>
+<p>使用下面的命令可以导出预训练微调后的模型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">python src/export_model.py <span class="se">\
+</span><span class="se"></span>    --model_name_or_path base_models/chatglm2-6b <span class="se">\
+</span><span class="se"></span>    --template default <span class="se">\
+</span><span class="se"></span>    --finetuning_type lora <span class="se">\
+</span><span class="se"></span>    --checkpoint_dir checkpoint/chatglm2-6b/pretrain <span class="se">\
+</span><span class="se"></span>    --output_dir output/chatglm2-6b/pretrain
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="指令监督微调"><strong>指令监督微调</strong></h2>
+<p>指令监督微调是ChatGPT的训练过程当中的SFT阶段（这里请参考InstructGPT那篇论文[2]），通过人工标注的指令集，让大语言模型生成指令相关的回答内容，数据集类似下面这样：</p>
+<p><img src="/img/AI/LLM_finetuning/sft-training-data.png" alt="SFT training data"></p>
+<p>同样，我们新建一个shell脚本<code>/LLaMA-Efficient-Tuning/sft.sh</code>，在官方给的参数上修改几个参数，运行这个脚本进行SFT微调：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+</span><span class="cp"></span>
+<span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span><span class="m">0</span> python src/train_bash.py <span class="se">\
+</span><span class="se"></span>    --stage sft <span class="se">\
+</span><span class="se"></span>    --model_name_or_path base_models/chatglm2-6b <span class="se">\
+</span><span class="se"></span>    --do_train <span class="se">\
+</span><span class="se"></span>    --dataset alpaca_gpt4_zh <span class="se">\
+</span><span class="se"></span>    --template default <span class="se">\
+</span><span class="se"></span>    --finetuning_type lora <span class="se">\
+</span><span class="se"></span>    --lora_target query_key_value <span class="se">\
+</span><span class="se"></span>    --output_dir checkpoint/chatglm2-6b/sft <span class="se">\
+</span><span class="se"></span>    --overwrite_cache <span class="se">\
+</span><span class="se"></span>    --per_device_train_batch_size <span class="m">4</span> <span class="se">\
+</span><span class="se"></span>    --gradient_accumulation_steps <span class="m">4</span> <span class="se">\
+</span><span class="se"></span>    --lr_scheduler_type cosine <span class="se">\
+</span><span class="se"></span>    --logging_steps <span class="m">10</span> <span class="se">\
+</span><span class="se"></span>    --save_steps <span class="m">1000</span> <span class="se">\
+</span><span class="se"></span>    --learning_rate 5e-5 <span class="se">\
+</span><span class="se"></span>    --num_train_epochs 3.0 <span class="se">\
+</span><span class="se"></span>    --plot_loss <span class="se">\
+</span><span class="se"></span>    --fp16
+</code></pre></td></tr></table>
+</div>
+</div><p>上面的SFT微调是基础ChatGLM2-6b基础模型的训练，如果在上面对预训练做了微调，那么<code>model_name_or_path</code>就需要指定为上面导出的模型。</p>
+<p>其他的几个阶段的训练就不一一列举了，可以到github仓库查看。下面来看看如何使用多GPU来并行训练。</p>
+<h2 id="多gpu分布式训练">多GPU分布式训练</h2>
+<p>运行<code>accelerate config</code> 命令来配置分布式环境</p>
+<p><img src="/img/AI/LLM_finetuning/accelerate-config.png" alt="Accelerate config"></p>
+<p>运行上面的命令后会在生成一个配置文件：<code>/root/.cache/huggingface/accelerate/default_config.yaml</code></p>
+<p>配置文件内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">compute_environment: LOCAL_MACHINE
+debug: false
+distributed_type: MULTI_GPU
+downcast_bf16: &#39;no&#39;
+gpu_ids: 0,1
+machine_rank: 0
+main_training_function: main
+mixed_precision: fp16
+num_machines: 1
+num_processes: 2
+rdzv_backend: static
+same_network: true
+tpu_env: []
+tpu_use_cluster: false
+tpu_use_sudo: false
+use_cpu: false
+</code></pre></td></tr></table>
+</div>
+</div><p>然后使用<code>accelerate launch src/train_bash.py</code> 命令，加上上面每个步骤的训练参数即可使用分布式训练了。</p>
+<p>完整的分布式训练命令如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+</span><span class="cp"></span>
+<span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span><span class="m">1</span> accelerate launch src/train_bash.py <span class="se">\
+</span><span class="se"></span>    --stage pt <span class="se">\
+</span><span class="se"></span>    --model_name_or_path base_models/chatglm2-6b <span class="se">\
+</span><span class="se"></span>    --do_train <span class="se">\
+</span><span class="se"></span>    --dataset wiki_demo <span class="se">\
+</span><span class="se"></span>    --finetuning_type lora <span class="se">\
+</span><span class="se"></span>    --lora_target query_key_value <span class="se">\
+</span><span class="se"></span>    --output_dir checkpoint/chatglm2-6b/pretrain <span class="se">\
+</span><span class="se"></span>    --overwrite_cache <span class="se">\
+</span><span class="se"></span>    --per_device_train_batch_size <span class="m">4</span> <span class="se">\
+</span><span class="se"></span>    --gradient_accumulation_steps <span class="m">4</span> <span class="se">\
+</span><span class="se"></span>    --lr_scheduler_type cosine <span class="se">\
+</span><span class="se"></span>    --logging_steps <span class="m">10</span> <span class="se">\
+</span><span class="se"></span>    --save_steps <span class="m">1000</span> <span class="se">\
+</span><span class="se"></span>    --learning_rate 5e-5 <span class="se">\
+</span><span class="se"></span>    --num_train_epochs 3.0 <span class="se">\
+</span><span class="se"></span>    --plot_loss <span class="se">\
+</span><span class="se"></span>    --fp16
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="/img/AI/LLM_finetuning/nvidia-smi.png" alt="nvidia-smi"></p>
+<p>在配置文件里面我们设置了使用2个GPU来进行训练，上图可以看到第0、1块GPU占用了大概24G的显存（第3块GPU是在跟其他任务）</p>
+<h2 id="模型评测">模型评测</h2>
+<p>LLaMA-Efficient-Tuning提供了完整的工具链，同样也提供了非常优秀的开箱即用的评测程序。</p>
+<p>评测我们也来创建一个shell脚本<code>/LLaMA-Efficient-Tuning/eval.sh</code>，可以重复执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+</span><span class="cp"></span>
+<span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span><span class="m">0</span> python src/train_bash.py <span class="se">\
+</span><span class="se"></span>    --stage sft <span class="se">\
+</span><span class="se"></span>    --model_name_or_path base_models/chatglm2-6b <span class="se">\
+</span><span class="se"></span>    --do_eval <span class="se">\
+</span><span class="se"></span>    --dataset alpaca_gpt4_zh <span class="se">\
+</span><span class="se"></span>    --template default <span class="se">\
+</span><span class="se"></span>    --finetuning_type lora <span class="se">\
+</span><span class="se"></span>    --checkpoint_dir checkpoint/chatglm2-6b/sft <span class="se">\
+</span><span class="se"></span>    --output_dir result/chatglm2-6b <span class="se">\
+</span><span class="se"></span>    --per_device_eval_batch_size <span class="m">8</span> <span class="se">\
+</span><span class="se"></span>    --max_samples <span class="m">100</span> <span class="se">\
+</span><span class="se"></span>    --predict_with_generate
+</code></pre></td></tr></table>
+</div>
+</div><p>这里使用了alpaca_gpt4_zh这个数据集来进行评测SFT模型，运行的结果如下：</p>
+<p><img src="/img/AI/LLM_finetuning/llm-eval.png" alt="LLM Eval"></p>
+<p>可以看到BLEU 分数和ROUGE 分数。</p>
+<h2 id="总结">总结</h2>
+<p>本文从企业落地大语言模型出发，以LLaMA-Efficient-Tuning工具链和ChatGLM2-6B模型为例，介绍了如何训练与评估大语言模型。开箱即用的体验使得LLaMA-Efficient-Tuning工具链非常的流行。后面会持续撰写如何开发基于大语言模型的企业级应用，以及开源各种应用源码。</p>
+<h2 id="公众号">公众号</h2>
+<p>欢迎关注我的公众号，同步更新</p>
+<p><img src="/img/qrcode_for_gh.jpg" alt="木木小小孩"></p>
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li><a href="https://github.com/hiyouga/LLaMA-Efficient-Tuning/tree/main">LLaMA-Efficient-Tuning</a></li>
+<li><a href="https://arxiv.org/abs/2203.02155">Instruct GPT</a></li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-09-14
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/llm/">LLM</a>
+          <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">大语言模型</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/web/%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E7%B1%BB%E4%BC%BCvue%E7%9A%84%E6%9E%81%E7%AE%80%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/">
+            <span class="next-text nav-default">如何构建类似Vue的极简前端框架</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://kevinjiang.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2015 -
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script type="text/javascript" async src="/lib/mathjax/es5/tex-mml-chtml.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?b73ff6d4afc4af9e582d8a5dc068bab9";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>
