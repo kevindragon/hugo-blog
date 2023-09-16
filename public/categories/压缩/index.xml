@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>压缩 on (power up)</title>
+    <link>http://kevinjiang.info/categories/%E5%8E%8B%E7%BC%A9/</link>
+    <description>Recent content in 压缩 on (power up)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 16 Sep 2023 15:04:16 +0800</lastBuildDate><atom:link href="http://kevinjiang.info/categories/%E5%8E%8B%E7%BC%A9/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux下文件拆分，多个文件打包后拆分</title>
+      <link>http://kevinjiang.info/post/linux/linux%E4%B8%8B%E6%96%87%E4%BB%B6%E6%8B%86%E5%88%86%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6%E6%89%93%E5%8C%85%E5%90%8E%E6%8B%86%E5%88%86/</link>
+      <pubDate>Sat, 16 Sep 2023 15:04:16 +0800</pubDate>
+      
+      <guid>http://kevinjiang.info/post/linux/linux%E4%B8%8B%E6%96%87%E4%BB%B6%E6%8B%86%E5%88%86%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6%E6%89%93%E5%8C%85%E5%90%8E%E6%8B%86%E5%88%86/</guid>
+      <description>处理和传输大文件，以及处理和传输大量小文件一直很有挑战。特别是在多个存储介质，以及网络之间传输的时候。大文件无法放入一张4.7G的光盘当中；</description>
+    </item>
+    
+  </channel>
+</rss>

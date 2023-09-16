@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux下文件拆分，多个文件打包后拆分 - (power up)</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Kevin Jiang" /><meta name="description" content="处理和传输大文件，以及处理和传输大量小文件一直很有挑战。特别是在多个存储介质，以及网络之间传输的时候。大文件无法放入一张4.7G的光盘当中；" /><meta name="keywords" content="KevinJiang, AI大模型, AI落地, 全栈工程师, Java, Spring Boot" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.84.4 with theme even" />
+
+
+<link rel="canonical" href="http://kevinjiang.info/post/linux/linux%E4%B8%8B%E6%96%87%E4%BB%B6%E6%8B%86%E5%88%86%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6%E6%89%93%E5%8C%85%E5%90%8E%E6%8B%86%E5%88%86/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux下文件拆分，多个文件打包后拆分" />
+<meta property="og:description" content="处理和传输大文件，以及处理和传输大量小文件一直很有挑战。特别是在多个存储介质，以及网络之间传输的时候。大文件无法放入一张4.7G的光盘当中；" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://kevinjiang.info/post/linux/linux%E4%B8%8B%E6%96%87%E4%BB%B6%E6%8B%86%E5%88%86%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6%E6%89%93%E5%8C%85%E5%90%8E%E6%8B%86%E5%88%86/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-09-16T15:04:16+08:00" />
+<meta property="article:modified_time" content="2023-09-16T15:04:16+08:00" />
+
+<meta itemprop="name" content="Linux下文件拆分，多个文件打包后拆分">
+<meta itemprop="description" content="处理和传输大文件，以及处理和传输大量小文件一直很有挑战。特别是在多个存储介质，以及网络之间传输的时候。大文件无法放入一张4.7G的光盘当中；"><meta itemprop="datePublished" content="2023-09-16T15:04:16+08:00" />
+<meta itemprop="dateModified" content="2023-09-16T15:04:16+08:00" />
+<meta itemprop="wordCount" content="1242">
+<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux下文件拆分，多个文件打包后拆分"/>
+<meta name="twitter:description" content="处理和传输大文件，以及处理和传输大量小文件一直很有挑战。特别是在多个存储介质，以及网络之间传输的时候。大文件无法放入一张4.7G的光盘当中；"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">(Power up)</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/resume/">
+        <li class="mobile-menu-item">简历</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">(Power up)</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resume/">简历</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux下文件拆分，多个文件打包后拆分</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-09-16 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%8E%8B%E7%BC%A9/"> 压缩 </a>
+            </div>
+          <span class="more-meta"> 约 1242 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#分割文件">分割文件</a></li>
+    <li><a href="#合并文件">合并文件</a></li>
+    <li><a href="#使用zip在压缩的时候同时进行分割">使用zip在压缩的时候同时进行分割</a>
+      <ul>
+        <li><a href="#安装">安装</a></li>
+        <li><a href="#解压分割后的文件">解压分割后的文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#公众号">公众号</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>处理和传输大文件，以及处理和传输大量小文件一直很有挑战。特别是在多个存储介质，以及网络之间传输的时候。大文件无法放入一张4.7G的光盘当中；大量小文件传输需要系统打开非常多文件描述符，会造成资源浪费的情况。</p>
+<p>本文介绍如何应对这两种情况，使用文件分割、文件压缩以及压缩时分割的方法处理文件，然后如何还原分割后的文件。</p>
+<h2 id="分割文件">分割文件</h2>
+<p>在Linux下分割文件最常用的方法之一是使用<code>split</code>命令。<code>split</code>命令可以按固定大小分割，还可以按分割后的数量进行分割</p>
+<p>假如我们有一个50M的文件，我们需要把它分成5个10M的部分：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 使用dd命令创建一个50M的test.txt文件</span>
+dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>test.txt <span class="nv">bs</span><span class="o">=</span>50M <span class="nv">count</span><span class="o">=</span><span class="m">1</span>
+
+<span class="c1"># 可以看到文件创建成功了</span>
+<span class="c1"># $ls -alth test.txt</span>
+<span class="c1"># -rw-r--r-- 1 Kevin None 50M Sep 14 10:34 test.txt</span>
+
+split -b 10M test.txt test_
+</code></pre></td></tr></table>
+</div>
+</div><p>上面的<code>split</code>命令把50M的test.txt文件拆成了5个以 test_ 开头的10M大小的文件，查看分割后的文件列表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ ls -alth test_*
+-rw-r--r-- <span class="m">1</span> Kevin None 10M Sep <span class="m">14</span> 10:36 test_ae
+-rw-r--r-- <span class="m">1</span> Kevin None 10M Sep <span class="m">14</span> 10:36 test_ab
+-rw-r--r-- <span class="m">1</span> Kevin None 10M Sep <span class="m">14</span> 10:36 test_ac
+-rw-r--r-- <span class="m">1</span> Kevin None 10M Sep <span class="m">14</span> 10:36 test_ad
+-rw-r--r-- <span class="m">1</span> Kevin None 10M Sep <span class="m">14</span> 10:36 test_aa
+</code></pre></td></tr></table>
+</div>
+</div><p>解释一下<code>split</code>命令</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>把文件拆分成参数指定的大小，默认输出为 PREFIXaa，PREFIXab 格式，默认以 aa, ab, ac 来创建不同的文件名。命令的格式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">split <span class="o">[</span>OPTION<span class="o">]</span>... <span class="o">[</span>FILE <span class="o">[</span>PREFIX<span class="o">]]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>-b</code> 或者 <code>--bytes</code> 参数指定生成分割后的文件大小，可以使用 K,M,G,T,P,E,Z,Y （1024的倍数）为单位进行指定，或者 KB,MB,… （这是1000的倍数）。</p>
+<p><code>-d</code> 参数指定使用数字方式生成文件，例如 test_01, test_02</p>
+<p>还可以按分割后的文件数量进行分割：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">split -d -n <span class="m">3</span> test.txt test_
+</code></pre></td></tr></table>
+</div>
+</div><p>分割后</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ ls -alth test_*
+-rw-r--r-- <span class="m">1</span> Kevin None 17M Sep <span class="m">14</span> 10:57 test_02
+-rw-r--r-- <span class="m">1</span> Kevin None 17M Sep <span class="m">14</span> 10:57 test_01
+-rw-r--r-- <span class="m">1</span> Kevin None 17M Sep <span class="m">14</span> 10:57 test_00
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="合并文件">合并文件</h2>
+<p>使用命令cat就可以把分割的多个文件进行合并了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat test_* &gt; another_test.txt
+</code></pre></td></tr></table>
+</div>
+</div><p>查看合并后的文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ ls -alth another_test.txt
+-rw-r--r-- <span class="m">1</span> Kevin None 50M Sep <span class="m">14</span> 10:59 another_test.txt
+
+<span class="c1"># 使用md5sum验证文件内容</span>
+$ md5sum test.txt
+25e317773f308e446cc84c503a6d1f85 *test.txt
+
+$ md5sum another_test.txt
+25e317773f308e446cc84c503a6d1f85 *another_test.txt
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="使用zip在压缩的时候同时进行分割">使用zip在压缩的时候同时进行分割</h2>
+<p>zip命令是Linux中的一个命令行工具，它允许我们创建文件和目录的存档。除此之外，它还提供了许多用于操作归档的功能。</p>
+<h3 id="安装">安装</h3>
+<p>要在Ubuntu/Debian中安装zip命令行工具，我们可以使用包管理器apt-get（或者apt）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ sudo apt-get update
+$ sudo apt-get install -y zip
+</code></pre></td></tr></table>
+</div>
+</div><p>此外，我们可以使用软件包管理器yum在基于RHEL的Linux中安装zip命令行工具：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ sudo yum update
+$ sudo yum install -y zip
+</code></pre></td></tr></table>
+</div>
+</div><p>zip命令语法格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">zip <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>zipfile <span class="o">[</span>files...<span class="o">]]</span> <span class="o">[</span>-xi list<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>基础用法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ zip test.zip test_001.txt test_002.txt
+  adding: test_001.txt <span class="o">(</span>deflated 100%<span class="o">)</span>
+  adding: test_002.txt <span class="o">(</span>deflated 100%<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>重点来了，在使用zip归档和压缩文件的时候，同时把归档的文件进行分割，这时需要使用到<code>-s</code>参数，意思就是使用split命令进行分割</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ zip -s 200M test.zip redis-6.2.6.tar neo4j-4.4.15.tar
+  adding: redis-6.2.6.tar <span class="o">(</span>deflated 66%<span class="o">)</span>
+  adding: neo4j-4.4.15.tar <span class="o">(</span>deflated 37%<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>查看归档及分割后的文件列表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ ls -alth test.*
+-rw-r--r-- <span class="m">1</span> Kevin None 185M Sep <span class="m">14</span> 11:14 test.zip
+-rw-r--r-- <span class="m">1</span> Kevin None 200M Sep <span class="m">14</span> 11:13 test.z01
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="解压分割后的文件">解压分割后的文件</h3>
+<p>首先把多个文件合并成一个zip文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">zip -FF test.zip --out test_single.zip
+</code></pre></td></tr></table>
+</div>
+</div><p>然后使用unzip命令进行解压</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">unzip test_single.zip -d ./temp
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="总结">总结</h2>
+<p>在本文中，我们学习了将文件拆分为多个部分，然后将各个部分重新连接在一起。接下来，我们描述了如何应用流行的压缩实用程序zip和unzip来处理拆分的归档。</p>
+<h2 id="公众号">公众号</h2>
+<p>欢迎关注我的公众号，同步更新</p>
+<p><img src="/img/qrcode_for_gh.jpg" alt="木木小小孩"></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Kevin Jiang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-09-16
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_pay_1242x1242.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/alipay_600x600.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/ai/%E5%A6%82%E4%BD%95%E5%BE%AE%E8%B0%83%E4%B8%80%E4%B8%AA%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+            <span class="next-text nav-default">如何微调一个大语言模型</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenlin1988@126.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/%E6%96%87%E6%9E%97-%E8%92%8B-0a3204126/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/kevindragon" class="iconfont icon-github" title="github"></a>
+  <a href="http://kevinjiang.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2015 -
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Kevin Jiang</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2022022745号</a>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script type="text/javascript" async src="/lib/mathjax/es5/tex-mml-chtml.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?b73ff6d4afc4af9e582d8a5dc068bab9";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>
